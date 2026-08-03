@@ -1,10 +1,10 @@
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CloseIcon from "@mui/icons-material/Close";
-import InfoIcon from "@mui/icons-material/Info";
+import React from "react";
 import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
-import React from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InfoIcon from "@mui/icons-material/Info";
 
 import "./NotificationView.scss";
 
@@ -23,7 +23,6 @@ const NotificationView = ({
   // Decide severity & icon
   const isSuccess = icon === "IconConfirmation";
 
-  console.log("isSuccess:", isSuccess);
   return (
     <Collapse in={isOpen}>
       <Alert
