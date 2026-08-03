@@ -1,0 +1,28 @@
+.global-notification-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+
+  .MuiCollapse-root {
+    width: 100%;
+    max-width: 500px;
+    pointer-events: auto;
+  }
+
+  .notification-message-bar {
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    .MuiAlert-message {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}

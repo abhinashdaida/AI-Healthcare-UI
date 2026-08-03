@@ -1,0 +1,309 @@
+@import "tailwindcss";
+
+
+@theme {
+  --color-primary: #0D8B72;
+  --color-secondary: #EEF4F3;
+  --font-TypeFace:"TypeFace" "Inter", "system-ui", "-apple-system", "sans-serif";
+}
+
+/* Force Tailwind classes in case JIT compiler is cached */
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-secondary { background-color: var(--color-secondary) !important; }
+.text-primary { color: var(--color-primary) !important; }
+.text-secondary { color: var(--color-secondary) !important; }
+
+.section-kicker {
+  font-family: var(--font-TypeFace);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #096B58;
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fallback image styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@layer components {
+  .insurance-modal {
+    font-family: var(--font-TypeFace);
+    color: #0B1117;
+  }
+  .insurance-modal-subtitle {
+    color: #374151;
+  }
+  .insurance-modal-caption {
+    color: #4B5563;
+  }
+  .insurance-modal-note {
+    color: #0B1117;
+  }
+
+  .section-padding {
+    @apply py-8 md:py-12 bg-white;
+  }
+  .section-overline {
+    @apply text-primary font-bold tracking-wide uppercase block mb-4;
+  }
+  .section-heading {
+    @apply text-gray-900 font-extrabold text-3xl md:text-4xl lg:text-5xl leading-tight mb-6;
+  }
+  .section-subheading {
+    @apply text-gray-500 text-lg leading-relaxed mb-8;
+  }
+  .icon-wrapper {
+    @apply w-12 h-12 rounded-xl bg-[#EEF4F3] flex items-center justify-center shrink-0;
+  }
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+.date-input {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.date-input-empty::-webkit-datetime-edit {
+  opacity: 0;
+}
+
+.date-input-empty::-webkit-date-and-time-value {
+  opacity: 0;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  top: 10;
+  left: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.date-input::-webkit-inner-spin-button,
+.date-input::-webkit-clear-button {
+  display: none;
+}
+
+.date-input-empty {
+  color: transparent;
+}
+
+/* ==========================================================================
+   4K and Ultra-Large Screen Responsive Scaling
+   ========================================================================== */
+
+/* 2K Screens / High-DPI Displays (min-width: 1920px) */
+@media (min-width: 1920px) {
+  .login-card-container {
+    max-width: 1400px !important;
+    min-height: 800px !important;
+  }
+  
+  /* Login Header Scaling */
+  .login-header-logo-text {
+    font-size: 1.35rem !important;
+  }
+  .login-header-logo-sub {
+    font-size: 0.8rem !important;
+  }
+  .login-header-support-sub {
+    font-size: 0.8rem !important;
+  }
+  .login-header-support-text {
+    font-size: 0.95rem !important;
+  }
+
+  /* Login Branding (Left Panel) Scaling */
+  .login-branding-title {
+    font-size: 2.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .login-branding-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.625 !important;
+  }
+  .login-branding-doctor-img {
+    height: 100% !important;
+    max-height: none !important;
+  }
+  .login-branding-badge-title {
+    font-size: 0.95rem !important;
+  }
+  .login-branding-badge-desc {
+    font-size: 0.8rem !important;
+  }
+
+  /* Login Form (Right Panel) Scaling */
+  .login-form-title {
+    font-size: 2.25rem !important;
+  }
+  .login-form-desc {
+    font-size: 0.95rem !important;
+  }
+  .login-form-label {
+    font-size: 0.85rem !important;
+  }
+  .login-form-input {
+    font-size: 0.95rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+  .login-form-btn {
+    font-size: 1rem !important;
+    padding: 1rem !important;
+  }
+  .login-form-footer-text {
+    font-size: 0.85rem !important;
+  }
+  .login-form-hipaa-badge-title {
+    font-size: 0.9rem !important;
+  }
+  .login-form-hipaa-badge-desc {
+    font-size: 0.8rem !important;
+  }
+
+  /* Role Grid (Right Panel) Scaling */
+  .role-grid-title {
+    font-size: 2.25rem !important;
+  }
+  .role-grid-desc {
+    font-size: 0.95rem !important;
+  }
+  .role-grid-card-title {
+    font-size: 0.95rem !important;
+  }
+  .role-grid-card-desc {
+    font-size: 0.8rem !important;
+  }
+  .role-grid-btn {
+    font-size: 1rem !important;
+    padding: 1rem !important;
+  }
+
+  /* Footer Sizing */
+  .login-footer-text {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* 4K Screens (min-width: 2560px) */
+@media (min-width: 2560px) {
+  .login-card-container {
+    max-width: 1700px !important;
+    min-height: 960px !important;
+  }
+  
+  /* Login Header Scaling */
+  .login-header-logo-text {
+    font-size: 1.65rem !important;
+  }
+  .login-header-logo-sub {
+    font-size: 0.95rem !important;
+  }
+  .login-header-support-sub {
+    font-size: 0.95rem !important;
+  }
+  .login-header-support-text {
+    font-size: 1.15rem !important;
+  }
+
+  /* Login Branding (Left Panel) Scaling */
+  .login-branding-title {
+    font-size: 3.25rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+  .login-branding-desc {
+    font-size: 1.15rem !important;
+    line-height: 1.75 !important;
+  }
+  .login-branding-doctor-img {
+    height: 100% !important;
+    max-height: none !important;
+  }
+  .login-branding-badge-title {
+    font-size: 1.15rem !important;
+  }
+  .login-branding-badge-desc {
+    font-size: 0.95rem !important;
+  }
+
+  /* Login Form (Right Panel) Scaling */
+  .login-form-title {
+    font-size: 3rem !important;
+  }
+  .login-form-desc {
+    font-size: 1.15rem !important;
+  }
+  .login-form-label {
+    font-size: 1.05rem !important;
+  }
+  .login-form-input {
+    font-size: 1.15rem !important;
+    padding: 1.1rem 1.35rem !important;
+  }
+  .login-form-btn {
+    font-size: 1.25rem !important;
+    padding: 1.25rem !important;
+  }
+  .login-form-footer-text {
+    font-size: 1.05rem !important;
+  }
+  .login-form-hipaa-badge-title {
+    font-size: 1.1rem !important;
+  }
+  .login-form-hipaa-badge-desc {
+    font-size: 0.95rem !important;
+  }
+
+  /* Role Grid (Right Panel) Scaling */
+  .role-grid-title {
+    font-size: 3rem !important;
+  }
+  .role-grid-desc {
+    font-size: 1.15rem !important;
+  }
+  .role-grid-card-title {
+    font-size: 1.15rem !important;
+  }
+  .role-grid-card-desc {
+    font-size: 0.95rem !important;
+  }
+  .role-grid-btn {
+    font-size: 1.25rem !important;
+    padding: 1.25rem !important;
+  }
+
+  /* Footer Sizing */
+  .login-footer-text {
+    font-size: 1.05rem !important;
+  }
+}

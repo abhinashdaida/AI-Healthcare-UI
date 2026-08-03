@@ -1,0 +1,10 @@
+/*
+ * PatientRegistration.css
+ *
+ * Page-level stylesheet for the Patient Registration flow.
+ * The page is styled entirely with Tailwind utility classes, so there are
+ * no custom rules here yet — this file is wired up (imported from
+ * PatientRegistration.js) and ready for any page-specific overrides that
+ * don't fit cleanly as Tailwind utilities (e.g. third-party widget
+ * overrides) without having to touch component files.
+ */

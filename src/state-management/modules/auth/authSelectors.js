@@ -1,0 +1,1 @@
+export const getUserRole = (state) => state.auth.role;

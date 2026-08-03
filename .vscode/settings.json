@@ -1,0 +1,43 @@
+{
+  "javascript.preferences.importModuleSpecifierFormat": "non-relative",
+  "javascript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.useAliasesForRenames": true,
+  "javascript.autoClosingTags": true,
+  "javascript.suggest.autoImports": true,
+  "typescript.preferences.importModuleSpecifierFormat": "non-relative",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "[jsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "javascript.suggest.paths": true,
+  "typescript.suggest.paths": false,
+  "cSpell.words": [
+    "AAABBB",
+    "ABCDEFGHJKLMNPQRSTUVWXYZ",
+    "Comwhite",
+    "Hiswhite",
+    "hugeicons",
+    "iconify",
+    "Infor",
+    "Inforwhite",
+    "insur",
+    "Medi",
+    "Recwhite",
+    "Swal",
+    "tabler",
+    "Telemedicine",
+    "userwhite"
+  ]
+}
