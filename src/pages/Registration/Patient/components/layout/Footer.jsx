@@ -1,53 +1,126 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { CloudUploadOutlined } from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 
-const Footer = ({ onSave }) => {
+const Footer = ({ config }) => {
+  const {
+    primaryButtonLabel = "Save & Continue",
+    onPrimaryClick,
+    showSkipButton = false,
+    onSkipClick,
+    showAutoSave = true,
+    onAutoSaveClick,
+  } = config;
   return (
     <Box
       component="footer"
-      className="h-[136px] border-t border-gray-200 bg-white flex items-center justify-end px-7 gap-6"
+      className=" bg-white
+                border-t border-gray-200
+                px-4 sm:px-6 lg:px-7
+                py-4 flex
+                flex-col
+                sm:flex-row
+                gap-4
+                sm:gap-0
+                items-stretch
+                sm:items-center
+                justify-between"
     >
-      {/* Auto Save Section */}
-      <Box className="flex items-center gap-2">
-        <CloudUploadOutlined
-          sx={{
-            fontSize: 15,
-            color: "#777",
-          }}
-        />
-
-        <Box className="flex flex-col">
-          <Typography
-            variant="caption"
-            className="text-[10px] text-gray-500"
+      {/* Left Side */}
+      <Box className="w-full sm:w-auto">
+        {showSkipButton && (
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={onSkipClick}
+            sx={{
+              textTransform: "none",
+              borderColor: "#248B8F",
+              color: "#175A5D",
+              borderRadius: "8px",
+              px: 2,
+              py: 1.2,
+              "&:hover": {
+                borderColor: "#128789",
+                backgroundColor: "#F3FCFC",
+              },
+              "@media (min-width:600px)": {
+                width: "auto",
+              },
+            }}
           >
-            Auto-Saved
-          </Typography>
-
-          <Typography
-            variant="caption"
-            className="text-[10px] font-medium text-gray-800"
-          >
-            Just now
-          </Typography>
-        </Box>
+            Skip for now
+          </Button>
+        )}
       </Box>
 
-      {/* Save Button */}
-      <Button
-        variant="contained"
-        onClick={onSave}
-        className="normal-case"
-        sx={{
-          fontSize: "11px",
-          paddingX: "20px",
-          paddingY: "9px",
-          borderRadius: "7px",
-        }}
+      {/* Right Side */}
+      <Box
+        className=" flex flex-col sm:flex-row
+                  items-stretch
+                  gap-3 sm:gap-6
+                  w-full
+                  sm:w-auto"
       >
-        Save & Continue
-      </Button>
+        {showAutoSave && (
+          <Button
+            variant="text"
+            disableRipple
+            onClick={onAutoSaveClick}
+            startIcon={
+              <Icon icon="tabler:cloud-upload" width="20" height="20" />
+            }
+            sx={{
+              width: "100%",
+              textTransform: "none",
+              minWidth: "auto",
+              padding: 0.8,
+              color: "#374151",
+              display: "flex",
+              alignItems: "center",
+              "@media (min-width:600px)": {
+                width: "auto",
+              },
+              "&:hover": {
+                backgroundColor: "#F1F5F9",
+              },
+            }}
+          >
+            <Box className="flex flex-col items-start">
+              <Typography className="text-[14px]! text-gray-500!">
+                Auto-Saved
+              </Typography>
+
+              <Typography className="text-[14px]! font-medium! text-gray-900!">
+                Just now
+              </Typography>
+            </Box>
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          onClick={onPrimaryClick}
+          sx={{
+            width: "100%",
+            textTransform: "none",
+            backgroundColor: "#248B8F",
+            borderRadius: "8px",
+            px: 2,
+            py: 1.2,
+            fontSize: "14px",
+
+            "@media (min-width:600px)": {
+              width: "auto",
+            },
+            "&:hover": {
+              backgroundColor: "#128789",
+            },
+          }}
+        >
+          {primaryButtonLabel}
+        </Button>
+      </Box>
     </Box>
   );
 };
