@@ -31,7 +31,7 @@ const Login = () => {
     onSubmit: (values) => {
       // login(values.username, values.password);
       // alert("Login Successful");
-      navigate("/dashboard");
+      navigate("/info");
     },
   });
 
