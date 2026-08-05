@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { CloudUploadOutlined } from "@mui/icons-material";
 import { Icon } from "@iconify/react";
 
 const Footer = ({ config }) => {
@@ -10,7 +9,6 @@ const Footer = ({ config }) => {
     primaryButtonDisabled =false,
     showSkipButton = false,
     onSkipClick,
-    showAutoSave = true,
     onAutoSaveClick,
   } = config;
   return (
@@ -64,7 +62,6 @@ const Footer = ({ config }) => {
                   w-full
                   sm:w-auto"
       >
-        {showAutoSave && (
           <Button
             variant="text"
             disableRipple
@@ -98,7 +95,7 @@ const Footer = ({ config }) => {
               </Typography>
             </Box>
           </Button>
-        )}
+       
         <Button
           variant="contained"
           onClick={onPrimaryClick}

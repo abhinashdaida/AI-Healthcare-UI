@@ -17,15 +17,14 @@ const PersonalInformation = () => {
   }
 
  const footerConfig = {
-   primaryButtonLabel: "Upload & Continue",
-   onPrimaryClick: handleUpload,
-   primaryButtonDisabled:true,
-
    showSkipButton: true,
    onSkipClick: handleSkip,
 
-   showAutoSave: true,
    onAutoSaveClick: handleAutoSave,
+   
+   primaryButtonLabel: "Upload & Continue",
+   onPrimaryClick: handleUpload,
+   primaryButtonDisabled: true,
  };
 
   return (
