@@ -7,6 +7,7 @@ const Footer = ({ config }) => {
   const {
     primaryButtonLabel = "Save & Continue",
     onPrimaryClick,
+    primaryButtonDisabled =false,
     showSkipButton = false,
     onSkipClick,
     showAutoSave = true,
@@ -15,7 +16,7 @@ const Footer = ({ config }) => {
   return (
     <Box
       component="footer"
-      className=" bg-white
+      className="h-[136px] bg-white
                 border-t border-gray-200
                 px-4 sm:px-6 lg:px-7
                 py-4 flex
@@ -101,6 +102,7 @@ const Footer = ({ config }) => {
         <Button
           variant="contained"
           onClick={onPrimaryClick}
+          disabled={primaryButtonDisabled}
           sx={{
             width: "100%",
             textTransform: "none",
@@ -115,6 +117,10 @@ const Footer = ({ config }) => {
             },
             "&:hover": {
               backgroundColor: "#128789",
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "#D1D5DB",
+              color: "#9CA3AF",
             },
           }}
         >

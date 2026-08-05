@@ -19,6 +19,7 @@ const PersonalInformation = () => {
  const footerConfig = {
    primaryButtonLabel: "Upload & Continue",
    onPrimaryClick: handleUpload,
+   primaryButtonDisabled:true,
 
    showSkipButton: true,
    onSkipClick: handleSkip,
