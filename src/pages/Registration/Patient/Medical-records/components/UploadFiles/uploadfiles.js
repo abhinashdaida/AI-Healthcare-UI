@@ -14,6 +14,7 @@ export default function UploadFiles({
     securityText = null,
     showConfirmation = false,
     confirmationText = "",
+    onFilesChange,
 }) {
     const inputRef = useRef();
 
@@ -57,19 +58,20 @@ export default function UploadFiles({
     };
 
     const addFiles = (selectedFiles) => {
-
         if (!validateFiles(selectedFiles)) return;
+        const uploadedFiles = selectedFiles.map(file => ({
+            id: crypto.randomUUID(),
+            file,
+            name: file.name,
+            size: Math.round(file.size / 1024),
+        }));
 
-        setFiles(prev => [
-            ...prev,
-            ...selectedFiles.map(file => ({
-                id: crypto.randomUUID(),
-                file,
-                name: file.name,
-                size: Math.round(file.size / 1024),
-            }))
-        ]);
+        const updatedFiles = [...files, ...uploadedFiles];
+        setFiles(updatedFiles);
+        onFilesChange?.(updatedFiles);
     };
+
+
 
     return (
         <div className="w-full">
@@ -77,18 +79,15 @@ export default function UploadFiles({
             {/* Header */}
 
             <div className="flex justify-between mb-3">
-
                 <h3 className="font-semibold text-[15px]">
                     {title}
                 </h3>
-
                 <div className="flex items-center gap-1">
                     <Icon
                         icon="tabler:info-circle"
                         className="text-[#12A5B5]"
                         width={18}
                     />
-
                     {title === "Upload Insurance Documents" && (
                         <div
                             className="flex items-center gap-1 cursor-pointer"
@@ -119,7 +118,6 @@ export default function UploadFiles({
 
                 <span className="ml-2">
                     {uploadText}
-
                     <button
                         onClick={() => inputRef.current.click()}
                         className="text-[#12A5B5] underline ml-1"
@@ -170,16 +168,12 @@ export default function UploadFiles({
             {/* Error */}
 
             {error && (
-
                 <div className="flex gap-2 border border-red-300 bg-red-50 rounded-lg p-3 mt-4">
-
                     <Icon
                         icon="tabler:alert-circle"
                         className="text-red-600 mt-1"
                     />
-
                     <div>
-
                         <p className="text-red-700 font-semibold text-sm">
                             {error.title}
                         </p>
@@ -187,57 +181,45 @@ export default function UploadFiles({
                         <p className="text-red-600 text-xs">
                             {error.message}
                         </p>
-
                     </div>
-
                 </div>
-
             )}
 
             {/* Files */}
 
             <div className="grid md:grid-cols-3 gap-4 mt-4">
-
                 {files.map(file => (
-
                     <div
                         key={file.id}
                         className="border rounded-lg p-3 flex justify-between"
                     >
-
                         <div className="flex gap-2">
 
                             <Icon
                                 icon="vscode-icons:file-type-pdf2"
                                 width={24}
                             />
-
                             <div>
-
                                 <p className="text-sm">
                                     {file.name}
                                 </p>
-
                                 <p className="text-xs text-gray-500">
                                     PDF • {file.size} KB
                                 </p>
-
                             </div>
-
                         </div>
 
                         <Icon
                             icon="mdi:close"
                             className="cursor-pointer"
-                            onClick={() =>
-                                setFiles(prev => prev.filter(f => f.id !== file.id))
-                            }
+                            onClick={() => {
+                                const updatedFiles = files.filter(f => f.id !== file.id);
+                                setFiles(updatedFiles);
+                                onFilesChange?.(updatedFiles);
+                            }}
                         />
-
                     </div>
-
                 ))}
-
             </div>
 
             <WhatToUpload
@@ -266,21 +248,13 @@ export default function UploadFiles({
             {/* Security */}
 
             {showSecurity && files.length === 0 && (
-
                 <div className="mt-5 flex items-center gap-2 bg-cyan-50 rounded-lg p-4">
-
                     <Icon icon="tabler:lock" />
-
                     <p className="text-sm text-[#175A5D]">
-
                         {securityText}
-
                     </p>
-
                 </div>
-
             )}
-
         </div>
     );
 }

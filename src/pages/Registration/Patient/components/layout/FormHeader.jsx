@@ -23,11 +23,7 @@ const FormHeader = ({ title, subtitle }) => {
           {title}
         </Typography>
 
-
-        <Typography className="text-14px! text-xs! text-gray-500! max-w-xs mt-1">
-
         <Typography className="text-[14px]! text-gray-500! mt-1 max-w-sm">
-
           {subtitle}
         </Typography>
       </Box>
