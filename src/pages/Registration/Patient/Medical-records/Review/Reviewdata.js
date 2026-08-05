@@ -47,9 +47,27 @@ export const reviewData = {
     policy: "12239542-6",
   },
 
-  documents: [
-    "Blood_Test_Report.pdf",
-    "Liver_Function_Test.pdf",
-    "Doctor_Prescription.pdf",
+  medicalDocuments: [
+    {
+      name: "Blood_Test_Report.pdf",
+    },
+    {
+      name: "Doctor_Prescription.pdf",
+    },
+    {
+      name: "Blood_Test_Report.pdf",
+    },
+    {
+      name: "Liver_Function_Test.pdf",
+    },
+  ],
+
+  insuranceDocuments: [
+    {
+      name: "Insurance_Card_Front.pdf",
+    },
+    {
+      name: "Insurance_Card_Back.pdf",
+    },
   ],
 };
