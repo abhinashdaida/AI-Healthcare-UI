@@ -1,10 +1,6 @@
 import { Formik } from "formik";
 import { Box } from "@mui/material";
-<<<<<<< HEAD
 import React, { useState } from "react";
-=======
-import React,{useState} from "react";
->>>>>>> karthick
 import { insuranceValidation } from "./validations";
 import { Icon } from "@iconify/react";
 import Footer from "../../components/layout/Footer";

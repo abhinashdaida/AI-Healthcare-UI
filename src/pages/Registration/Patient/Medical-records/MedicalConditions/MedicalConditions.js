@@ -1,10 +1,8 @@
 import { Formik } from "formik";
 import { Box } from "@mui/material";
 import React from "react";
-
 import { medicalValidation } from "./validation";
 import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
 import MedicalInput from "./MedicalInput";
 import {
     allergyOptions,
@@ -13,18 +11,47 @@ import {
     medicationOptions,
 } from "./constants";
 
+import { useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
 import Sidebar from "../../components/layout/SiderBar";
 import FormHeader from "../../components/layout/FormHeader";
 import UploadFiles from "../components/UploadFiles/uploadfiles";
 
 const MedicalRecords = () => {
+    const navigate = useNavigate();
+
+    const handleUpload = async (validateForm, submitForm) => {
+        const errors = await validateForm();
+        if (Object.keys(errors).length > 0) {
+            console.log("Validation Errors:", errors);
+            return;
+        }
+        submitForm();
+        navigate("/insurance");
+    };
+
+    const handleSkip = () => {
+        console.log("skip btn click");
+        navigate("/reviewdetails");
+    }
+
+    const handleAutoSave = () => {
+        console.log("auto save btn click");
+    }
+
+
+
     const initialValues = {
+
         allergies: [],
+
         conditions: [],
+
         surgeries: [],
+
         medications: [],
-        files: [],
+
+        files: []
     };
 
     const handleSubmit = (values) => {
@@ -38,12 +65,14 @@ const MedicalRecords = () => {
             onSubmit={handleSubmit}
         >
             {({
+
                 values,
                 setFieldValue,
                 validateForm,
                 submitForm,
                 errors,
                 handleSubmit
+
             }) => {
                 const footerConfig = {
                     showSkipButton: true,
@@ -70,7 +99,7 @@ const MedicalRecords = () => {
                                             providers serve you better.
                                         </p>
                                     </Box>
-                                    <Box className="grid grid-cols-2 gap-10 w-full max-w-[1104px] h-[208px]">
+                                    <Box className="grid grid-cols-2 gap-10 pt-8 w-full max-w-[1104px]">
                                         <MedicalInput
                                         label="Allergies"
                                         name="allergies"
@@ -110,7 +139,6 @@ const MedicalRecords = () => {
                                         placeholder="Enter your current medications"
                                         icon="tabler:pill"
                                     />
-
                                     </Box>
                                     <Box className="w-full max-w-[1104px] mt-10">
                                         <UploadFiles

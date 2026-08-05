@@ -8,7 +8,7 @@ import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
 import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
-
+import ReviewComplete from "./pages/Registration/Patient/Medical-records/Review/review.js";
 
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/medical-conditions" element={<MedicalConditions />} />
             <Route path="/insurance" element={<Insurance />} />
+            <Route path="/reviewdetails" element={<ReviewComplete />} />
           </Routes>
         </GlobalConfigView>
       </div>
