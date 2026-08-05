@@ -7,6 +7,8 @@ import NotificationView from "./shared/components/Notification/NotificationView.
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
+import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/medical-conditions" element={<MedicalConditions />} />
+            <Route path="/insurance" element={<Insurance />} />
           </Routes>
         </GlobalConfigView>
       </div>
