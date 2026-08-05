@@ -1,0 +1,102 @@
+import React from "react";
+import { Box, Divider } from "@mui/material";
+import { Icon } from "@iconify/react";
+
+const ReviewCard = ({
+    title,
+    headerIcon,
+    data,
+}) => {
+    return (
+        <Box
+            className="
+                bg-white
+                border
+                border-[#E5E7EB]
+                rounded-xl
+                shadow-sm
+                overflow-hidden
+                w-full
+            "
+        >
+            {/* Header */}
+            <Box className="flex items-center justify-between px-6 py-4">
+
+                <Box className="flex items-center gap-4">
+
+                    <Box className="w-9 h-9 rounded-md bg-[#F9FAFB] flex items-center justify-center">
+                        <Icon
+                            icon={headerIcon}
+                            width={20}
+                            className="text-[#6B7280]"
+                        />
+                    </Box>
+
+                    <h3 className="text-xl font-semibold text-[#1F2937]">
+                        {title}
+                    </h3>
+
+                </Box>
+
+                <button
+                    className="
+    flex
+    items-center
+    gap-1
+    bg-[#ECFEFF]
+    text-[#14B8A6]
+    px-3
+    py-1.5
+    rounded-md
+    text-sm
+    font-medium
+"
+                >
+                    <Icon
+                        icon="tabler:edit"
+                        width={16}
+                    />
+
+                    Edit
+                </button>
+
+            </Box>
+
+            <Divider />
+
+            {/* Body */}
+            <Box className="grid grid-cols-2 gap-x-12 gap-y-8 px-8 py-7">
+                {data.map((item, index) => (
+
+                    <Box
+                        key={index}
+                        className="flex items-start gap-4"
+                    >
+
+                        <Icon
+                            icon={item.icon}
+                            width={20}
+                            className="text-[#6B7280] mt-1"
+                        />
+
+                        <Box>
+
+                            <p className="text-xs text-[#6B7280]">
+                                {item.label}
+                            </p>
+
+                            <p className="text-base font-semibold text-[#111827]">
+                            </p>
+
+                        </Box>
+
+                    </Box>
+
+                ))}
+
+            </Box>
+        </Box>
+    );
+};
+
+export default ReviewCard;
