@@ -14,7 +14,10 @@ export default function UploadFiles({
     securityText = null,
     showConfirmation = false,
     confirmationText = "",
+<<<<<<< HEAD
     onFilesChange,
+=======
+>>>>>>> karthick
 }) {
     const inputRef = useRef();
 
@@ -58,6 +61,7 @@ export default function UploadFiles({
     };
 
     const addFiles = (selectedFiles) => {
+<<<<<<< HEAD
         if (!validateFiles(selectedFiles)) return;
         const uploadedFiles = selectedFiles.map(file => ({
             id: crypto.randomUUID(),
@@ -73,21 +77,49 @@ export default function UploadFiles({
 
 
 
+=======
+
+        if (!validateFiles(selectedFiles)) return;
+
+        setFiles(prev => [
+            ...prev,
+            ...selectedFiles.map(file => ({
+                id: crypto.randomUUID(),
+                file,
+                name: file.name,
+                size: Math.round(file.size / 1024),
+            }))
+        ]);
+    };
+
+>>>>>>> karthick
     return (
         <div className="w-full">
 
             {/* Header */}
 
             <div className="flex justify-between mb-3">
+<<<<<<< HEAD
                 <h3 className="font-semibold text-[15px]">
                     {title}
                 </h3>
+=======
+
+                <h3 className="font-semibold text-[15px]">
+                    {title}
+                </h3>
+
+>>>>>>> karthick
                 <div className="flex items-center gap-1">
                     <Icon
                         icon="tabler:info-circle"
                         className="text-[#12A5B5]"
                         width={18}
                     />
+<<<<<<< HEAD
+=======
+
+>>>>>>> karthick
                     {title === "Upload Insurance Documents" && (
                         <div
                             className="flex items-center gap-1 cursor-pointer"
@@ -118,6 +150,10 @@ export default function UploadFiles({
 
                 <span className="ml-2">
                     {uploadText}
+<<<<<<< HEAD
+=======
+
+>>>>>>> karthick
                     <button
                         onClick={() => inputRef.current.click()}
                         className="text-[#12A5B5] underline ml-1"
@@ -168,12 +204,24 @@ export default function UploadFiles({
             {/* Error */}
 
             {error && (
+<<<<<<< HEAD
                 <div className="flex gap-2 border border-red-300 bg-red-50 rounded-lg p-3 mt-4">
+=======
+
+                <div className="flex gap-2 border border-red-300 bg-red-50 rounded-lg p-3 mt-4">
+
+>>>>>>> karthick
                     <Icon
                         icon="tabler:alert-circle"
                         className="text-red-600 mt-1"
                     />
+<<<<<<< HEAD
                     <div>
+=======
+
+                    <div>
+
+>>>>>>> karthick
                         <p className="text-red-700 font-semibold text-sm">
                             {error.title}
                         </p>
@@ -181,24 +229,43 @@ export default function UploadFiles({
                         <p className="text-red-600 text-xs">
                             {error.message}
                         </p>
+<<<<<<< HEAD
                     </div>
                 </div>
+=======
+
+                    </div>
+
+                </div>
+
+>>>>>>> karthick
             )}
 
             {/* Files */}
 
             <div className="grid md:grid-cols-3 gap-4 mt-4">
+<<<<<<< HEAD
                 {files.map(file => (
+=======
+
+                {files.map(file => (
+
+>>>>>>> karthick
                     <div
                         key={file.id}
                         className="border rounded-lg p-3 flex justify-between"
                     >
+<<<<<<< HEAD
+=======
+
+>>>>>>> karthick
                         <div className="flex gap-2">
 
                             <Icon
                                 icon="vscode-icons:file-type-pdf2"
                                 width={24}
                             />
+<<<<<<< HEAD
                             <div>
                                 <p className="text-sm">
                                     {file.name}
@@ -207,11 +274,27 @@ export default function UploadFiles({
                                     PDF • {file.size} KB
                                 </p>
                             </div>
+=======
+
+                            <div>
+
+                                <p className="text-sm">
+                                    {file.name}
+                                </p>
+
+                                <p className="text-xs text-gray-500">
+                                    PDF • {file.size} KB
+                                </p>
+
+                            </div>
+
+>>>>>>> karthick
                         </div>
 
                         <Icon
                             icon="mdi:close"
                             className="cursor-pointer"
+<<<<<<< HEAD
                             onClick={() => {
                                 const updatedFiles = files.filter(f => f.id !== file.id);
                                 setFiles(updatedFiles);
@@ -220,6 +303,17 @@ export default function UploadFiles({
                         />
                     </div>
                 ))}
+=======
+                            onClick={() =>
+                                setFiles(prev => prev.filter(f => f.id !== file.id))
+                            }
+                        />
+
+                    </div>
+
+                ))}
+
+>>>>>>> karthick
             </div>
 
             <WhatToUpload
@@ -248,6 +342,7 @@ export default function UploadFiles({
             {/* Security */}
 
             {showSecurity && files.length === 0 && (
+<<<<<<< HEAD
                 <div className="mt-5 flex items-center gap-2 bg-cyan-50 rounded-lg p-4">
                     <Icon icon="tabler:lock" />
                     <p className="text-sm text-[#175A5D]">
@@ -255,6 +350,23 @@ export default function UploadFiles({
                     </p>
                 </div>
             )}
+=======
+
+                <div className="mt-5 flex items-center gap-2 bg-cyan-50 rounded-lg p-4">
+
+                    <Icon icon="tabler:lock" />
+
+                    <p className="text-sm text-[#175A5D]">
+
+                        {securityText}
+
+                    </p>
+
+                </div>
+
+            )}
+
+>>>>>>> karthick
         </div>
     );
 }

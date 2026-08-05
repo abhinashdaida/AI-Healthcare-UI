@@ -74,5 +74,4 @@ const FormHeader = ({ title, subtitle }) => {
     </Box>
   );
 };
-
 export default FormHeader;
