@@ -1,59 +1,71 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import brandingImage from "@assets/signup&loginassest/brandingimage.avif"
 
+function Brandingsidepanel() {
+  return (
+    <div className="w-full md:w-[60%] bg-[#096B58] rounded-[24px] text-white p-6 md:p-8 lg:p-16 flex flex-col justify-between relative overflow-hidden min-h-[600px]">
+      
+      {/* Top section */}
+      <div className="flex flex-col gap-3 z-10">
+        {/* Pill Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 w-fit text-xs font-semibold tracking-wide">
+          <span>AI-Powered Healthcare Ecosystem</span>
+        </div>
 
-function Brandingsidepanel(){
-    return(
-         <div className="w-full md:w-[45%] bg-[#086952] rounded-[24px] text-white p-6 md:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-                  
-                  <div className="flex flex-col gap-6 z-10">
-                    {/* Pill Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 w-fit backdrop-blur-md self-start text-xs font-semibold tracking-wide">
-                      <Icon icon="lucide:sparkles" className="w-3.5 h-3.5 text-teal-300" />
-                      <span>AI-Powered Healthcare Ecosystem</span>
-                    </div>
+        {/* Title & Description */}
+        <div className="flex flex-col gap-3">
+          <h2 className="text-3xl lg:text-4xl tracking-tight leading-tight font-medium max-w-xl">
+            One Secure Access for Every Healthcare User
+          </h2>
+          <p className="text-white/80 text-sm leading-relaxed font-light max-w-md">
+            Patients, Doctors, Hospitals, Pharmacies, Laboratories, and Insurance providers connected through one intelligent healthcare ecosystem.
+          </p>
+        </div>
+      </div>
+
+      {/* Image Section */}
+      <div className="relative flex justify-center my-4 z-10">
+        <img
+          src={brandingImage}
+          alt="Healthcare Branding"
+          className="w-full max-w-[480px] h-auto rounded-xl object-cover -mt-11 -ml-14"
+        />
+      </div>
+
+      {/* Bottom Cards Section */}
+      <div className="absolute bottom-6 grid grid-cols-1 sm:grid-cols-3 gap-2 ml-12 z-10">
         
-                    {/* Title & Description */}
-                    <div className="flex flex-col gap-3">
-                      <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
-                        One Secure Access for Every Healthcare User
-                      </h2>
-                      <p className="text-white/80 text-sm leading-relaxed font-light max-w-md">
-                        Patients, Doctors, Hospitals, Pharmacies, Laboratories, and Insurance providers connected through one intelligent healthcare ecosystem.
-                      </p>
-                    </div>
-                  </div>
-        
-                  {/* Three Feature Badges */}
-                  <div className="grid grid-cols-3 gap-2.5 z-10">
-                    <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-center transition-all hover:bg-white/15">
-                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1.5">
-                        <Icon icon="solar:clock-circle-bold-duotone" className="w-5 h-5 text-teal-300" />
-                      </div>
-                      <span className="text-[11px] font-bold tracking-wide">24/7</span>
-                      <span className="text-[9px] text-white/60 font-medium">Healthcare Access</span>
-                    </div>
-        
-                    <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-center transition-all hover:bg-white/15">
-                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1.5">
-                        <Icon icon="solar:shield-check-bold-duotone" className="w-5 h-5 text-teal-300" />
-                      </div>
-                      <span className="text-[11px] font-bold tracking-wide">100%</span>
-                      <span className="text-[9px] text-white/60 font-medium">Encrypted Login</span>
-                    </div>
-        
-                    <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-center transition-all hover:bg-white/15">
-                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1.5">
-                        <Icon icon="solar:stars-bold-duotone" className="w-5 h-5 text-teal-300" />
-                      </div>
-                      <span className="text-[11px] font-bold tracking-wide">AI</span>
-                      <span className="text-[9px] text-white/60 font-medium">AI Enabled Platform</span>
-                    </div>
-                  </div>
-                </div>
-        
-    )
+        {/* Card 1: 24/7 Access */}
+        <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition-all duration-200">
+          <div className="flex items-center gap-2 mb-1">
+            <Icon icon="iconoir:clock-solid" className="text-[#14B392] text-xl" />
+            <span className="text-lg font-semibold">24/7</span>
+          </div>
+          <p className="text-white/70 text-xs font-light">Healthcare Access</p>
+        </div>
+
+        {/* Card 2: 100% Encrypted */}
+        <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition-all duration-200">
+          <div className="flex items-center gap-2 mb-1">
+            <Icon icon="mingcute:shield-fill" className="text-[#14B392] text-xl" />
+            <span className="text-lg font-semibold">100%</span>
+          </div>
+          <p className="text-white/70 text-xs font-light">Encrypted Login</p>
+        </div>
+
+        {/* Card 3: AI Enabled */}
+        <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition-all duration-200">
+          <div className="flex items-center gap-2 mb-1">
+            <Icon icon="boxicons:sparkles-filled" className="text-[#14B392] text-xl" />
+            <span className="text-lg font-semibold">AI</span>
+          </div>
+          <p className="text-white/70 text-xs font-light">AI Enabled Platform</p>
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default Brandingsidepanel;

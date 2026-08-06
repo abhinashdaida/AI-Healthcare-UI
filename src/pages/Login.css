@@ -21,9 +21,6 @@
   margin: 0;
 }
 
-.otp-input {
-  -moz-appearance: textfield;
-}
 
 /* Hover effects for role cards */
 .role-card {
