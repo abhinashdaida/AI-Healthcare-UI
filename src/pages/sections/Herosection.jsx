@@ -21,7 +21,7 @@ const HeroSection = () => {
           
           {/* AI Badge */}
           <Chip
-            icon={<Icon icon="solar:stars-bold" width={14} className="!text-[#0F766E]" />}
+            icon={<Icon icon="si:ai-fill" width={14} className="!text-[#0F766E]" />}
             label="AI-Powered Healthcare Ecosystem"
             sx={{
               background: "#E6F7F5",
@@ -149,7 +149,7 @@ const HeroSection = () => {
 
             {/* 24/7 Care */}
             <div className="flex items-center gap-1.5">
-              <Icon icon="solar:headphones-round-sound-bold-duotone" width={16} className="text-[#0F766E] shrink-0" />
+              <Icon icon="material-symbols:headset-mic-rounded" width={16} className="text-[#0F766E] shrink-0" />
               <div className="leading-none">
                 <span className="text-[10px] font-bold text-[#111827] block">24/7 Care</span>
                 <span className="text-[9px] text-gray-500">We're here for you</span>

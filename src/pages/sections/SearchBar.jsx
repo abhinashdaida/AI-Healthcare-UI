@@ -13,7 +13,7 @@ import {
   POPULAR_SEARCHES,
 } from "../../shared/constants/landingPage";
 
-// 1. Separate Icon Component to prevent render glitches in MUI Select
+// Custom Select Icon
 const CustomChevronIcon = (props) => (
   <Icon
     icon="lucide:chevron-down"
@@ -41,25 +41,27 @@ const SearchBar = () => {
   };
 
   return (
-    <Box className="w-full max-w-[1140px] h-[104px] mx-auto p-4 flex flex-col justify-between gap-4 box-border">
-      {/* Search Bar Container */}
+    <Box className="w-full max-w-[1140px] mx-auto pt-8 md:pt-10 px-4 sm:px-5 lg:px-0 flex flex-col gap-5 md:gap-6 box-border">
+      {/* Search Container */}
       <Box
         className="
           w-full
-          min-h-[72px] sm:h-[78px]
           border
           border-[#E5E7EB]
           rounded-2xl
           bg-white
           flex
-          flex-col sm:flex-row
-          items-center
-          p-2 sm:px-3
-          gap-2 sm:gap-3
+          flex-col
+          lg:flex-row
+          items-stretch
+          lg:items-center
+          p-3
+          lg:p-2
+          gap-3
           shadow-[0_2px_10px_rgba(0,0,0,0.04)]
         "
       >
-        {/* Location Select */}
+        {/* Location */}
         <Select
           value={location}
           displayEmpty
@@ -68,7 +70,7 @@ const SearchBar = () => {
           renderValue={(selected) =>
             selected || "Select Location"
           }
-          className="w-full sm:w-[190px]"
+          className="w-full lg:w-[190px]"
           sx={{
             height: 46,
             borderRadius: "12px",
@@ -84,7 +86,6 @@ const SearchBar = () => {
               fontSize: "14px",
             },
 
-            /* Ensure custom drop icon displays correctly with proper sizing */
             "& .MuiSelect-icon": {
               color: "#6B7280",
               right: "12px",
@@ -102,13 +103,16 @@ const SearchBar = () => {
           }
         >
           {LOCATIONS.map((city) => (
-            <MenuItem key={city} value={city}>
+            <MenuItem
+              key={city}
+              value={city}
+            >
               {city}
             </MenuItem>
           ))}
         </Select>
 
-        {/* Input Text Field */}
+        {/* Search Input */}
         <TextField
           fullWidth
           placeholder="Search Doctors, Specialities, Clinics and Hospitals..."
@@ -131,14 +135,15 @@ const SearchBar = () => {
             "& .MuiOutlinedInput-root": {
               height: 46,
               borderRadius: "12px",
+              width: "100%",
             },
           }}
         />
 
-        {/* Submit Action Button */}
+        {/* Search Button */}
         <Button
           onClick={handleSearch}
-          className="w-full sm:w-[120px]"
+          className="w-full lg:w-[120px]"
           sx={{
             height: 46,
             borderRadius: "12px",
@@ -147,7 +152,7 @@ const SearchBar = () => {
             textTransform: "none",
             fontWeight: 600,
             fontSize: "15px",
-            shrink: 0,
+            flexShrink: 0,
 
             "&:hover": {
               background: "#0C8878",
@@ -158,13 +163,13 @@ const SearchBar = () => {
         </Button>
       </Box>
 
-      {/* Popular Search Chips Bar */}
-      <Box className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-        <span className="text-[14px] font-medium text-[#111827] shrink-0">
+      {/* Popular Searches */}
+      <Box className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
+        <span className="text-[14px] font-medium text-[#111827] whitespace-nowrap">
           Popular Searches:
         </span>
 
-        <Box className="flex flex-wrap gap-2">
+        <Box className="flex flex-wrap gap-2 w-full">
           {popularSearches.map((item) => (
             <Button
               key={item}

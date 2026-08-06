@@ -5,104 +5,172 @@ import { SERVICES } from "../../shared/constants/landingPage";
 
 const ServicesSection = () => {
   return (
-    <section className="w-full max-w-[1140px] mx-auto flex flex-col gap-8 py-6 px-4 sm:px-0 box-border">
-      {/* Headings Container (1140px fill * ~146px Hug) */}
-      <Box className="w-full flex flex-col gap-3">
-        <Typography
-          component="span"
-          className="text-[12px] sm:text-[13px] font-bold tracking-wider text-[#0F9D8A] uppercase"
-        >
+    <section className="w-full bg-white py-10 md:py-12 lg:py-14">
+      <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-0">
+
+        {/* Heading */}
+
+        <p className="text-[12px] font-medium uppercase tracking-wide text-[#0D8B72] mb-3">
           EVERYTHING YOU NEED FOR BETTER HEALTHCARE
-        </Typography>
+        </p>
 
         <Typography
-          variant="h2"
-          className="text-[24px] sm:text-[32px] font-bold text-[#111827] leading-[1.3] max-w-[900px]"
+          sx={{
+            width: {
+              xs: "100%",
+              sm: "100%",
+              md: "100%",
+              lg: "720px",
+            },
+            fontSize: {
+              xs: "22px",
+              sm: "24px",
+              md: "26px",
+              lg: "28px",
+            },
+            fontWeight: 500,
+            lineHeight: {
+              xs: "34px",
+              sm: "36px",
+              md: "40px",
+              lg: "42px",
+            },
+            color: "#141414",
+            mb: {
+              xs: "32px",
+              md: "40px",
+              lg: "48px",
+            },
+          }}
         >
           Access care, diagnostics, medicines, records, insurance, and
           AI-powered health services from a{" "}
-          <span className="text-[#0F9D8A]">single platform.</span>
+          <span style={{ color: "#0D8B72" }}>
+            single platform.
+          </span>
         </Typography>
-      </Box>
 
-      {/* Service Cards Container (1140px * 264px Hug) */}
-      <Box className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 min-h-[264px]">
-        {SERVICES.map((service, index) => (
-          <Box
-            key={index}
-            className="
-              group
-              w-full
-              h-full
-              min-h-[264px]
-              p-5
-              bg-[#F8FAFC]
-              hover:bg-white
-              border
-              border-transparent
-              hover:border-[#E5E7EB]
-              rounded-2xl
-              flex
-              flex-col
-              justify-between
-              transition-all
-              duration-300
-              hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]
-              cursor-pointer
-            "
-          >
-            {/* Top Content (Icon + Titles) */}
-            <Box className="flex flex-col gap-4 items-start">
-              {/* Circular Icon Container */}
-              <Box
-                className="w-12 h-12 rounded-full flex items-center justify-center transition-transform group-hover:scale-105"
-                style={{ backgroundColor: service.bgColor || "#EDF8F7" }}
-              >
-                <Icon
-                  icon={service.icon}
-                  width={24}
-                  height={24}
-                  color="#0F9D8A"
-                />
-              </Box>
+        {/* Cards */}
 
-              {/* Title and Description */}
-              <Box className="flex flex-col gap-1.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+
+          {SERVICES.map((service, index) => (
+
+            <Box
+              key={index}
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "100%",
+                  md: "100%",
+                  lg: "173px",
+                },
+                height: {
+                  xs: "260px",
+                  lg: "300px",
+                },
+                border: "1px solid #E6E6E6",
+                borderRadius: "12px",
+                background: "#FFFFFF",
+                padding: "24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                transition: ".3s",
+                cursor: "pointer",
+
+                "&:hover": {
+                  boxShadow: "0px 8px 24px rgba(0,0,0,0.08)",
+                },
+              }}
+            >
+              <div>
+
+                {/* Icon */}
+
+                <Box
+                  sx={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
+                    background: "#EDF8F7",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mb: "24px",
+                  }}
+                >
+                  <Icon
+                    icon={service.icon}
+                    width={24}
+                    color="#0D8B72"
+                  />
+                </Box>
+
+                {/* Title */}
+
                 <Typography
-                  variant="h6"
-                  className="text-[15px] font-bold text-[#111827] leading-tight whitespace-pre-line"
+                  sx={{
+                    fontSize: {
+                      xs: "17px",
+                      lg: "18px",
+                    },
+                    fontWeight: 600,
+                    color: "#141414",
+                    lineHeight: "30px",
+                    whiteSpace: "pre-line",
+                    mb: "12px",
+                  }}
                 >
                   {service.title}
                 </Typography>
-                
-                <Typography className="text-[11px] text-[#6B7280] leading-[1.4] line-clamp-3">
+
+                {/* Description */}
+
+                <Typography
+                  sx={{
+                    fontSize: "13px",
+                    lineHeight: "20px",
+                    color: "#666666",
+                  }}
+                >
                   {service.description}
                 </Typography>
-              </Box>
+
+              </div>
+
+              {/* Arrow */}
+
+              <div className="flex justify-end">
+
+                <IconButton
+                  sx={{
+                    width: "32px",
+                    height: "32px",
+                    border: "1px solid #E5E7EB",
+                    background: "#F8F8F8",
+
+                    "&:hover": {
+                      background: "#0D8B72",
+                      color: "#FFFFFF",
+                    },
+                  }}
+                >
+                  <Icon
+                    icon="lucide:chevron-right"
+                    width={16}
+                  />
+                </IconButton>
+
+              </div>
+
             </Box>
 
-            {/* Bottom Arrow Action Button */}
-            <Box className="flex justify-end pt-2">
-              <IconButton
-                size="small"
-                className="w-7 h-7 rounded-full bg-white border border-[#E5E7EB] group-hover:bg-[#0F9D8A] group-hover:border-[#0F9D8A] transition-colors"
-                sx={{
-                  p: 0,
-                  "&:hover": {
-                    backgroundColor: "#0F9D8A",
-                  },
-                }}
-              >
-                <Icon
-                  icon="lucide:chevron-right"
-                  width={14}
-                  className="text-[#6B7280] group-hover:text-white transition-colors"
-                />
-              </IconButton>
-            </Box>
-          </Box>
-        ))}
-      </Box>
+          ))}
+
+        </div>
+
+      </div>
     </section>
   );
 };

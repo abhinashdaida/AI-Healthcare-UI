@@ -8,6 +8,7 @@ import NotificationView from "./shared/components/Notification/NotificationView.
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 
+
 function App() {
   return (
     <BrowserRouter>
