@@ -10,17 +10,29 @@ import Footer from "../../../../shared/components/Registration/layout/Footer";
 import SuggestedIdCard from "../../../../shared/components/Registration/form/SuggestedIdCard";
 import { createLoginValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { pageContent, idPrefix, statusMessages } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
-import { validateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
+import { validateId,generateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
+import { internalIP } from "webpack-dev-server";
 
 const CreateLoginId = () => {
+  //Generate initial default plain Id
+  const getInitialId = () => {
+        const defaultFullId = generateId(idPrefix).toUpperCase();
+        return defaultFullId.replace(`${idPrefix}-`, "");
+    };
+
+     const initialId = getInitialId();
+
+
   // Suggested IDs
-  const [suggestedIds, setSuggestedIds] = useState([]);
+  const [suggestedIds, setSuggestedIds] = useState(() =>
+        generateSuggestionsForValue(initialId, idPrefix));
 
   // Selected MediConnect ID
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedId, setSelectedId] = useState(initialId);
 
   // Status // checking // success // error
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(() =>
+        validateId(`${idPrefix}-${initialId}`, idPrefix));
 
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -191,10 +203,22 @@ const CreateLoginId = () => {
                         </p>
                       )}
 
-                      {status === "error" && (
-                        <p className="text-[13px] text-[#EF4444]">
-                          {statusMessages.exists(`${idPrefix}-${selectedId}`)}
-                        </p>
+                      {status === "exists" && (
+                                            <p className="text-[13px] text-[#EF4444]">
+                                                {statusMessages.exists}
+                                            </p>
+                                        )}
+
+                                        {status === "invalid-length" && (
+                                            <p className="text-[13px] text-[#EF4444]">
+                                                MediConnect ID must contain at least 6 characters.
+                                            </p>
+                                        )}
+
+                                        {status === "invalid-format" && (
+                                            <p className="text-[13px] text-[#EF4444]">
+                                                Only letters and numbers are allowed.
+                                            </p>
                       )}
                     </Box>
                   </Box>
@@ -245,7 +269,7 @@ const CreateLoginId = () => {
                             onClick={() => {
                               setFieldValue("mediConnectId", plainId);
                               setSelectedId(plainId);
-                              setStatus(validateId(id));
+                              setStatus(validateId(id,idPrefix));
                             }}
                           />
                         );
