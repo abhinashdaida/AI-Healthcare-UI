@@ -8,6 +8,7 @@ import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
 import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
+<<<<<<< HEAD
 
 import Review from "./pages/Registration/Patient/Medical-records/Review/review";
 import CreateLoginId from "./pages/Registration/Patient/Medical-records/CreateLoginId/CreateLoginid";
@@ -15,6 +16,10 @@ import CreateLoginId from "./pages/Registration/Patient/Medical-records/CreateLo
 
 
 
+=======
+import ReviewComplete from "./pages/Registration/Patient/Medical-records/Review/review.js";
+import CreateLoginid from "./pages/Registration/Patient/Medical-records/CreateLoginId/Createloginid";
+>>>>>>> d78b91130c7d1344760d523ba4fb90a7fc0f0be0
 
 function App() {
   return (
@@ -29,8 +34,13 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/medical-conditions" element={<MedicalConditions />} />
             <Route path="/insurance" element={<Insurance />} />
+<<<<<<< HEAD
             <Route path="/review" element={<Review />} />
             <Route path="/create-Login-id" element={<CreateLoginId />} />
+=======
+            <Route path="/reviewdetails" element={<ReviewComplete />} />
+            <Route path="/createloginid" element={<CreateLoginid/>}/>
+>>>>>>> d78b91130c7d1344760d523ba4fb90a7fc0f0be0
           </Routes>
         </GlobalConfigView>
       </div>

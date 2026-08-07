@@ -6,10 +6,10 @@ import { Icon } from "@iconify/react";
 import Footer from "../../components/layout/Footer";
 import Sidebar from "../../components/layout/SiderBar";
 import FormHeader from "../../components/layout/FormHeader";
-import UploadFiles from "../components/UploadFiles/uploadfiles";
-import WhatToUpload from "./whattoupload";
+import UploadFiles from "../../../../../shared/components/Registration/UploadFiles/uploadfiles";
+import WhatToUpload from "../../../../../shared/components/Registration/PopUp/whattoupload";
 import { useNavigate } from "react-router-dom";
-import { governmentProviders, privateProviders } from "./Insuranceconstants";
+import { governmentProviders, privateProviders } from "../../../../../shared/constants/PatientRegistration/MedicalRecords/Insuranceconstants";
 
 const Insurance = () => {
 
@@ -72,28 +72,38 @@ const Insurance = () => {
     };
                 const isFileUploaded = values.files && values.files?.length > 0;
                 return(
-                <div className="min-h-screen bg-gray-100 flex justify-center p-3">
-                    <div className="w-full max-w-350 bg-white flex min-h-172.5">
-                        <Sidebar />
-                        <main className="flex-1 flex flex-col">
+                <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
+                    <div className=" w-full
+            max-w-[1440px]
+            bg-white
+            flex
+            flex-col
+            md:flex-row
+            min-h-screen
+            md:min-h-[690px]
+            overflow-hidden">
+                        <div className="w-full md:w-[280px] lg:w-[300px] ">
+                            <Sidebar />
+                        </div>
+                        <main className="flex-1 flex flex-col w-full pl-6 lg:pl-10">
                             <FormHeader
                                 title="Medical Records"
                                 subtitle="Add your basic information to complete your profile and personalize your healthcare journey." />
-                            <div className="flex-1 px-10 py-6">
-                                <Box className="w-full max-w-[1104px] h-[82px] pt-6  flex flex-col gap-1">
+                            <div className="flex-1 px-6 py-4 sm:px-8 md:px-8 lg:px-10 ">
+                                <Box className="w-full max-w-[1104px]  pt-4 md:pt-6 flex flex-col gap-2">
                                     <h3 className="text-sm text-500!">Insurance</h3>
-                                    <p className="w-[328px] h-[32px] text-xs font-weight-[400] font-normal text-[#6B7280]">
+                                    <p className="w-full md:max-w-[328px] h-[32px] text-xs md:text-sm font-weight-[400] font-normal text-[#6B7280]">
                                         Add your insurance information for seamless coverage and claims processing.
                                     </p>
                                 </Box>
                                 {/* First Row */}
-                                <Box className="pt-10 grid grid-cols-2 gap-10 w-full max-w-[1104px] h-[208px]">
+                                <Box className="pt-6 md:pt-8 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 w-full max-w-[1104px] ">
 
-                                    <div className="col-span-2 md:col-span-1 w-full max-w-[489px] h-[84px]">
+                                    <div className="col-span-1 w-full">
                                         <label className="block text-sm font-medium mb-2">
                                             Insurance Type
                                         </label>
-                                        <div className="relative w-full max-w-[489px] h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
+                                        <div className="relative w-full  h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
                                             <Icon
                                                 icon="tabler:building-bank"
                                                 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -129,13 +139,13 @@ const Insurance = () => {
                                     {values.insuranceType && (
                                         <>
                                             {/* Scheme Provider */}
-                                            <div>
+                                            <div className="w-full">
                                                 <label className="block text-sm mb-2">
                                                     {values.insuranceType === "Private"
                                                         ? "Insurance Provider"
                                                         : "Government Scheme Provider"}
                                                 </label>
-                                                <div className="relative w-full max-w-[489px] h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
+                                                <div className="relative w-full  h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
                                                     <Icon
                                                         icon="tabler:shield-plus"
                                                         className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -175,11 +185,11 @@ const Insurance = () => {
                                             </div>
 
                                             {/* Holder Name */}
-                                            <div>
+                                            <div className="w-full">
                                                 <label className="block text-sm mb-2">
                                                     Insurance Holder Name
                                                 </label>
-                                                <div className="relative w-full max-w-[489px] h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
+                                                <div className="relative w-full h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
                                                     <Icon
                                                         icon="tabler:user"
                                                         className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -202,11 +212,11 @@ const Insurance = () => {
                                             </div>
 
                                             {/* Customer ID */}
-                                            <div>
+                                            <div className="w-full">
                                                 <label className="block text-sm mb-2">
                                                     Customer ID / Policy Number
                                                 </label>
-                                                <div className="relative w-full max-w-[489px] h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
+                                                <div className="relative w-full  h-[56px] border gap-2 rounded-[8px] border-[0.5px] px-4 border-[#D1D5DB]">
                                                     <Icon
                                                         icon="tabler:credit-card"
                                                         className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -231,7 +241,7 @@ const Insurance = () => {
                                 </Box>
 
                                 {values.insuranceType && (
-                                    <Box className="pt-10 mt-10 w-full max-w-[1104px]">
+                                    <Box className="pt-6 md:pt-8 lg:pt-10 mt-6 md:mt-8 w-full max-w-[1104px]">
                                         <UploadFiles
                                             title="Upload Insurance Documents"
                                             uploadText="Drag and drop your insurance card here, or"
@@ -241,9 +251,9 @@ const Insurance = () => {
                                             confirmationText="I confirm that the insurance information provided is accurate and I authorize it to be used for updating my health records."
                                             onFilesChange={(files) => setFieldValue("files", files)}
                                         />
-                                        <div className="mt-5 flex items-center gap-2 bg-cyan-50 rounded-lg p-4">
+                                        <div className="mt-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-cyan-50 rounded-lg p-4">
                                             <Icon icon="tabler:lock" />
-                                            <p className="text-sm text-[#175A5D]">
+                                            <p className="text-xs md:text-sm text-[#175A5D]">
                                                 Your insurance information will only be used to verify coverage and support healthcare services.
                                             </p>
                                         </div>
