@@ -1,44 +1,71 @@
-import { Box, Button, Typography } from "@mui/material";
-import { HeadphonesOutlined } from "@mui/icons-material";
 import React from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
+
 const FormHeader = ({ title, subtitle }) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       component="header"
-      className="h-[146px] w-full border-b border-gray-200 bg-white px-7 flex items-center justify-between"
+      className="
+        w-full
+        bg-white
+        border-b border-gray-200
+        px-4 sm:px-6 lg:px-8 py-4
+        flex flex-col sm:flex-row sm:items-center
+        justify-between gap-4 "
     >
       {/* Left Section */}
-      <Box>
-        <Typography className="text-14px! font-medium! text-base! text-gray-900!">
+      <Box className="flex-1">
+        <Typography className="text-[18px]! font-medium! text-gray-900!">
           {title}
         </Typography>
 
-        <Typography className="text-14px! text-xs! text-gray-500! max-w-xs mt-1">
+        <Typography className="text-[14px]! text-gray-500! mt-1 max-w-sm">
           {subtitle}
         </Typography>
       </Box>
 
       {/* Right Section */}
-      <Box className="flex flex-col items-end gap-1">
+      <Box
+        className="
+          flex flex-col
+          items-start
+          sm:items-end
+          gap-2 "
+      >
         {/* Help Text */}
-        <Box className="flex items-center gap-1 text-[10px] text-gray-500">
-          <HeadphonesOutlined sx={{ fontSize: 14 }} />
-          <Typography variant="caption" className="text-[10px] text-gray-500">
+        <Box className="flex items-center gap-2">
+          <Icon
+            icon="tabler:headset"
+            width="18"
+            height="18"
+            className="text-gray-500"
+          />
+
+          <Typography className="text-[12px]! text-gray-500!">
             Need Help?
           </Typography>
         </Box>
-        {/* Contact Support Button */}
+
+        {/* Button */}
         <Button
           variant="outlined"
-          size="small"
-          className="normal-case"
+          onClick={() => navigate("/login")}
           sx={{
-            fontSize: "11px",
+            textTransform: "none",
+            fontSize: "14px",
             borderColor: "#159A9C",
             color: "#159A9C",
-            padding: "4px 10px",
-            minWidth: "auto",
-            "&:hover": { borderColor: "#128789", backgroundColor: "#f0fafa" },
+            px: 0.5,
+            py: 0.8,
+            minWidth: "140px",
+            "&:hover": {
+              borderColor: "#128789",
+              backgroundColor: "#f0fafa",
+            },
           }}
         >
           Contact Support

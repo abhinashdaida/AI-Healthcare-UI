@@ -8,8 +8,12 @@ import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
 import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
-import Review from "./pages/Registration/Patient/Medical-records/Review/Review.js";
-import CreateLoginId from "./pages/Registration/Patient/Medical-records/CreateLoginId/Createloginid.js";
+
+import Review from "./pages/Registration/Patient/Medical-records/Review/review";
+import CreateLoginId from "./pages/Registration/Patient/Medical-records/CreateLoginId/CreateLoginid";
+
+
+
 
 
 function App() {
