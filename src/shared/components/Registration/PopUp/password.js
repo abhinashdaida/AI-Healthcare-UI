@@ -23,27 +23,7 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [successOpen, setSuccessOpen] = useState(false);
-    const validation = Yup.object({
-        password: Yup.string()
-            .required("Please enter your password.")
-            .min(8, "Password must be at least 8 characters.")
-            .matches(/[A-Z]/, "Add at least one uppercase letter.")
-            .matches(/[a-z]/, "Add at least one lowercase letter.")
-            .matches(/[0-9!@#$%^&*]/, "Add at least one number.")
-            .test(
-                "strong-password",
-                "Please create a stronger password.",
-                (value) => {
-                    if (!value) return false;
-                    return getStrength(value).label === "Great";
-                }
-            ),
-        confirmPassword: Yup.string()
-            .required("Confirm password is required.")
-            .oneOf([Yup.ref("password")], "Passwords do not match."),
-    });
-
-
+    
 
     return (
         <Dialog
@@ -285,7 +265,6 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                         );
                     }}
                 </Formik>
-
             </DialogContent>
         </Dialog>
     );
