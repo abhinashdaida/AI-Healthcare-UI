@@ -107,3 +107,88 @@ export const healthDetails = [
         value: "Weekly",
     },
 ];
+
+export const medicalDetails =[
+    {
+        icon:"tabler:virus",
+        label:"Allergies",
+        value:"Peanuts,Seafood",
+    },
+    {
+        icon:"tabler:stethoscope",
+        label:"Existing Conditions",
+        value:"Asthama,Diabetes(Type-2)",
+    },
+    {
+        icon:"tabler:first-aid-kit",
+        label:"Previous Surgeries",
+        value:"Appendectomy, Cataract Surgery",
+    },
+    {
+        icon:"tabler:pill",
+        label:"Current Medications",
+        value:"Metformin 500 mg, Insulin Glargine",
+    },
+
+]
+
+export const medicalDocuments =[
+    {
+        icon:"",
+        fileName:"Blood_Test_Report.pdf",
+        size:"125 KB",
+    },
+    {
+        icon:"",
+        fileName:"Liver_Function_Test.pdf",
+        size:"250 KB",
+    },
+    {
+        icon:"",
+        fileName:"Blood_Test_Report2.pdf",
+        size:"125 KB",
+    },
+    {
+        icon:"",
+        fileName:"Doctor_Prescription.pdf",
+        size:"85 KB",
+    },
+
+]
+
+export const insuranceDetails =[
+    {
+        icon:"tabler:building-bank",
+        label:"Insurance Type",
+        value:"Private",
+    },
+    {
+        icon:"tabler:shield-plus",
+        label:"Insurance Provider",
+        value:"Star Health Insurance",
+    },
+    {
+        icon:"tabler:user",
+        label:"Insurance Holder name",
+        value:"Deepika K",
+    },
+    {
+        icon:"tabler:credit-card",
+        label:"Customer ID / Policy Number",
+        value:"12239542-6",
+    },
+
+]
+
+export const insuranceDocuments =[
+    {
+    fileName: "Insurance_Card_Front.pdf",
+    size: "100 KB",
+  },
+  {
+    fileName: "Insurance_Card_Back.pdf",
+    size: "95 KB",
+  },
+  
+
+]

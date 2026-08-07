@@ -9,13 +9,13 @@ import {
     conditionOptions,
     surgeryOptions,
     medicationOptions,
-} from "./constants";
+} from "../../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
 import Sidebar from "../../components/layout/SiderBar";
 import FormHeader from "../../components/layout/FormHeader";
-import UploadFiles from "../components/UploadFiles/uploadfiles";
+import UploadFiles from "../../../../../shared/components/Registration/UploadFiles/uploadfiles";
 
 const MedicalRecords = () => {
     const navigate = useNavigate();
@@ -84,63 +84,73 @@ const MedicalRecords = () => {
                 };
                 return (
 
-                    <div className="min-h-screen bg-gray-100 flex justify-center p-3">
-                        <div className="w-full max-w-350 bg-white flex min-h-172.5">
-                            <Sidebar />
-                            <main className="flex-1 flex flex-col">
+                    <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
+                        <div className="w-full
+                        max-w-[1440px]
+                        bg-white
+                        flex
+                        flex-col
+                        md:flex-row
+                        min-h-screen
+                        md:min-h-[690px]
+                        overflow-hidden">
+                            <div className="  w-full md:w-[280px] lg:w-[300px]  ">
+                                <Sidebar />
+                            </div>
+                            <main className="flex-1 flex flex-col w-full pl-6 lg:pl-10">
                                 <FormHeader
                                     title="Medical Records"
                                     subtitle="Add your basic information to complete your profile and personalize your healthcare journey." />
-                                <div className="flex-1 px-10 py-6">
-                                    <Box className="w-full max-w-[1104px] h-[82px] pt-6  flex flex-col gap-1">
+                                <div className="flex-1 px-6 py-4 sm:px-6 md:px-8 lg:px-10 w-full max-w-[1104px]">
+                                    <Box className="w-full max-w-[1104px] h-[82px] pt-4  md:pt-6 flex flex-col gap-2">
                                         <h3 className="text-sm text-500!">Medical Conditions</h3>
-                                        <p className="w-[328px] h-[32px] text-xs font-weight-[400] font-normal text-[#6B7280]">
+                                        <p className="w-full md:max-w-[328px] h-[32px] text-xs md:text-sm font-weight-[400] font-normal text-[#6B7280]">
                                             Add your basic health information to help healthcare
                                             providers serve you better.
                                         </p>
                                     </Box>
-                                    <Box className="grid grid-cols-2 gap-10 pt-8 w-full max-w-[1104px]">
+                                    <Box className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 lg:gap-10 pt-6 md:pt-8 w-full max-w-[1104px]">
                                         <MedicalInput
-                                        label="Allergies"
-                                        name="allergies"
-                                        values={values}
-                                        setFieldValue={setFieldValue}
-                                        options={allergyOptions}
-                                        placeholder="Enter your allergies"
-                                        icon="tabler:virus"
-                                    />
+                                            label="Allergies"
+                                            name="allergies"
+                                            values={values}
+                                            setFieldValue={setFieldValue}
+                                            options={allergyOptions}
+                                            placeholder="Enter your allergies"
+                                            icon="tabler:virus"
+                                        />
 
-                                    <MedicalInput
-                                        label="Existing Conditions"
-                                        name="conditions"
-                                        values={values}
-                                        setFieldValue={setFieldValue}
-                                        options={conditionOptions}
-                                        placeholder="Enter your existing conditions"
-                                        icon="tabler:stethoscope"
-                                    />
+                                        <MedicalInput
+                                            label="Existing Conditions"
+                                            name="conditions"
+                                            values={values}
+                                            setFieldValue={setFieldValue}
+                                            options={conditionOptions}
+                                            placeholder="Enter your existing conditions"
+                                            icon="tabler:stethoscope"
+                                        />
 
-                                    <MedicalInput
-                                        label="Previous Surgeries"
-                                        name="surgeries"
-                                        values={values}
-                                        setFieldValue={setFieldValue}
-                                        options={surgeryOptions}
-                                        placeholder="Enter your previous surgeries"
-                                        icon="tabler:first-aid-kit"
-                                    />
+                                        <MedicalInput
+                                            label="Previous Surgeries"
+                                            name="surgeries"
+                                            values={values}
+                                            setFieldValue={setFieldValue}
+                                            options={surgeryOptions}
+                                            placeholder="Enter your previous surgeries"
+                                            icon="tabler:first-aid-kit"
+                                        />
 
-                                    <MedicalInput
-                                        label="Current Medications"
-                                        name="medications"
-                                        values={values}
-                                        setFieldValue={setFieldValue}
-                                        options={medicationOptions}
-                                        placeholder="Enter your current medications"
-                                        icon="tabler:pill"
-                                    />
+                                        <MedicalInput
+                                            label="Current Medications"
+                                            name="medications"
+                                            values={values}
+                                            setFieldValue={setFieldValue}
+                                            options={medicationOptions}
+                                            placeholder="Enter your current medications"
+                                            icon="tabler:pill"
+                                        />
                                     </Box>
-                                    <Box className="w-full max-w-[1104px] mt-10">
+                                    <Box className="w-full max-w-[1104px] mt-6 md:mt-8  lg:mt-10">
                                         <UploadFiles
                                             title="Upload Files"
                                             uploadText="Drag and drop your medical records here, or"

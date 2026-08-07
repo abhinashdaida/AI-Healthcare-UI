@@ -9,27 +9,30 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useFormikContext } from "formik";
-import insuranceCard from "../../../../../assets/image.png";
-import frontCard from "../../../../../assets/CardFront.png";
+import insuranceCard from "../../../../assets/image.png"
+
 
 const WhatToUpload = ({ open, handleClose }) => {
     const { values } = useFormikContext();
     return (
         <Dialog open={open} onClose={handleClose} PaperProps={{
-            sx: {
-               width: "480px",
-      maxWidth: "480px",
-      height: "463px",
-      maxHeight: "463px",
-      borderRadius: "8px",
-      p: "0px",
-      overflow: "hidden",
-            },
-        }}>
-            <DialogContent className="w-full max-w-[480px] h-[415px] gap-[24px] flex flex-col">
-                <Box className="flex justify-between items-start">
+  sx: {
+    width: {
+      xs: "95%",
+      sm: "90%",
+      md: 480,
+    },
+    maxWidth: 480,
+    borderRadius: 2,
+    p: 0,
+    overflow: "hidden",
+    m: 2,
+  },
+}}>
+            <DialogContent className=" flex flex-col gap-6 p-6">
+                <Box className="flex justify-between items-start gap-3">
 
-                    <Box>
+                    <Box className="flex-1">
 
                         <Typography
                             sx={{
@@ -60,16 +63,25 @@ const WhatToUpload = ({ open, handleClose }) => {
 
                 </Box>
 
-                <Box className="w-full max-w-[432px] h-[150px] flex justify-center gap-5 mt-6">
-                    <Box className="w-[208px]  h-[150px]flex flex-col items-center">
-                        <Box className="w-[206px] h-[126px] rounded-md bg-[#47ABA9] border  border-[#A7E6E3] p-2 relative overflow-hidden">
+<Box
+  className="
+    mt-6
+    flex
+    flex-col
+    sm:flex-row
+    gap-5
+    justify-center
+    items-center
+  "
+>                    <Box className="w-full sm:w-[208px]  h-[150px]flex flex-col items-center">
+                        <Box className="w-full max-w-[206px] h-[126px] rounded-md bg-[#47ABA9] border  border-[#A7E6E3] p-2 relative overflow-hidden">
 
                             {/* <img src={frontCard} alt="profile" className="w-full h-full object-cover" /> */}
 
-                           
-                                <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter" />
 
-                           
+                            <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter" />
+
+
                             <Box className="flex justify-between items-center relative z-8">
                                 <Typography className="text-white text-[11px] font-bold">
                                     INSURANCE
@@ -80,16 +92,16 @@ const WhatToUpload = ({ open, handleClose }) => {
                                     <Box className="w-[18px] h-[2px] top-[11px] left-[12px] bg-[#71C5C2]" />
                                     <Box className="w-[18px] h-[2px] top-[14px] left-[12px] bg-[#71C5C2]" />
                                 </Box>
-                                                                   <Icon icon="mingcute:cross-fill" color="#71C5C2" width={10} height={10} className="absolute top-[6px] left-[182px]" />
+                                <Icon icon="mingcute:cross-fill" color="#71C5C2" width={10} height={10} className="absolute top-[6px] left-[182px]" />
 
                             </Box>
 
-                          
+
                             <Box className="absolute left-[8px] top-[54px]">
-                               <Icon icon="mingcute:cross-fill" color="#71C5C2" width={21} height={21} />
+                                <Icon icon="mingcute:cross-fill" color="#71C5C2" width={21} height={21} />
                             </Box>
 
-                            
+
                             <Box className="mt-11 space-y-1 top-[82px]">
                                 <Box className="w-[95px] h-[10px] top-[82px] rounded bg-[#C9ECEB]" />
                                 <Box className="w-[70px] h-[4px] rounded bg-[#91E2DF]" />
@@ -97,14 +109,14 @@ const WhatToUpload = ({ open, handleClose }) => {
                                 <Box className="w-[65px] h-[4px] rounded bg-[#91E2DF]" />
                             </Box>
 
-                            
+
                             <Box className="absolute right-3 bottom-2 w-[46px] h-[58px] rounded bg-[#E6F7F7] overflow-hidden">
                                 <img
                                     src={insuranceCard}
                                     alt="profile"
                                     className="w-full h-full object-cover"
                                 />
-                            </Box> 
+                            </Box>
 
                         </Box>
 
@@ -112,11 +124,11 @@ const WhatToUpload = ({ open, handleClose }) => {
                             Front side
                         </Typography>
                     </Box>
-                    <Box className="w-[208px]  h-[150px] flex flex-col items-center">
-                        <Box className="w-[206px] h-[126px] rounded-md bg-[#47ABA9] border border-[#A7E6E3] p-2 relative overflow-hidden">
+                    <Box className="w-full sm:w-[208px]  h-[150px] flex flex-col items-center">
+                        <Box className="w-full max-w-[206px] h-[126px] rounded-md bg-[#47ABA9] border border-[#A7E6E3] p-2 relative overflow-hidden">
 
                             {/* Background */}
-                             <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter"  />
+                            <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter" />
 
                             {/* Header */}
                             <Box className="flex justify-between items-center relative z-10">

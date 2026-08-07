@@ -9,7 +9,7 @@ import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
 import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
 import ReviewComplete from "./pages/Registration/Patient/Medical-records/Review/review.js";
-
+import CreateLoginid from "./pages/Registration/Patient/Medical-records/CreateLoginId/Createloginid";
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
             <Route path="/medical-conditions" element={<MedicalConditions />} />
             <Route path="/insurance" element={<Insurance />} />
             <Route path="/reviewdetails" element={<ReviewComplete />} />
+            <Route path="/createloginid" element={<CreateLoginid/>}/>
           </Routes>
         </GlobalConfigView>
       </div>

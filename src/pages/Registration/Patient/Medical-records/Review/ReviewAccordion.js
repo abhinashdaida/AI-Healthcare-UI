@@ -10,17 +10,32 @@ const ReviewAccordion = ({
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     return (
-        <Box className="mb-6">
+        <Box className="mb-4 md:mb-6">
 
             {/* Accordion Header */}
             <button
                 type="button"
                 onClick={() => setExpanded(!expanded)}
-                className="w-full flex items-center justify-between py-2 text-left"
+                className="
+                    w-full
+                    flex
+                    items-center
+                    justify-between
+                    py-2
+                    md:py-3
+                    text-left
+                "
             >
-                <h2 className="text-lg font-semibold text-[#111827]">
+                <h5
+                    className="
+                        text-sm
+                        md:text-base
+                        font-medium
+                        text-[#0B1117]
+                    "
+                >
                     {title}
-                </h2>
+                </h5>
 
                 <Icon
                     icon={
@@ -29,13 +44,13 @@ const ReviewAccordion = ({
                             : "tabler:chevron-down"
                     }
                     width={20}
-                    className="text-[#6B7280]"
+                    className="text-[#6B7280] md:w-6 md:h-6"
                 />
             </button>
 
             {/* Accordion Content */}
             {expanded && (
-                <Box className="mt-6">
+                <Box className="mt-4 md:mt-6">
                     {children}
                 </Box>
             )}

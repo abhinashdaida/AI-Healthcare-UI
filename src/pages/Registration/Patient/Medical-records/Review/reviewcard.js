@@ -12,7 +12,7 @@ const ReviewCard = ({
             className="
                 bg-white
                 border
-                border-[#E5E7EB]
+                border-[#F2F2F2]
                 rounded-xl
                 shadow-sm
                 overflow-hidden
@@ -32,26 +32,14 @@ const ReviewCard = ({
                         />
                     </Box>
 
-                    <h3 className="text-xl font-semibold text-[#1F2937]">
+                    <h5 className="text-xS font-500 font-medium text-[#0B1117]">
                         {title}
-                    </h3>
+                    </h5>
 
                 </Box>
 
                 <button
-                    className="
-    flex
-    items-center
-    gap-1
-    bg-[#ECFEFF]
-    text-[#14B8A6]
-    px-3
-    py-1.5
-    rounded-md
-    text-sm
-    font-medium
-"
-                >
+                    className="flex items-center gap-1 bg-[#ECFEFF] text-[#14B8A6] px-3 py-1.5 rounded-md text-sm font-medium">
                     <Icon
                         icon="tabler:edit"
                         width={16}
@@ -85,8 +73,9 @@ const ReviewCard = ({
                                 {item.label}
                             </p>
 
-                            <p className="text-base font-semibold text-[#111827]">
-                            </p>
+                            <h5 className="text-xs font-medium text-[#0B1117]">
+                                {item.value}
+                            </h5>
 
                         </Box>
 

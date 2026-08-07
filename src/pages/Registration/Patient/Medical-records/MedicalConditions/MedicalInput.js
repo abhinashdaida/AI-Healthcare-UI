@@ -93,8 +93,10 @@ const MedicalInput = ({
                     value={search}
                     placeholder={placeholder}
                     onChange={(e) => setSearch(e.target.value)}
-                    InputProps={{
+                    slotProps={{
+                        input:{
                         disableUnderline: true,
+                        },
                     }}
                     sx={{
                         "& .MuiInput-root:before": {

@@ -1,90 +1,126 @@
-import {
-  Card,
-  Typography,
-  Divider,
-  Box,
-  Button,
-} from "@mui/material";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import React from "react";
+import { Card, Typography, Box, Divider } from "@mui/material";
 import { Icon } from "@iconify/react";
+import React from "react";
 
-const DocumentCard = ({
-  files,
-}) => {
-  return (
-    <Card
-      sx={{
-        borderRadius: "12px",
-        border: "1px solid #E5E7EB",
-        boxShadow: "none",
-        height: "205px",
-      }}
-    >
-      <Box
-        sx={{
-          px: 3,
-          py: 2,
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Icon icon="tabler:file-text" width={24} height={24} />
-        <Typography fontWeight={500}>
-          Uploaded Documents
-        </Typography>
-
-        <Button
-          size="small"
-          sx={{
-            color: "#16B3AC",
-            textTransform: "none",
-          }}
+const ReviewDocumentCard = ({ title, files }) => {
+    return (
+        <Card
+            sx={{
+                borderRadius: "12px",
+                border: "1px solid #E5E7EB",
+                boxShadow: "none",
+                height: "100%",
+            }}
         >
-          Upload
-        </Button>
-      </Box>
-
-      <Divider />
-
-      <Box className="p-6">
-        <div className="grid grid-cols-2 gap-8">
-          {files.map((file) => (
-            <div
-              key={file.name}
-              className="flex gap-2"
+            {/* Header */}
+            <Box
+                className="
+                    p-4
+                    flex
+                    flex-col
+                    sm:flex-row
+                    justify-between
+                    items-start
+                    sm:items-center
+                    gap-3
+                "
             >
-              <DescriptionOutlinedIcon
-                sx={{
-                  color: "#16B3AC",
-                  fontSize: 18,
-                }}
-              />
+                <Box className="flex items-center gap-2">
+                    <Icon
+                        icon="tabler:file-text"
+                        width={18}
+                        color="#248B8F"
+                    />
 
-              <div>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                  }}
-                >
-                  {file.name}
-                </Typography>
+                    <h5 className="text-sm md:text-base font-medium text-[#0B1117]">
+                        {title}
+                    </h5>
+                </Box>
 
-                <Typography
-                  sx={{
-                    fontSize: "11px",
-                    color: "#98A2B3",
-                  }}
-                >
-                  PDF · 125 KB
-                </Typography>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Box>
-    </Card>
-  );
+                <Box className="flex items-center gap-1 cursor-pointer text-[#248B8F]">
+                    <Icon
+                        icon="ic:round-plus"
+                        width={18}
+                        color="#248B8F"
+                    />
+
+                    <Typography
+                        sx={{
+                            color: "#248B8F",
+                            fontSize: {
+                                xs: "13px",
+                                md: "14px",
+                            },
+                        }}
+                    >
+                        Upload
+                    </Typography>
+                </Box>
+            </Box>
+
+            <Divider />
+
+            {/* Files */}
+            <Box
+                className="
+                    p-4
+                    grid
+                    grid-cols-1
+                    sm:grid-cols-2
+                    gap-4
+                "
+            >
+                {files?.map((file) => (
+                    <Box
+                        key={file.fileName}
+                        className="
+                            flex
+                            items-center
+                            gap-3
+                            w-full
+                            rounded-lg
+                            border
+                            border-gray-100
+                            p-2
+                        "
+                    >
+                        <Icon
+                            icon="teenyicons:pdf-solid"
+                            width={18}
+                            color="#248B8F"
+                        />
+
+                        <Box className="min-w-0">
+                            <Typography
+                                className="truncate"
+                                sx={{
+                                    fontWeight: 600,
+                                    fontSize: {
+                                        xs: "12px",
+                                        md: "13px",
+                                    },
+                                }}
+                            >
+                                {file.fileName}
+                            </Typography>
+
+                            <Typography
+                                sx={{
+                                    color: "#98A2B3",
+                                    fontSize: {
+                                        xs: "11px",
+                                        md: "12px",
+                                    },
+                                }}
+                            >
+                                PDF • {file.size}
+                            </Typography>
+                        </Box>
+                    </Box>
+                ))}
+            </Box>
+        </Card>
+    );
 };
 
-export default DocumentCard;
+export default ReviewDocumentCard;

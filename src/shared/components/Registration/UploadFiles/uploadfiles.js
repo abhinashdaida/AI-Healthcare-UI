@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { FILE_ERRORS, FILE_TYPES, MAX_SIZE } from "./uploadConstants";
-import WhatToUpload from "../../Insurance/whattoupload";
+import WhatToUpload from "../PopUp/whattoupload";
 
 export default function UploadFiles({
     title = "Upload Files",
@@ -139,11 +139,14 @@ export default function UploadFiles({
 
             {/* Bottom */}
 
-            <Stack
-                direction="row"
-                justifyContent="space-between"
-                mt={2}
-                mb={3}
+            <Box
+               sx={{
+                display:"flex",
+                justifyContent:"space-between",
+                alignItems:"center",
+                mt:2,
+                mb:3
+               }}
             >
                 <Typography
                     sx={{
@@ -164,7 +167,7 @@ export default function UploadFiles({
                     Maximum size: 2MB
                     {maxFiles && ` | Upload up to ${maxFiles} files`}
                 </Typography>
-            </Stack>
+            </Box>
             {/* Error */}
 
             {error && (
