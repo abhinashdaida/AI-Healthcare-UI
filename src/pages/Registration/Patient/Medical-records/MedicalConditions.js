@@ -1,32 +1,27 @@
 import { Formik } from "formik";
 import { Box } from "@mui/material";
 import React from "react";
-import { medicalValidation } from "./validation";
+import { medicalValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations"; 
 import { Icon } from "@iconify/react";
-import MedicalInput from "./MedicalInput";
+import ReusableChipInput from "@/shared/components/Registration/form/FormChipInput";
 import {
     allergyOptions,
     conditionOptions,
     surgeryOptions,
     medicationOptions,
-} from "../../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
+} from "../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/layout/Footer";
-import Sidebar from "../../components/layout/SiderBar";
-import FormHeader from "../../components/layout/FormHeader";
-import UploadFiles from "../../../../../shared/components/Registration/UploadFiles/uploadfiles";
+import Footer from "../../../../shared/components/Registration/layout/Footer";
+import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
+import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
 
 const MedicalRecords = () => {
     const navigate = useNavigate();
 
-    const handleUpload = async (validateForm, submitForm) => {
-        const errors = await validateForm();
-        if (Object.keys(errors).length > 0) {
-            console.log("Validation Errors:", errors);
-            return;
-        }
-        submitForm();
+    const handleUpload = async () => {
+        console.log("Upload & continue")
         navigate("/insurance");
     };
 
@@ -58,33 +53,15 @@ const MedicalRecords = () => {
         console.log(values);
     };
 
+    
+
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={medicalValidation}
             onSubmit={handleSubmit}
         >
-            {({
-
-                values,
-                setFieldValue,
-                validateForm,
-                submitForm,
-                errors,
-                handleSubmit
-
-            }) => {
-                const footerConfig = {
-                    showSkipButton: true,
-                    onSkipClick: handleSkip,
-                    onAutoSaveClick: handleAutoSave,
-                    primaryButtonLabel: "Upload & Continue",
-                    onPrimaryClick: () => handleUpload(validateForm, submitForm),
-                    primaryButtonDisabled: false,
-                };
-                return (
-
-                    <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
+            <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                         <div className="w-full
                         max-w-[1440px]
                         bg-white
@@ -110,41 +87,33 @@ const MedicalRecords = () => {
                                         </p>
                                     </Box>
                                     <Box className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 lg:gap-10 pt-6 md:pt-8 w-full max-w-[1104px]">
-                                        <MedicalInput
+                                        <ReusableChipInput
                                             label="Allergies"
                                             name="allergies"
-                                            values={values}
-                                            setFieldValue={setFieldValue}
                                             options={allergyOptions}
                                             placeholder="Enter your allergies"
                                             icon="tabler:virus"
                                         />
 
-                                        <MedicalInput
+                                        <ReusableChipInput
                                             label="Existing Conditions"
                                             name="conditions"
-                                            values={values}
-                                            setFieldValue={setFieldValue}
                                             options={conditionOptions}
                                             placeholder="Enter your existing conditions"
                                             icon="tabler:stethoscope"
                                         />
 
-                                        <MedicalInput
+                                        <ReusableChipInput
                                             label="Previous Surgeries"
                                             name="surgeries"
-                                            values={values}
-                                            setFieldValue={setFieldValue}
                                             options={surgeryOptions}
                                             placeholder="Enter your previous surgeries"
                                             icon="tabler:first-aid-kit"
                                         />
 
-                                        <MedicalInput
+                                        <ReusableChipInput
                                             label="Current Medications"
                                             name="medications"
-                                            values={values}
-                                            setFieldValue={setFieldValue}
                                             options={medicationOptions}
                                             placeholder="Enter your current medications"
                                             icon="tabler:pill"
@@ -159,12 +128,19 @@ const MedicalRecords = () => {
                                         />
                                     </Box>
                                 </div>
-                                <Footer config={footerConfig} />
+                                <Footer config={{
+          showSkipButton: true,
+          onSkipClick: handleSkip,
+          onAutoSaveClick: handleAutoSave,
+          primaryButtonLabel: "Upload & Continue",
+          onPrimaryClick: () => handleUpload(),
+          primaryButtonDisabled: false,
+        }} />
                             </main>
                         </div>
                     </div>
-                );
-            }}
+               
+           
         </Formik>
     );
 };

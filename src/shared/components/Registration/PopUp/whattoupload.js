@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useFormikContext } from "formik";
-import insuranceCard from "../../../../assets/image.png"
-
+import insuranceCard from "../../../../assets/image.png";
+import FrontCard from "../../../../assets/CardFront.png";
+import BackCard from "../../../../assets/CardBack.png";
 
 const WhatToUpload = ({ open, handleClose }) => {
     const { values } = useFormikContext();
@@ -76,47 +77,10 @@ const WhatToUpload = ({ open, handleClose }) => {
 >                    <Box className="w-full sm:w-[208px]  h-[150px]flex flex-col items-center">
                         <Box className="w-full max-w-[206px] h-[126px] rounded-md bg-[#47ABA9] border  border-[#A7E6E3] p-2 relative overflow-hidden">
 
-                            {/* <img src={frontCard} alt="profile" className="w-full h-full object-cover" /> */}
+                            <img src={FrontCard} alt="profile" className="w-full h-full object-cover" /> 
 
 
-                            <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter" />
-
-
-                            <Box className="flex justify-between items-center relative z-8">
-                                <Typography className="text-white text-[11px] font-bold">
-                                    INSURANCE
-                                </Typography>
-
-                                <Box className="flex flex-col left-[12px] top-[6px]">
-                                    <Box className="w-[18PX] h-[4px] top-[6px] left-[12px] bg-[#71C5C2]" />
-                                    <Box className="w-[18px] h-[2px] top-[11px] left-[12px] bg-[#71C5C2]" />
-                                    <Box className="w-[18px] h-[2px] top-[14px] left-[12px] bg-[#71C5C2]" />
-                                </Box>
-                                <Icon icon="mingcute:cross-fill" color="#71C5C2" width={10} height={10} className="absolute top-[6px] left-[182px]" />
-
-                            </Box>
-
-
-                            <Box className="absolute left-[8px] top-[54px]">
-                                <Icon icon="mingcute:cross-fill" color="#71C5C2" width={21} height={21} />
-                            </Box>
-
-
-                            <Box className="mt-11 space-y-1 top-[82px]">
-                                <Box className="w-[95px] h-[10px] top-[82px] rounded bg-[#C9ECEB]" />
-                                <Box className="w-[70px] h-[4px] rounded bg-[#91E2DF]" />
-                                <Box className="w-[55px] h-[4px] rounded bg-[#91E2DF]" />
-                                <Box className="w-[65px] h-[4px] rounded bg-[#91E2DF]" />
-                            </Box>
-
-
-                            <Box className="absolute right-3 bottom-2 w-[46px] h-[58px] rounded bg-[#E6F7F7] overflow-hidden">
-                                <img
-                                    src={insuranceCard}
-                                    alt="profile"
-                                    className="w-full h-full object-cover"
-                                />
-                            </Box>
+                            
 
                         </Box>
 
@@ -127,38 +91,7 @@ const WhatToUpload = ({ open, handleClose }) => {
                     <Box className="w-full sm:w-[208px]  h-[150px] flex flex-col items-center">
                         <Box className="w-full max-w-[206px] h-[126px] rounded-md bg-[#47ABA9] border border-[#A7E6E3] p-2 relative overflow-hidden">
 
-                            {/* Background */}
-                            <Box className="absolute top-[-0.5px] w-[202.5px] h-[128px] bg-[#092B2D] opacity-20 mix-blend-plus-lighter" />
-
-                            {/* Header */}
-                            <Box className="flex justify-between items-center relative z-10">
-
-                                <Box className="flex items-center gap-1">
-                                    <Box className="w-4 h-[2px] bg-[#71C5C2]" />
-                                    <Box className="w-2 h-[6px] bg-[#71C5C2]" />
-                                    <Box className="w-[6px] h-[2px] bg-[#71C5C2]" />
-                                </Box>
-
-                                <Typography className="text-white text-[11px] font-bold">
-                                    INSURANCE
-                                </Typography>
-
-                            </Box>
-
-                            {/* White Strip */}
-                            <Box className="mt-4 w-full h-[8px] rounded bg-[#DDF9F8]" />
-
-                            {/* Text */}
-                            <Box className="mt-8 space-y-1">
-                                <Box className="w-[70px] h-[4px] rounded bg-[#91E2DF]" />
-                                <Box className="w-[60px] h-[4px] rounded bg-[#91E2DF]" />
-                                <Box className="w-[75px] h-[4px] rounded bg-[#91E2DF]" />
-                            </Box>
-
-                            {/* Cross */}
-                            <Box className="absolute top-[68px] left-[149px]">
-                                <Icon icon="mingcute:cross-fill" color="#71C5C2" width={41} height={41} />
-                            </Box>
+                            <img src={BackCard} alt="profile" className="w-full h-full object-cover" /> 
 
                         </Box>
 

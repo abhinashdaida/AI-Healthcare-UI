@@ -6,10 +6,10 @@ import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
-import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions/MedicalConditions.js";
-import Insurance from "./pages/Registration/Patient/Medical-records/Insurance/Insurance.js";
-import ReviewComplete from "./pages/Registration/Patient/Medical-records/Review/review.js";
-import CreateLoginId from "./pages/Registration/Patient/Medical-records/CreateLoginId/Createloginid";
+import MedicalConditions from "./pages/Registration/Patient/Medical-records/MedicalConditions.js";
+import Insurance from "./pages/Registration/Patient/Medical-records/Insurance.js";
+import ReviewComplete from "./pages/Registration/Patient/Medical-records/review.js";
+import CreateLoginId from "./pages/Registration/Patient/Medical-records/Createloginid";
 
 function App() {
   return (

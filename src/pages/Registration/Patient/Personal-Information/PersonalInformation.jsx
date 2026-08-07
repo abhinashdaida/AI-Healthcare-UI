@@ -1,7 +1,7 @@
 import React from "react";
-import FormHeader from "../components/layout/FormHeader";
-import SiderBar from "../components/layout/SiderBar";
-import Footer from "../components/layout/Footer";
+import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
+import SiderBar from "../../../../shared/components/Registration/layout/SiderBar";
+import Footer from "../../../../shared/components/Registration/layout/Footer";
 
 const PersonalInformation = () => {
   const handleUpload = () => {

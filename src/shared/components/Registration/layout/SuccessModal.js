@@ -7,6 +7,7 @@ import {
 import React from "react";
 import InfoRow from "./InfoRow";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 export default function SuccessModal({
     open,
@@ -14,6 +15,7 @@ export default function SuccessModal({
     email,
     mobile,
 }) {
+    const navigate=useNavigate();
     const maskPhone = (phone) => {
         if (!phone) return "";
 
@@ -102,10 +104,11 @@ export default function SuccessModal({
                     }}>
 
 
-                        <Typography
+                        <Typography 
                             variant="h5"
-                            textAlign="center"
-                            mb={4}
+                            sx={{textAlign:"center",
+                            mb:4
+                            }}
                         >
                             Thank you!
                         </Typography>
@@ -173,11 +176,12 @@ export default function SuccessModal({
                     </Typography>
                 </Box>
                 <Box
-                    display="flex"
-                    flexDirection="row"
-                    gap={2}
+                    
                     
                     sx={{
+                        display:"flex",
+                    flexDirection:"row",
+                    gap:2,
                         width: "416px",
                         height: "48px",
                         display: "flex",
@@ -223,7 +227,7 @@ export default function SuccessModal({
                             px: 3,           // 24px left & right
                             textTransform: "none",
                         }}
-                    
+                    onClick={()=>navigate("/medical-conditions")}
                     >
                         Go to Dashboard
                     </Button>
