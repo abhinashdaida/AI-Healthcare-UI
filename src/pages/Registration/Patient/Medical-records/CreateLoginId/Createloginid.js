@@ -9,24 +9,46 @@ import Footer from "../../components/layout/Footer";
 import SuggestedIdCard from "./SuggestedIdCard";
 import { createLoginValidation } from "./validation";
 import { pageContent, idPrefix, statusMessages } from "./constants";
-import { validateId, generateSuggestionsForValue } from "./idGenerator";
+import { generateId, validateId, generateSuggestionsForValue } from "./idGenerator";
 
 const CreateLoginId = () => {
+    // Generate initial default plain ID
+    const getInitialId = () => {
+        const defaultFullId = generateId(idPrefix).toUpperCase();
+        return defaultFullId.replace(`${idPrefix}-`, "");
+    };
+
+    const initialId = getInitialId();
+
     // Suggested IDs
-    const [suggestedIds, setSuggestedIds] = useState([]);
+    const [suggestedIds, setSuggestedIds] = useState(() =>
+        generateSuggestionsForValue(initialId, idPrefix)
+    );
 
     // Selected MediConnect ID
-    const [selectedId, setSelectedId] = useState("");
+    const [selectedId, setSelectedId] = useState(initialId);
 
     // Status // checking // success // error
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState(() =>
+        validateId(`${idPrefix}-${initialId}`, idPrefix)
+    );
 
-    // Generate Initial Suggested IDs
-    useEffect(() => {
-        setSuggestedIds([]);
-        setSelectedId("");
-        setStatus("");
-    }, []);
+    const handleUpload = async (validateForm, submitForm) => {
+        const errors = await validateForm();
+        if (Object.keys(errors).length > 0) {
+            console.log("Validation Errors:", errors);
+            return;
+        }
+        submitForm();
+    };
+ 
+    const handleSkip = () => {
+        console.log("skip btn click");
+    };
+ 
+    const handleAutoSave = () => {
+        console.log("auto save btn click");
+    };
 
     // Submit
     const handleSubmit = (values) => {
@@ -47,6 +69,8 @@ const CreateLoginId = () => {
                 values,
                 errors,
                 touched,
+                validateForm,
+                submitForm,
                 handleChange,
                 handleBlur,
                 setFieldValue,
@@ -91,8 +115,8 @@ const CreateLoginId = () => {
                                             bg-white
                                             ${
                                                 status === "success"
-                                                    ? "border-[#14B8A6]"
-                                                    : status === "error"
+                                                    ? "border-[#2BA39A]"
+                                                    : ["exists", "invalid-length", "invalid-format"].includes(status)
                                                     ? "border-[#EF4444]"
                                                     : "border-[#D1D5DB]"
                                             }
@@ -100,16 +124,36 @@ const CreateLoginId = () => {
                                     >
                                         {/* Prefix */}
                                         <Box
-                                            className="
+                                            className={`
                                                 w-[56px]
                                                 h-full
                                                 flex
                                                 items-center
                                                 justify-center
-                                                bg-[#2BA39A]
-                                            "
+                                                transition-all
+                                                duration-200
+                                                ${
+                                                    status === "success"
+                                                        ? "bg-[#2BA39A]"
+                                                        : ["exists", "invalid-length", "invalid-format"].includes(status)
+                                                        ? "bg-[#EF4444]"
+                                                        : "bg-[#E5E7EB]"
+                                                }
+                                            `}
                                         >
-                                            <span className="text-[14px] font-semibold text-white">
+                                            <span
+                                                className={`
+                                                    text-[14px]
+                                                    font-semibold
+                                                    transition-all
+                                                    duration-200
+                                                    ${
+                                                        status === "success" || ["exists", "invalid-length", "invalid-format"].includes(status)
+                                                            ? "text-white"
+                                                            : "text-[#374151]"
+                                                    }
+                                                `}
+                                            >
                                                 {idPrefix}
                                             </span>
                                         </Box>
@@ -140,7 +184,7 @@ const CreateLoginId = () => {
                                                     setSuggestedIds(ids);
 
                                                     setStatus(
-                                                        validateId(`${idPrefix}-${value}`)
+                                                        validateId(`${idPrefix}-${value}`, idPrefix)
                                                     );
                                                 } else {
                                                     setSuggestedIds([]);
@@ -173,11 +217,11 @@ const CreateLoginId = () => {
                                                 <Icon
                                                     icon="tabler:circle-check-filled"
                                                     width={20}
-                                                    className="text-[#14B8A6]"
+                                                    className="text-[#2BA39A]"
                                                 />
                                             )}
 
-                                            {status === "error" && (
+                                            {["exists", "invalid-length", "invalid-format"].includes(status) && (
                                                 <Icon
                                                     icon="tabler:circle-x-filled"
                                                     width={20}
@@ -196,14 +240,26 @@ const CreateLoginId = () => {
                                         )}
 
                                         {status === "success" && (
-                                            <p className="text-[13px] text-[#16A34A]">
-                                                {statusMessages.available(`${idPrefix}-${selectedId}`)}
+                                            <p className="text-[13px] text-[#2BA39A]">
+                                                {statusMessages.available}
                                             </p>
                                         )}
 
-                                        {status === "error" && (
+                                        {status === "exists" && (
                                             <p className="text-[13px] text-[#EF4444]">
-                                                {statusMessages.exists(`${idPrefix}-${selectedId}`)}
+                                                {statusMessages.exists}
+                                            </p>
+                                        )}
+
+                                        {status === "invalid-length" && (
+                                            <p className="text-[13px] text-[#EF4444]">
+                                                MediConnect ID must contain at least 6 characters.
+                                            </p>
+                                        )}
+
+                                        {status === "invalid-format" && (
+                                            <p className="text-[13px] text-[#EF4444]">
+                                                Only letters and numbers are allowed.
                                             </p>
                                         )}
                                     </Box>
@@ -268,7 +324,7 @@ const CreateLoginId = () => {
                                                     onClick={() => {
                                                         setFieldValue("mediConnectId", plainId);
                                                         setSelectedId(plainId);
-                                                        setStatus(validateId(id));
+                                                        setStatus(validateId(id, idPrefix));
                                                     }}
                                                 />
                                             );
@@ -279,7 +335,8 @@ const CreateLoginId = () => {
                                 {/* Important To Know */}
                                 <Box
                                     className="
-                                        mt-10
+                                        mt-12
+                                        mb-10
                                         max-w-[480px]
                                         rounded-2xl
                                         border
@@ -288,26 +345,13 @@ const CreateLoginId = () => {
                                         p-6
                                     "
                                 >
-                                    <Box className="flex items-start gap-4">
+                                    <Box className="flex items-start gap-3">
                                         {/* Icon */}
-                                        <Box
-                                            className="
-                                                w-10
-                                                h-10
-                                                rounded-full
-                                                bg-[#E6F4F2]
-                                                flex
-                                                items-center
-                                                justify-center
-                                                shrink-0
-                                            "
-                                        >
-                                            <Icon
-                                                icon="tabler:lock"
-                                                width={20}
-                                                className="text-[#2BA39A]"
-                                            />
-                                        </Box>
+                                        <Icon
+                                            icon="tabler:lock"
+                                            width={20}
+                                            className="text-[#4B5563] shrink-0 mt-0.5"
+                                        />
 
                                         {/* Content */}
                                         <Box>
@@ -323,10 +367,14 @@ const CreateLoginId = () => {
                             </div>
 
                             {/* Footer */}
-                            <Footer
-                                onSave={formikSubmit}
-                                buttonText="Set Password"
-                            />
+                            <Footer config={{
+          showSkipButton: true,
+          onSkipClick: handleSkip,
+          onAutoSaveClick: handleAutoSave,
+          primaryButtonLabel: "Upload & Continue",
+          onPrimaryClick: () => handleUpload(validateForm, submitForm),
+          primaryButtonDisabled: false,
+        }} />
                         </main>
                     </div>
                 </div>

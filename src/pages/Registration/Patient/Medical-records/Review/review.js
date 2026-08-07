@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import FormHeader from "../../components/layout/FormHeader";
 import Footer from "../../components/layout/Footer";
-import { reviewData } from "./Reviewdata";
+//import { reviewData } from "./Reviewdata";
 import Sidebar from "../../components/layout/SiderBar";
 
 const cardStyle = {

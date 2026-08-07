@@ -11,8 +11,8 @@ export const createLoginValidation = Yup.object({
         .required("MediConnect ID is required.")
 
         .matches(
-            /^[A-Za-z0-9-]+$/,
-            "Only letters, numbers and '-' are allowed."
+            /^[A-Za-z0-9]+$/,
+            "Only letters and numbers are allowed."
         )
 
         .min(
