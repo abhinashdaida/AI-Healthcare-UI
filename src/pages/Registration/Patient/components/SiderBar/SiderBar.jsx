@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import { Icon } from "@iconify/react";
-import logo from "../../../../../assets/logo.png";
+import logo from "@assets/logo.png";
 const menuItems = [
   {
     label: "Personal Information",

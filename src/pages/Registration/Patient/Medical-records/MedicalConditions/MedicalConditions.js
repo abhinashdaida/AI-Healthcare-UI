@@ -12,9 +12,9 @@ import {
 } from "./constants";
 
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/layout/Footer";
-import Sidebar from "../../components/layout/SiderBar";
-import FormHeader from "../../components/layout/FormHeader";
+import Footer from "../../../../../shared/components/Patient/layout/Footer";
+import Sidebar from "../../components/SiderBar/SiderBar";
+import FormHeader from "../../../../../shared/components/Patient/layout/FormHeader";
 import UploadFiles from "../components/UploadFiles/uploadfiles";
 
 const MedicalRecords = () => {

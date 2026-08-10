@@ -44,6 +44,10 @@ const Footer = ({ config }) => {
                 borderColor: "#128789",
                 backgroundColor: "#F3FCFC",
               },
+              "&.Mui-disabled": {
+                backgroundColor: "#D1D5DB",
+                color: "#9CA3AF",
+              },
               "@media (min-width:600px)": {
                 width: "auto",
               },
@@ -62,40 +66,38 @@ const Footer = ({ config }) => {
                   w-full
                   sm:w-auto"
       >
-          <Button
-            variant="text"
-            disableRipple
-            onClick={onAutoSaveClick}
-            startIcon={
-              <Icon icon="tabler:cloud-upload" width="20" height="20" />
-            }
-            sx={{
-              width: "100%",
-              textTransform: "none",
-              minWidth: "auto",
-              padding: 0.8,
-              color: "#374151",
-              display: "flex",
-              alignItems: "center",
-              "@media (min-width:600px)": {
-                width: "auto",
-              },
-              "&:hover": {
-                backgroundColor: "#F1F5F9",
-              },
-            }}
-          >
-            <Box className="flex flex-col items-start">
-              <Typography className="text-[14px]! text-gray-500!">
-                Auto-Saved
-              </Typography>
+        <Button
+          variant="text"
+          disableRipple
+          onClick={onAutoSaveClick}
+          startIcon={<Icon icon="tabler:cloud-upload" width="20" height="20" />}
+          sx={{
+            width: "100%",
+            textTransform: "none",
+            minWidth: "auto",
+            padding: 0.8,
+            color: "#374151",
+            display: "flex",
+            alignItems: "center",
+            "@media (min-width:600px)": {
+              width: "auto",
+            },
+            "&:hover": {
+              backgroundColor: "#F1F5F9",
+            },
+          }}
+        >
+          <Box className="flex flex-col items-start">
+            <Typography className="text-[14px]! text-gray-500!">
+              Auto-Saved
+            </Typography>
 
-              <Typography className="text-[14px]! font-medium! text-gray-900!">
-                Just now
-              </Typography>
-            </Box>
-          </Button>
-       
+            <Typography className="text-[14px]! font-medium! text-gray-900!">
+              Just now
+            </Typography>
+          </Box>
+        </Button>
+
         <Button
           variant="contained"
           onClick={onPrimaryClick}

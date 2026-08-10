@@ -10,10 +10,10 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import FormHeader from "../../components/layout/FormHeader";
-import Footer from "../../components/layout/Footer";
+import FormHeader from "../../../../../shared/components/Patient/layout/FormHeader";
+import Footer from "../../../../../shared/components/Patient/layout/Footer";
 import { reviewData } from "./Reviewdata";
-import Sidebar from "../../components/layout/SiderBar";
+import Sidebar from "../../components/SiderBar/SiderBar";
 
 const cardStyle = {
     borderRadius: "12px",

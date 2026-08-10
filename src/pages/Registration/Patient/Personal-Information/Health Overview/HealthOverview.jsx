@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-import FormHeader from "../../components/layout/FormHeader";
-import SiderBar from "../../components/layout/SiderBar";
-import Footer from "../../components/layout/Footer";
+import FormHeader from "../../../../../shared/components/Patient/layout/FormHeader";
+import SiderBar from "../../components/SiderBar/SiderBar";
+import Footer from "../../../../../shared/components/Patient/layout/Footer";
 import { Typography } from "@mui/material";
 
 
