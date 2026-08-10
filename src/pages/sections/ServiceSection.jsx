@@ -9,7 +9,6 @@ const ServicesSection = () => {
       <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-0">
 
         {/* Heading */}
-
         <p className="text-[12px] font-medium uppercase tracking-wide text-[#0D8B72] mb-3">
           EVERYTHING YOU NEED FOR BETTER HEALTHCARE
         </p>
@@ -38,26 +37,26 @@ const ServicesSection = () => {
             color: "#141414",
             mb: {
               xs: "32px",
-              md: "40px",
+              md: "40px", 
               lg: "48px",
             },
           }}
         >
-          Access care, diagnostics, medicines, records, insurance, and
-          AI-powered health services from a{" "}
-          <span style={{ color: "#0D8B72" }}>
+          Access care, diagnostics, medicines, records,
+          <br />
+           insurance, and AI-powered health services from a{" "}
+           <br />
+          <span style={ { color: "#0D8B72" }}>
             single platform.
           </span>
         </Typography>
 
         {/* Cards */}
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
 
-          {SERVICES.map((service, index) => (
-
+          {SERVICES.map((service) => (
             <Box
-              key={index}
+              key={service.title}
               sx={{
                 width: {
                   xs: "100%",
@@ -87,14 +86,13 @@ const ServicesSection = () => {
               <div>
 
                 {/* Icon */}
-
                 <Box
                   sx={{
-                    width: "48px",
+                    width: "48px", 
                     height: "48px",
                     borderRadius: "12px",
                     background: "#EDF8F7",
-                    display: "flex",
+                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     mb: "24px",
@@ -108,7 +106,6 @@ const ServicesSection = () => {
                 </Box>
 
                 {/* Title */}
-
                 <Typography
                   sx={{
                     fontSize: {
@@ -126,7 +123,6 @@ const ServicesSection = () => {
                 </Typography>
 
                 {/* Description */}
-
                 <Typography
                   sx={{
                     fontSize: "13px",
@@ -140,9 +136,7 @@ const ServicesSection = () => {
               </div>
 
               {/* Arrow */}
-
               <div className="flex justify-end">
-
                 <IconButton
                   sx={{
                     width: "32px",
@@ -161,15 +155,12 @@ const ServicesSection = () => {
                     width={16}
                   />
                 </IconButton>
-
               </div>
 
             </Box>
-
           ))}
 
         </div>
-
       </div>
     </section>
   );

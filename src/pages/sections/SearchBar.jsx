@@ -8,6 +8,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
+
 import {
   LOCATIONS,
   POPULAR_SEARCHES,
@@ -41,27 +42,36 @@ const SearchBar = () => {
   };
 
   return (
-    <Box className="w-full max-w-[1140px] mx-auto pt-8 md:pt-10 px-4 sm:px-5 lg:px-0 flex flex-col gap-5 md:gap-6 box-border">
-      {/* Search Container */}
+    <Box
+      className="
+        w-full
+        max-w-[1140px]
+        mx-auto
+        px-4
+        sm:px-6
+        lg:px-8
+      "
+    >
+      {/* =========================================================
+          SEARCH CONTROLS
+      ========================================================= */}
       <Box
         className="
           w-full
-          border
-          border-[#E5E7EB]
-          rounded-2xl
-          bg-white
           flex
           flex-col
-          lg:flex-row
+          sm:flex-row
           items-stretch
-          lg:items-center
-          p-3
-          lg:p-2
           gap-3
-          shadow-[0_2px_10px_rgba(0,0,0,0.04)]
+
+          sm:items-center
+
+          lg:gap-3
         "
       >
-        {/* Location */}
+        {/* =======================================================
+            LOCATION
+        ======================================================= */}
         <Select
           value={location}
           displayEmpty
@@ -70,13 +80,28 @@ const SearchBar = () => {
           renderValue={(selected) =>
             selected || "Select Location"
           }
-          className="w-full lg:w-[190px]"
+          className="
+            w-full
+            sm:w-[180px]
+            md:w-[190px]
+            lg:w-[190px]
+            shrink-0
+          "
           sx={{
             height: 46,
             borderRadius: "12px",
+            backgroundColor: "#FFFFFF",
 
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: "#E5E7EB",
+            },
+
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#D1D5DB",
+            },
+
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#0F9D8A",
             },
 
             "& .MuiSelect-select": {
@@ -84,6 +109,9 @@ const SearchBar = () => {
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
+              color: "#374151",
+              paddingLeft: "42px",
+              paddingRight: "38px",
             },
 
             "& .MuiSelect-icon": {
@@ -93,7 +121,14 @@ const SearchBar = () => {
             },
           }}
           startAdornment={
-            <InputAdornment position="start">
+            <InputAdornment
+              position="start"
+              sx={{
+                position: "absolute",
+                left: "14px",
+                pointerEvents: "none",
+              }}
+            >
               <Icon
                 icon="famicons:location-outline"
                 width={18}
@@ -112,12 +147,19 @@ const SearchBar = () => {
           ))}
         </Select>
 
-        {/* Search Input */}
+        {/* =======================================================
+            SEARCH INPUT
+        ======================================================= */}
         <TextField
           fullWidth
           placeholder="Search Doctors, Specialities, Clinics and Hospitals..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="
+            w-full
+            sm:flex-1
+            min-w-0
+          "
           slotProps={{
             input: {
               startAdornment: (
@@ -136,22 +178,58 @@ const SearchBar = () => {
               height: 46,
               borderRadius: "12px",
               width: "100%",
+              backgroundColor: "#FFFFFF",
+            },
+
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#E5E7EB",
+            },
+
+            "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "#D1D5DB",
+              },
+
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "#0F9D8A",
+              },
+
+            "& input": {
+              fontSize: "14px",
+              minWidth: 0,
+              textOverflow: "ellipsis",
+            },
+
+            "& input::placeholder": {
+              color: "#9CA3AF",
+              opacity: 1,
             },
           }}
         />
 
-        {/* Search Button */}
+        {/* =======================================================
+            SEARCH BUTTON
+        ======================================================= */}
         <Button
           onClick={handleSearch}
-          className="w-full lg:w-[120px]"
+          className="
+            w-full
+            sm:w-[110px]
+            md:w-[115px]
+            lg:w-[120px]
+            shrink-0
+          "
           sx={{
             height: 46,
+            minWidth: 0,
             borderRadius: "12px",
             background: "#0F9D8A",
-            color: "#fff",
+            color: "#FFFFFF",
             textTransform: "none",
             fontWeight: 600,
             fontSize: "15px",
+            whiteSpace: "nowrap",
             flexShrink: 0,
 
             "&:hover": {
@@ -163,13 +241,48 @@ const SearchBar = () => {
         </Button>
       </Box>
 
-      {/* Popular Searches */}
-      <Box className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
-        <span className="text-[14px] font-medium text-[#111827] whitespace-nowrap">
+      {/* =========================================================
+          POPULAR SEARCHES
+      ========================================================= */}
+      <Box
+        className="
+          flex
+          flex-col
+          sm:flex-row
+          sm:items-start
+          lg:items-center
+
+          gap-2
+          sm:gap-3
+
+          mt-4
+          sm:mt-3
+        "
+      >
+        {/* Label */}
+        <span
+          className="
+            text-[13px]
+            sm:text-[14px]
+            font-medium
+            text-[#111827]
+            whitespace-nowrap
+            shrink-0
+          "
+        >
           Popular Searches:
         </span>
 
-        <Box className="flex flex-wrap gap-2 w-full">
+        {/* Search Tags */}
+        <Box
+          className="
+            flex
+            flex-wrap
+            gap-2
+            w-full
+            min-w-0
+          "
+        >
           {popularSearches.map((item) => (
             <Button
               key={item}
@@ -184,9 +297,12 @@ const SearchBar = () => {
                 border: "1px solid #E5E7EB",
                 textTransform: "none",
                 fontSize: "12px",
+                lineHeight: 1,
+                whiteSpace: "nowrap",
 
                 "&:hover": {
                   background: "#F3F4F6",
+                  borderColor: "#D1D5DB",
                 },
               }}
             >

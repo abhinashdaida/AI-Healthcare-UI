@@ -41,7 +41,6 @@ const ParticipantSection = () => {
       <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-0 flex flex-col items-center">
 
         {/* Heading */}
-
         <div className="text-center">
           <p className="text-[12px] font-medium uppercase tracking-[0.4px] text-[#0D8B72]">
             ONE CONNECTED HEALTHCARE NETWORK
@@ -60,18 +59,16 @@ const ParticipantSection = () => {
         </div>
 
         {/* Participants */}
-
         <div className="w-full mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-10 gap-x-6 lg:flex lg:justify-between lg:items-start relative">
 
-          {ecosystem.map((item, index) => (
+          {ecosystem.map((item) => (
             <div
-              key={index}
+              key={item.title}
               className="relative w-full lg:w-[150px] flex flex-col items-center text-center"
             >
 
               {/* Connector - Desktop Only */}
-
-              {index !== ecosystem.length - 1 && (
+              {item.title !== ecosystem[ecosystem.length - 1].title && (
                 <div className="hidden lg:flex absolute top-[30px] left-[calc(50%+30px)] items-center w-[calc(100%-60px+46px)] z-0">
                   <div className="flex-1 border-t border-dashed border-[#D9D9D9]" />
 
@@ -85,25 +82,20 @@ const ParticipantSection = () => {
               )}
 
               {/* Icon */}
-
               <div className="relative z-10 w-[60px] h-[60px] rounded-full border border-[#E5E7EB] bg-white shadow-[0px_2px_8px_rgba(0,0,0,0.08)] flex items-center justify-center">
-
                 <Icon
                   icon={item.icon}
                   width={28}
                   color="#0D8B72"
                 />
-
               </div>
 
               {/* Title */}
-
               <h3 className="mt-5 text-[16px] font-semibold leading-[24px] text-[#141414]">
                 {item.title}
               </h3>
 
               {/* Description */}
-
               <p className="mt-2 text-[12px] leading-[18px] text-[#666666] px-2 max-w-[150px]">
                 {item.desc}
               </p>
@@ -114,12 +106,10 @@ const ParticipantSection = () => {
         </div>
 
         {/* Button */}
-
         <div className="flex justify-center mt-[56px]">
-
           <Button
             variant="contained"
-            sx={{ 
+            sx={{
               width: "170px",
               height: "48px",
               backgroundColor: "#0D8B72",
@@ -136,7 +126,6 @@ const ParticipantSection = () => {
           >
             Explore Ecosystem
           </Button>
-
         </div>
 
       </div>

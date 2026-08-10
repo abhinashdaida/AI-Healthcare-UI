@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Menu,
   MenuItem,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import logo from "../../assets/Landingpage/logo.avif";
+
 
 const menuItems = [
   {
@@ -112,19 +114,19 @@ const Navbar = () => {
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <button className="flex items-center gap-2 px-6 h-[52px] rounded-xl bg-[#F3F8F7] text-[#0D7A5F] font-semibold transition">
-              <Icon
-                icon="lucide:user"
-                width={20}
-              />
+            <button
+              onClick={() => navigate("/signup")}
+              className="flex items-center gap-2 px-6 h-[52px] rounded-xl bg-[#F3F8F7] text-[#0D7A5F] font-semibold transition"
+            >
+              <Icon icon="lucide:user" width={20} />
               Sign up
             </button>
 
-            <button className="flex items-center gap-2 px-6 h-[52px] rounded-xl bg-[#0D7A5F] text-white font-semibold transition hover:bg-[#0A6851]">
-              <Icon
-                icon="lucide:user"
-                width={20}
-              />
+            <button
+              onClick={() => navigate("/login")}
+              className="flex items-center gap-2 px-6 h-[52px] rounded-xl bg-[#0D7A5F] text-white font-semibold transition hover:bg-[#0A6851]"
+            >
+              <Icon icon="lucide:user" width={20} />
               Login
             </button>
           </div>

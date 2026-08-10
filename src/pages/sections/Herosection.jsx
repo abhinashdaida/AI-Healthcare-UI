@@ -1,10 +1,12 @@
 import React from "react";
 import { Button, Chip, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
+ 
+
 
 // Replace with your actual image path
 import doctorImage from "../../assets/Landingpage/hero-doctor.avif";
-
+  
 const HeroSection = () => {
   return (
     <section className="relative w-full bg-white border-b border-[#F4F4F4] overflow-hidden">
@@ -42,14 +44,14 @@ const HeroSection = () => {
           <Typography
             variant="h1"
             className="
-              !mt-3.5
+              !mt-3.5  
               !text-[28px] sm:!text-[34px] lg:!text-[38px]
-              !font-extrabold
+              !font-bold
               !leading-[1.15]
               !text-[#111827]
               !tracking-tight
             "
-          >
+           >
             One Platform for the <br className="hidden sm:inline" />
             Entire <span className="text-[#0F766E]">Healthcare</span> <br className="hidden sm:inline" />
             Ecosystem
@@ -57,9 +59,9 @@ const HeroSection = () => {
 
           {/* Subtitle / Description */}
           <Typography
-            className="
+            className=" 
               !mt-3.5
-              !text-[13px] sm:!text-[14px]
+              !text-[13px] sm:!text-[14px] 
               !leading-[20px] sm:!leading-[22px]
               !text-[#4B5563]
               max-w-[420px]
@@ -131,7 +133,7 @@ const HeroSection = () => {
 
             {/* Verified Healthcare Experts */}
             <div className="flex items-center gap-1.5">
-              <Icon icon="si:verified-duotone" width={16} className="text-[#0F766E] shrink-0" />
+              <Icon icon="material-symbols:verified-outline" width={16} className="text-[#0F766E] shrink-0" />
               <div className="leading-none">
                 <span className="text-[10px] font-bold text-[#111827] block">Verified</span>
                 <span className="text-[9px] text-gray-500">Healthcare Experts</span>
@@ -149,7 +151,7 @@ const HeroSection = () => {
 
             {/* 24/7 Care */}
             <div className="flex items-center gap-1.5">
-              <Icon icon="material-symbols:headset-mic-rounded" width={16} className="text-[#0F766E] shrink-0" />
+              <Icon icon="carbon:headset" width={16} className="text-[#0F766E] shrink-0" />
               <div className="leading-none">
                 <span className="text-[10px] font-bold text-[#111827] block">24/7 Care</span>
                 <span className="text-[9px] text-gray-500">We're here for you</span>
@@ -169,17 +171,18 @@ const HeroSection = () => {
               src={doctorImage}
               alt="Doctor and Patient"
               className="w-full h-full object-contain relative z-10"
-            />
+            /> 
 
             {/* Bottom Gradient Fade */}
             <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-gradient-to-t from-white via-white/80 to-transparent z-15 pointer-events-none" />
 
             {/* Soft Teal Backdrop Glow */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[240px] sm:w-[300px] h-[120px] sm:h-[140px] bg-[#E6F7F5] rounded-full blur-[50px] pointer-events-none z-0 opacity-80" />
-          </div>
+          </div> ;
+
 
           {/* Floating Card 1: Find Doctors */}
-          <div className="absolute top-[60px] sm:top-[80px] left-[-5px] sm:left-[-10px] z-20 w-[130px] sm:w-[145px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
+          <div className="absolute top-[20px] sm:top-[40px] left-[-50px] sm:left-[-40px] z-20 w-[130px] sm:w-[145px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
             <div className="bg-[#E6F7F5] p-1.5 rounded-lg shrink-0">
               <Icon icon="icon-park-outline:appointment" width={15} className="text-[#0F766E]" />
             </div>
@@ -190,7 +193,7 @@ const HeroSection = () => {
           </div>
 
           {/* Floating Card 2: Consult Online */}
-          <div className="absolute top-[10px] right-[0px] sm:right-[10px] z-20 w-[145px] sm:w-[165px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
+          <div className="absolute top-[-10px] sm:top-[-20px] right-[0px] sm:right-[20px]  z-20 w-[145px] sm:w-[165px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
             <div className="bg-[#E6F7F5] p-1.5 rounded-lg shrink-0">
               <Icon icon="tabler:video" width={15} className="text-[#0F766E]" />
             </div>
