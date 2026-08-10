@@ -65,7 +65,7 @@ const ReviewCard = ({
             <Divider />
 
             {/* Body */}
-            <Box className="grid grid-cols-2 gap-x-12 gap-y-8 px-8 py-7">
+            <Box className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 px-4 sm:px-6 md:px-8 px-8 py-6 w-full">
                 {data.map((item, index) => (
 
                     <Box
@@ -75,17 +75,18 @@ const ReviewCard = ({
 
                         <Icon
                             icon={item.icon}
-                            width={20}
-                            className="text-[#6B7280] mt-1"
+                            width={20} height={20}
+                            className="text-[#6B7280] mt-1 flex-shrink-0"
                         />
 
-                        <Box>
+                        <Box className="w-full max-w-[184.5px]">
 
-                            <p className="text-xs text-[#6B7280]">
+                            <p className=" w-full max-w-[248.5px] text-xs text-[#6B7280]">
                                 {item.label}
                             </p>
 
-                            <p className="text-base font-semibold text-[#111827]">
+                            <p className="text-xxs font-medium text-[12px] leading-none tracking-normal text-[#0B1117]">
+                                {item.value}
                             </p>
 
                         </Box>

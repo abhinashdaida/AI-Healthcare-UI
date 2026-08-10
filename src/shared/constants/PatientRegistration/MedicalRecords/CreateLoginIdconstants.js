@@ -40,3 +40,22 @@ export const statusMessages = {
 
     exists: "This ID is already in use. Try another ID or choose one of the suggestions below.",
 };
+
+export const STATUS = {
+  success: {
+    border: "border-[#2BA39A]",
+    bg: "bg-[#2BA39A]",
+    text: "text-white",
+  },
+  error: {
+    border: "border-[#EF4444]",
+    bg: "bg-[#EF4444]",
+    text: "text-white",
+  },
+  default: {
+    border: "border-[#D1D5DB]",
+    bg: "bg-[#E5E7EB]",
+    text: "text-[#374151]",
+  },
+};
+

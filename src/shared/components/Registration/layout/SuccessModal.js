@@ -1,9 +1,4 @@
-import {
-    Box,
-    Button,
-    Modal, Dialog,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";
 import InfoRow from "./InfoRow";
 import { Icon } from "@iconify/react";
@@ -15,73 +10,86 @@ export default function SuccessModal({
     email,
     mobile,
 }) {
-    const navigate=useNavigate();
-    const maskPhone = (phone) => {
-        if (!phone) return "";
+    const navigate = useNavigate();
 
-        return `******${phone.slice(-4)}`;
-    };
+    const maskPhone = (phone) =>
+        phone ? `******${phone.slice(-4)}` : "";
 
     const maskEmail = (email) => {
         if (!email) return "";
-
         const [name, domain] = email.split("@");
-
         return `${name.slice(0, 2)}***@${domain}`;
     };
 
     return (
-        <Modal open={open}>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                p: 2,
+            }}
+        >
             <Box
                 sx={{
-                    width: {
-                        xs: "92%",
-                        sm: "464px",
-                    },
-                    height: { sm: "632px" },
+                    width: { xs: "100%", sm: 464 },
+                    maxWidth: 464,
+                    maxHeight: "calc(100vh - 32px)",
+                    overflowY: "auto",
                     bgcolor: "#fff",
-                    pt: 4,
-                    pl:4,
-                    pr:4,
-                    borderRadius: 4,
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
+                    borderRadius: 2,
+                    p: { xs: 2, sm: 3, md: 4 },
+                    position: "relative",
+                    outline: "none",
+                    boxSizing: "border-box",
                 }}
             >
+                {/* Close */}
+                <Box
+                    onClick={handleClose}
+                    sx={{
+                        position: "absolute",
+                        top: 12,
+                        right: 12,
+                        width: 32,
+                        height: 32,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        "&:hover": { bgcolor: "#F3F4F6" },
+                    }}
+                >
+                    <Icon icon="tabler:x" width={20} color="#6B7280" />
+                </Box>
+
+                {/* Success Icon */}
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "center",
                         alignItems: "center",
-                        mb: 5,
-
+                        mb: { xs: 3, sm: 4 },
                     }}
                 >
                     <Box
                         sx={{
-                            width: 76,
-                            height: 76,
+                            width: { xs: 64, sm: 76 },
+                            height: { xs: 64, sm: 76 },
                             borderRadius: "50%",
                             background:
-                                "linear-gradient(180deg, #7BC7C5 0%, #248B8F 100%)",
+                                "linear-gradient(180deg,#7BC7C5 0%,#248B8F 100%)",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             position: "relative",
-                            mb: 10
+                            mb: { xs: 5, sm: 6 },
                         }}
                     >
-                        <Icon icon="tabler:check" width={75} color="#fff"
-                            sx={{
-                                color: "#fff",
-                                fontSize: 40,
-                            }}
-                        />
-
-                        {/* Decorative Rays */}
+                        <Icon icon="tabler:check" width={48} color="#fff" />
 
                         {[...Array(12)].map((_, i) => (
                             <Box
@@ -89,25 +97,27 @@ export default function SuccessModal({
                                 sx={{
                                     position: "absolute",
                                     width: 2,
-                                    height: 14,
+                                    height: { xs: 10, sm: 14 },
                                     bgcolor: "#248B8F",
                                     borderRadius: 1,
-                                    transform: `rotate(${i * 30}deg) translateY(-58px)`,
+                                    transform: `rotate(${i * 30}deg) translateY(-52px)`,
                                 }}
                             />
                         ))}
                     </Box>
 
-                    <Box className="w-full max-w-[280px] " sx={{
-                        display: "flex",
-                        flexDirection: "column", justifyContent: "center", alignItems: "center",
-                    }}>
-
-
-                        <Typography 
-                            variant="h5"
-                            sx={{textAlign:"center",
-                            mb:4
+                    <Box
+                        sx={{
+                            width: "100%",
+                            maxWidth: 320,
+                            textAlign: "center",
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: { xs: 22, sm: 24 },
+                                fontWeight: 600,
+                                mb: 2,
                             }}
                         >
                             Thank you!
@@ -115,22 +125,27 @@ export default function SuccessModal({
 
                         <Typography
                             sx={{
-                                fontWeight: 400,
-                                fontStyle: "normal",
-                                fontSize: "14px", // xs usually = 12px
-                                lineHeight: "1.5",
-                                letterSpacing: "0",
-                                textAlign: "center",
-                                color: "#6B7280"
+                                fontSize: { xs: 13, sm: 14 },
+                                lineHeight: 1.5,
+                                color: "#6B7280",
                             }}
                         >
-                            Account created successfully your account details has been
-                            shared to registered phone number and email
+                            Account created successfully. Your account
+                            details have been shared to your registered
+                            phone number and email.
                         </Typography>
                     </Box>
                 </Box>
-                <Box className="w-full max-w-[416px] flex flex-col mb-10 gap-[16px]">
 
+                {/* Confirmation */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                        mb: { xs: 3, sm: 4 },
+                    }}
+                >
                     <InfoRow
                         title="Mobile Confirmation"
                         value={`Your registered mobile number ${maskPhone(
@@ -144,69 +159,61 @@ export default function SuccessModal({
                             email
                         )}`}
                     />
-
                 </Box>
+
+                {/* Support Message */}
                 <Box
                     sx={{
-                        width: "416px",
-                        height: "64px",
-                        borderRadius: "8px",
+                        width: "100%",
+                        minHeight: 64,
+                        boxSizing: "border-box",
                         border: "1px solid #D1D5DB",
-                        p: "8px 16px",
-                        mb:"20px",
+                        borderRadius: 2,
+                        p: { xs: 1.5, sm: 2 },
+                        mb: { xs: 3, sm: 4 },
                         display: "flex",
-                        gap: "12px",
                         alignItems: "center",
-                        opacity: 1,
-                        display: "flex",
-                        flexDirection: "row",
+                        gap: 1.5,
                     }}
                 >
-                    <Icon icon="tabler:heart-plus" width={24} height={24} color="#248B8F" />
+                    <Icon
+                        icon="tabler:heart-plus"
+                        width={24}
+                        color="#248B8F"
+                    />
+
                     <Typography
                         sx={{
-                            fontWeight: 400,
-                            fontStyle: "normal",
-                            fontSize: "14px", // replace with your xs token value
-                            lineHeight: "100%",
-                            letterSpacing: "0",
+                            fontSize: { xs: 13, sm: 14 },
+                            lineHeight: 1.4,
                         }}
                     >
-                        We're here to support your health journey every step of this way.
+                        We're here to support your health journey every
+                        step of this way.
                     </Typography>
                 </Box>
-                <Box
-                    
-                    
-                    sx={{
-                        display:"flex",
-                    flexDirection:"row",
-                    gap:2,
-                        width: "416px",
-                        height: "48px",
-                        display: "flex",
-                        gap: "12px",
-                        mt:"20px",
-                        opacity: 1,
-                        alignItems: "center",
-                    }}
 
+                {/* Buttons */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
+                        gap: 2,
+                    }}
                 >
                     <Button
                         fullWidth
                         variant="outlined"
-                        color="#248B8F"
-                        border= "#248B8F"
                         sx={{
-                            width: "202px",
-                            height: "48px",
-                            gap: "8px",
-                            borderRadius: "8px",
-                            borderWidth: "1px",
-                            borderColor:"#248B8F",
-                            color:"#248B8F",
-                            px: "24px",
+                            height: 48,
+                            borderRadius: 2,
+                            borderColor: "#248B8F",
+                            color: "#248B8F",
                             textTransform: "none",
+                            "&:hover": {
+                                borderColor: "#248B8F",
+                                bgcolor: "#F5FCFC",
+                            },
                         }}
                     >
                         Download Application
@@ -215,19 +222,17 @@ export default function SuccessModal({
                     <Button
                         fullWidth
                         variant="contained"
-                        background="#248B8F"
-                        color="#ffffff"
+                        onClick={() => navigate("/medical-conditions")}
                         sx={{
-                            width: 202,
                             height: 48,
-                            gap: 1,          // 8px
                             borderRadius: 2,
-                            background:"#248B8F",
-                            color:"#ffffff", // 8px
-                            px: 3,           // 24px left & right
+                            bgcolor: "#248B8F",
+                            color: "#fff",
                             textTransform: "none",
+                            "&:hover": {
+                                bgcolor: "#1D7478",
+                            },
                         }}
-                    onClick={()=>navigate("/medical-conditions")}
                     >
                         Go to Dashboard
                     </Button>

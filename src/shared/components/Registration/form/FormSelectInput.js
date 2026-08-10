@@ -45,51 +45,69 @@ export default function ReusableSelect({
       )}
 
       <TextField
-        select
-        fullWidth
-        size="small"
-        {...field}
-        {...props}
-        value={field.value || ""}
-        onChange={handleChange}
-        error={meta.touched && Boolean(meta.error)}
-        helperText={meta.touched && meta.error}
-        disabled={disabled}
-        
-        slotProps={{
-          input: {
-            startAdornment: startIcon ? (
-              <InputAdornment position="start">
-                <Icon
-                  icon={startIcon}
-                  width={18}
-                  color="#9CA3AF"
-                />
-              </InputAdornment>
-            ) : undefined,
-          },
-        }}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            height: 56,
-            borderRadius: "8px",
-          },
-          ...sx,
-        }}
-      >
-        <MenuItem value="" disabled>
-          {placeholder}
-        </MenuItem>
+  select
+  fullWidth
+  size="small"
+  {...field}
+  {...props}
+  value={field.value || ""}
+  onChange={handleChange}
+  error={meta.touched && Boolean(meta.error)}
+  helperText={meta.touched && meta.error}
+  disabled={disabled}
+  slotProps={{
+    select: {
+      displayEmpty: true,
+      renderValue: (selected) => {
+        if (!selected) {
+          return (
+            <span style={{ color: "#9CA3AF" }}>
+              {placeholder}
+            </span>
+          );
+        }
 
-        {options.map((option) => (
-          <MenuItem
-            key={option.value || option}
-            value={option.value || option}
-          >
-            {option.label || option}
-          </MenuItem>
-        ))}
-      </TextField>
+        const selectedOption = options.find(
+          (option) =>
+            (option.value || option) === selected
+        );
+
+        return selectedOption?.label || selectedOption || selected;
+      },
+    },
+    input: {
+      startAdornment: startIcon ? (
+        <InputAdornment position="start">
+          <Icon
+            icon={startIcon}
+            width={18}
+            color="#9CA3AF"
+          />
+        </InputAdornment>
+      ) : undefined,
+    },
+  }}
+  sx={{
+    "& .MuiOutlinedInput-root": {
+      height: 56,
+      borderRadius: "8px",
+    },
+    ...sx,
+  }}
+>
+  <MenuItem value="" disabled>
+    {placeholder}
+  </MenuItem>
+
+  {options.map((option) => (
+    <MenuItem
+      key={option.value || option}
+      value={option.value || option}
+    >
+      {option.label || option}
+    </MenuItem>
+  ))}
+</TextField>
     </>
   );
 }

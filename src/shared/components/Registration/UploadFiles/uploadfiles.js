@@ -34,26 +34,33 @@ export default function UploadFiles({
         setError(null);
 
         for (const file of selectedFiles) {
-            if (!FILE_TYPES.includes(file.type))
-                return setError(FILE_ERRORS.INVALID_TYPE);
+            if (!FILE_TYPES.includes(file.type)){
+                 setError(FILE_ERRORS.INVALID_TYPE);
+                return false;
+            }
 
-            if (file.size > MAX_SIZE)
-                return setError(FILE_ERRORS.SIZE);
+            if (file.size > MAX_SIZE){
+                setError(FILE_ERRORS.SIZE);
+            return false;
+            }
 
             if (
                 files.some(
                     f => f.name === file.name && f.file.size === file.size
                 )
-            )
-                return setError(FILE_ERRORS.DUPLICATE);
+            ){
+                setError(FILE_ERRORS.DUPLICATE);
+                return false;
+            }
         }
 
-        if (files.length + selectedFiles.length > maxFiles)
-            return setError({
+        if (maxFiles!==null && files.length + selectedFiles.length > maxFiles){
+            setError({
                 title: "Maximum Files",
                 message: `Only ${maxFiles} files allowed.`,
             });
-
+            return false;
+        }
         return true;
     };
 
@@ -164,7 +171,7 @@ export default function UploadFiles({
                         ml: "auto",
                     }}
                 >
-                    Maximum size: 2MB
+                    Maximum size: 5MB
                     {maxFiles && ` | Upload up to ${maxFiles} files`}
                 </Typography>
             </Box>

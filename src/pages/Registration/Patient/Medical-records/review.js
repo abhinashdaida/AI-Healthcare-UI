@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, FormControlLabel, Checkbox, Typography, IconButton } from "@mui/material";
 import { Formik } from "formik";
@@ -192,7 +191,7 @@ const Review = () => {
                             </IconButton>
                         </div>
                         <Footer config={{
-                            showSkipButton: true,
+                            showSkipButton: false,
                             onSkipClick: handleSkip,
                             onAutoSaveClick: handleAutoSave,
                             primaryButtonLabel: "Upload & Continue",

@@ -94,7 +94,7 @@ const ReviewDocumentCard = ({ title, files }) => {
                             <Typography
                                 className="truncate"
                                 sx={{
-                                    fontWeight: 600,
+                                    fontWeight: 500,
                                     fontSize: {
                                         xs: "12px",
                                         md: "13px",
