@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, FormControlLabel, Checkbox, Typography, IconButton } from "@mui/material";
 import { Formik } from "formik";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import { useNavigate } from "react-router-dom";

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { insuranceValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations"; 
 import { Icon } from "@iconify/react";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
 import WhatToUpload from "../../../../shared/components/Registration/PopUp/whattoupload";

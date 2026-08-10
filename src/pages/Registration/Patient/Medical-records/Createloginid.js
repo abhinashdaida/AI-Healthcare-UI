@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
 import PasswordDialog from "@/shared/components/Registration/PopUp/password";
 import SuccessModal from "@/shared/components/Registration/layout/SuccessModal";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import SuggestedIdCard from "../../../../shared/components/Registration/form/SuggestedIdCard";

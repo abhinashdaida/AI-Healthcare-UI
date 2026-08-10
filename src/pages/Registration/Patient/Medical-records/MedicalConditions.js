@@ -13,7 +13,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
 

@@ -1,7 +1,7 @@
 import React from "react";
-import {Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
-import logo from "../../../../assets/logo.png";
+import logo from "@assets/logo.png";
 const menuItems = [
   {
     label: "Personal Information",
@@ -136,8 +136,8 @@ const Sidebar = () => {
                                 ? "rounded-full bg-[#229497] text-white"
                                 : "rounded-[4px] bg-[#229497] text-white"
                               : "bg-transparent"
-                            }`}
-                >
+                          }`}
+              >
                 <Icon icon={item.icon} width="16" height="16" />
               </Box>
 
