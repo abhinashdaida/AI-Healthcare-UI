@@ -59,3 +59,42 @@ export const STATUS = {
   },
 };
 
+export const STATUS_CONFIG = {
+    checking: {
+      text: statusMessages.checking,
+      color: "text-[#6B7280]",
+      icon: "svg-spinners:90-ring-with-bg",
+      iconColor: "text-[#9CA3AF]",
+      size: 18,
+    },
+    success: {
+      text: statusMessages.available,
+      color: "text-[#2BA39A]",
+      icon: "tabler:circle-check-filled",
+      iconColor: "text-[#2BA39A]",
+      size: 20,
+    },
+    exists: {
+      text: statusMessages.exists,
+      color: "text-[#EF4444]",
+      icon: "tabler:circle-x-filled",
+      iconColor: "text-[#EF4444]",
+      size: 20,
+    },
+    "invalid-length": {
+      text: "MediConnect ID must contain at least 6 characters.",
+      color: "text-[#EF4444]",
+      icon: "tabler:circle-x-filled",
+      iconColor: "text-[#EF4444]",
+      size: 20,
+    },
+    "invalid-format": {
+      text: "Only letters and numbers are allowed.",
+      color: "text-[#EF4444]",
+      icon: "tabler:circle-x-filled",
+      iconColor: "text-[#EF4444]",
+      size: 20,
+    },
+  };
+
+
