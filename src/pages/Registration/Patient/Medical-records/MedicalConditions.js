@@ -12,17 +12,22 @@ import {
 } from "../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
+import {setMedicalConditions,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const MedicalRecords = () => {
+    const dispatch=useDispatch();
     const navigate = useNavigate();
 
-    const handleUpload = async (files) => {
+    const handleUpload = async (values) => {
+        dispatch(setMedicalConditions(values));
+        dispatch(completeStep(3));
         console.log("upload and continue")
-        if (files && files?.length > 0) {
+        if (values.files && values.files?.length > 0) {
             navigate("/insurance", {
                 state: {
                     medicalFileUploaded: true,
@@ -35,7 +40,7 @@ const MedicalRecords = () => {
 
     const handleSkip = () => {
         console.log("skip btn click");
-        navigate("/reviewdetails");
+        navigate("/insurance");
     }
 
     const handleAutoSave = () => {
@@ -43,32 +48,24 @@ const MedicalRecords = () => {
     }
 
     const initialValues = {
-
         allergies: [],
-
         conditions: [],
-
         surgeries: [],
-
         medications: [],
-
         files: []
     };
 
-    const handleSubmit = (values) => {
-        console.log(values);
-    };
-
+    
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={medicalValidation}
-            onSubmit={handleSubmit}
+            onSubmit={handleUpload}
         >
             {({
                 values,
                 setFieldValue,
-
+                
             }) => (
                 <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                     <div className="w-full
@@ -140,7 +137,7 @@ const MedicalRecords = () => {
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Upload & Continue",
-                                onPrimaryClick: () => handleUpload(values.files),
+                                onPrimaryClick:  ()=> submitForm(values),
                                 primaryButtonDisabled: false,
                             }} />
                         </main>

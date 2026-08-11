@@ -1,5 +1,6 @@
 import { Formik } from "formik";
 import { Box } from "@mui/material";
+import { useDispatch,useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { insuranceValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { Icon } from "@iconify/react";
@@ -12,15 +13,33 @@ import ReusableSelect from "@/shared/components/Registration/form/FormSelectInpu
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import { governmentProviders, privateProviders } from "../../../../shared/constants/PatientRegistration/MedicalRecords/Insuranceconstants";
+import {setInsurance,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const Insurance = () => {
     const navigate = useNavigate();
+    const dispatch =useDispatch();
     const location = useLocation();
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
 
-    const handleUpload = async (validateForm) => {
-        const errors = await validateForm();
+    useEffect(() => {
+        if (location.state?.medicalFileUploaded) {
+            setShowUploadSuccess(true);
+            const timer = setTimeout(() => {
+                setShowUploadSuccess(false);
+                navigate(location.pathname, {
+                    replace: true,
+                    state: null,
+                });
 
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [location, navigate]);
+
+    const handleUpload = async (validateForm,values) => {
+        const errors = await validateForm();
+        dispatch(setInsurance(values));
+        dispatch(completeStep(4));
         if (Object.keys(errors).length > 0) {
             console.log("Validate Errors:", errors);
             return;
@@ -38,20 +57,6 @@ const Insurance = () => {
         console.log("auto save btn click");
     }
 
-    useEffect(() => {
-        if (location.state?.medicalFileUploaded) {
-            setShowUploadSuccess(true);
-            const timer = setTimeout(() => {
-                setShowUploadSuccess(false);
-                navigate(location.pathname, {
-                    replace: true,
-                    state: null,
-                });
-
-            }, 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [location, navigate]);
 
     const initialValues = {
         insuranceType: "",
@@ -61,21 +66,16 @@ const Insurance = () => {
         files: []
     };
 
-    const handleSubmit = (values) => {
-        console.log(values);
-    };
-
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={insuranceValidation}
-            onSubmit={handleSubmit}
+            onSubmit={handleUpload}
         >
             {({
                 values,
                 setFieldValue,
-                validateForm,
-                submitForm,
+                
             }) => (
                 <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                     <div className=" w-full  max-w-[1440px]
@@ -220,13 +220,13 @@ const Insurance = () => {
                                     </button>
                                 </Box>
                             )}
-
+                            
                             <Footer config={{
                                 showSkipButton: true,
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
-                                primaryButtonLabel: "Upload & Continue",
-                                onPrimaryClick: () => handleUpload(validateForm, values),
+                                primaryButtonLabel: "Review Details",
+                                onPrimaryClick: ()=> submitForm(values),
                                 primaryButtonDisabled: false,
                                 skipButtonDisabled: values.insuranceType === "None",
                             }} />

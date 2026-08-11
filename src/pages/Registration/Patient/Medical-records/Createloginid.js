@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Formik } from "formik";
+import { Formik, useFormikContext } from "formik";
 import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { useDispatch } from "react-redux";
 import PasswordDialog from "@/shared/components/Registration/PopUp/password";
 import SuccessModal from "@/shared/components/Registration/layout/SuccessModal";
 import Sidebar from "@/shared/components/Registration/layout/SiderBar";
@@ -12,9 +13,13 @@ import { createLoginValidation } from "@/shared/validations/patientRegistration/
 import { pageContent, idPrefix, statusMessages, STATUS } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
 import { generateId, validateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
-
+import {setCreateLoginId,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const CreateLoginId = () => {
+  const dispatch = useDispatch();
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+
   // Generate initial default plain ID
   const getInitialId = () => {
     const defaultFullId = generateId(idPrefix).toUpperCase();
@@ -44,16 +49,12 @@ const CreateLoginId = () => {
     validateId(`${idPrefix}-${initialId}`, idPrefix)
   );
 
-  const [passwordOpen, setPasswordOpen] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
 
-  const handleUpload = async () => {
-    console.log("created logini d");
+  const handleUpload = async (values) => {
+    console.log("created login id");
+    dispatch(setCreateLoginId(values));
+    dispatch(completeStep(6));
     setPasswordOpen(true);
-  };
-
-  const handleSkip = () => {
-    console.log("skip btn click");
   };
 
   const handleAutoSave = () => {
@@ -69,12 +70,6 @@ const CreateLoginId = () => {
       : isError
         ? STATUS.error
         : STATUS.default;
-
-  // Submit
-  const handleSubmit = (values) => {
-    console.log("Create Login ID");
-    console.log(values);
-  };
 
   const handleIdChange = (e, handleChange, setFieldValue) => {
     handleChange(e);
@@ -97,11 +92,9 @@ const CreateLoginId = () => {
   return (
     <Formik
       enableReinitialize
-      initialValues={{
-        mediConnectId: selectedId,
-      }}
+      initialValues={{  mediConnectId: selectedId, }}
       validationSchema={createLoginValidation}
-      onSubmit={handleSubmit}
+      onSubmit={handleUpload}
     >
       {({
         values,
@@ -110,7 +103,6 @@ const CreateLoginId = () => {
         handleChange,
         handleBlur,
         setFieldValue,
-        handleSubmit: formikSubmit,
       }) => (
         <div className="min-h-screen bg-[#F8FAFC] flex justify-center p-3">
           <div className="w-full max-w-[1600px] bg-white flex min-h-screen rounded-xl overflow-hidden">
@@ -134,12 +126,12 @@ const CreateLoginId = () => {
                     {/* Prefix */}
                     <Box className={` w-[56px] h-full flex  items-center justify-center transition-all duration-200
                       ${status === "success" ? "bg-[#2BA39A]"
-                          : ["exists", "invalid-length", "invalid-format"].includes(status)
-                            ? "bg-[#EF4444]" : "bg-[#E5E7EB]"} `} >
+                        : ["exists", "invalid-length", "invalid-format"].includes(status)
+                          ? "bg-[#EF4444]" : "bg-[#E5E7EB]"} `} >
                       <span className={` text-[14px] font-semibold transition-all duration-200
                           ${status === "success" || ["exists", "invalid-length", "invalid-format"].includes(status)
-                            ? "text-white" : "text-[#374151]"
-                          } `} >
+                          ? "text-white" : "text-[#374151]"
+                        } `} >
                         {idPrefix}
                       </span>
                     </Box>
@@ -233,8 +225,8 @@ const CreateLoginId = () => {
                 showSkipButton: false,
                 onSkipClick: handleSkip,
                 onAutoSaveClick: handleAutoSave,
-                primaryButtonLabel: "Upload & Continue",
-                onPrimaryClick: () => handleUpload(),
+                primaryButtonLabel: "Set Password",
+                onPrimaryClick: () => submitForm(values),
                 primaryButtonDisabled: false,
               }} />
               <PasswordDialog

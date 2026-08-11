@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Box, FormControlLabel, Checkbox, Typography, IconButton } from "@mui/material";
 import { Formik } from "formik";
 import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
@@ -9,6 +9,7 @@ import ReviewAccordion from "../../../../shared/components/Registration/review/R
 import ReviewCard from "../../../../shared/components/Registration/review/reviewcard";
 import ReviewDocumentCard from "../../../../shared/components/Registration/review/reviewdocumentcard";
 import { Icon } from "@iconify/react";
+import { useDispatch,useSelector } from "react-redux";
 import {
     basicDetails,
     locationDetails,
@@ -19,12 +20,16 @@ import {
     insuranceDetails,
     medicalDocuments,
     insuranceDocuments,
-} from "../../../../shared/constants/PatientRegistration/MedicalRecords/reviewConstants";
+} from "@/shared/constants/PatientRegistration/MedicalRecords/reviewConstants";
+import {completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const Review = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isConfirmed, setIsConfirmed] = useState(false);
     const initialValues = {};
     const medicalValidation = null;
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -34,6 +39,7 @@ const Review = () => {
 
     const handleUpload = async () => {
         console.log("verified login");
+        dispatch(completeStep(5));
         navigate("/createloginid");
     };
 
@@ -45,15 +51,11 @@ const Review = () => {
         console.log("auto save btn click");
     };
 
-    const handleSubmit = (values) => {
-        console.log(values);
-    };
-
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={medicalValidation}
-            onSubmit={handleSubmit}
+            onSubmit={handleUpload}
         >
             <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                 <div className="  w-full max-w-[1440px] bg-white flex flex-col md:flex-row min-h-screen md:min-h-[690px] overflow-hidden">
@@ -154,7 +156,11 @@ const Review = () => {
                         <div className="flex flex-3 w-full max-w-[1104px] px-4 md:px-8 lg:px-10 pb-4">
                             <FormControlLabel
                                 className="items-start"
-                                control={<Checkbox sx={{ mt: 0.3 }} />}
+                                control={<Checkbox
+    checked={isConfirmed}
+    onChange={(e) => setIsConfirmed(e.target.checked)}
+    sx={{ mt: 0.3 }}
+/>}
                                 label={
                                     <Typography
                                         sx={{
@@ -194,9 +200,9 @@ const Review = () => {
                             showSkipButton: false,
                             onSkipClick: handleSkip,
                             onAutoSaveClick: handleAutoSave,
-                            primaryButtonLabel: "Upload & Continue",
-                            onPrimaryClick: () => handleUpload(),
-                            primaryButtonDisabled: false,
+                            primaryButtonLabel: "Create Login ID",
+                            onPrimaryClick:()=> submitForm(values),
+                            primaryButtonDisabled: !isConfirmed,
                         }} />
                     </main>
                 </div>
