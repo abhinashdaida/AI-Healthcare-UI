@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, useFormikContext } from "formik";
 import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PasswordDialog from "@/shared/components/Registration/PopUp/password";
 import SuccessModal from "@/shared/components/Registration/PopUp/SuccessModal";
 import Sidebar from "../components/SiderBar/SiderBar";
@@ -13,10 +13,11 @@ import { createLoginValidation } from "@/shared/validations/patientRegistration/
 import { pageContent, idPrefix, statusMessages, STATUS } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
 import { generateId, validateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
-import {setCreateLoginId,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { setCreateLoginId, completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const CreateLoginId = () => {
   const dispatch = useDispatch();
+  const createLoginId = useSelector((state) => state.patientRegistration.createLoginId);
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
 
@@ -92,7 +93,7 @@ const CreateLoginId = () => {
   return (
     <Formik
       enableReinitialize
-      initialValues={{  mediConnectId: selectedId, }}
+      initialValues={{ mediConnectId: selectedId, }}
       validationSchema={createLoginValidation}
       onSubmit={handleUpload}
     >
@@ -223,7 +224,7 @@ const CreateLoginId = () => {
               {/* Footer */}
               <Footer config={{
                 showSkipButton: false,
-                
+
                 onAutoSaveClick: handleAutoSave,
                 primaryButtonLabel: "Set Password",
                 onPrimaryClick: () => handleUpload(values),

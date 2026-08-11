@@ -12,16 +12,17 @@ import {
 } from "../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { useNavigate } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
-import {setMedicalConditions,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { setMedicalConditions, completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const MedicalRecords = () => {
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const medicalConditions = useSelector((state) => state.patientRegistration.medicalConditions);
 
     const handleUpload = async (values) => {
         dispatch(setMedicalConditions(values));
@@ -55,7 +56,7 @@ const MedicalRecords = () => {
         files: []
     };
 
-    
+
     return (
         <Formik
             initialValues={initialValues}
@@ -65,7 +66,7 @@ const MedicalRecords = () => {
             {({
                 values,
                 setFieldValue,
-                
+
             }) => (
                 <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                     <div className="w-full
@@ -128,7 +129,7 @@ const MedicalRecords = () => {
                                         uploadText="Drag and drop your medical records here, or"
                                         showSecurity={true}
                                         securityText="Your medical records are securely stored and used to provide better healthcare, faster diagnosis, and more personalized treatment."
-                                        onFilesChange={(files)=>setFieldValue("files",files)}
+                                        onFilesChange={(files) => setFieldValue("files", files)}
                                     />
                                 </Box>
                             </div>
@@ -137,7 +138,7 @@ const MedicalRecords = () => {
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Upload & Continue",
-                                onPrimaryClick:  ()=> handleUpload(values),
+                                onPrimaryClick: () => handleUpload(values),
                                 primaryButtonDisabled: false,
                             }} />
                         </main>

@@ -2,7 +2,7 @@ import { Card, Typography, Box, Divider } from "@mui/material";
 import { Icon } from "@iconify/react";
 import React from "react";
 
-const ReviewDocumentCard = ({ title, files }) => {
+const ReviewDocumentCard = ({ title, files = [] }) => {
     return (
         <Card
             sx={{
@@ -50,8 +50,8 @@ const ReviewDocumentCard = ({ title, files }) => {
 
             {/* Files */}
             <Box className=" p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-                {files?.map((file) => (
-                    <Box key={file.fileName}
+                {files?.map((file, index) => (
+                    <Box key={file.fileName || `${file.name}-${index}`}
                         className=" flex items-center gap-3  w-full rounded-lg border border-gray-100  p-2 " >
                         <Icon
                             icon="teenyicons:pdf-solid"
@@ -65,9 +65,9 @@ const ReviewDocumentCard = ({ title, files }) => {
                                 sx={{
                                     fontWeight: 500,
                                     fontSize: { xs: "12px", md: "13px", },
-                                }} 
+                                }}
                             >
-                                {file.fileName}
+                                {file.fileName || file.name}
                             </Typography>
 
                             <Typography

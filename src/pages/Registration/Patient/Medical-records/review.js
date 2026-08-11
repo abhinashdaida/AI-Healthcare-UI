@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Box, FormControlLabel, Checkbox, Typography, IconButton } from "@mui/material";
 import { Formik } from "formik";
 import Sidebar from "../components/SiderBar/SiderBar";
@@ -9,19 +9,19 @@ import ReviewAccordion from "../../../../shared/components/Registration/review/R
 import ReviewCard from "../../../../shared/components/Registration/review/reviewcard";
 import ReviewDocumentCard from "../../../../shared/components/Registration/review/reviewdocumentcard";
 import { Icon } from "@iconify/react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     basicDetails,
     locationDetails,
     emergencyDetails,
     physicalDetails,
     healthDetails,
-    medicalDetails,
-    insuranceDetails,
+    getMedicalDetails,
+    getinsuranceDetails,
     medicalDocuments,
     insuranceDocuments,
 } from "@/shared/constants/PatientRegistration/MedicalRecords/reviewConstants";
-import {completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const Review = () => {
     const navigate = useNavigate();
@@ -29,6 +29,9 @@ const Review = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const initialValues = {};
     const medicalValidation = null;
+
+    const medicalConditions = useSelector((state) => state.patientRegistration.medicalConditions);
+    const insurance = useSelector((state) => state.patientRegistration.insurance);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -121,12 +124,12 @@ const Review = () => {
                                         <ReviewCard
                                             title="Medical records"
                                             headerIcon="tabler:activity-heartbeat"
-                                            data={medicalDetails}
+                                            data={getMedicalDetails(medicalConditions)}
                                         />
 
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
-                                            files={medicalDocuments}
+                                            files={medicalConditions?.files || []}
                                         />
                                     </Box>
                                 </ReviewAccordion>
@@ -143,11 +146,11 @@ const Review = () => {
                                         <ReviewCard
                                             title="Insurance"
                                             headerIcon="tabler:shield-plus"
-                                            data={insuranceDetails}
+                                            data={getinsuranceDetails(insurance)}
                                         />
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
-                                            files={insuranceDocuments}
+                                            files={insurance?.files || []}
                                         />
                                     </Box>
                                 </ReviewAccordion>
@@ -157,10 +160,10 @@ const Review = () => {
                             <FormControlLabel
                                 className="items-start"
                                 control={<Checkbox
-    checked={isConfirmed}
-    onChange={(e) => setIsConfirmed(e.target.checked)}
-    sx={{ mt: 0.3 }}
-/>}
+                                    checked={isConfirmed}
+                                    onChange={(e) => setIsConfirmed(e.target.checked)}
+                                    sx={{ mt: 0.3 }}
+                                />}
                                 label={
                                     <Typography
                                         sx={{
@@ -201,7 +204,7 @@ const Review = () => {
                             onSkipClick: handleSkip,
                             onAutoSaveClick: handleAutoSave,
                             primaryButtonLabel: "Create Login ID",
-                            onPrimaryClick:()=> handleUpload(),
+                            onPrimaryClick: () => handleUpload(),
                             primaryButtonDisabled: !isConfirmed,
                         }} />
                     </main>

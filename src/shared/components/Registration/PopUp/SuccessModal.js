@@ -3,14 +3,17 @@ import React from "react";
 import InfoRow from "../PopUp/InfoRow";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function SuccessModal({
     open,
     handleClose,
-    email,
-    mobile,
+    
 }) {
     const navigate = useNavigate();
+    const basicDetails = useSelector((state) => state.patientRegistration.basicDetails);
+    const mobile =basicDetails?.phoneNumber ||"";
+    const email = basicDetails?.email ||"";
 
     const maskPhone = (phone) =>
         phone ? `******${phone.slice(-4)}` : "";
@@ -18,9 +21,9 @@ export default function SuccessModal({
     const maskEmail = (email) => {
         if (!email) return "";
         const [name, domain] = email.split("@");
+        if (!domain) return email;
         return `${name.slice(0, 2)}***@${domain}`;
     };
-
     return (
         <Modal
             open={open}
@@ -90,7 +93,6 @@ export default function SuccessModal({
                         }}
                     >
                         <Icon icon="tabler:check" width={48} color="#fff" />
-
                         {[...Array(12)].map((_, i) => (
                             <Box
                                 key={i}
@@ -181,7 +183,6 @@ export default function SuccessModal({
                         width={24}
                         color="#248B8F"
                     />
-
                     <Typography
                         sx={{
                             fontSize: { xs: 13, sm: 14 },

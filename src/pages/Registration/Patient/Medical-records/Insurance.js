@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { Box } from "@mui/material";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { insuranceValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { Icon } from "@iconify/react";
@@ -13,12 +13,13 @@ import ReusableSelect from "@/shared/components/Registration/form/FormSelectInpu
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import { governmentProviders, privateProviders } from "../../../../shared/constants/PatientRegistration/MedicalRecords/Insuranceconstants";
-import {setInsurance,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { setInsurance, completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 const Insurance = () => {
     const navigate = useNavigate();
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
     const location = useLocation();
+    const insurance = useSelector((state) => state.patientRegistration.insurance);
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
 
     useEffect(() => {
@@ -37,10 +38,10 @@ const Insurance = () => {
     }, [location, navigate]);
 
     const handleUpload = async (values) => {
-        
+
         dispatch(setInsurance(values));
         dispatch(completeStep(4));
-        
+
         console.log("reviewdetails");
         navigate("/reviewdetails");
     };
@@ -72,7 +73,7 @@ const Insurance = () => {
             {({
                 values,
                 setFieldValue,
-                
+
             }) => (
                 <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                     <div className=" w-full  max-w-[1440px]
@@ -217,13 +218,13 @@ const Insurance = () => {
                                     </button>
                                 </Box>
                             )}
-                            
+
                             <Footer config={{
                                 showSkipButton: true,
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Review Details",
-                                onPrimaryClick: ()=> handleUpload(values),
+                                onPrimaryClick: () => handleUpload(values),
                                 primaryButtonDisabled: false,
                                 skipButtonDisabled: values.insuranceType === "None",
                             }} />

@@ -108,87 +108,52 @@ export const healthDetails = [
     },
 ];
 
-export const medicalDetails =[
+export const getMedicalDetails = (medical) => [
     {
-        icon:"tabler:virus",
-        label:"Allergies",
-        value:"Peanuts,Seafood",
+        icon: "tabler:virus",
+        label: "Allergies",
+        value: medical?.allergies?.join(", ") || "None",
     },
     {
-        icon:"tabler:stethoscope",
-        label:"Existing Conditions",
-        value:"Asthama,Diabetes(Type-2)",
+        icon: "tabler:stethoscope",
+        label: "Existing Conditions",
+        value: medical?.conditions?.join(", ") || "None",
     },
     {
-        icon:"tabler:first-aid-kit",
-        label:"Previous Surgeries",
-        value:"Appendectomy, Cataract Surgery",
+        icon: "tabler:first-aid-kit",
+        label: "Previous Surgeries",
+        value: medical?.surgeries?.join(", ") || "None",
     },
     {
-        icon:"tabler:pill",
-        label:"Current Medications",
-        value:"Metformin 500 mg, Insulin Glargine",
+        icon: "tabler:pill",
+        label: "Current Medications",
+        value: medical?.medications?.join(", ") || "None",
     },
+];
 
-]
 
-export const medicalDocuments =[
-    {
-        icon:"",
-        fileName:"Blood_Test_Report.pdf",
-        size:"125 KB",
-    },
-    {
-        icon:"",
-        fileName:"Liver_Function_Test.pdf",
-        size:"250 KB",
-    },
-    {
-        icon:"",
-        fileName:"Blood_Test_Report2.pdf",
-        size:"125 KB",
-    },
-    {
-        icon:"",
-        fileName:"Doctor_Prescription.pdf",
-        size:"85 KB",
-    },
 
-]
-
-export const insuranceDetails =[
+export const getinsuranceDetails =(insurance)=>[
     {
         icon:"tabler:building-bank",
         label:"Insurance Type",
-        value:"Private",
+        value: insurance?.insuranceType || "None",
     },
     {
         icon:"tabler:shield-plus",
         label:"Insurance Provider",
-        value:"Star Health Insurance",
+        value: insurance?.schemeProvider || "None",
     },
     {
         icon:"tabler:user",
         label:"Insurance Holder name",
-        value:"Deepika K",
+        value:insurance?.holderName || "None",
     },
     {
         icon:"tabler:credit-card",
         label:"Customer ID / Policy Number",
-        value:"12239542-6",
+        value: insurance?.customerId || "None",
     },
 
 ]
 
-export const insuranceDocuments =[
-    {
-    fileName: "Insurance_Card_Front.pdf",
-    size: "100 KB",
-  },
-  {
-    fileName: "Insurance_Card_Back.pdf",
-    size: "95 KB",
-  },
-  
-
-]

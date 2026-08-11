@@ -1,4 +1,9 @@
 import * as Yup from "yup";
+import {
+  FILE_ERRORS,
+  FILE_TYPES,
+  MAX_SIZE,
+} from "../../components/Registration/UploadFiles/uploadConstants";
 
 export const Passwordvalidation = Yup.object({
         password: Yup.string()
@@ -61,3 +66,53 @@ export const medicalValidation = Yup.object({
 
     files: Yup.array()
 });
+
+
+
+export const validateFiles = ({
+  selectedFiles,
+  existingFiles,
+  maxFiles,
+}) => {
+  const errors = [];
+
+  if (
+    maxFiles !== null &&
+    existingFiles.length + selectedFiles.length > maxFiles
+  ) {
+    errors.push({
+      ...FILE_ERRORS.MAX_FILES,
+      message: `Only ${maxFiles} files allowed.`,
+    });
+  }
+
+  selectedFiles.forEach((file) => {
+    if (!FILE_TYPES.includes(file.type)) {
+      if (!errors.some((e) => e.type === FILE_ERRORS.INVALID_TYPE.type)) {
+        errors.push(FILE_ERRORS.INVALID_TYPE);
+      }
+      return;
+    }
+
+    if (file.size > MAX_SIZE) {
+      if (!errors.some((e) => e.type === FILE_ERRORS.SIZE.type)) {
+        errors.push(FILE_ERRORS.SIZE);
+      }
+      return;
+    }
+
+    const duplicate = existingFiles.some(
+      (item) =>
+        item.name === file.name &&
+        item.file.size === file.size
+    );
+
+    if (duplicate) {
+      if (!errors.some((e) => e.type === FILE_ERRORS.DUPLICATE.type)) {
+        errors.push(FILE_ERRORS.DUPLICATE);
+      }
+    }
+  });
+
+  return errors;
+};
