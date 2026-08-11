@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { Box, FormControlLabel, Checkbox, Typography, IconButton } from "@mui/material";
 import { Formik } from "formik";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import { useNavigate } from "react-router-dom";
@@ -201,7 +201,7 @@ const Review = () => {
                             onSkipClick: handleSkip,
                             onAutoSaveClick: handleAutoSave,
                             primaryButtonLabel: "Create Login ID",
-                            onPrimaryClick:()=> submitForm(values),
+                            onPrimaryClick:()=> handleUpload(),
                             primaryButtonDisabled: !isConfirmed,
                         }} />
                     </main>

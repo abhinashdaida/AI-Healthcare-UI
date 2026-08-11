@@ -7,6 +7,10 @@ import {
     InputAdornment,
     IconButton,
 } from "@mui/material";
+import {
+  resetRegistration,
+} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { useDispatch } from "react-redux";
 import ReusableInput from "../form/FormInput";
 import { Icon } from "@iconify/react";
 import { Formik } from "formik";
@@ -21,6 +25,12 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [successOpen, setSuccessOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleClick =()=>{
+        setSuccessOpen(true)
+        dispatch(resetRegistration());
+    }
 
     return (
         <Dialog
@@ -210,7 +220,7 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                         type="submit"
                                         variant="contained"
                                         className="!mt-8 !h-12"
-                                        onClick={() => setSuccessOpen(true)}
+                                        onClick={handleClick}
                                         disabled={!values.password || !values.confirmPassword}
                                         sx={{
                                             backgroundColor: "#248B8F",

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { insuranceValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { Icon } from "@iconify/react";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
 import ReusableInput from "@/shared/components/Registration/form/FormInput";
@@ -36,14 +36,11 @@ const Insurance = () => {
         }
     }, [location, navigate]);
 
-    const handleUpload = async (validateForm,values) => {
-        const errors = await validateForm();
+    const handleUpload = async (values) => {
+        
         dispatch(setInsurance(values));
         dispatch(completeStep(4));
-        if (Object.keys(errors).length > 0) {
-            console.log("Validate Errors:", errors);
-            return;
-        }
+        
         console.log("reviewdetails");
         navigate("/reviewdetails");
     };
@@ -180,7 +177,7 @@ const Insurance = () => {
                                 )}
                             </div>
                             {showUploadSuccess && (
-                                <Box className=" fixed right-9 bottom-[190px] z-50
+                                <Box className=" fixed right-9 bottom-[100px] z-50
                                               w-full max-w-[416px]
                                             min-h-[85px]
                                             rounded-lg
@@ -226,7 +223,7 @@ const Insurance = () => {
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Review Details",
-                                onPrimaryClick: ()=> submitForm(values),
+                                onPrimaryClick: ()=> handleUpload(values),
                                 primaryButtonDisabled: false,
                                 skipButtonDisabled: values.insuranceType === "None",
                             }} />

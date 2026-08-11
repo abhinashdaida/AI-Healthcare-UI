@@ -14,7 +14,7 @@ import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
-import Sidebar from "../../../../shared/components/Registration/layout/SiderBar";
+import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
 import {setMedicalConditions,completeStep} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
@@ -137,7 +137,7 @@ const MedicalRecords = () => {
                                 onSkipClick: handleSkip,
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Upload & Continue",
-                                onPrimaryClick:  ()=> submitForm(values),
+                                onPrimaryClick:  ()=> handleUpload(values),
                                 primaryButtonDisabled: false,
                             }} />
                         </main>

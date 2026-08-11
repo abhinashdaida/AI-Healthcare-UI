@@ -222,7 +222,7 @@ export default function SuccessModal({
                     <Button
                         fullWidth
                         variant="contained"
-                        onClick={() => navigate("/medical-conditions")}
+                        onClick={() => navigate("/basic-details")}
                         sx={{
                             height: 48,
                             borderRadius: 2,

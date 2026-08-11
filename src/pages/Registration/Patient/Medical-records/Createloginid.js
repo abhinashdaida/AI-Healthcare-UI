@@ -5,10 +5,10 @@ import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import PasswordDialog from "@/shared/components/Registration/PopUp/password";
 import SuccessModal from "@/shared/components/Registration/layout/SuccessModal";
-import Sidebar from "@/shared/components/Registration/layout/SiderBar";
-import FormHeader from "@/shared/components/Registration/layout/FormHeader";
-import Footer from "@/shared/components/Registration/layout/Footer";
-import SuggestedIdCard from "@/shared/components/Registration/form/SuggestedIdCard";
+import Sidebar from "../components/SiderBar/SiderBar";
+import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
+import Footer from "../../../../shared/components/Registration/layout/Footer";
+import SuggestedIdCard from "../../../../shared/components/Registration/form/SuggestedIdCard";
 import { createLoginValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { pageContent, idPrefix, statusMessages, STATUS } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
 import { generateId, validateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
@@ -223,10 +223,10 @@ const CreateLoginId = () => {
               {/* Footer */}
               <Footer config={{
                 showSkipButton: false,
-                onSkipClick: handleSkip,
+                
                 onAutoSaveClick: handleAutoSave,
                 primaryButtonLabel: "Set Password",
-                onPrimaryClick: () => submitForm(values),
+                onPrimaryClick: () => handleUpload(values),
                 primaryButtonDisabled: false,
               }} />
               <PasswordDialog
