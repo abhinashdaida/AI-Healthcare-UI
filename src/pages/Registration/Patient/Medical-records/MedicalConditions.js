@@ -16,11 +16,18 @@ import Footer from "../../../../shared/components/Registration/layout/Footer";
 import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import UploadFiles from "../../../../shared/components/Registration/UploadFiles/uploadfiles";
+import {
+  setMedicalConditions,
+  completeStep,
+} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const MedicalRecords = () => {
     const navigate = useNavigate();
-
-    const handleUpload = async () => {
+    const dispatch = useDispatch();
+    
+    const handleUpload = async (values) => {
+        dispatch(setMedicalConditions(values))
         console.log("Upload & continue")
         navigate("/insurance");
     };

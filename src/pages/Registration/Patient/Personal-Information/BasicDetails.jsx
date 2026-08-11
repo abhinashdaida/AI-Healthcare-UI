@@ -18,17 +18,10 @@ import {
   OCCUPATION_OPTIONS,
 } from "@/shared/constants/PatientRegistration/dropdownOptions";
 
-// import {saveFormData,completeStep,} from "@/state-management/modules/patientRegistration/sidebarReducer";
-import {
-  setBasicDetails,
-  completeStep,
-} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import {setBasicDetails,completeStep,} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 import { selectBasicDetails } from "@/state-management/modules/patientRegistration/patientRegistrationSelectors";
 
-// ==========================
-// Initial Values
-// ==========================
-  
+
 
 // -----------------Form Footer-----------
 const FormFooter = ({ config }) => {

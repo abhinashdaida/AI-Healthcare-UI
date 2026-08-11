@@ -11,7 +11,6 @@ import SuggestedIdCard from "../../../../shared/components/Registration/form/Sug
 import { createLoginValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import { pageContent, idPrefix, statusMessages } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
 import { validateId, generateSuggestionsForValue } from "../../../../shared/components/Registration/form/idGenerator";
-
 const CreateLoginId = () => {
   // Suggested IDs
   const [suggestedIds, setSuggestedIds] = useState([]);
