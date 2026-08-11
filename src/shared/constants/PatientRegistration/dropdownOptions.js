@@ -32,7 +32,7 @@ export const OCCUPATION_OPTIONS = [
   { label: "Business Owner", value: "Business Owner" },
   { label: "Government Employee", value: "Government Employee" },
   { label: "Retired", value: "Retired" },
-  { label: "Unemployed", value: "Unemployed" },
+  { label: "Unemployed", value: "Unemployed"},
   { label: "Other", value: "Other" },
 ];
 

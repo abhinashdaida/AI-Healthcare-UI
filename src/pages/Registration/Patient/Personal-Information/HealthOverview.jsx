@@ -10,7 +10,6 @@ import Footer from "@/shared/components/Registration/layout/Footer";
 import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
 import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
 import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
-// import { completeStep, saveFormData } from "@/state-management/modules/patientRegistration/sidebarReducer";
 import { HealthOverviewValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
 import {
   setHealthOverview,resetRegistration,

@@ -6,7 +6,7 @@ const Footer = ({ config }) => {
   const {
     primaryButtonLabel = "Save & Continue",
     onPrimaryClick,
-    primaryButtonDisabled =false,
+    primaryButtonDisabled = false,
     showSkipButton = false,
     onSkipClick,
     onAutoSaveClick,

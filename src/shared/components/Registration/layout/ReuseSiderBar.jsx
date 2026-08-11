@@ -48,10 +48,7 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
   );
 };
 
-/* =====================================================
-   SIDEBAR ITEM
-===================================================== */
-
+//=============== SIDEBAR ITEM===================
 const SidebarItem = ({ item }) => {
   const {
     label,
@@ -64,47 +61,30 @@ const SidebarItem = ({ item }) => {
     children,
   } = item;
 
-  /* =====================================================
-     CHECK IF CHILD IS ACTIVE
-  ===================================================== */
-
+  // ====================CHECK IF CHILD IS ACTIVE======================
   const hasActiveChild =
     children?.some((childItem) => childItem.active) || false;
 
-  /* =====================================================
-     PARENT ACTIVE
-  ===================================================== */
-
+  //=============PARENT ACTIVE==========
   const parentActive = active || hasActiveChild;
 
-  /* =====================================================
-     EXPAND / COLLAPSE STATE
-  ===================================================== */
-
+  //============EXPAND / COLLAPSE STATE=============
   const [expanded, setExpanded] = useState(parentActive);
 
-  /* =====================================================
-     WHEN ACTIVE CHILD CHANGES
-     
-     Automatically open that section.
-  ===================================================== */
-
+  // WHEN ACTIVE CHILD CHANGES  Automatically open that section.
   useEffect(() => {
     if (parentActive) {
       setExpanded(true);
     }
   }, [parentActive]);
 
-  /* =====================================================
-     CHILD ITEM
-  ===================================================== */
-
+  //==========CHILD ITEM=======
   if (child) {
     return (
       <Box className="relative ml-6">
         {/* Vertical line */}
-
-        <Box className={`
+        <Box
+          className={`
             absolute
             left-[2px]
             top-0 bottom-0 w-[2px]
@@ -114,10 +94,12 @@ const SidebarItem = ({ item }) => {
 
         <Box
           className=" h-14 flex items-center
-            gap-3 pl-6 relative " >
+            gap-3 pl-6 relative "
+        >
           {/* Child Icon */}
 
-          <Box className={` w-7 h-7 shrink-0
+          <Box
+            className={` w-7 h-7 shrink-0
               flex items-center justify-center
               ${
                 completed
@@ -158,9 +140,11 @@ const SidebarItem = ({ item }) => {
 
           {/* Optional */}
           {item.optional && (
-            <Box className=" px-2 py-[3px] rounded-full
+            <Box
+              className=" px-2 py-[3px] rounded-full
                 bg-[#f1f3f5]  text-[#66717a] text-[10px]
-              "  >
+              "
+            >
               Optional
             </Box>
           )}
@@ -169,10 +153,7 @@ const SidebarItem = ({ item }) => {
     );
   }
 
-  /* =====================================================
-     PARENT ITEM
-  ===================================================== */
-
+  //=========PARENT ITEM===========
   return (
     <Box>
       {/* ================= PARENT ================= */}
