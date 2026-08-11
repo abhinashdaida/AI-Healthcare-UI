@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import FormHeader from "@/shared/components/Patient/layout/FormHeader";
+import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
-import Footer from "@/shared/components/Patient/layout/Footer";
-import CustomLabel from "@/shared/components/Patient/Common/CustomLabel";
-import CustomTextField from "@/shared/components/Patient/Common/CustomTextField";
-import CustomSelect from "@/shared/components/Patient/Common/CustomSelect";
+import Footer from "@/shared/components/Registration/layout/Footer";
+import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
+import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
+import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
 import { Box, Typography } from "@mui/material";
 import { Form, Formik, useFormikContext } from "formik";
 import { RELATIONSHIP_OPTIONS } from "@/shared/constants/PatientRegistration/dropdownOptions";

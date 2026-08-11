@@ -15,9 +15,7 @@ import ReusableInput from "../form/FormInput";
 import { Icon } from "@iconify/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import SuccessModal from "../layout/SuccessModal";
 import SectionHeader from "../form/SectionHeader";
-import FormHeader from "../layout/FormHeader";
 import { getStrength, passwordRules } from "@/shared/constants/PatientRegistration/MedicalRecords/PasswordConstants";
 import { Passwordvalidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 

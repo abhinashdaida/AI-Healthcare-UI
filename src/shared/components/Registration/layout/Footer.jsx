@@ -9,13 +9,12 @@ const Footer = ({ config }) => {
     primaryButtonDisabled =false,
     showSkipButton = false,
     onSkipClick,
-    skipButtonDisabled,
     onAutoSaveClick,
   } = config;
   return (
     <Box
       component="footer"
-      className="bg-white
+      className=" bg-white 
                 border-t border-gray-200
                 px-4 sm:px-6 lg:px-7
                 py-4 flex
@@ -34,7 +33,6 @@ const Footer = ({ config }) => {
             fullWidth
             variant="outlined"
             onClick={onSkipClick}
-            disabled={config.skipButtonDisabled}
             sx={{
               textTransform: "none",
               borderColor: "#248B8F",

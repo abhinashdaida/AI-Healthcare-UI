@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import PasswordDialog from "@/shared/components/Registration/PopUp/password";
-import SuccessModal from "@/shared/components/Registration/layout/SuccessModal";
+import SuccessModal from "@/shared/components/Registration/PopUp/SuccessModal";
 import Sidebar from "../components/SiderBar/SiderBar";
 import FormHeader from "../../../../shared/components/Registration/layout/FormHeader";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
