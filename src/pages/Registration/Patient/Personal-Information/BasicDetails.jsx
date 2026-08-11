@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
 
@@ -17,23 +18,19 @@ import {
   OCCUPATION_OPTIONS,
 } from "@/shared/constants/PatientRegistration/dropdownOptions";
 
+// import {saveFormData,completeStep,} from "@/state-management/modules/patientRegistration/sidebarReducer";
+import {
+  setBasicDetails,
+  completeStep,
+} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { selectBasicDetails } from "@/state-management/modules/patientRegistration/patientRegistrationSelectors";
+
 // ==========================
 // Initial Values
 // ==========================
+  
 
-const initialValues = {
-  firstName: "",
-  dateOfBirth: "",
-  gender: "",
-  bloodGroup: "",
-  maritalStatus: "",
-  occupation: "",
-  phoneNumber: "",
-  email:"",
-};
-
-
-// Form Footer
+// -----------------Form Footer-----------
 const FormFooter = ({ config }) => {
   const { isValid, submitForm } = useFormikContext();
 
@@ -50,11 +47,28 @@ const FormFooter = ({ config }) => {
 
 // Basic Details
 const BasicDetails = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+ 
+  const savedData = useSelector(selectBasicDetails) || {};
+
+  const initialValues = {
+    firstName: savedData.firstName ||"",
+    dateOfBirth: "",
+    gender:"",
+    bloodGroup:"",
+    maritalStatus:"",
+    occupation:"",
+    phoneNumber:"",
+    email:"",
+  };
+
 
   // Submit
   const handleContinue = (values) => {
     console.log("Form submitted:", values);
+    dispatch(setBasicDetails(values));
+    dispatch(completeStep(0));                        // move siderbar step 
 
     navigate("/emergency-contact");
   };
@@ -65,7 +79,6 @@ const BasicDetails = () => {
   };
 
   // Footer Config
-
   const footerConfig = useMemo(
     () => ({
       showAutoSave: true,
@@ -92,11 +105,11 @@ const BasicDetails = () => {
           />
 
           {/*Formik*/}
-
           <Formik
             initialValues={initialValues}
             validationSchema={basicDetalisValidation}
             onSubmit={handleContinue}
+            enableReinitialize={true}
             validateOnMount
           >
             <Form className="flex flex-1 flex-col min-h-0">
@@ -117,7 +130,6 @@ const BasicDetails = () => {
                 {/* Fields*/}
 
                 <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
-                  {" "}
                   {/* First Name*/}
                   <Box className="w-full min-w-0">
                     <CustomLabel required>First Name</CustomLabel>

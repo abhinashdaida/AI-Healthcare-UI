@@ -31,9 +31,6 @@ function App() {
             <Route path="/medical-conditions" element={<MedicalConditions />} />
             <Route path="/insurance" element={<Insurance />} />
             <Route path="/reviewdetails" element={<ReviewComplete />} />
-            <Route path="/basic-details" element={<BasicDetails />} />
-            <Route path="/emergency-contact" element={<EmergencyContact />} />
-            <Route path="/health-overview" element={<HealthOverview />} />
           </Routes>
         </GlobalConfigView>
       </div>

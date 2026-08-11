@@ -14,7 +14,7 @@ const Footer = ({ config }) => {
   return (
     <Box
       component="footer"
-      className="h-[136px] bg-white
+      className=" bg-white 
                 border-t border-gray-200
                 px-4 sm:px-6 lg:px-7
                 py-4 flex
