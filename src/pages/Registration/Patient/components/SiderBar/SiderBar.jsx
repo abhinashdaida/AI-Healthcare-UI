@@ -1,14 +1,10 @@
-import React, { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import ReuseSiderBar from "@/shared/components/Registration/layout/ReuseSiderBar";
-
-import { setCurrentStep } from "@/state-management/modules/patientRegistration/sidebarReducer";
-
-/* =====================================================
-   SIDEBAR CONFIGURATION
-=====================================================*/
 
 const sidebarSteps = [
   {
@@ -77,118 +73,21 @@ const sidebarSteps = [
   },
 ];
 
-/* =====================================================
-   SIDEBAR
-===================================================== */
-
-// const Sidebar = () => {
-//   const dispatch = useDispatch();
-//   const location = useLocation();
-
-//   const { currentStep, completedSteps = [] } = useSelector(
-//     (state) => state.patientRegistration,
-//   );
-
-//   /* ===================================================
-//      FLATTEN STEPS
-//   =================================================== */
-
-//   const flatSteps = sidebarSteps.flatMap((section) => section.children);
-
-//   /* ===================================================
-//      FIND CURRENT ROUTE
-//   =================================================== */
-
-//   useEffect(() => {
-//     const routeIndex = flatSteps.findIndex(
-//       (item) => item.path === location.pathname,
-//     );
-
-//     if (routeIndex !== -1 && routeIndex !== currentStep) {
-//       dispatch(setCurrentStep(routeIndex));
-//     }
-//   }, [location.pathname, currentStep, dispatch]);
-
-//   /* ===================================================
-//      CREATE SIDEBAR MENU
-//   =================================================== */
-
-//   const menuItems = sidebarSteps.map((section) => {
-//     const sectionChildren = section.children.map((child, childIndex) => {
-//       const globalIndex = flatSteps.findIndex(
-//         (item) => item.path === child.path,
-//       );
-
-//       const isActive = currentStep === globalIndex;
-
-//       const isCompleted = completedSteps.includes(globalIndex);
-
-//       return {
-//         ...child,
-//         child: true,
-//         active: isActive,
-//         completed: isCompleted,
-//         disabled: !isActive && !isCompleted,
-//       };
-//     });
-
-//     const sectionActive = sectionChildren.some((child) => child.active);
-
-//     const sectionCompleted = sectionChildren.every((child) => child.completed);
-
-//     return {
-//       ...section,
-
-//       hasChildren: true,
-
-//       active: sectionActive,
-
-//       completed: sectionCompleted,
-
-//       disabled: !sectionActive && !sectionCompleted,
-
-//       children: sectionChildren,
-//     };
-//   });
-
-//   return <ReuseSiderBar menuItems={menuItems} />;
-// };
-
-// export default Sidebar;
-
 const Sidebar = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
 
-  const { currentStep, completedSteps = [] } = useSelector(
-    (state) => state.patientRegistration,
+  const completedSteps = useSelector(
+    (state) => state.patientRegistration.completedSteps || [],
   );
 
-  // =====================================================
-  // All actual form steps
-  // =====================================================
+  // URL is the source of truth for active step
+  const currentStep = useMemo(() => {
+    const currentItem = sidebarSteps
+      .flatMap((section) => section.children)
+      .find((item) => item.path === location.pathname);
 
-  const flatSteps = useMemo(() => {
-    return sidebarSteps.flatMap((section) => section.children);
-  }, []);
-
-  // =====================================================
-  // Find current step from URL
-  // =====================================================
-
-  useEffect(() => {
-    const currentRouteStep = flatSteps.find(
-      (step) => step.path === location.pathname,
-    );
-
-    if (currentRouteStep && currentRouteStep.step !== currentStep) {
-      dispatch(setCurrentStep(currentRouteStep.step));
-    }
-  }, [location.pathname, currentStep, flatSteps, dispatch]);
-
-  // =====================================================
-  // Create sidebar UI state
-  // =====================================================
+    return currentItem?.step ?? 0;
+  }, [location.pathname]);
 
   const menuItems = useMemo(() => {
     return sidebarSteps.map((section) => {
@@ -199,13 +98,9 @@ const Sidebar = () => {
 
         return {
           ...child,
-
           child: true,
-
           active: isActive,
-
           completed: isCompleted,
-
           disabled: !isActive && !isCompleted,
         };
       });

@@ -6,10 +6,10 @@ import { Box, Typography } from "@mui/material";
 
 import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
-import Footer from "@/shared/components/Registration/layout/Footer";import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
+import Footer from "@/shared/components/Registration/layout/Footer";
+import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
 import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
 import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
-// import { completeStep, saveFormData } from "@/state-management/modules/patientRegistration/sidebarReducer";
 import { HealthOverviewValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
 import {
   setHealthOverview,resetRegistration,
