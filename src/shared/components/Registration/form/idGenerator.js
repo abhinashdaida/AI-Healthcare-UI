@@ -62,46 +62,40 @@ export const generateSuggestionsForValue = (value = "", prefix = "PAT", count = 
 
     }
 
+    const cleanValue = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+    if (!cleanValue) {
+
+        return [];
+
+    }
+
     const suggestions = new Set();
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let iterations = 0;
 
-    // Suffix templates that will be appended to the typed value
-    const templates = [
-        `${prefix}-${value}001`,
-        `${prefix}-${value}123`,
-        `${prefix}-${value}_care`,
-        `${prefix}-${value}health`,
-        `${prefix}-${value}_connect`,
-        `${prefix}-${value}_live`,
-        `${prefix}-${value}pro`,
-        `${prefix}-${value}_plus`,
-        `${prefix}-${value}247`,
-        `${prefix}-${value}clinic`,
-        `${prefix}-${value}care`,
-        `${prefix}-${value}app`,
-        `${prefix}-${value}web`,
-        `${prefix}-${value}corp`
-    ];
+    while (suggestions.size < count && iterations < 50) {
+        iterations++;
+        let suffix = "";
 
-    // Generate random 3-digit numbers to add variety
-    const randomNum1 = Math.floor(100 + Math.random() * 900);
-    const randomNum2 = Math.floor(100 + Math.random() * 900);
-    
-    templates.push(`${prefix}-${value}${randomNum1}`);
-    templates.push(`${prefix}-${value}${randomNum2}`);
-
-    // Shuffle templates using simple random sort
-    const shuffled = [...templates].sort(() => 0.5 - Math.random());
-
-    for (let i = 0; i < shuffled.length; i++) {
-
-        if (suggestions.size >= count) {
-
-            break;
-
+        if (cleanValue.length < 6) {
+            suffix = cleanValue;
+            while (suffix.length < 6) {
+                suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+        } else {
+            // If length is 6 or more, truncate/base on first 4 or 5 characters
+            // and append random characters to vary and maintain exactly 6 characters.
+            const baseLength = Math.random() > 0.5 ? 4 : 5;
+            suffix = cleanValue.substring(0, baseLength);
+            while (suffix.length < 6) {
+                suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
         }
 
-        suggestions.add(shuffled[i].toUpperCase());
-
+        const fullId = `${prefix}-${suffix}`;
+        if (isIdAvailable(fullId)) {
+            suggestions.add(fullId);
+        }
     }
 
     return [...suggestions];
@@ -122,7 +116,7 @@ export const isIdAvailable = (id) => {
 // success
 // error
 
-export const validateId = (id) => {
+export const validateId = (id, prefix = "PAT") => {
 
     if (!id) {
 
@@ -130,9 +124,27 @@ export const validateId = (id) => {
 
     }
 
+    const plainId = id.replace(`${prefix}-`, "");
+
+    // Check alphanumeric format
+    const alphanumericRegex = /^[A-Za-z0-9]+$/;
+    if (!alphanumericRegex.test(plainId)) {
+
+        return "invalid-format";
+
+    }
+
+    // Check length format (min 6)
+    if (plainId.length < 6) {
+
+        return "invalid-length";
+
+    }
+
+    // Check availability
     return isIdAvailable(id)
         ? "success"
-        : "error";
+        : "exists";
 
 };
 

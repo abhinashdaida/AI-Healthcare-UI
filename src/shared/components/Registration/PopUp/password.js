@@ -1,49 +1,36 @@
 import React, { useState } from "react";
 import {
-    Dialog,
-    DialogContent,
-    Box,
-    Typography,
-    TextField,
-    Button,
+    Dialog, DialogContent,
+    Box, Typography,
+    TextField, Button,
     LinearProgress,
     InputAdornment,
     IconButton,
 } from "@mui/material";
+import {
+  resetRegistration,
+} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { useDispatch } from "react-redux";
 import ReusableInput from "../form/FormInput";
 import { Icon } from "@iconify/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import SuccessModal from "../layout/SuccessModal";
+import SuccessModal from "./SuccessModal";
+import SectionHeader from "../form/SectionHeader";
 import FormHeader from "../layout/FormHeader";
-import { getStrength,passwordRules} from "@/shared/constants/PatientRegistration/MedicalRecords/PasswordConstants";
+import { getStrength, passwordRules } from "@/shared/constants/PatientRegistration/MedicalRecords/PasswordConstants";
 import { Passwordvalidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 
 export default function PasswordDialog({ open, handleClose, onSuccess }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [successOpen, setSuccessOpen] = useState(false);
-    const validation = Yup.object({
-        password: Yup.string()
-            .required("Please enter your password.")
-            .min(8, "Password must be at least 8 characters.")
-            .matches(/[A-Z]/, "Add at least one uppercase letter.")
-            .matches(/[a-z]/, "Add at least one lowercase letter.")
-            .matches(/[0-9!@#$%^&*]/, "Add at least one number.")
-            .test(
-                "strong-password",
-                "Please create a stronger password.",
-                (value) => {
-                    if (!value) return false;
-                    return getStrength(value).label === "Great";
-                }
-            ),
-        confirmPassword: Yup.string()
-            .required("Confirm password is required.")
-            .oneOf([Yup.ref("password")], "Passwords do not match."),
-    });
+    const dispatch = useDispatch();
 
-
+    const handleClick =()=>{
+        setSuccessOpen(true)
+        dispatch(resetRegistration());
+    }
 
     return (
         <Dialog
@@ -53,10 +40,8 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
             slotProps={{
                 paper: {
                     sx: {
-                        width: { xs: "95%", sm: "90%", md: "624px", },
-                        height: { xs: "auto", md: "640px" },
+                        width: { xs: "85%", sm: "80%", md: "624px", },
                         maxWidth: "624px",
-                        maxHeight: "640px",
                         borderRadius: "8px",
                         p: 0, overflow: "visible", m: 0,
                     },
@@ -67,8 +52,8 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                 onClick={handleClose}
                 sx={{
                     position: "absolute",
-                    right: -40,   // outside right side
-                    top: 0,
+                    right: { xs: 8, sm: -40 },
+                    top: { xs: 8, sm: 0 },
                     color: "#000",
                     backgroundColor: "#fff",
                     borderRadius: "50%",
@@ -101,64 +86,52 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                     {({
                         values,
                         handleSubmit,
-                    }) => {
-                        const strength = getStrength(values.password);
-
-                        const rules = passwordRules(values.password);
-
-                        return (
+                    }) =>  (
                             <form onSubmit={handleSubmit}>
                                 <Box className="w-full p-4 md:p-6">
 
                                     {/* Header */}
-
-                                    <div className="w-full flex justify-between items-start mt-0! ml-0! px-0! py-0! sm:px-0! lg:px-0!">
-                                        <FormHeader
-  title="Secure Your Account"
-  subtitle="Create a strong password to protect your account and personal information."
-  
-/>
+                                    <div className="w-full flex justify-between items-start ">
+                                            <SectionHeader
+                                                title="Secure Your Account"
+                                                subtitle="Create a strong password to protect your account and personal information."
+                                                maxWidth="335px"
+                                            />
+                                            <Box className="flex flex-col items-end gap-2">
+                                                <Box className="flex items-center gap-2">
+                                                    <Icon icon="tabler:headset" width={18} className="text-gray-500" />
+                                                    <Typography className="text-[12px]! text-gray-500!">
+                                                        Need Help?
+                                                    </Typography>
+                                                </Box>
+                                                <Button
+                                                    variant="outlined"
+                                                    sx={{
+                                                        width:{xs:"100%",sm:"140px"},
+                                                        textTransform: "none",
+                                                        fontSize: {sm:"14px", xs:"8px"},
+                                                        borderColor: "#159A9C",
+                                                        color: "#159A9C",
+                                                        
+                                                        "&:hover": {
+                                                            borderColor: "#128789",
+                                                            backgroundColor: "#f0fafa",
+                                                        },
+                                                    }}
+                                                >
+                                                    Contact Support
+                                                </Button>
+                                            </Box>
                                     </div>
-
-                                    <Box
-                                        className="w-full rounded-lg pt-6 pb-6  flex flex-col gap-6 bg-white"
-                                        sx={{
-                                            maxWidth: "624px",
-                                            minHeight: "102px",
-                                            borderRadius: "8px",
-                                        }}
+                                    <Box className="w-full rounded-lg pt-6 pb-6  flex flex-col gap-6 bg-white"
+                                        sx={{ maxWidth: "624px", minHeight: "102px", borderRadius: "8px", }}
                                     >
-                                        <Box className="w-full max-w-[328px] h-[54px]">
-                                            <Typography
-                                                sx={{
-                                                    color: "#0B1117", // or remove if using theme font
-                                                    fontWeight: 500,
-                                                    fontSize: "14px",
-                                                    lineHeight: 1,
-                                                    letterSpacing: 0,
-                                                }}
-                                            >
-                                                Create a strong password
-                                            </Typography>
-
-                                            <Typography
-                                                sx={{
-                                                    pt: 1,
-                                                    fontSize: "12px",
-                                                    fontWeight: 400,
-                                                    color: "#4B5563",
-                                                    lineHeight: 1,
-                                                }}
-                                            >
-                                                Create a strong password with mix of letters, numbers and symbols.
-                                            </Typography>
-                                        </Box>
+                                        <SectionHeader title="Create a strong password"
+                                            subtitle="Create a strong password with mix of letters, numbers and symbols." />
                                     </Box>
-
                                     {/* Inputs */}
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-
                                         {/* Create Password */}
                                         <div>
                                             <ReusableInput
@@ -170,7 +143,6 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                                 endIcon={showPassword ? "tabler:eye" : "tabler:eye-off"}
                                                 onEndIconClick={() => setShowPassword(!showPassword)}
                                             />
-
                                         </div>
 
                                         {/* Confirm Password */}
@@ -185,7 +157,6 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                                 onEndIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                             />
                                         </div>
-
                                     </div>
                                     {/* Strength */}
                                     <Box className="w-full max-w-[280px] mt-6">
@@ -193,13 +164,13 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                             <>
                                                 <LinearProgress
                                                     variant="determinate"
-                                                    value={strength.value}
+                                                    value={getStrength(values.password).value}
                                                     sx={{
                                                         height: 6,
                                                         borderRadius: 4,
                                                         backgroundColor: "#E0E0E0",
                                                         "& .MuiLinearProgress-bar": {
-                                                            backgroundColor: strength.color,
+                                                            backgroundColor: getStrength(values.password).color,
                                                         },
                                                     }}
                                                     className="mt-6 rounded"
@@ -208,7 +179,7 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                                 <Typography
                                                     className="mt-2"
                                                     sx={{
-                                                        color: strength.color,
+                                                        color: getStrength(values.password).color,
                                                         fontWeight: 500,
                                                         fontStyle: "normal",
                                                         fontSize: "12px", // xs (change according to your design system)
@@ -217,7 +188,7 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
 
                                                     }}
                                                 >
-                                                    {strength.label}
+                                                    {getStrength(values.password).label}
                                                 </Typography>
                                             </>
                                         ) : (<Box className="h-[32px]" />
@@ -230,26 +201,12 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                         </Typography>
 
                                         <div className="space-y-2">
-
-                                            {rules.map((rule) => (
-                                                <div
-                                                    key={rule.text}
-                                                    className="flex items-center gap-2"
-                                                >
-                                                    <Icon
-                                                        icon={
-                                                            rule.ok
-                                                                ? "mdi:check-circle"
-                                                                : "mdi:close-circle"
-                                                        }
+                                            {passwordRules(values.password).map((rule) => (
+                                                <div key={rule.text} className="flex items-center gap-2">
+                                                    <Icon icon={ rule.ok ? "mdi:check-circle" : "mdi:close-circle" }
                                                         color={rule.ok ? "#248B8F" : "#ef4444"}
                                                     />
-
-                                                    <Typography
-                                                        sx={{
-                                                            color: `${rule.ok ? "#248B8F" : "#ef4444"} !important`,
-                                                        }}
-                                                    >
+                                                    <Typography  sx={{ color: `${rule.ok ? "#248B8F" : "#ef4444"} !important`  }}>
                                                         {rule.text}
                                                     </Typography>
                                                 </div>
@@ -258,20 +215,17 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                     </Box>
 
                                     {/* Button */}
-
                                     <Button
                                         fullWidth
                                         type="submit"
                                         variant="contained"
                                         className="!mt-8 !h-12"
-                                        onClick={() => setSuccessOpen(true)}
+                                        onClick={handleClick}
                                         disabled={!values.password || !values.confirmPassword}
                                         sx={{
                                             backgroundColor: "#248B8F",
                                             color: "#fff",
-                                            "&:hover": {
-                                                backgroundColor: "#1E767A",
-                                            },
+                                            "&:hover": { backgroundColor: "#1E767A", },
                                             "&.Mui-disabled": {
                                                 backgroundColor: "#F2F2F2",
                                                 color: "#6B7280",
@@ -282,10 +236,8 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                     </Button>
                                 </Box>
                             </form>
-                        );
-                    }}
+                        )}
                 </Formik>
-
             </DialogContent>
         </Dialog>
     );

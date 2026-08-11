@@ -13,18 +13,7 @@ const ReviewDocumentCard = ({ title, files }) => {
             }}
         >
             {/* Header */}
-            <Box
-                className="
-                    p-4
-                    flex
-                    flex-col
-                    sm:flex-row
-                    justify-between
-                    items-start
-                    sm:items-center
-                    gap-3
-                "
-            >
+            <Box className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 " >
                 <Box className="flex items-center gap-2">
                     <Icon
                         icon="tabler:file-text"
@@ -38,8 +27,7 @@ const ReviewDocumentCard = ({ title, files }) => {
                 </Box>
 
                 <Box className="flex items-center gap-1 cursor-pointer text-[#248B8F]">
-                    <Icon
-                        icon="ic:round-plus"
+                    <Icon icon="ic:round-plus"
                         width={18}
                         color="#248B8F"
                     />
@@ -61,29 +49,10 @@ const ReviewDocumentCard = ({ title, files }) => {
             <Divider />
 
             {/* Files */}
-            <Box
-                className="
-                    p-4
-                    grid
-                    grid-cols-1
-                    sm:grid-cols-2
-                    gap-4
-                "
-            >
+            <Box className=" p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
                 {files?.map((file) => (
-                    <Box
-                        key={file.fileName}
-                        className="
-                            flex
-                            items-center
-                            gap-3
-                            w-full
-                            rounded-lg
-                            border
-                            border-gray-100
-                            p-2
-                        "
-                    >
+                    <Box key={file.fileName}
+                        className=" flex items-center gap-3  w-full rounded-lg border border-gray-100  p-2 " >
                         <Icon
                             icon="teenyicons:pdf-solid"
                             width={18}
@@ -94,12 +63,9 @@ const ReviewDocumentCard = ({ title, files }) => {
                             <Typography
                                 className="truncate"
                                 sx={{
-                                    fontWeight: 600,
-                                    fontSize: {
-                                        xs: "12px",
-                                        md: "13px",
-                                    },
-                                }}
+                                    fontWeight: 500,
+                                    fontSize: { xs: "12px", md: "13px", },
+                                }} 
                             >
                                 {file.fileName}
                             </Typography>
@@ -107,10 +73,7 @@ const ReviewDocumentCard = ({ title, files }) => {
                             <Typography
                                 sx={{
                                     color: "#98A2B3",
-                                    fontSize: {
-                                        xs: "11px",
-                                        md: "12px",
-                                    },
+                                    fontSize: { xs: "11px", md: "12px", },
                                 }}
                             >
                                 PDF • {file.size}
