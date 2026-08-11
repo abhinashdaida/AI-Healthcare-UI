@@ -1,12 +1,10 @@
 import React from "react";
 import { Button, Chip, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
- 
-
 
 // Replace with your actual image path
 import doctorImage from "../../assets/Landingpage/hero-doctor.avif";
-  
+
 const HeroSection = () => {
   return (
     <section className="relative w-full bg-white border-b border-[#F4F4F4] overflow-hidden">
@@ -17,10 +15,10 @@ const HeroSection = () => {
         - Column Gap: gap-8
       */}
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
-        
+
         {/* LEFT CONTENT (Frame 481) */}
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left justify-center w-full">
-          
+
           {/* AI Badge */}
           <Chip
             icon={<Icon icon="si:ai-fill" width={14} className="!text-[#0F766E]" />}
@@ -51,7 +49,7 @@ const HeroSection = () => {
               !text-[#111827]
               !tracking-tight
             "
-           >
+          >
             One Platform for the <br className="hidden sm:inline" />
             Entire <span className="text-[#0F766E]">Healthcare</span> <br className="hidden sm:inline" />
             Ecosystem
@@ -121,7 +119,7 @@ const HeroSection = () => {
 
           {/* Trust Badges Bar */}
           <div className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-4 mt-7 text-left">
-            
+
             {/* Trusted by 1M+ Patients */}
             <div className="flex items-center gap-1.5">
               <Icon icon="codicon:workspace-trusted" width={16} className="text-[#0F766E] shrink-0" />
@@ -164,25 +162,25 @@ const HeroSection = () => {
 
         {/* RIGHT CONTENT CONTAINER */}
         <div className="relative w-full max-w-[340px] sm:max-w-[440px] h-[320px] sm:h-[380px] flex justify-center items-center shrink-0 mt-4 lg:mt-0">
-          
+
           {/* Hero Image Wrapper */}
           <div className="relative w-full h-full flex justify-center items-center">
             <img
               src={doctorImage}
               alt="Doctor and Patient"
               className="w-full h-full object-contain relative z-10"
-            /> 
+            />
 
             {/* Bottom Gradient Fade */}
             <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-gradient-to-t from-white via-white/80 to-transparent z-15 pointer-events-none" />
 
             {/* Soft Teal Backdrop Glow */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[240px] sm:w-[300px] h-[120px] sm:h-[140px] bg-[#E6F7F5] rounded-full blur-[50px] pointer-events-none z-0 opacity-80" />
-          </div> ;
+          </div>
 
 
           {/* Floating Card 1: Find Doctors */}
-          <div className="absolute top-[20px] sm:top-[40px] left-[-50px] sm:left-[-40px] z-20 w-[130px] sm:w-[145px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
+          <div className="absolute top-[20px] sm:top-[40px] left-[-40px] sm:left-[-30px] z-20 w-[130px] sm:w-[145px] h-[46px] sm:h-[50px] bg-white/95 backdrop-blur-md rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.06)] border border-gray-100 px-2 sm:px-2.5 py-1.5 flex items-center gap-2">
             <div className="bg-[#E6F7F5] p-1.5 rounded-lg shrink-0">
               <Icon icon="icon-park-outline:appointment" width={15} className="text-[#0F766E]" />
             </div>

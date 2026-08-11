@@ -24,13 +24,13 @@ const ImpactNumbers = () => {
 
       {/* Cards */}
 
-<div className="flex flex-wrap justify-center lg:justify-between gap-6">
+<div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {IMPACT_NUMBERS.map((item) => (
 
 <Card
   key={item.id}
   elevation={0}
-className="w-full sm:w-[340px] lg:w-[267px] h-auto lg:h-[233px] rounded-[10px] border border-[#D0D0D0] p-8 flex flex-col gap-6"
+className="w-full h-auto lg:h-[233px] rounded-[10px] border border-[#D0D0D0] p-8 flex flex-col gap-6"
 >
 
             {/* Icon */}

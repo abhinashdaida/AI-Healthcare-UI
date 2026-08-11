@@ -39,17 +39,18 @@ const WhyChooseUs = () => {
                         <div className="mt-3">
 
                             {/* Icon + Title */}
-                            <div className="flex items-start gap-3 min-h-[56px]">
+                            <div className="flex items-center gap-5 min-h-[64px]">
 
-                                <div className="w-10 h-10 rounded-full bg-[#F3F8F7] flex items-center justify-center flex-shrink-0">
+                                <div className="w-16 h-16 rounded-full bg-[#F3F8F7] flex items-center justify-center flex-shrink-0">
                                     <Icon
                                         icon={item.icon}
-                                        width={22}
+                                        width={32}
+                                        height={32}
                                         className="text-[#0B8B74]"
                                     />
                                 </div>
 
-                                <h3 className="flex-1 text-[18px] leading-[28px] font-semibold text-[#141414]">
+                                <h3 className="w-[150px] text-[18px] leading-[28px] font-medium text-[#141414]">
                                     {item.title}
                                 </h3>
 

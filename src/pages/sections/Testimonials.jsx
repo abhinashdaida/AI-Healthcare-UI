@@ -30,15 +30,13 @@ const Testimonials = () => {
 
         {/* Cards */}
 
-        <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-4 flex-1">
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-1">
           {TESTIMONIALS.map((item) => (
 
             <Card
               key={item.id}
               elevation={0}
-              className="w-[206px] h-[168px] rounded-[12px] border border-[#D0D0D0] bg-[#FBFBFB] p-4 flex flex-col justify-between"
-              sx={{
+              className="w-full h-[168px] rounded-[12px] border border-[#D0D0D0] bg-[#FBFBFB] p-4 flex flex-col justify-between"              sx={{
                 boxShadow:
                   "0px 1px 1px rgba(64,64,64,0.05), 0px 2px 2px rgba(64,64,64,0.04)",
               }}
