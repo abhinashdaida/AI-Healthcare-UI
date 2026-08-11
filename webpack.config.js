@@ -54,22 +54,25 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [".mjs", ".js", ".jsx"],
-        fullySpecified: false,
-        alias: {
-            "@": path.resolve(__dirname, "src/"),
-            "@components": path.resolve(__dirname, "src/shared/components/"),
-            "@pages": path.resolve(__dirname, "src/pages/"),
-            "@context": path.resolve(__dirname, "src/context/"),
-            "@services": path.resolve(__dirname, "src/shared/services/"),
-            "@assets": path.resolve(__dirname, "src/assets/"),
-            "state-management": path.resolve(__dirname, "src/state-management/"),
-        }
-    },
+    extensions: [".mjs", ".js", ".jsx"],
+    fullySpecified: false,
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./public/index.html"
-        })
-    ]
+    
+
+    alias: {
+        "@": path.resolve(__dirname, "src"),
+        "@components": path.resolve(__dirname, "src/shared/components"),
+        "@pages": path.resolve(__dirname, "src/pages"),
+        "@context": path.resolve(__dirname, "src/context"),
+        "@services": path.resolve(__dirname, "src/shared/services"),
+        "@assets": path.resolve(__dirname, "src/assets"),
+        "state-management": path.resolve(__dirname, "src/state-management"),
+    },
+},
+plugins: [
+    new HtmlWebpackPlugin({
+        template: "./public/index.html",
+    }),
+
+],
 };

@@ -1,0 +1,219 @@
+import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form, useFormikContext } from "formik";
+import { Box, Typography } from "@mui/material";
+
+import FormHeader from "@/shared/components/Registration/layout/FormHeader";
+import SiderBar from "../components/SiderBar/SiderBar";
+import Footer from "@/shared/components/Registration/layout/Footer";
+import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
+import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
+import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
+import { basicDetalisValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
+import {
+  GENDER_OPTIONS,
+  BLOODGROUP_OPTIONS,
+  MARITALSTATUS_OPTIONS,
+  OCCUPATION_OPTIONS,
+} from "@/shared/constants/PatientRegistration/dropdownOptions";
+
+import {setBasicDetails,completeStep,} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { selectBasicDetails } from "@/state-management/modules/patientRegistration/patientRegistrationSelectors";
+
+
+
+// -----------------Form Footer-----------
+const FormFooter = ({ config }) => {
+  const { isValid, submitForm } = useFormikContext();
+
+  const footerConfig = {
+    ...config,
+    // Keep button visible
+    showPrimaryButton: true,
+    // Disable when required fields are not valid
+    primaryButtonDisabled: !isValid,
+    onPrimaryClick: submitForm,
+  };
+  return <Footer config={footerConfig} />;
+};
+
+// Basic Details
+const BasicDetails = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+ 
+  const savedData = useSelector(selectBasicDetails) || {};
+
+  const initialValues = {
+    firstName: savedData.firstName ||"",
+    dateOfBirth: "",
+    gender:"",
+    bloodGroup:"",
+    maritalStatus:"",
+    occupation:"",
+    phoneNumber:"",
+    email:"",
+  };
+
+
+  // Submit
+  const handleContinue = (values) => {
+    console.log("Form submitted:", values);
+    dispatch(setBasicDetails(values));
+    dispatch(completeStep(0));                        // move siderbar step 
+
+    navigate("/emergency-contact");
+  };
+
+  // Auto Save
+  const handleAutoSave = () => {
+    console.log("Auto Save");
+  };
+
+  // Footer Config
+  const footerConfig = useMemo(
+    () => ({
+      showAutoSave: true,
+      showSkipButton: false,
+
+      primaryButtonLabel: "Save & Continue",
+      onAutoSaveClick: handleAutoSave,
+    }),
+    [],
+  );
+
+  return (
+    <div className="min-h-screen bg-[#F5F7F8] flex justify-center p-2 sm:p-3">
+      <div className="w-full max-w-[1400px] bg-white rounded-lg overflow-hidden shadow-sm flex min-h-[calc(100vh-24px)]">
+        {/* Sidebar */}
+        <SiderBar />
+
+        {/*Right Content */}
+        <main className="flex flex-1 flex-col min-w-0">
+          {/* Header*/}
+          <FormHeader
+            title="Personal Information"
+            subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
+          />
+
+          {/*Formik*/}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={basicDetalisValidation}
+            onSubmit={handleContinue}
+            enableReinitialize={true}
+            validateOnMount
+          >
+            <Form className="flex flex-1 flex-col min-h-0">
+              {/* Content */}
+              <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
+                {/* Section Header */}
+                <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
+                  <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
+                    Basic Details
+                  </Typography>
+
+                  <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
+                    Tell us a little about yourself so we can personalize your
+                    healthcare experience.
+                  </Typography>
+                </Box>
+
+                {/* Fields*/}
+
+                <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
+                  {/* First Name*/}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>First Name</CustomLabel>
+                    <CustomTextField
+                      name="firstName"
+                      placeholder="Enter First Name"
+                      type="text"
+                      startIcon="tabler:user"
+                    />
+                  </Box>
+                  {/* Date of Birth */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Date of Birth</CustomLabel>
+                    <CustomTextField
+                      name="dateOfBirth"
+                      placeholder="Select your date of birth"
+                      type="date"
+                      startIcon="tabler:cake"
+                    />
+                  </Box>
+                  {/* Gender */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Gender</CustomLabel>
+                    <CustomSelect
+                      name="gender"
+                      placeholder="Select your gender"
+                      startIcon="tabler:gender-bigender"
+                      options={GENDER_OPTIONS}
+                    />
+                  </Box>
+                  {/* Blood Group */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Gender</CustomLabel>
+                    <CustomSelect
+                      name="bloodGroup"
+                      placeholder="Select your blood group"
+                      startIcon="tabler:droplet"
+                      options={BLOODGROUP_OPTIONS}
+                    />
+                  </Box>
+                  {/* Marital Status */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel>Marital Status</CustomLabel>
+                    <CustomSelect
+                      name="maritalStatus"
+                      placeholder="Select your marital status"
+                      startIcon="tabler:heart-handshake"
+                      options={MARITALSTATUS_OPTIONS}
+                    />
+                  </Box>
+                  {/* Occupation */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel>Occupation</CustomLabel>
+                    <CustomSelect
+                      name="occupation"
+                      placeholder="Select your occupation"
+                      startIcon="tabler:briefcase"
+                      options={OCCUPATION_OPTIONS}
+                    />
+                  </Box>
+                  {/* Phone Number*/}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Phone Number</CustomLabel>
+                    <CustomTextField
+                      name="phoneNumber"
+                      placeholder="+91 9876 543 210"
+                      type="Number"
+                      disabled
+                      startIcon="tabler:phone"
+                    />
+                  </Box>
+                  {/* Email Address*/}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Email Address</CustomLabel>
+                    <CustomTextField
+                      name="email"
+                      placeholder="Enter your email address"
+                      type="email"
+                      startIcon="tabler:mail"
+                    />
+                  </Box>
+                </Box>
+              </div>
+              {/* Footer */}
+              <FormFooter config={footerConfig} />
+            </Form>
+          </Formik>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default BasicDetails;
