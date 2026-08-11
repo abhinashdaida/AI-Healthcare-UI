@@ -25,3 +25,18 @@ export const basicDetalisValidation = Yup.object({
   bloodGroup: Yup.string().required("Please select your blood group!"),
   maritalStatus: Yup.string().required("Please select your martial status!"),
 });
+<<<<<<< HEAD
+=======
+
+
+export const emergencyContactValidation = Yup.object({
+  relationship: Yup.string().required(
+    "Please select Emergency Contact Relationship!",
+  ),
+});
+
+
+export const HealthOverviewValidation=Yup.object({
+  name:Yup.string().required("name is requeird"),
+});
+>>>>>>> 4c1ebc7329f2598a2cf59699920d727022694eb5

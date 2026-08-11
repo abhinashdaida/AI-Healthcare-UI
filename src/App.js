@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <ScrollToTop />
+        
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>
@@ -29,6 +29,7 @@ function App() {
             <Route path="/medical-conditions" element={<MedicalConditions />} />
             <Route path="/insurance" element={<Insurance />} />
             <Route path="/reviewdetails" element={<ReviewComplete />} />
+            <Route path="createloginid" element={<CreateLoginId/>}/>
           </Routes>
         </GlobalConfigView>
       </div>
