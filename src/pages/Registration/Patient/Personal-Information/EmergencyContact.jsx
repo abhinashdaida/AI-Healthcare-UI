@@ -141,9 +141,6 @@ const EmergencyContact=()=>{
                   </Box>
                 </div>
 
-
-
-
                 <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
                   {/* secation header */}
                   <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
