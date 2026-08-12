@@ -3,16 +3,28 @@ import React from "react";
 import InfoRow from "../PopUp/InfoRow";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetRegistration } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
 export default function SuccessModal({ open, handleClose, }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const basicDetails = useSelector((state) => state.patientRegistration.basicDetails);
-    const mobile =basicDetails?.phoneNumber ||"";
-    const email = basicDetails?.email ||"";
+    const mobile = basicDetails?.phoneNumber || "";
+    const email = basicDetails?.email || "";
+
+    console.log("Basic Details:", basicDetails);
+    console.log("Email:", email);
+
+    const handleUpload = () => {
+        dispatch(resetRegistration());
+        navigate("/basic-details");
+    }
 
     const maskPhone = (phone) =>
         phone ? `******${phone.slice(-4)}` : "";
+
+
 
     const maskEmail = (email) => {
         if (!email) return "";
@@ -144,16 +156,19 @@ export default function SuccessModal({ open, handleClose, }) {
                 >
                     <InfoRow
                         title="Mobile Confirmation"
-                        value={`Your registered mobile number ${maskPhone(
-                            mobile
-                        )} has been verified.`}
+                        value={<>Your registered mobile number 
+                        <span style={{ color: "#111827", fontWeight: 500 }}>
+                                {maskPhone(mobile)}
+                            </span> has been verified.</>}
                     />
 
                     <InfoRow
                         title="Email Confirmation"
-                        value={`Confirmation email sent to: ${maskEmail(
-                            email
-                        )}`}
+                        value={
+                            <>Confirmation email sent to:{" "}
+                            <span style={{ color: "#111827", fontWeight: 500 }}>
+                                {maskEmail(email)}
+                            </span></>}
                     />
                 </Box>
 
@@ -217,7 +232,7 @@ export default function SuccessModal({ open, handleClose, }) {
                     <Button
                         fullWidth
                         variant="contained"
-                        onClick={() => navigate("/basic-details")}
+                        onClick={handleUpload}
                         sx={{
                             height: 48,
                             borderRadius: 2,

@@ -26,7 +26,6 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
 
     const handleClick =()=>{
         setSuccessOpen(true)
-        dispatch(resetRegistration());
     }
 
     return (

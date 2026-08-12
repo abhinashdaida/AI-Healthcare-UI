@@ -11,7 +11,7 @@ import ReviewDocumentCard from "../../../../shared/components/Registration/revie
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    basicDetails,
+    getbasicDetails,
     locationDetails,
     emergencyDetails,
     physicalDetails,
@@ -30,8 +30,9 @@ const Review = () => {
     const initialValues = {};
     const medicalValidation = null;
 
-    const medicalConditions = useSelector((state) => state.patientRegistration.medicalConditions);
-    const insurance = useSelector((state) => state.patientRegistration.insurance);
+    const savedmedicalConditions = useSelector((state) => state.patientRegistration.medicalConditions);
+    const savedinsurance = useSelector((state) => state.patientRegistration.insurance);
+    const savedbasicDetails =useSelector((state)=> state.patientRegistration.basicDetails);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -85,7 +86,7 @@ const Review = () => {
                                         title="Basic Details"
                                         headerIcon="tabler:user"
                                         editPath="/basic-details"
-                                        data={basicDetails}
+                                        data={getbasicDetails(savedbasicDetails)}
                                     />
 
                                     <ReviewCard
@@ -130,13 +131,13 @@ const Review = () => {
                                             title="Medical records"
                                             editPath="/medical-conditions"
                                             headerIcon="tabler:activity-heartbeat"
-                                            data={getMedicalDetails(medicalConditions)}
+                                            data={getMedicalDetails(savedmedicalConditions)}
                                         />
 
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
                                             editPath="/medical-conditions"
-                                            files={medicalConditions?.files || []}
+                                            files={savedmedicalConditions?.files || []}
                                         />
                                     </Box>
                                 </ReviewAccordion>
@@ -154,12 +155,12 @@ const Review = () => {
                                             title="Insurance"
                                             editPath="/insurance"
                                             headerIcon="tabler:shield-plus"
-                                            data={getinsuranceDetails(insurance)}
+                                            data={getinsuranceDetails(savedinsurance)}
                                         />
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
                                             editPath="/insurance"
-                                            files={insurance?.files || []}
+                                            files={savedinsurance?.files || []}
                                         />
                                     </Box>
                                 </ReviewAccordion>

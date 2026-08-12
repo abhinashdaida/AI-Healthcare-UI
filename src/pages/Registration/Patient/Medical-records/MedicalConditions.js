@@ -22,7 +22,7 @@ import { setMedicalConditions, completeStep } from "@/state-management/modules/p
 const MedicalRecords = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const medicalConditions = useSelector((state) => state.patientRegistration.medicalConditions);
+    const savedData = useSelector((state) => state.patientRegistration.medicalConditions);
 
     const handleUpload = async (values) => {
         dispatch(setMedicalConditions(values));
@@ -49,11 +49,11 @@ const MedicalRecords = () => {
     }
 
     const initialValues = {
-        allergies: medicalConditions?.allergies|| [],
-        conditions: medicalConditions?.conditions||[],
-        surgeries: medicalConditions?.surgeries||[],
-        medications: medicalConditions?.medications||[],
-        files: medicalConditions?.files||[],
+        allergies: savedData?.allergies|| [],
+        conditions: savedData?.conditions||[],
+        surgeries: savedData?.surgeries||[],
+        medications: savedData?.medications||[],
+        files: savedData?.files||[],
     };
 
 

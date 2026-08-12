@@ -20,7 +20,7 @@ const Insurance = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const [confirmed, setConfirmed] = useState(false);
-    const insurance = useSelector((state) => state.patientRegistration.insurance);
+    const savedData = useSelector((state) => state.patientRegistration.insurance);
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
 
     useEffect(() => {
@@ -65,11 +65,11 @@ const Insurance = () => {
     }
 
     const initialValues = {
-        insuranceType: insurance?.insuranceType||"",
-        schemeProvider: insurance?.schemeProvider||"",
-        holderName: insurance?.holderName|| "",
-        customerId: insurance?.customerId|| "",
-        files: insurance?.files || [],
+        insuranceType: savedData?.insuranceType||"",
+        schemeProvider: savedData?.schemeProvider||"",
+        holderName: savedData?.holderName|| "",
+        customerId: savedData?.customerId|| "",
+        files: savedData?.files || [],
     };
 
     const isInsuranceComplete = (values) => {

@@ -1,33 +1,33 @@
-export const basicDetails = [
+export const getbasicDetails =(basicdetails)=> [
     {
         icon: "tabler:user",
         label: "Full Name",
-        value: "Deepika K",
+        value: basicdetails?.firstName||"None",
     },
     {
         icon: "tabler:calendar-due",
         label: "Date of Birth",
-        value: "1 February 1980",
+        value: basicdetails?.dateOfBirth||"None",
     },
     {
         icon: "tabler:gender-bigender",
         label: "Gender",
-        value: "F",
+        value: basicdetails?.gender || "None",
     },
     {
         icon: "tabler:droplet",
         label: "Blood Group",
-        value: "AB-ve",
+        value: basicdetails?.bloodGroup||"None",
     },
     {
         icon: "tabler:heart-handshake",
         label: "Marital Status",
-        value: "Single",
+        value: basicdetails?.maritalStatus||"None",
     },
     {
         icon: "tabler:phone",
         label: "Phone Number",
-        value: "+91 9876 543 210",
+        value: basicdetails?.phoneNumber||"None",
     },
 ];
 
