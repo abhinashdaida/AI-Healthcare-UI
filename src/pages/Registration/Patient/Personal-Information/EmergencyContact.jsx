@@ -9,7 +9,7 @@ import CustomTextField from "@/shared/components/Registration/Common/CustomTextF
 import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
 import { Box, Typography } from "@mui/material";
 import { Form, Formik, useFormikContext } from "formik";
-import { RELATIONSHIP_OPTIONS } from "@/shared/constants/PatientRegistration/dropdownOptions";
+import { RELATIONSHIP_OPTIONS,NATIONALITY_OPTIONS,STATE_OPTIONS,CITY_OPTIONS } from "@/shared/constants/PatientRegistration/dropdownOptions";
 import { emergencyContactValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
   
 import {
@@ -21,6 +21,9 @@ import { selectBasicDetails } from "@/state-management/modules/patientRegistrati
 const initialValues = {
      relationship: "",
      emergencyName: "",
+     nationality: "",
+     State : "",
+     City : "",
    };
 // ---------Form Footer--------
     const FormFooter = ({ config }) => {
@@ -126,8 +129,71 @@ const EmergencyContact=()=>{
                         startIcon="tabler:user"
                       />
                     </Box>
+                    <Box className="w-full min-w-0">
+                      <CustomLabel required>Emergency Contact Phone Number</CustomLabel>
+                      <CustomTextField
+                        name="emergencyContactNumber"
+                        placeholder="Enter Emergency contact Number"
+                        type="text"
+                        startIcon="tabler:phone"
+                      />
+                    </Box>
                   </Box>
                 </div>
+
+
+
+
+                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
+                  {/* secation header */}
+                  <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
+                    <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
+                      Location
+                    </Typography>
+                    <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
+                     Help us reach you when needed and show healthcare services available in your area.
+                    </Typography>
+                  </Box>
+
+                  {/* fields */}
+                  <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
+                    {/* Nationality */}
+                    <Box className="w-full min-w-0">
+                      <CustomLabel required>
+                        Nationality
+                      </CustomLabel>
+                      <CustomSelect
+                        name="nationality"
+                        placeholder="Select your nationality"
+                        startIcon="tabler:map-pin"
+                        options={NATIONALITY_OPTIONS}
+                      />
+                    </Box>
+                    {/* State */}
+                    <Box className="w-full min-w-0">
+                      <CustomLabel required>State</CustomLabel>
+                      <CustomSelect
+                        name="State"
+                        placeholder="Select your state"
+                        type="text"
+                        startIcon="tabler:map-pin"
+                         options={STATE_OPTIONS}
+                      />
+                    </Box>
+                    <Box className="w-full min-w-0">
+                      <CustomLabel required>City</CustomLabel>
+                      <CustomSelect
+                        name="City"
+                        placeholder="Select your city"
+                        type="text"
+                        startIcon="tabler:map-pin"
+                        options={CITY_OPTIONS}
+                      />
+                    </Box>
+                  </Box>
+                </div>
+
+              
                 {/* Footer */}
                 <FormFooter config={footerConfig} />
               </Form>

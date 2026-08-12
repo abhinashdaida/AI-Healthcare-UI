@@ -31,11 +31,7 @@ const Login = () => {
     onSubmit: (values) => {
       // login(values.username, values.password);
       // alert("Login Successful");
-<<<<<<< HEAD
-       navigate("/basic-details");
-=======
       navigate("/basic-details");
->>>>>>> fdd8c77704797cdb1071a8badb938e37b004022c
     },
   });
 
