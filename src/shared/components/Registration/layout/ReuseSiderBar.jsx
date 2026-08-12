@@ -86,7 +86,7 @@ const SidebarItem = ({ item }) => {
         <Box
           className={`
             absolute
-            left-[2px]
+            left-[5px]
             top-0 bottom-0 w-[2px]
             ${active || completed ? "bg-[#229497]" : "bg-[#dce5e7]"}
           `}
@@ -155,8 +155,9 @@ const SidebarItem = ({ item }) => {
 
   //=========PARENT ITEM===========
   return (
-    <Box>
+    <Box className="relative">
       {/* ================= PARENT ================= */}
+      
       <Box
         className={` min-h-[56px]
           px-3 flex items-center
