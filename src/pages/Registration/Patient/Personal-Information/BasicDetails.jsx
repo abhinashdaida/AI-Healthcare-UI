@@ -157,7 +157,7 @@ const BasicDetails = () => {
                   </Box>
                   {/* Blood Group */}
                   <Box className="w-full min-w-0">
-                    <CustomLabel required>Gender</CustomLabel>
+                    <CustomLabel required>Blood Group</CustomLabel>
                     <CustomSelect
                       name="bloodGroup"
                       placeholder="Select your blood group"
