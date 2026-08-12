@@ -190,7 +190,7 @@ const BasicDetails = () => {
                   </Box>
                   {/* Phone Number*/}
                   <Box className="w-full min-w-0">
-                    <CustomLabel >Phone Number</CustomLabel>
+                    <CustomLabel>Phone Number</CustomLabel>
                     <CustomTextField
                       name="phoneNumber"
                       placeholder="+91 9876 543 210"
@@ -201,7 +201,7 @@ const BasicDetails = () => {
                   </Box>
                   {/* Email Address*/}
                   <Box className="w-full min-w-0">
-                    <CustomLabel >Email Address</CustomLabel>
+                    <CustomLabel>Email Address</CustomLabel>
                     <CustomTextField
                       name="email"
                       placeholder="Enter your email address"
