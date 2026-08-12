@@ -93,8 +93,7 @@ const Sidebar = () => {
     return sidebarSteps.map((section) => {
       const children = section.children.map((child) => {
         const isActive = child.step === currentStep;
-        const isCompleted =
-          completedSteps.includes(child.step) && child.step <= currentStep;
+        const isCompleted = completedSteps.includes(child.step) && child.step < currentStep;
         return {
           ...child,
 

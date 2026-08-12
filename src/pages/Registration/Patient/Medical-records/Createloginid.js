@@ -25,10 +25,13 @@ import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import {
   setCreateLoginId,
   completeStep,
+  resetRegistration,
 } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { useNavigate } from "react-router-dom";
 
 const CreateLoginId = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
 
@@ -339,6 +342,10 @@ const CreateLoginId = () => {
               <SuccessModal
                 open={successOpen}
                 handleClose={() => setSuccessOpen(false)}
+                onGoToDashboard={() => {
+                  dispatch(resetRegistration());
+                  navigate("/basic-details");
+                }}
               />
             </main>
           </div>
