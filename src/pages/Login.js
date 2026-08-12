@@ -234,7 +234,7 @@ const Login = () => {
 
   // Handle tab switch - reset form errors
   const handleTabSwitch = (tab) => {
-    setActiveTab(tab);
+    setActiveTab(tab);   
     signInFormik.resetForm();
   };
 
@@ -260,7 +260,7 @@ const Login = () => {
       }} />
 
       {/* Main card container */}
-     <main className="w-full max-w-[1280px] h-[650px] bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col md:flex-row overflow-visible">
+     <main className="w-full max-w-[1280px] md:h-[700px] bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col md:flex-row overflow-visible">
         
         {/* Left Branding Side Panel */}
         <Brandingsidepanel/>
@@ -269,8 +269,8 @@ const Login = () => {
         <div className="w-full md:w-[55%] flex flex-col justify-between p-6 md:p-8 lg:p-16 relative -mt-12">
           
           {/* Back button container */}
-          <div className="h-10">
-            {step !== "signin" && (
+          <div className="h-10 mt-10">
+            {step !== "signin" && ( 
               <button
                 type="button"
                 onClick={() => {
@@ -280,7 +280,7 @@ const Login = () => {
                 }}
                 className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-800 font-semibold text-sm transition-colors group"
               >
-                <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 transition-colors">
+                <div className="w-10 h-7 rounded-full bg-[#F4F4F4] flex items-center justify-center group-hover:bg-[#EAEAEA] transition-colors">
                   <Icon icon="lucide:chevron-left" className="w-4 h-4" />
                 </div>
                 <span>Back</span>
@@ -298,18 +298,19 @@ const Login = () => {
   Welcome Back!
 </p>
                   <p className="text-slate-500 text-xs md:text-sm">
-                    Continue securely using your phone number or Unique ID.
+                    Continue securely using your phone <br/> number or Unique ID.
                   </p>
                 </div>
 
                 {/* Tab buttons */}
-                <div className="w-full bg-slate-100 p-1 rounded-xl flex gap-1">
+                <label className="text-xs font-semibold">Login with</label>
+                <div className="w-full bg-[#FFFFFF] border border-[#D0D0D0] p-2 rounded-xl flex gap-1">
                   <button
                     type="button"
                     onClick={() => handleTabSwitch("phone")}
                     className={`flex-1 py-2.5 rounded-lg font-semibold text-xs md:text-sm flex items-center justify-center gap-2 transition-all ${
                       activeTab === "phone"
-                        ? "bg-white text-[#086952] shadow-sm"
+                        ? "bg-[#EEF4F3] p-1 text-[#086952] shadow-sm"
                         : "text-slate-500 hover:text-slate-700"
                     }`}
                   >
@@ -321,7 +322,7 @@ const Login = () => {
                     onClick={() => handleTabSwitch("uniqueId")}
                     className={`flex-1 py-2.5 rounded-lg font-semibold text-xs md:text-sm flex items-center justify-center gap-2 transition-all ${
                       activeTab === "uniqueId"
-                        ? "bg-white text-[#086952] shadow-sm"
+                        ? "bg-[#EEF4F3] p-1 text-[#086952] shadow-sm"
                         : "text-slate-500 hover:text-slate-700"
                     }`}
                   >
@@ -334,7 +335,7 @@ const Login = () => {
                 <form onSubmit={signInFormik.handleSubmit} className="flex flex-col gap-3.5">
                   {activeTab === "phone" ? (
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-semibold text-slate-500">Phone Number</label>
+                      <label className="text-xs font-semibold">Phone Number</label>
                       <div className={`w-full flex items-center border rounded-xl px-3 bg-white transition-all ${
                         signInFormik.touched.phoneNumber && signInFormik.errors.phoneNumber
                           ? "border-red-500 focus-within:border-red-500"
@@ -368,32 +369,45 @@ const Login = () => {
                       )}
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-semibold text-slate-500">Unique ID *</label>
-                      <div className={`w-full flex items-center border rounded-xl px-3 bg-white transition-all ${
-                        signInFormik.touched.uniqueId && signInFormik.errors.uniqueId
-                          ? "border-red-500 focus-within:border-red-500"
-                          : "border-slate-200 focus-within:border-[#086952] focus-within:ring-2 focus-within:ring-[#086952]/10"
-                      }`}>
-                        <Icon icon="fluent:person-card-20-regular" className="w-5 h-5 text-slate-400 pr-2 border-r border-slate-200" />
-                        <input
-                          type="text"
-                          placeholder="Enter your unique ID"
-                          name="uniqueId"
-                          value={signInFormik.values.uniqueId}
-                          onChange={signInFormik.handleChange}
-                          onBlur={signInFormik.handleBlur}
-                          className={`w-full py-3.5 pl-3 border-0 focus:outline-none focus:ring-0 text-sm text-slate-700 font-medium placeholder-slate-400 ${
-                            signInFormik.touched.uniqueId && signInFormik.errors.uniqueId
-                              ? "text-red-600"
-                              : ""
-                          }`}
-                        />
-                      </div>
-                      {signInFormik.touched.uniqueId && signInFormik.errors.uniqueId && (
-                        <p className="text-red-500 text-xs font-medium mt-1">{signInFormik.errors.uniqueId}</p>
-                      )}
-                    </div>
+                   <div className="flex flex-col gap-1.5">
+  <label className="text-xs font-semibold">
+    Unique ID <span className="text-red-500">*</span>
+  </label>
+
+  <div
+    className={`w-full flex items-center border rounded-xl px-3 bg-white transition-all ${
+      signInFormik.touched.uniqueId && signInFormik.errors.uniqueId
+        ? "border-red-500 focus-within:border-red-500"
+        : "border-slate-200 focus-within:border-[#086952] focus-within:ring-2 focus-within:ring-[#086952]/10"
+    }`}
+  >
+    {/* Unique ID Icon */}
+    <Icon
+      icon="solar:card-outline"
+      className="w-5 h-5 shrink-0 text-slate-500"
+    />
+
+    <input
+      type="text"
+      placeholder="Enter your unique ID"
+      name="uniqueId"
+      value={signInFormik.values.uniqueId}
+      onChange={signInFormik.handleChange}
+      onBlur={signInFormik.handleBlur}
+      className={`w-full py-3.5 pl-3 border-0 focus:outline-none focus:ring-0 text-sm text-slate-700 font-medium placeholder-slate-400 ${
+        signInFormik.touched.uniqueId && signInFormik.errors.uniqueId
+          ? "text-red-600"
+          : ""
+      }`}
+    />
+  </div>
+
+  {signInFormik.touched.uniqueId && signInFormik.errors.uniqueId && (
+    <p className="text-red-500 text-xs font-medium mt-1">
+      {signInFormik.errors.uniqueId}
+    </p>
+  )}
+</div>
                   )}
 
                   <Continuebtn type="submit" loading={loading} />
@@ -422,12 +436,12 @@ const Login = () => {
             {/* PASSWORD ENTRY STEP */}
             {step === "password" && (
               <form onSubmit={passwordFormik.handleSubmit} className="animate-fade-in-up flex flex-col gap-6">
-                <div className="flex flex-col gap-1">
-                  <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+                <div className="flex flex-col gap-1 text-center">
+                  <h1 className="text-3xl font-semibold text-slate-800 tracking-tight">
                     Secure Access
                   </h1>
                   <p className="text-slate-500 text-sm">
-                    Enter your password to continue securely to your healthcare workspace.
+                    Enter your password to continue securely <br/> to your healthcare workspace.
                   </p>
                 </div>
 
@@ -501,11 +515,11 @@ const Login = () => {
             {step === "otp" && (
               <form onSubmit={handleOtpVerify} className="animate-fade-in-up flex flex-col gap-6">
                 <div className="flex flex-col gap-1">
-                  <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+                  <h1 className="text-3xl font-semibold text-center text-slate-800 tracking-tight">
                     Secure Access
                   </h1>
-                  <p className="text-slate-500 text-sm">
-                    We've sent a 6-digit verification code to your registered phone number.
+                  <p className="text-slate-500 text-sm text-center">
+                    We've sent a 6-digit verification code to <br/> your registered phone number.
                   </p>
                 </div>
 
