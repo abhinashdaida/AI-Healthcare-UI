@@ -10,6 +10,7 @@ import Footer from "@/shared/components/Registration/layout/Footer";
 import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
 import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
 import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
+import CustomDatePicker from "@/shared/components/Registration/Common/CustomDatePicker/CustomDatePicker";
 import { basicDetalisValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
 import {
   GENDER_OPTIONS,
@@ -47,13 +48,13 @@ const BasicDetails = () => {
 
   const initialValues = {
     firstName: savedData.firstName ||"",
-    dateOfBirth: "",
-    gender:"",
-    bloodGroup:"",
-    maritalStatus:"",
-    occupation:"",
+    dateOfBirth: savedData.dateOfBirth || "",
+    gender:savedData.gender ||"",
+    bloodGroup:savedData.bloodGroup ||"",
+    maritalStatus: savedData.maritalStatus ||"",
+    occupation:savedData.occupation ||"",
     phoneNumber:"",
-    email:"",
+    email:savedData.email ||"",
   };
 
 
@@ -136,11 +137,11 @@ const BasicDetails = () => {
                   {/* Date of Birth */}
                   <Box className="w-full min-w-0">
                     <CustomLabel required>Date of Birth</CustomLabel>
-                    <CustomTextField
+                    <CustomDatePicker
                       name="dateOfBirth"
                       placeholder="Select your date of birth"
-                      type="date"
                       startIcon="tabler:cake"
+                      endIcon="tabler:calendar-due"
                     />
                   </Box>
                   {/* Gender */}
@@ -150,16 +151,18 @@ const BasicDetails = () => {
                       name="gender"
                       placeholder="Select your gender"
                       startIcon="tabler:gender-bigender"
+                      endIcon="tabler:circle-chevron-down"
                       options={GENDER_OPTIONS}
                     />
                   </Box>
                   {/* Blood Group */}
                   <Box className="w-full min-w-0">
-                    <CustomLabel required>Gender</CustomLabel>
+                    <CustomLabel required>Blood Group</CustomLabel>
                     <CustomSelect
                       name="bloodGroup"
                       placeholder="Select your blood group"
                       startIcon="tabler:droplet"
+                      endIcon="tabler:circle-chevron-down"
                       options={BLOODGROUP_OPTIONS}
                     />
                   </Box>
@@ -170,6 +173,7 @@ const BasicDetails = () => {
                       name="maritalStatus"
                       placeholder="Select your marital status"
                       startIcon="tabler:heart-handshake"
+                      endIcon="tabler:circle-chevron-down"
                       options={MARITALSTATUS_OPTIONS}
                     />
                   </Box>
@@ -180,12 +184,13 @@ const BasicDetails = () => {
                       name="occupation"
                       placeholder="Select your occupation"
                       startIcon="tabler:briefcase"
+                      endIcon="tabler:circle-chevron-down"
                       options={OCCUPATION_OPTIONS}
                     />
                   </Box>
                   {/* Phone Number*/}
                   <Box className="w-full min-w-0">
-                    <CustomLabel required>Phone Number</CustomLabel>
+                    <CustomLabel>Phone Number</CustomLabel>
                     <CustomTextField
                       name="phoneNumber"
                       placeholder="+91 9876 543 210"
@@ -196,7 +201,7 @@ const BasicDetails = () => {
                   </Box>
                   {/* Email Address*/}
                   <Box className="w-full min-w-0">
-                    <CustomLabel required>Email Address</CustomLabel>
+                    <CustomLabel>Email Address</CustomLabel>
                     <CustomTextField
                       name="email"
                       placeholder="Enter your email address"

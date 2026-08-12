@@ -10,6 +10,7 @@ const Footer = ({ config }) => {
     showSkipButton = false,
     onSkipClick,
     onAutoSaveClick,
+    skipButtonDisabled,
   } = config;
   return (
     <Box
@@ -33,6 +34,7 @@ const Footer = ({ config }) => {
             fullWidth
             variant="outlined"
             onClick={onSkipClick}
+            disabled={skipButtonDisabled}
             sx={{
               textTransform: "none",
               borderColor: "#248B8F",

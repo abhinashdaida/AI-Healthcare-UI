@@ -1,5 +1,8 @@
 import * as Yup from "yup";
-
+import {
+  MARITALSTATUS_OPTIONS,
+  OCCUPATION_OPTIONS,
+} from "@/shared/constants/PatientRegistration/dropdownOptions";
 export const basicDetalisValidation = Yup.object({
   firstName: Yup.string()
     .trim()
@@ -23,7 +26,15 @@ export const basicDetalisValidation = Yup.object({
     .max(new Date(), "Date of birth cannot be in the future."),
   gender: Yup.string().required("Please select your gender!"),
   bloodGroup: Yup.string().required("Please select your blood group!"),
-  maritalStatus: Yup.string().required("Please select your martial status!"),
+  maritalStatus: Yup.string().oneOf(
+    MARITALSTATUS_OPTIONS.map((option) => option.value),
+    "Please select a valid marital status.",
+  ),
+  occupation: Yup.string().oneOf(
+    OCCUPATION_OPTIONS.map((option) => option.value),
+    "Please select a valid occupation .",
+  ),
+  email: Yup.string().trim().email("Please enter a valid email address."),
 });
 
 //contact validation

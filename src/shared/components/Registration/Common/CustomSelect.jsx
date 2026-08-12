@@ -1,4 +1,7 @@
+
+
 import React from "react";
+import { useMemo, useState } from "react";
 import {
   FormControl,
   Select,
@@ -15,10 +18,12 @@ const CustomSelect = ({
   options = [],
   placeholder,
   startIcon,
+  endIcon,
   sx,
   ...props
 }) => {
   const [field, meta] = useField(name);
+
 
   return (
     <FormControl
@@ -30,6 +35,8 @@ const CustomSelect = ({
         {...field}
         {...props}
         displayEmpty
+        // Remove default MUI dropdown arrow
+        IconComponent={() => null}
         input={
           <OutlinedInput
             startAdornment={
@@ -39,14 +46,27 @@ const CustomSelect = ({
                 </InputAdornment>
               ) : undefined
             }
+            endAdornment={
+              endIcon ? (
+                <InputAdornment position="end">
+                  <Icon icon={endIcon} width={24} height={24} />
+                </InputAdornment>
+              ) : undefined
+            }
           />
         }
         sx={{
           height: "56px",
           borderRadius: "10px",
           backgroundColor: "#fff",
+
           "& .MuiOutlinedInput-notchedOutline": {
             borderRadius: "10px",
+          },
+          // Dropdown options
+          "& .MuiMenuItem-root": {
+            minHeight: "51px",
+            padding: "10px 16px",
           },
           ...sx,
         }}
@@ -62,10 +82,6 @@ const CustomSelect = ({
           return selectedOption?.label ?? selected;
         }}
       >
-        <MenuItem value="">
-          <em>{placeholder}</em>
-        </MenuItem>
-
         {options.map((option) => (
           <MenuItem key={option.value ?? option} value={option.value ?? option}>
             {option.label ?? option}
