@@ -5,11 +5,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function SuccessModal({
-    open,
-    handleClose,
-    
-}) {
+export default function SuccessModal({ open, handleClose, }) {
     const navigate = useNavigate();
     const basicDetails = useSelector((state) => state.patientRegistration.basicDetails);
     const mobile =basicDetails?.phoneNumber ||"";
@@ -33,8 +29,7 @@ export default function SuccessModal({
                 alignItems: "center",
                 justifyContent: "center",
                 p: 2,
-            }}
-        >
+            }}>
             <Box
                 sx={{
                     width: { xs: "100%", sm: 464 },
@@ -47,8 +42,7 @@ export default function SuccessModal({
                     position: "relative",
                     outline: "none",
                     boxSizing: "border-box",
-                }}
-            >
+                }}>
                 {/* Close */}
                 <Box
                     onClick={handleClose}

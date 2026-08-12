@@ -1,12 +1,20 @@
 import React from "react";
 import { Box, Divider } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 const ReviewCard = ({
     title,
     headerIcon,
+    editPath,
     data,
 }) => {
+    const navigate =useNavigate();
+    const handleEdit =()=>{
+        if(editPath){
+            navigate(editPath);
+        }
+    }
     return (
         <Box className=" bg-white border border-[#E5E7EB] rounded-xl shadow-sm overflow-hidden w-full " >
             {/* Header */}
@@ -25,7 +33,8 @@ const ReviewCard = ({
                     </h3>
                 </Box>
 
-                <button className=" flex items-center gap-1 bg-[#ECFEFF] text-[#14B8A6] px-3 py-1.5 rounded-md text-sm font-medium">
+                <button type="button" onClick={handleEdit} 
+                className=" flex items-center gap-1 bg-[#ECFEFF] text-[#14B8A6] px-3 py-1.5 rounded-md text-sm font-medium">
                     <Icon
                         icon="tabler:edit"
                         width={16}

@@ -19,6 +19,7 @@ const Insurance = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+    const [confirmed, setConfirmed] = useState(false);
     const insurance = useSelector((state) => state.patientRegistration.insurance);
     const [showUploadSuccess, setShowUploadSuccess] = useState(false);
 
@@ -31,19 +32,27 @@ const Insurance = () => {
                     replace: true,
                     state: null,
                 });
-
-            }, 3000);
+            }, 2000);
             return () => clearTimeout(timer);
         }
     }, [location, navigate]);
 
     const handleUpload = async (values) => {
-
         dispatch(setInsurance(values));
         dispatch(completeStep(4));
-
         console.log("reviewdetails");
+        
+        if (values.files && values.files?.length > 0) {
+            setShowUploadSuccess(true);
+            setTimeout(() => {
+                setShowUploadSuccess(false);
+                navigate("/reviewdetails");
+            }, 2000);
+
+            return;
+        }
         navigate("/reviewdetails");
+
     };
 
     const handleSkip = () => {
@@ -55,17 +64,31 @@ const Insurance = () => {
         console.log("auto save btn click");
     }
 
-
     const initialValues = {
-        insuranceType: "",
-        schemeProvider: "",
-        holderName: "",
-        customerId: "",
-        files: []
+        insuranceType: insurance?.insuranceType||"",
+        schemeProvider: insurance?.schemeProvider||"",
+        holderName: insurance?.holderName|| "",
+        customerId: insurance?.customerId|| "",
+        files: insurance?.files || [],
     };
 
+    const isInsuranceComplete = (values) => {
+        if (!values.insuranceType) {
+            return false;
+        }
+        if (values.insuranceType === "None") {
+            return true;
+        }
+        return Boolean(
+            values.schemeProvider &&
+            values.holderName?.trim() &&
+            values.customerId?.trim() &&
+            values.files?.length > 0 && confirmed
+        );
+    };
     return (
         <Formik
+            enableReinitialize={true}
             initialValues={initialValues}
             validationSchema={insuranceValidation}
             onSubmit={handleUpload}
@@ -73,7 +96,6 @@ const Insurance = () => {
             {({
                 values,
                 setFieldValue,
-
             }) => (
                 <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
                     <div className=" w-full  max-w-[1440px]
@@ -100,6 +122,7 @@ const Insurance = () => {
                                             }}
                                             placeholder="Select your Insurance Type"
                                             startIcon="tabler:building-bank"
+                                            endIcon="tabler:circle-chevron-down"
                                             options={[
                                                 { label: "Government", value: "Government" },
                                                 { label: "Private", value: "Private" },
@@ -110,12 +133,12 @@ const Insurance = () => {
 
                                     {/* Empty space before selection */}
                                     {!values.insuranceType && <div></div>}
-
                                     {values.insuranceType && values.insuranceType !== "None" && (
                                         <>
                                             {/* Scheme Provider */}
                                             <div className="w-full">
                                                 <ReusableSelect
+                                                    required
                                                     label={values.insuranceType === "Private"
                                                         ? "Insurance Provider"
                                                         : "Government Scheme Provider"
@@ -126,6 +149,7 @@ const Insurance = () => {
                                                         : "Select Government Scheme"
                                                     }
                                                     startIcon="tabler:shield-plus"
+                                                    endIcon="tabler:circle-chevron-down"
                                                     options={
                                                         values.insuranceType === "Private"
                                                             ? privateProviders
@@ -137,6 +161,7 @@ const Insurance = () => {
                                             {/* Holder Name */}
                                             <div className="w-full">
                                                 <ReusableInput
+                                                    required
                                                     label="Insurance Holder Name"
                                                     name="holderName"
                                                     placeholder="Enter holder name"
@@ -147,6 +172,7 @@ const Insurance = () => {
                                             {/* Customer ID */}
                                             <div className="w-full">
                                                 <ReusableInput
+                                                    required
                                                     label="Customer ID / Policy Number"
                                                     name="customerId"
                                                     placeholder="Enter policy number"
@@ -160,11 +186,14 @@ const Insurance = () => {
                                 {values.insuranceType && values.insuranceType !== "None" && (
                                     <Box className="pt-6 md:pt-8 lg:pt-10 mt-6 md:mt-8 w-full max-w-[1104px]">
                                         <UploadFiles
+                                            required
                                             title="Upload Insurance Documents"
                                             uploadText="Drag and drop your insurance card here, or"
                                             maxFiles={2}
+                                            initialFiles={values.files}
                                             showHelpLink={true}
                                             showConfirmation={true}
+                                            onConfirmationChange={setConfirmed}
                                             confirmationText="I confirm that the insurance information provided is accurate and I authorize it to be used for updating my health records."
                                             onFilesChange={(files) => setFieldValue("files", files)}
                                         />
@@ -183,20 +212,15 @@ const Insurance = () => {
                                             min-h-[85px]
                                             rounded-lg
                                             border
-                                            border-[0.5px] border-teal-200
-                                            bg-teal-0
+                                            border-[0.5px] border-[#9FDAD8]
+                                            bg-[#F5FCFC]
                                             shadow-md
                                             p-[16px]
                                             flex
                                             items-start
-                                            gap-[8px]
-                                        " >
+                                            gap-[8px]" >
                                     <Box className=" w-[24px] h-[24px] bg-[#175A5D] flex items-center justify-center flex-shrink-0 ">
-                                        <Icon
-                                            icon="tabler:check"
-                                            width={16} height={16}
-                                            className="text-[#F5F5F5]"
-                                        />
+                                        <Icon icon="tabler:check" width={16} height={16} className="text-[#F5F5F5]" />
                                     </Box>
 
                                     <Box className="flex-1 w-full gap-[2px] max-w-[320px] ">
@@ -210,11 +234,7 @@ const Insurance = () => {
                                     <button
                                         type="button"
                                         onClick={() => setShowUploadSuccess(false)} className=" w-[24px] h-[24px] bg-[#E3F6F5]  flex items-center justify-center flex-shrink-0 " >
-                                        <Icon
-                                            icon="tabler:letter-x"
-                                            width={16} height={16}
-                                            className="text-[#175A5D]"
-                                        />
+                                        <Icon icon="tabler:letter-x" width={16} height={16} className="text-[#175A5D]" />
                                     </button>
                                 </Box>
                             )}
@@ -225,7 +245,7 @@ const Insurance = () => {
                                 onAutoSaveClick: handleAutoSave,
                                 primaryButtonLabel: "Review Details",
                                 onPrimaryClick: () => handleUpload(values),
-                                primaryButtonDisabled: false,
+                                primaryButtonDisabled: !isInsuranceComplete(values),
                                 skipButtonDisabled: values.insuranceType === "None",
                             }} />
                         </main>

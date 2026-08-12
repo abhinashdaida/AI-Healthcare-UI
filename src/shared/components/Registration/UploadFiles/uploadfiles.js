@@ -1,22 +1,25 @@
 import React, { useRef, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,InputLabel } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { validateFiles } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
 import WhatToUpload from "../PopUp/whattoupload";
 
 export default function UploadFiles({
     title = "Upload Files",
+    required = false,
+    initialFiles=[],
     uploadText = "Drag and drop your files here, or",
     maxFiles = null,
     showHelpLink = false,
     showSecurity = false,
     securityText = null,
+    onConfirmationChange,
     showConfirmation = false,
     confirmationText = "",
     onFilesChange,
 }) {
     const inputRef = useRef(null);
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState(initialFiles ||[]);
     const [errors, setErrors] = useState([]);
     const [confirmed, setConfirmed] = useState(false);
     const [openUploadDialog, setOpenUploadDialog] = useState(false);
@@ -60,7 +63,7 @@ export default function UploadFiles({
             name: file.name,
             size: Math.round(file.size / 1024),
         }));
-        const updatedFiles = [ ...files, ...uploadedFiles,];
+        const updatedFiles = [...files, ...uploadedFiles,];
         setFiles(updatedFiles);
         onFilesChange?.(updatedFiles);
     };
@@ -80,7 +83,7 @@ export default function UploadFiles({
 
     // Remove file
     const removeFile = (id) => {
-        const updatedFiles = files.filter( (file) => file.id !== id );
+        const updatedFiles = files.filter((file) => file.id !== id);
         setFiles(updatedFiles);
         onFilesChange?.(updatedFiles);
     };
@@ -89,7 +92,15 @@ export default function UploadFiles({
         <div className="w-full">
             {/* Header */}
             <div className="flex justify-between mb-3">
-                <h3 className="font-normal text-[14px]">{title}</h3>
+                <InputLabel
+                    required={required}
+                    sx={{
+                        mb: 1,
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        color: "#111827", "& .MuiFormLabel-asterisk": { color: "red" }
+                    }}
+                >{title}</InputLabel>
                 <div className="flex items-center gap-1">
                     <Icon icon="tabler:info-circle" className="text-[#248B8F]" width={18} />
                     {title === "Upload Insurance Documents" && (
@@ -165,11 +176,7 @@ export default function UploadFiles({
                             <button type="button"
                                 onClick={() => removeError(error.type)}
                                 className=" w-5 h-5 rounded bg-[#FECACA] flex items-center justify-center shrink-0 hover:bg-[#FCA5A5] " >
-                                <Icon
-                                    icon="tabler:x"
-                                    width={13}
-                                    className="text-[#B91C1C]"
-                                />
+                                <Icon icon="tabler:x"  width={13} className="text-[#B91C1C]" />
                             </button>
                         </div>
                     ))}
@@ -185,15 +192,11 @@ export default function UploadFiles({
                                 className=" border border-[#E6E6E6] rounded-lg  p-3 flex justify-between " >
                                 <div className="flex gap-2">
                                     <Icon color="#248B8F"
-                                        icon={ isPdf ? "vscode-icons:file-type-pdf2"  : "tabler:photo" }
+                                        icon={isPdf ? "teenyicons:pdf-solid" : "tabler:photo"}
                                         width={24}
                                     />
-
                                     <div>
-                                        <p className="text-sm">
-                                            {file.name}
-                                        </p>
-
+                                        <p className="text-sm"> {file.name} </p>
                                         <p className=" text-xs text-gray-500 ">
                                             {isPdf ? "PDF" : "Image"}{" "}
                                             • {file.size} KB
@@ -201,11 +204,8 @@ export default function UploadFiles({
                                     </div>
                                 </div>
 
-                                <Icon color="#374151"
-                                    icon="mdi:close"
-                                    className="cursor-pointer"
-                                    onClick={() => removeFile(file.id)}
-                                />
+                                <Icon color="#374151" icon="mdi:close" className="cursor-pointer"
+                                    onClick={() => removeFile(file.id)} />
                             </div>
                         );
                     })}
@@ -223,7 +223,11 @@ export default function UploadFiles({
                         type="checkbox"
                         id="confirm"
                         checked={confirmed}
-                        onChange={(e) => setConfirmed(e.target.checked)}
+                        onChange={(e) => {
+                            const checked = e.target.checked;
+                            setConfirmed(checked);
+                            onConfirmationChange?.(checked);
+                        }}
                         className=" mt-1  h-4 w-4 accent-[#12A5B5] " />
 
                     <label htmlFor="confirm" className=" text-sm text-[#374151] cursor-pointer "  >

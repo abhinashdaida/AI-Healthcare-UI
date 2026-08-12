@@ -1,10 +1,11 @@
-import { TextField, Typography, InputAdornment, IconButton } from "@mui/material";
+import { TextField, InputLabel,Typography, InputAdornment, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useField } from "formik";
 import React from "react";
 
 export default function ReusableInput({
   label,
+  required=false,
   name,
   sx,
   startIcon,
@@ -15,16 +16,17 @@ export default function ReusableInput({
     const [field,meta]=useField(name);
   return (
     <>
-      <Typography
+      <InputLabel 
+      required={required}
         sx={{
           mb: 1,
           fontSize: "14px",
           fontWeight: 500,
-          color: "#111827",
+          color: "#111827","& .MuiFormLabel-asterisk":{color:"red"}
         }}
       >
         {label}
-      </Typography>
+      </InputLabel>
 
       <TextField
         fullWidth

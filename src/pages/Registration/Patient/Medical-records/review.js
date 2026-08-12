@@ -84,30 +84,35 @@ const Review = () => {
                                     <ReviewCard
                                         title="Basic Details"
                                         headerIcon="tabler:user"
+                                        editPath="/basic-details"
                                         data={basicDetails}
                                     />
 
                                     <ReviewCard
                                         title="Location"
                                         headerIcon="tabler:map-pin"
+                                        editPath="/emergency-contact"
                                         data={locationDetails}
                                     />
 
                                     <ReviewCard
                                         title="Emergency Contact"
                                         headerIcon="tabler:phone"
+                                        editPath="/emergency-contact"
                                         data={emergencyDetails}
                                     />
 
                                     <ReviewCard
                                         title="Physical Profile"
                                         headerIcon="tabler:ruler-2"
+                                        editPath="/health-overview"
                                         data={physicalDetails}
                                     />
 
                                     <ReviewCard
                                         title="Health Overview"
                                         headerIcon="tabler:activity-heartbeat"
+                                        editPath="/health-overview"
                                         data={healthDetails}
                                     />
 
@@ -123,12 +128,14 @@ const Review = () => {
                                     <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
                                         <ReviewCard
                                             title="Medical records"
+                                            editPath="/medical-conditions"
                                             headerIcon="tabler:activity-heartbeat"
                                             data={getMedicalDetails(medicalConditions)}
                                         />
 
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
+                                            editPath="/medical-conditions"
                                             files={medicalConditions?.files || []}
                                         />
                                     </Box>
@@ -145,11 +152,13 @@ const Review = () => {
                                     <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
                                         <ReviewCard
                                             title="Insurance"
+                                            editPath="/insurance"
                                             headerIcon="tabler:shield-plus"
                                             data={getinsuranceDetails(insurance)}
                                         />
                                         <ReviewDocumentCard
                                             title="Uploaded Documents"
+                                            editPath="/insurance"
                                             files={insurance?.files || []}
                                         />
                                     </Box>

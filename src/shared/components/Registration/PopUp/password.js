@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import ReusableInput from "../form/FormInput";
 import { Icon } from "@iconify/react";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import SectionHeader from "../form/SectionHeader";
 import { getStrength, passwordRules } from "@/shared/constants/PatientRegistration/MedicalRecords/PasswordConstants";
 import { Passwordvalidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
@@ -67,8 +66,7 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                 sx={{
                     height: "100%",
                     overflowY: "auto",
-                }}
-            >
+                }}>
                 <Formik
                     initialValues={{
                         password: "",

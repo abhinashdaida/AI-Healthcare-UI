@@ -11,8 +11,13 @@ export const Passwordvalidation = Yup.object({
             .min(8, "Password must be at least 8 characters.")
             .matches(/[A-Z]/, "Add at least one uppercase letter.")
             .matches(/[a-z]/, "Add at least one lowercase letter.")
-            .matches(/[0-9!@#$%^&*]/, "Add at least one number.")
-            
+            .matches(/[0-9!@#$%^&*]/, "Add at least one number."),
+        confirmPassword: Yup.string()
+        .required("Please confirm your password.")
+        .oneOf(
+            [Yup.ref("password")],
+            "Passwords do not match."
+        ),
     });
 
 export const createLoginValidation = Yup.object({

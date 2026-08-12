@@ -49,16 +49,17 @@ const MedicalRecords = () => {
     }
 
     const initialValues = {
-        allergies: [],
-        conditions: [],
-        surgeries: [],
-        medications: [],
-        files: []
+        allergies: medicalConditions?.allergies|| [],
+        conditions: medicalConditions?.conditions||[],
+        surgeries: medicalConditions?.surgeries||[],
+        medications: medicalConditions?.medications||[],
+        files: medicalConditions?.files||[],
     };
 
 
     return (
         <Formik
+            enableReinitialize={true}
             initialValues={initialValues}
             validationSchema={medicalValidation}
             onSubmit={handleUpload}
@@ -126,6 +127,7 @@ const MedicalRecords = () => {
                                 <Box className="w-full max-w-[1104px] mt-6 md:mt-8  lg:mt-10">
                                     <UploadFiles
                                         title="Upload Files"
+                                        initialFiles={values.files}
                                         uploadText="Drag and drop your medical records here, or"
                                         showSecurity={true}
                                         securityText="Your medical records are securely stored and used to provide better healthcare, faster diagnosis, and more personalized treatment."

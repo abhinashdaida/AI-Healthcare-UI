@@ -10,17 +10,8 @@ import FormHeader from "../../../../shared/components/Registration/layout/FormHe
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import SuggestedIdCard from "../../../../shared/components/Registration/form/SuggestedIdCard";
 import { createLoginValidation } from "@/shared/validations/patientRegistration/MedicalrecordsValidations";
-import {
-  pageContent,
-  idPrefix,
-  statusMessages,
-  STATUS, STATUS_CONFIG
-} from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
-import {
-  generateId,
-  validateId,
-  generateSuggestionsForValue,
-} from "../../../../shared/components/Registration/form/idGenerator";
+import {pageContent, idPrefix, statusMessages,STATUS, STATUS_CONFIG } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
+import { generateId,validateId, generateSuggestionsForValue, } from "../../../../shared/components/Registration/form/idGenerator";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
 import { setCreateLoginId, completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
 
@@ -43,7 +34,7 @@ const CreateLoginId = () => {
 
   // Selected MediConnect ID
   const [selectedId, setSelectedId] = useState(initialId);
-
+  
   // Status // checking // success // error
   const [status, setStatus] = useState(() => validateId(`${idPrefix}-${initialId}`, idPrefix), );
 
@@ -117,15 +108,13 @@ const CreateLoginId = () => {
                   <Box className={` flex items-center w-[350px] h-[40px] rounded-lg border overflow-hidden  bg-white ${styles.border}`} >
                     {/* Prefix */}
                     <Box className={` w-[56px] h-full flex  items-center justify-center transition-all duration-200
-                      ${
-                        status === "success"
+                      ${ status === "success"
                           ? "bg-[#2BA39A]" : [ "exists", "invalid-length", "invalid-format", ].includes(status)
                             ? "bg-[#EF4444]" : "bg-[#E5E7EB]"
                       } `}
                     >
                       <span className={` text-[14px] font-semibold transition-all duration-200
-                          ${
-                            status === "success" || [ "exists", "invalid-length", "invalid-format", ].includes(status)
+                          ${ status === "success" || [ "exists", "invalid-length", "invalid-format", ].includes(status)
                               ? "text-white" : "text-[#374151]"
                           } `}
                       >
@@ -224,12 +213,10 @@ const CreateLoginId = () => {
                     {/* Content */}
                     <Box>
                       <h3 className="text-[16px] font-semibold text-[#111827]">
-                        {" "}
-                        {pageContent.infoTitle}{" "}
+                        {" "}{pageContent.infoTitle}{" "}
                       </h3>
                       <p className="mt-2 text-[13px] leading-6 text-[#4B5563]">
-                        {" "}
-                        {pageContent.infoDescription}{" "}
+                        {" "}{pageContent.infoDescription}{" "}
                       </p>
                     </Box>
                   </Box>
