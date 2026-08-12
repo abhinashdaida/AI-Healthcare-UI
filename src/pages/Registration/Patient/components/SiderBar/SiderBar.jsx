@@ -1,5 +1,3 @@
-
-
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -66,7 +64,7 @@ const sidebarSteps = [
       {
         label: "Create Login ID",
         icon: "tabler:shield-plus",
-        path: "/create-login-id",
+        path: "/createloginid",
         step: 6,
       },
     ],
@@ -80,7 +78,8 @@ const Sidebar = () => {
     (state) => state.patientRegistration.completedSteps || [],
   );
 
-  // URL is the source of truth for active step
+  //  * CURRENT STEP AND URL IS THE SOURCE OF TRUTH
+
   const currentStep = useMemo(() => {
     const currentItem = sidebarSteps
       .flatMap((section) => section.children)
@@ -89,24 +88,29 @@ const Sidebar = () => {
     return currentItem?.step ?? 0;
   }, [location.pathname]);
 
+  //________________MENU ITEMS----------------
   const menuItems = useMemo(() => {
     return sidebarSteps.map((section) => {
       const children = section.children.map((child) => {
-        const isActive = currentStep === child.step;
-
-        const isCompleted = completedSteps.includes(child.step);
-
+        const isActive = child.step === currentStep;
+        const isCompleted =
+          completedSteps.includes(child.step) && child.step <= currentStep;
         return {
           ...child,
+
           child: true,
+
           active: isActive,
+
           completed: isCompleted,
+
           disabled: !isActive && !isCompleted,
         };
       });
 
+      // Section containing current URL
       const sectionActive = children.some((child) => child.active);
-
+      // Every child completed
       const sectionCompleted =
         children.length > 0 && children.every((child) => child.completed);
 
@@ -114,13 +118,9 @@ const Sidebar = () => {
         ...section,
 
         hasChildren: true,
-
         active: sectionActive,
-
         completed: sectionCompleted,
-
         disabled: !sectionActive && !sectionCompleted,
-
         children,
       };
     });
@@ -130,3 +130,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
