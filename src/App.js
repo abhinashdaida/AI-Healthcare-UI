@@ -6,6 +6,7 @@ import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
+import SignUp from "./pages/Signup.js";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <NotificationView />
         <GlobalConfigView>
           <Routes>
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </GlobalConfigView>
