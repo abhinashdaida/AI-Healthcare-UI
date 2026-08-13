@@ -113,7 +113,7 @@ const SignUp = () => {
           phone: `${selectedCountry.code}${phoneNumber}`
         }));
         sessionStorage.setItem("phoneNumber", phoneNumber);
-        navigate("/empty");
+        navigate("/");
       } else {
         setOtpError(response.error || "your otp invalid");
       }
@@ -137,7 +137,6 @@ const SignUp = () => {
   };
 
   return (
-    // <div className="min-h-screen w-full bg-[#f8fafc] flex flex-col items-center justify-between p-4 md:p-6 lg:p-5 signup-page">
        <div className="min-h-screen w-full bg-[#f8fafc] flex flex-col items-center justify-between p-4 md:p-6 lg:p-5 font-sans signup-page">
  
       

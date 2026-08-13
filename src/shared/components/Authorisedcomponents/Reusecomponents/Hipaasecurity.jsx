@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
-
+ 
 function Hipaasecurity() {
   return (
     <div className="w-full border border-[#C2D0CB] bg-[#FFFFFF] rounded-[20px] pt-3 pb-3 px-3.5 flex gap-2.5 items-start mt-4 select-none">
@@ -18,5 +18,5 @@ function Hipaasecurity() {
     </div>
   );
 }
-
+ 
 export default Hipaasecurity;
