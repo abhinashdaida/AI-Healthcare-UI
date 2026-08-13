@@ -1,8 +1,11 @@
+
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import ReuseSiderBar from "@/shared/components/Registration/layout/ReuseSiderBar";
+
+   //__________________SIDEBAR CONFIGURATION________________
 
 const sidebarSteps = [
   {
@@ -71,6 +74,10 @@ const sidebarSteps = [
   },
 ];
 
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
 const Sidebar = () => {
   const location = useLocation();
 
@@ -78,7 +85,10 @@ const Sidebar = () => {
     (state) => state.patientRegistration.completedSteps || [],
   );
 
-  //  * CURRENT STEP AND URL IS THE SOURCE OF TRUTH
+  /* =========================================================
+     CURRENT STEP
+     URL = SOURCE OF TRUTH
+  ========================================================= */
 
   const currentStep = useMemo(() => {
     const currentItem = sidebarSteps
@@ -88,17 +98,18 @@ const Sidebar = () => {
     return currentItem?.step ?? 0;
   }, [location.pathname]);
 
-  //________________MENU ITEMS----------------
+  /* =========================================================
+     CREATE MENU ITEMS
+  ========================================================= */
+
   const menuItems = useMemo(() => {
     return sidebarSteps.map((section) => {
       const children = section.children.map((child) => {
-        const isActive = child.step === currentStep; 
-        // const isCompleted =
-        //   !isActive &&
-        //   completedSteps.includes(child.step) &&748
-        //   child.step <= currentStep;
+        const isActive = child.step === currentStep;
+
         const isCompleted =
           completedSteps.includes(child.step) && child.step <= currentStep;
+
         return {
           ...child,
 
@@ -112,9 +123,12 @@ const Sidebar = () => {
         };
       });
 
-      // Section containing current URL
+      /* =====================================================
+         SECTION STATUS
+      ===================================================== */
+
       const sectionActive = children.some((child) => child.active);
-      // Every child completed
+
       const sectionCompleted =
         children.length > 0 && children.every((child) => child.completed);
 
@@ -122,9 +136,13 @@ const Sidebar = () => {
         ...section,
 
         hasChildren: true,
+
         active: sectionActive,
+
         completed: sectionCompleted,
+
         disabled: !sectionActive && !sectionCompleted,
+
         children,
       };
     });
@@ -134,4 +152,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

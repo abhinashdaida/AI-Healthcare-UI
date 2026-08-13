@@ -91,6 +91,8 @@ const HealthOverview = () => {
       localStorage.setItem("hideHealthcarePersonalization", "true");
     }
     //Skip medical information
+        dispatch(completeStep(2));
+
      navigate("/reviewdetails");
     setShowPopup(false);
    
