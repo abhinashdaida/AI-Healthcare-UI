@@ -69,71 +69,69 @@ const EmergencyContact=()=>{
     );
 
     return (
-      <div className="min-h-screen bg-[#F5F7F8] flex justify-center p-3">
-        <div className="w-full max-w-[1400px] bg-white rounded-lg overflow-hidden shadow-sm flex min-h-screen">
-          {/* Sidebar */}
-          <SiderBar />
+      <div className="min-h-screen bg-[#F5F7F8]">
+        {/* Sidebar */}
+        <SiderBar />
 
-          {/* Right Content */}
-          <main className="flex flex-1 flex-col min-w-0">
-            {/* Header */}
-            <FormHeader
-              title="Personal Information"
-              subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
-            />
+        {/* Right Content */}
+        <main className=" ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen  flex flex-col  bg-white">
+          {/* Header */}
+          <FormHeader
+            title="Personal Information"
+            subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
+          />
 
-            <Formik
-              initialValues={initialValues}
-              onSubmit={handleContinue}
-              validationSchema={emergencyContactValidation}
-              validateOnMount
-            >
-              <Form className="flex flex-1 flex-col min-h-0">
-                {/* Content */}
-                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
-                  {/* secation header */}
-                  <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
-                    <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
-                      Emergency Contact
-                    </Typography>
-                    <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
-                      Choose someone we can contact in case of an emergency.
-                      This information stays private and secure.
-                    </Typography>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleContinue}
+            validationSchema={emergencyContactValidation}
+            validateOnMount
+          >
+            <Form className="flex flex-1 flex-col min-h-0">
+              {/* Content */}
+              <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[120px] pb-[150px] overflow-y-auto">
+                {/* secation header */}
+                <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
+                  <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
+                    Emergency Contact
+                  </Typography>
+                  <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
+                    Choose someone we can contact in case of an emergency. This
+                    information stays private and secure.
+                  </Typography>
+                </Box>
+
+                {/* fields */}
+                <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
+                  {/* realtionship */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>
+                      Emergency Contact Relationship
+                    </CustomLabel>
+                    <CustomSelect
+                      name="relationship"
+                      placeholder="Select your emergency contact relationship"
+                      startIcon="tabler:heart-handshake"
+                      options={RELATIONSHIP_OPTIONS}
+                    />
                   </Box>
-
-                  {/* fields */}
-                  <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
-                    {/* realtionship */}
-                    <Box className="w-full min-w-0">
-                      <CustomLabel required>
-                        Emergency Contact Relationship
-                      </CustomLabel>
-                      <CustomSelect
-                        name="relationship"
-                        placeholder="Select your emergency contact relationship"
-                        startIcon="tabler:heart-handshake"
-                        options={RELATIONSHIP_OPTIONS}
-                      />
-                    </Box>
-                    {/* emergency conact number */}
-                    <Box className="w-full min-w-0">
-                      <CustomLabel required>Emergency Contact Name</CustomLabel>
-                      <CustomTextField
-                        name="emergencyName"
-                        placeholder="Enter emergency contact name"
-                        type="text"
-                        startIcon="tabler:user"
-                      />
-                    </Box>
+                  {/* emergency conact number */}
+                  <Box className="w-full min-w-0">
+                    <CustomLabel required>Emergency Contact Name</CustomLabel>
+                    <CustomTextField
+                      name="emergencyName"
+                      placeholder="Enter emergency contact name"
+                      type="text"
+                      startIcon="tabler:user"
+                    />
                   </Box>
-                </div>
-                {/* Footer */}
-                <FormFooter config={footerConfig} />
-              </Form>
-            </Formik>
-          </main>
-        </div>
+                </Box>
+              </div>
+              {/* Footer */}
+              <FormFooter config={footerConfig} />
+            </Form>
+          </Formik>
+        </main>
       </div>
     );
 };

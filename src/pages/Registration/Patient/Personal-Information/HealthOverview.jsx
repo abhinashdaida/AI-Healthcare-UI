@@ -9,7 +9,6 @@ import SiderBar from "../components/SiderBar/SiderBar";
 import Footer from "@/shared/components/Registration/layout/Footer";
 import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
 import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
-import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
 import { HealthOverviewValidation } from "@/shared/validations/patientRegistration/PersonalInfoValidation";
 import {
   setHealthOverview,resetRegistration,
@@ -70,58 +69,76 @@ const HealthOverview=()=>{
      );
 
      return (
-       <div className="min-h-screen bg-[#F5F7F8] flex justify-center p-3">
-         <div className="w-full max-w-[1400px] bg-white rounded-lg overflow-hidden shadow-sm flex min-h-screen">
-           {/* Sidebar */}
-           <SiderBar />
-
-           {/* Right Content */}
-           <main className="flex flex-1 flex-col">
-             {/* Header */}
-             <FormHeader
-               title="Personal Information"
-               subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
-             />
-             {/*Formik*/}
-             <Formik
-               initialValues={initialValues}
-               validationSchema={HealthOverviewValidation}
-               onSubmit={handleContinue}
-               validateOnMount
-             >
-               <Form className="flex flex-1 flex-col min-h-0">
-                 {/* Content */}
-                 <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
-                   {/* Section Header */}
-                   <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
-                     <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
-                       Health Overview
-                     </Typography>
-                     <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
-                       Add your basic health information to help us provide more
-                       personalized care and better health recommendations. You
-                       can skip any field if you're unsure.
-                     </Typography>
+       <div className="min-h-screen bg-[#F5F7F8]">
+         {" "}
+         {/* Sidebar */}
+         <SiderBar />
+         {/* Right Content */}
+         <main
+           className="
+        ml-[336px]
+        max-lg:ml-[280px]
+        max-md:ml-0
+        min-h-screen
+        flex
+        flex-col
+        bg-white
+      "
+         >
+           {" "}
+           {/* Header */}
+           <FormHeader
+             title="Personal Information"
+             subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
+           />
+           {/*Formik*/}
+           <Formik
+             initialValues={initialValues}
+             validationSchema={HealthOverviewValidation}
+             onSubmit={handleContinue}
+             validateOnMount
+           >
+             <Form className="flex flex-1 flex-col min-h-0">
+               {/* Content */}
+               <div
+                 className="
+        flex-1
+        px-4 sm:px-6 md:px-8 lg:px-10
+        pt-[120px]
+        pb-[150px]
+        overflow-y-auto
+      "
+               >
+                 {" "}
+                 {/* Section Header */}
+                 <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
+                   <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
+                     Health Overview
+                   </Typography>
+                   <Typography className="w-full max-w-[356px] text-[12px]! font-normal leading-4 text-[#6B7280]">
+                     Add your basic health information to help us provide more
+                     personalized care and better health recommendations. You
+                     can skip any field if you're unsure.
+                   </Typography>
+                 </Box>
+                 {/* Fields*/}
+                 <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
+                   <Box className="w-full min-w-0">
+                     <CustomLabel required>Name</CustomLabel>
+                     <CustomTextField
+                       name="name"
+                       placeholder="Enter  Name"
+                       type="text"
+                       startIcon="tabler:user"
+                     />
                    </Box>
-                   {/* Fields*/}
-                   <Box className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 w-full max-w-[1104px] pt-6 sm:pt-7 md:pt-8">
-                     <Box className="w-full min-w-0">
-                       <CustomLabel required>Name</CustomLabel>
-                       <CustomTextField
-                         name="name"
-                         placeholder="Enter  Name"
-                         type="text"
-                         startIcon="tabler:user"
-                       />
-                     </Box>
-                   </Box>
-                 </div>
-                 {/* Footer */}
-                 <FormFooter config={footerConfig} />
-               </Form>
-             </Formik>
-           </main>
-         </div>
+                 </Box>
+               </div>
+               {/* Footer */}
+               <FormFooter config={footerConfig} />
+             </Form>
+           </Formik>
+         </main>
        </div>
      );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 
-const Footer = ({ config }) => {
+const Footer = ({ config = {} }) => {
   const {
     primaryButtonLabel = "Save & Continue",
     onPrimaryClick,
@@ -10,24 +10,24 @@ const Footer = ({ config }) => {
     showSkipButton = false,
     onSkipClick,
     onAutoSaveClick,
-    skipButtonDisabled,
+    skipButtonDisabled = false,
   } = config;
+
   return (
     <Box
       component="footer"
-      className=" bg-white 
-                border-t border-gray-200
-                px-4 sm:px-6 lg:px-7
-                py-4 flex
-                flex-col
-                sm:flex-row
-                gap-4
-                sm:gap-0
-                items-stretch
-                sm:items-center
-                justify-between"
+      className=" fixed
+        bottom-0 right-0
+        left-[336px] max-lg:left-[280px] max-md:left-0 z-40
+        bg-white border-t border-gray-200
+        px-4 sm:px-6 lg:px-7
+        py-4
+        flex flex-col sm:flex-row
+        gap-4 sm:gap-0
+        items-stretch sm:items-center justify-between
+      "
     >
-      {/* Left Side */}
+      {/* ================= LEFT SIDE ================= */}
       <Box className="w-full sm:w-auto">
         {showSkipButton && (
           <Button
@@ -42,14 +42,17 @@ const Footer = ({ config }) => {
               borderRadius: "8px",
               px: 2,
               py: 1.2,
+
               "&:hover": {
                 borderColor: "#128789",
                 backgroundColor: "#F3FCFC",
               },
+
               "&.Mui-disabled": {
                 backgroundColor: "#D1D5DB",
                 color: "#9CA3AF",
               },
+
               "@media (min-width:600px)": {
                 width: "auto",
               },
@@ -60,14 +63,15 @@ const Footer = ({ config }) => {
         )}
       </Box>
 
-      {/* Right Side */}
+      {/* ================= RIGHT SIDE ================= */}
       <Box
         className=" flex flex-col sm:flex-row
-                  items-stretch
-                  gap-3 sm:gap-6
-                  w-full
-                  sm:w-auto"
+          items-stretch
+          gap-3 sm:gap-6
+          w-full sm:w-auto
+        "
       >
+        {/* AUTO SAVE */}
         <Button
           variant="text"
           disableRipple
@@ -81,9 +85,11 @@ const Footer = ({ config }) => {
             color: "#374151",
             display: "flex",
             alignItems: "center",
+
             "@media (min-width:600px)": {
               width: "auto",
             },
+
             "&:hover": {
               backgroundColor: "#F1F5F9",
             },
@@ -100,6 +106,7 @@ const Footer = ({ config }) => {
           </Box>
         </Button>
 
+        {/* SAVE BUTTON */}
         <Button
           variant="contained"
           onClick={onPrimaryClick}
@@ -116,9 +123,11 @@ const Footer = ({ config }) => {
             "@media (min-width:600px)": {
               width: "auto",
             },
+
             "&:hover": {
               backgroundColor: "#128789",
             },
+
             "&.Mui-disabled": {
               backgroundColor: "#D1D5DB",
               color: "#9CA3AF",

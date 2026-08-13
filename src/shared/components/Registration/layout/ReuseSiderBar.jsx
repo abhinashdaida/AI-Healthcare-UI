@@ -7,15 +7,15 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
   return (
     <Box
       component="aside"
-      className="
-        w-[336px] min-w-[336px]
-        bg-white
-        border-r border-gray-200
-        flex flex-col
-        px-8 py-8
-        max-lg:w-[280px]
-        max-lg:min-w-[280px]
-        max-md:hidden "
+      className=" fixed
+              left-0 top-0  h-screen
+              w-[336px]  min-w-[336px]
+             bg-white
+              border-r border-gray-200
+              flex flex-col
+              px-8 py-8 overflow-y-auto
+              max-lg:w-[280px] max-lg:min-w-[280px] max-md:hidden
+            "
     >
       {/* _______________ LOGO _______________ */}
 
