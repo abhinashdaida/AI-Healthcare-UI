@@ -34,7 +34,7 @@ const ecosystem = [
     icon: "hugeicons:doctor-01",
   },
 ];
-
+ 
 const ParticipantSection = () => {
   return (
     <section className="w-full bg-white py-10 md:py-12 lg:py-[30px]">

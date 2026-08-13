@@ -1,13 +1,11 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Login from "./pages/Login";
 import GlobalConfigView from "./shared/components/GlobalConfigView/GlobalConfigView.js";
 import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
-
 
 function App() {
   return (
@@ -17,11 +15,9 @@ function App() {
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>
-         <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/landing-page" element={<LandingPage />} />
-            </Routes>          
+          <Routes>
+            <Route path="/" element={<LandingPage />} />           
+          </Routes>
         </GlobalConfigView>
       </div>
     </BrowserRouter>

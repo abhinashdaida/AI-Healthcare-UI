@@ -161,7 +161,7 @@ const HeroSection = () => {
         </div>
 
         {/* RIGHT CONTENT CONTAINER */}
-        <div className="relative w-full max-w-[340px] sm:max-w-[440px] h-[320px] sm:h-[380px] flex justify-center items-center shrink-0 mt-4 lg:mt-0">
+        <div className="relative w-full max-w-[340px] sm:max-w-[440px] h-[320px] sm:h-[360px] flex justify-center items-center shrink-0 mt-4 lg:mt-0">
 
           {/* Hero Image Wrapper */}
           <div className="relative w-full h-full flex justify-center items-center">

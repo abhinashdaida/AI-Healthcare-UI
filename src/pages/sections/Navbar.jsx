@@ -29,6 +29,7 @@ const menuItems = [
 ];
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeMenu, setActiveMenu] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
