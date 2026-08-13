@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import {
-  TextField,InputLabel,
+  TextField, InputLabel,
   MenuItem,
   Typography,
   InputAdornment,
   Box,
+  Select,
+  OutlinedInput,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useField } from "formik";
 
 export default function ReusableSelect({
-  label,required=false,
+  label, required = false,
   name,
   options = [],
   placeholder = "Select",
-  startIcon,endIcon,
+  startIcon, endIcon,
   disabled = false,
   onChange,
   sx,
@@ -39,21 +41,20 @@ export default function ReusableSelect({
   return (
     <>
       {label && (
-       <InputLabel 
-      required={required}
-        sx={{
-          mb: 1,
-          fontSize: "14px",
-          fontWeight: 500,
-          color: "#111827","& .MuiFormLabel-asterisk":{color:"red"}
-        }}
-      >
-        {label}
-      </InputLabel>
+        <InputLabel
+          required={required}
+          sx={{
+            mb: 1,
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#111827", "& .MuiFormLabel-asterisk": { color: "red" }
+          }}
+        >
+          {label}
+        </InputLabel>
       )}
 
-      <TextField
-        select
+      <Select
         fullWidth
         size="small"
         {...field}
@@ -61,62 +62,47 @@ export default function ReusableSelect({
         value={field.value || ""}
         onChange={handleChange}
         error={meta.touched && Boolean(meta.error)}
-        helperText={meta.touched && meta.error}
+
         disabled={disabled}
         displayEmpty
         IconComponent={() => null}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-            renderValue: (selected) => {
-              if (!selected) {
-                return (
-                  <span style={{ color: "#9CA3AF" }}>
-                    {placeholder}
-                  </span>
-                );
-              }
-              const selectedOption = options.find(
-                (option) =>
-                  (option.value || option) === selected
-              );
-
-              return (
-                selectedOption?.label ||
-                selectedOption ||
-                selected
-              );
-            },
-          },
-
-          input: {
-            startAdornment: startIcon ? (
-              <InputAdornment position="start">
-                <Icon
-                  icon={startIcon}
-                  width={18}
-                  color="#9CA3AF"
-                />
-              </InputAdornment>
-            ) : undefined,
-
-            endAdornment:endIcon?(
-              <InputAdornment position="end">
-                <Icon icon={endIcon} width={18} color="#4B5563"/>
-              </InputAdornment>
-            ):undefined,
-          },
-        }}
+        input={
+          <OutlinedInput
+            startAdornment={
+              startIcon ? (
+                <InputAdornment position="start">
+                  <Icon icon={startIcon} width={24} height={24} />
+                </InputAdornment>
+              ) : undefined
+            }
+            endAdornment={
+              endIcon ? (
+                <InputAdornment position="end">
+                  <Icon icon={endIcon} width={24} height={24} />
+                </InputAdornment>
+              ) : undefined
+            }
+          />
+        }
         sx={{
           "& .MuiOutlinedInput-root": {
             height: 56,
             borderRadius: "8px",
           },
-           "& .MuiSelect-icon": {
-    display: "none",
-  },
-
+          "& .MuiSelect-icon": {
+            display: "none",
+          },
           ...sx,
+        }}
+        renderValue={(selected) => {
+          if (!selected) {
+            return <span style={{ color: "#9CA3AF" }}>{placeholder}</span>;
+          }
+          const selectedOption = options.find(
+            (option) => (option.value ?? option) === selected,
+          );
+
+          return selectedOption?.label ?? selected;
         }}
       >
         {/* Search bar */}
@@ -175,7 +161,7 @@ export default function ReusableSelect({
             No options found
           </MenuItem>
         )}
-      </TextField>
+      </Select>
     </>
   );
 }

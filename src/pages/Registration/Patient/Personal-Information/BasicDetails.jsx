@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
@@ -43,6 +43,7 @@ const FormFooter = ({ config }) => {
 const BasicDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location=useLocation();
  
   const savedData = useSelector(selectBasicDetails) || {};
 
@@ -62,7 +63,13 @@ const BasicDetails = () => {
   const handleContinue = (values) => {
     console.log("Form submitted:", values);
     dispatch(setBasicDetails(values));
-    dispatch(completeStep(0));                        // move siderbar step 
+    dispatch(completeStep(0));   
+    if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }                     // move siderbar step 
 
     navigate("/emergency-contact");
   };

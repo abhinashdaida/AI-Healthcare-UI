@@ -1,5 +1,5 @@
 import React, { useMemo,useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
@@ -56,6 +56,7 @@ const FormFooter = ({ config }) => {
 const HealthOverview = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location =useLocation();
 
   const savedData = useSelector(selectHealthOverview) || {};
   // ----------------- Initial Values -----------------
@@ -104,6 +105,12 @@ const HealthOverview = () => {
 
     dispatch(setHealthOverview(values));
     dispatch(completeStep(2));
+    if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
 
     navigate("/medical-conditions");
   };

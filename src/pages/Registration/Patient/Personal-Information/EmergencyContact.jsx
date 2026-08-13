@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
 import Footer from "@/shared/components/Registration/layout/Footer";
@@ -43,6 +43,7 @@ const FormFooter = ({ config }) => {
 const EmergencyContact = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location =useLocation();
   const savedData = useSelector(selectEmergencyContact) || {};
 
   // INITIAL VALUES
@@ -61,6 +62,12 @@ const EmergencyContact = () => {
     console.log("Emergency contact data:", values);
     dispatch(setEmergencyContact(values));
     dispatch(completeStep(1));
+    if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
     navigate("/health-overview");
   };
 

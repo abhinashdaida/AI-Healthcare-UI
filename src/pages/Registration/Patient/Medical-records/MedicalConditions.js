@@ -89,14 +89,14 @@ const MedicalRecords = () => {
                         <Sidebar />
                     </div>
                     {/* Right Content */}
-                    <main className="ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen flex flex-col bg-white">
+                    <main className="ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen h-screen flex flex-col bg-white">
                         {/* Header */}
                         <FormHeader
                             title="Medical Records"
                             subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
                         />
                         {/* Content */}
-                        <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 pt-[120px] pb-[150px] overflow-y-auto">
+                        <div className="flex-1 min-h-0 px-4 sm:px-6 md:px-8 lg:px-10 pt-[180px] sm:pt-[150px] md:pt-[120px] pb-[250px] sm:pb-[180px] md:pb-[150px] overflow-y-auto">
                             {/* Section Header */}
                             <Box className="w-full max-w-[1104px] h-[82px] pt-4 md:pt-6 flex flex-col gap-2">
                                 <SectionHeader
