@@ -3,18 +3,13 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
-
 import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
 import Footer from "@/shared/components/Registration/layout/Footer";
-
 import CustomLabel from "@/shared/components/Registration/Common/CustomLabel";
 import CustomTextField from "@/shared/components/Registration/Common/CustomTextField";
 import CustomSelect from "@/shared/components/Registration/Common/CustomSelect";
-
-import {
-  HealthOverviewValidation,
-} from "@/shared/validations/patientRegistration/PersonalInfoValidation";
+import {HealthOverviewValidation,} from "@/shared/validations/patientRegistration/PersonalInfoValidation";
 
 import {
   HEIGHT_UNIT_OPTIONS,
