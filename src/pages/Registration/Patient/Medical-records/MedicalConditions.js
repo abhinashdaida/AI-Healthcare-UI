@@ -11,7 +11,7 @@ import {
     medicationOptions,
 } from "../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import Sidebar from "../components/SiderBar/SiderBar";
@@ -26,6 +26,10 @@ import {
 const MedicalRecords = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location =useLocation();
+
+     
+
     // Get previously saved medical information from Redux
     const savedData = useSelector(
         (state) => state.patientRegistration.medicalConditions
@@ -34,6 +38,12 @@ const MedicalRecords = () => {
     const handleUpload = async (values) => {
         dispatch(setMedicalConditions(values));
         dispatch(completeStep(3));
+        if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
         console.log("upload and continue");
         if (values.files && values.files.length > 0) {
             navigate("/insurance", {

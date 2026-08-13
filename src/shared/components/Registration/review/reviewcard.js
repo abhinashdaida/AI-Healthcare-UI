@@ -16,7 +16,11 @@ const ReviewCard = ({
     const handleEdit = () => {
         // Navigate to the corresponding edit page
         if (editPath) {
-            navigate(editPath);
+            navigate(editPath,{
+                state:{
+                    fromReview:true,
+                }
+            });
         }
     };
 

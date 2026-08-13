@@ -44,6 +44,12 @@ const Insurance = () => {
         dispatch(setInsurance(values));
         dispatch(completeStep(4));
         console.log("reviewdetails");
+        if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
         // Show success message when documents are uploaded
         if (values.files && values.files.length > 0) {
             setShowUploadSuccess(true);
@@ -78,7 +84,7 @@ const Insurance = () => {
         if (!values.insuranceType) {
             return false;
         }
-        if (values.insuranceType === "None") {
+        if (values.insuranceType === "No Insurance") {
             return true;
         }
         return Boolean(
@@ -133,7 +139,7 @@ const Insurance = () => {
                                         options={[
                                             {label: "Government", value: "Government",},
                                             { label: "Private", value: "Private",},
-                                            {label: "No Insurance", value: "None", },
+                                            {label: "No Insurance", value: "No Insurance", },
                                         ]}
                                     />
                                 </div>
@@ -141,7 +147,7 @@ const Insurance = () => {
                                 {!values.insuranceType && <div></div>}
 
                                 {values.insuranceType &&
-                                    values.insuranceType !== "None" && (
+                                    values.insuranceType !== "No Insurance" && (
                                         <>
                                             {/* Scheme Provider */}
                                             <div className="w-full">
@@ -186,7 +192,7 @@ const Insurance = () => {
                             </Box>
                             {/* Upload Insurance Documents */}
                             {values.insuranceType &&
-                                values.insuranceType !== "None" && (
+                                values.insuranceType !== "No Insurance" && (
                                     <Box className="pt-6 md:pt-8 lg:pt-10 mt-6 md:mt-8 w-full max-w-[1104px]">
                                         <UploadFiles
                                             required
