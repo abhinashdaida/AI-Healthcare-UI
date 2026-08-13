@@ -74,7 +74,7 @@ const HealthOverview = () => {
   };
 
   //--------------------HealthcarePersonalizationPopup-------------
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   //------------popuu Continue btn funcation -----------
@@ -84,6 +84,7 @@ const HealthOverview = () => {
     }
     //Continue to your next step
     setShowPopup(false);
+    navigate("/medical-conditions");
   };
   
   const handlePopUpSkip =()=>{
@@ -91,41 +92,32 @@ const HealthOverview = () => {
       localStorage.setItem("hideHealthcarePersonalization", "true");
     }
     //Skip medical information
-        dispatch(completeStep(2));
-
-     navigate("/reviewdetails");
+    dispatch(completeStep(2));
     setShowPopup(false);
-   
-
+    navigate("/reviewdetails");
   };
-
 
   // ----------------- Submit -----------------
 
   const handleContinue = (values) => {
     console.log("Health Overview Data:", values);
-
     dispatch(setHealthOverview(values));
     dispatch(completeStep(2));
 
-    navigate("/medical-conditions");
+    setShowPopup(true);
   };
 
   // ----------------- Auto Save -----------------
-
   const handleAutoSave = () => {
     console.log("Health Overview Auto Save");
   };
 
   // ----------------- Footer Config -----------------
-
   const footerConfig = useMemo(
     () => ({
       showAutoSave: true,
       showSkipButton: false,
-
       primaryButtonLabel: "Save & Continue",
-
       onAutoSaveClick: handleAutoSave,
     }),
     [],

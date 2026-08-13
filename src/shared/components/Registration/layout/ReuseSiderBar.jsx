@@ -21,7 +21,7 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
         max-md:hidden
       "
     >
-      {/* ================= LOGO ================= */}
+      {/* _________________________ LOGO _________________________ */}
 
       <Box className="flex items-center gap-3 mb-16">
         <Box className="w-10 h-10 flex items-center justify-center">
@@ -33,30 +33,17 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
         </Box>
 
         <Box>
-          <Typography
-            className="
-              text-[16px]!
-              font-semibold!
-              text-[#24333b]!
-              leading-4!
-            "
-          >
+          <Typography className=" text-[16px]!  font-semibold!  text-[#24333b]! leading-4! ">
             MediConnect
           </Typography>
 
-          <Typography
-            className="
-              text-[10px]!
-              text-[#8a959b]!
-              tracking-wide!
-            "
-          >
+          <Typography className=" text-[10px]!  text-[#8a959b]! tracking-wide!  ">
             Healthcare Ecosystem
           </Typography>
         </Box>
       </Box>
 
-      {/* ================= SIDEBAR ================= */}
+      {/* _________________________ SIDEBAR _________________________ */}
 
       <Box className="flex flex-col">
         {menuItems.map((item, index) => (
@@ -71,9 +58,7 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
   );
 };
 
-/* =========================================================
-   SIDEBAR ITEM
-========================================================= */
+/* _________________________  SIDEBAR ITEM _________________________ */
 
 const SidebarItem = ({ item, isLast = false }) => {
   const {
@@ -87,17 +72,12 @@ const SidebarItem = ({ item, isLast = false }) => {
     children = [],
   } = item;
 
-  /* =========================================================
-     CHILD ITEM
-  ========================================================= */
+  /* _________________________  CHILD ITEM _________________________ */
 
   if (child) {
     return (
-      <Box className="relative ml-6">
-        {/* =================================================
-            VERTICAL PROGRESS BAR
-        ================================================= */}
-
+      <Box className="relative ml-6 -mt-3">
+        {/* _________________________ VERTICAL PROGRESS BAR  _________________________ */}
         <Box
           className="
             absolute
@@ -109,14 +89,7 @@ const SidebarItem = ({ item, isLast = false }) => {
             rounded-full
           "
         />
-
-        {/* =================================================
-            GREEN PROGRESS INDICATOR
-
-            completed -> full green
-            active    -> green until current item
-        ================================================= */}
-
+        {/* _________________________ GREEN PROGRESS INDICATOR  _________________________ */}
         {(completed || active) && (
           <Box
             className="
@@ -134,59 +107,28 @@ const SidebarItem = ({ item, isLast = false }) => {
             }}
           />
         )}
-
-        {/* =================================================
-            CHILD ROW
-        ================================================= */}
-
-        <Box
-          className="
-            h-14
-            flex items-center
-            gap-2.5
-            pl-6
-            relative
-          "
-        >
-          {/* ================= CHILD ICON ================= */}
-
-          {/* ================= CHILD ICON ================= */}
-
+        {/* _________________________ CHILD ROW  _________________________ */}
+        <Box className=" h-14 flex items-center gap-2.5  pl-6 relative ">
+          {/* _________________________ CHILD ICON _________________________ */}
           <Box className="w-7 h-7 shrink-0 flex items-center justify-center">
             {/* ACTIVE HAS HIGHEST PRIORITY */}
             {active ? (
               <Box
                 className="
-        w-7 h-7
-        rounded-[5px]
-        bg-[#229497]
-        text-white
-        flex items-center
-        justify-center
-      "
+                  w-7 h-7
+                  rounded-[5px]
+                 bg-[#229497]
+                 text-white
+                  flex items-center
+                  justify-center
+                "
               >
                 <Icon icon={icon} width="16" height="16" />
               </Box>
             ) : completed ? (
               /* COMPLETED ICON */
-              <Box
-                className="
-        w-7 h-7
-        rounded-full
-        bg-[#08b887]
-        flex items-center
-        justify-center
-      "
-              >
-                <Box
-                  className="
-          w-4.5 h-4.5
-          rounded-full
-          bg-white
-          flex items-center
-          justify-center
-        "
-                >
+              <Box className=" w-7 h-7 rounded-full  bg-[#08b887]  flex items-center  justify-center  ">
+                <Box className="  w-4.5 h-4.5  rounded-full  bg-white  flex items-center   justify-center  ">
                   <Icon
                     icon="tabler:check"
                     width="16"
@@ -198,27 +140,19 @@ const SidebarItem = ({ item, isLast = false }) => {
               </Box>
             ) : (
               /* NORMAL ICON */
-              <Box
-                className="
-        w-7 h-7
-        flex items-center
-        justify-center
-        text-[#9da8af]
-      "
-              >
+              <Box className=" w-7 h-7  flex items-center  justify-center  text-[#9da8af]  ">
                 <Icon icon={icon} width="16" height="16" />
               </Box>
             )}
           </Box>
 
-          {/* ================= CHILD LABEL ================= */}
+          {/* _________________________ CHILD LABEL _________________________ */}
 
           <Typography
             className={`
               text-[14px]!
               flex-1
               whitespace-nowrap
-
               ${
                 disabled
                   ? "text-[#a9b2b9]!"
@@ -233,7 +167,7 @@ const SidebarItem = ({ item, isLast = false }) => {
             {label}
           </Typography>
 
-          {/* ================= OPTIONAL ================= */}
+          {/* _________________________ OPTIONAL _________________________ */}
 
           {item.optional && (
             <Box
@@ -254,9 +188,7 @@ const SidebarItem = ({ item, isLast = false }) => {
     );
   }
 
-  /* =========================================================
-     PARENT ITEM
-  ========================================================= */
+  /* _________________________ PARENT ITEM _________________________ */
 
   const hasActiveChild = children.some((childItem) => childItem.active);
 
@@ -270,51 +202,22 @@ const SidebarItem = ({ item, isLast = false }) => {
 
   return (
     <Box className="relative">
-      {/* ================= PARENT ROW ================= */}
-
+      {/* _________________________ PARENT ROW _________________________ */}
       <Box
-        className={`
-          min-h-[56px]
-          px-3
-          flex items-center
-          gap-4
-          rounded-md
-          relative
-          z-10
-
-          ${parentActive && !completed ? "bg-[#e4f5f5]" : "bg-transparent"}
-        `}
+        className={` min-h-[64px]
+                px-3 flex items-center
+                gap-5 rounded-md
+                relative z-10 mb-2
+                      ${parentActive && !completed ? "bg-[#e4f5f5]" : "bg-transparent"}
+              `}
       >
-        {/* ================= PARENT ICON ================= */}
+        {/* _________________________ PARENT ICON _________________________ */}
 
-        <Box
-          className="
-            w-10 h-10
-            shrink-0
-            flex items-center
-            justify-center
-          "
-        >
+        <Box className="  w-10 h-10 shrink-0 flex items-center  justify-center ">
           {completed ? (
             /* COMPLETED PARENT */
-            <Box
-              className="
-                w-10 h-10
-                rounded-full
-                bg-[#08b887]
-                flex items-center
-                justify-center
-              "
-            >
-              <Box
-                className="
-                  w-7 h-7
-                  rounded-full
-                  bg-white
-                  flex items-center
-                  justify-center
-                "
-              >
+            <Box className="  w-10 h-10 rounded-full  bg-[#08b887] flex items-center justify-center  ">
+              <Box className=" w-7 h-7  rounded-full   bg-white flex items-center  justify-center ">
                 <Icon
                   icon="tabler:check"
                   width="20"
@@ -344,14 +247,13 @@ const SidebarItem = ({ item, isLast = false }) => {
           )}
         </Box>
 
-        {/* ================= PARENT LABEL ================= */}
+        {/* _________________________ PARENT LABEL _________________________ */}
 
         <Typography
           className={`
             text-[14px]!
             font-medium!
             flex-1
-
             ${
               completed
                 ? "text-[#4B5563]!"
@@ -366,7 +268,7 @@ const SidebarItem = ({ item, isLast = false }) => {
           {label}
         </Typography>
 
-        {/* ================= UP / DOWN ================= */}
+        {/* _________________________ UP / DOWN _________________________ */}
 
         {hasChildren && (
           <Box
@@ -396,7 +298,7 @@ const SidebarItem = ({ item, isLast = false }) => {
         )}
       </Box>
 
-      {/* ================= CHILDREN ================= */}
+      {/* _________________________ CHILDREN _________________________ */}
 
       {expanded && children.length > 0 && (
         <Box className="mt-1">
@@ -406,7 +308,7 @@ const SidebarItem = ({ item, isLast = false }) => {
         </Box>
       )}
 
-      {/* ================= PARENT PROGRESS ================= */}
+      {/* _________________________ PARENT PROGRESS _________________________ */}
 
       {!isLast && (
         <Box
@@ -415,7 +317,7 @@ const SidebarItem = ({ item, isLast = false }) => {
             left-[29px]
             top-[45px]
             w-[3px]
-            h-[28px]
+            h-[48px]
             rounded-full
             z-0
 
