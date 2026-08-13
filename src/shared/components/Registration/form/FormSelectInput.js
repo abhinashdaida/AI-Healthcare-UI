@@ -84,15 +84,21 @@ export default function ReusableSelect({
             }
           />
         }
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            height: 56,
-            borderRadius: "8px",
+       sx={{
+          height: "56px",
+          borderRadius: "10px",
+          backgroundColor: "#fff",
+
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderRadius: "10px",
           },
-          "& .MuiSelect-icon": {
-            display: "none",
+          // Dropdown options
+          "& .MuiMenuItem-root": {
+            minHeight: "51px",
+            padding: "10px 16px",
+            overflowY:"auto",
+            overflowX:"auto",
           },
-          ...sx,
         }}
         renderValue={(selected) => {
           if (!selected) {
