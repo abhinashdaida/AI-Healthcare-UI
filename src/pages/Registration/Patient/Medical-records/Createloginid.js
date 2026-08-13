@@ -99,14 +99,15 @@ const CreateLoginId = () => {
       }) => (
                  <div className="min-h-screen bg-[#F5F7F8]">
                   {/* Side bar */}
-          <div className="w-full max-w-[1600px] bg-white flex min-h-screen rounded-xl overflow-hidden">
-            <Sidebar />
+         <div className="w-full md:w-[280px] lg:w-[300px]">
+                        <Sidebar />
+                    </div>
             {/* Right Content */}
                         <main className=" ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen  flex flex-col  bg-white">
                           {/* Header */}
               <FormHeader title={pageContent.pageTitle} subtitle={pageContent.pageSubtitle} />
               {/* Content */}
-            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[120px] pb-[150px] overflow-y-auto">
+            <div  className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px]  overflow-y-auto">
                 {/* section Header */}
                 <Box className="mb-8 ">
                   <SectionHeader title={pageContent.title} subtitle={pageContent.subtitle} />
@@ -168,9 +169,9 @@ const CreateLoginId = () => {
                 </Box>
 
                 {/* Suggested IDs */}
-                <Box className="mt-10">
+                <Box className="w-full mt-10">
                   {/* Suggestion Header */}
-                  <Box className="flex items-start justify-between mb-5">
+                  <Box className="w-full flex items-start justify-between mb-5">
                     <Box>
                       <h3 className="text-[14px] font-semibold text-[#111827] leading-5"> {pageContent.suggestionTitle} </h3>
                       <p className="mt-1 text-[11px] text-[#6B7280] leading-4"> {pageContent.suggestionSubtitle} </p>
@@ -188,7 +189,7 @@ const CreateLoginId = () => {
                         setSuggestedIds(ids);
                       }}
                       className=" flex items-center gap-2 h-[32px] px-4 rounded-md
-                      border border-[#2BA39A] bg-white text-[#2BA39A] text-[12px] font-medium transition hover:bg-[#ECFEFF] "
+                      border border-[#2BA39A] bg-white text-[#2BA39A] text-[12px] font-medium transition hover:bg-[#ECFEFF] shrink-0"
                     >
                       <Icon icon="tabler:refresh" width={16} />
                       {pageContent.generateButton}
@@ -263,7 +264,6 @@ const CreateLoginId = () => {
               />
             </main>
           </div>
-        </div>
       )}
     </Formik>
   );

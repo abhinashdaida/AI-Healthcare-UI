@@ -7,7 +7,11 @@ const ReviewDocumentCard = ({ title, files = [],editPath }) => {
     const navigate =useNavigate();
     const handleEdit=()=>{
         if(editPath){
-        navigate(editPath);
+        navigate(editPath,{
+            state:{
+                    fromReview:true,
+                }
+        });
         }
     }
     return (

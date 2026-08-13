@@ -11,7 +11,7 @@ import {
     medicationOptions,
 } from "../../../../shared/constants/PatientRegistration/MedicalRecords/MedicalConditionsconstants";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from "../../../../shared/components/Registration/layout/Footer";
 import Sidebar from "../components/SiderBar/SiderBar";
@@ -26,6 +26,10 @@ import {
 const MedicalRecords = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location =useLocation();
+
+     
+
     // Get previously saved medical information from Redux
     const savedData = useSelector(
         (state) => state.patientRegistration.medicalConditions
@@ -34,6 +38,12 @@ const MedicalRecords = () => {
     const handleUpload = async (values) => {
         dispatch(setMedicalConditions(values));
         dispatch(completeStep(3));
+        if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
         console.log("upload and continue");
         if (values.files && values.files.length > 0) {
             navigate("/insurance", {
@@ -86,9 +96,9 @@ const MedicalRecords = () => {
                             subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
                         />
                         {/* Content */}
-                        <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 pt-[120px] pb-[150px] overflow-y-auto">
+                        <div className="flex-2 w-full px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto overflow-x-hidden">
                             {/* Section Header */}
-                            <Box className="w-full max-w-[1104px] h-[82px] pt-4 md:pt-6 flex flex-col gap-2">
+                            <Box className="w-full max-w-[1104px]  pt-2 sm:pt-4 md:pt-6 flex flex-col gap-2">
                                 <SectionHeader
                                     title="Medical Conditions"
                                     subtitle="Add your basic health information to help healthcare providers serve you better."

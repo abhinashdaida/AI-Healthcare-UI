@@ -85,7 +85,7 @@ const Review = () => {
                         subtitle="Review all the information before submitting your profile."
                     />
                     {/* Content */}
-                    <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 pt-[120px] pb-[150px] overflow-y-auto">
+                    <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto">
                         {/* Personal Information */}
                         <ReviewAccordion
                             title="Personal Information"

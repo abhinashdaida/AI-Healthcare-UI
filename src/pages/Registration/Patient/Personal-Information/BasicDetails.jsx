@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
@@ -43,6 +43,7 @@ const FormFooter = ({ config }) => {
 const BasicDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location=useLocation();
  
   const savedData = useSelector(selectBasicDetails) || {};
 
@@ -62,7 +63,13 @@ const BasicDetails = () => {
   const handleContinue = (values) => {
     console.log("Form submitted:", values);
     dispatch(setBasicDetails(values));
-    dispatch(completeStep(0));                        // move siderbar step 
+    dispatch(completeStep(0));   
+    if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }                     // move siderbar step 
 
     navigate("/emergency-contact");
   };
@@ -106,7 +113,7 @@ const BasicDetails = () => {
         >
           <Form className="flex flex-1 flex-col min-h-0">
             {/* Content */}
-            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[120px] pb-[150px] overflow-y-auto">
+            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto">
               {/* Section Header */}
               <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
                 <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">

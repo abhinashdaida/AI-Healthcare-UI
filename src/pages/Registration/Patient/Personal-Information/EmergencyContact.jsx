@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
 import Footer from "@/shared/components/Registration/layout/Footer";
@@ -43,6 +43,7 @@ const FormFooter = ({ config }) => {
 const EmergencyContact = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location =useLocation();
   const savedData = useSelector(selectEmergencyContact) || {};
 
   // INITIAL VALUES
@@ -61,6 +62,12 @@ const EmergencyContact = () => {
     console.log("Emergency contact data:", values);
     dispatch(setEmergencyContact(values));
     dispatch(completeStep(1));
+    if (location.state?.fromReview) {
+        navigate("/reviewdetails", {
+            replace: true,
+        });
+        return;
+    }
     navigate("/health-overview");
   };
 
@@ -112,7 +119,7 @@ const EmergencyContact = () => {
           <Form className="flex flex-col h-screen">
             <div
               className="
-                flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-[120px]  pb-[180px]
+                flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px]
               "
             >
               {/*                   EMERGENCY CONTACT SECTION  */}
