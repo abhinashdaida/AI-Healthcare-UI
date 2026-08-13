@@ -78,7 +78,7 @@ const EmergencyContact=()=>{
           <SiderBar />
 
           {/* Right Content */}
-          <main className="flex flex-1 flex-col min-w-0">
+          <main className="flex flex-1 flex-col min-w-0 overflow-hidden">
             {/* Header */}
             <FormHeader
               title="Personal Information"
@@ -93,7 +93,7 @@ const EmergencyContact=()=>{
             >
               <Form className="flex flex-1 flex-col min-h-0">
                 {/* Content */}
-                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
+                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 ">
                   {/* secation header */}
                   <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
                     <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
@@ -116,6 +116,7 @@ const EmergencyContact=()=>{
                         name="relationship"
                         placeholder="Select your emergency contact relationship"
                         startIcon="tabler:heart-handshake"
+                        endIcon="tabler:circle-chevron-down"
                         options={RELATIONSHIP_OPTIONS}
                       />
                     </Box>
@@ -141,7 +142,10 @@ const EmergencyContact=()=>{
                   </Box>
                 </div>
 
-                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6 overflow-y-auto ">
+
+
+
+                <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-5 md:py-6">
                   {/* secation header */}
                   <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
                     <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
@@ -163,6 +167,7 @@ const EmergencyContact=()=>{
                         name="nationality"
                         placeholder="Select your nationality"
                         startIcon="tabler:map-pin"
+                        endIcon="tabler:circle-chevron-down"
                         options={NATIONALITY_OPTIONS}
                       />
                     </Box>
@@ -174,6 +179,7 @@ const EmergencyContact=()=>{
                         placeholder="Select your state"
                         type="text"
                         startIcon="tabler:map-pin"
+                        endIcon="tabler:circle-chevron-down"
                          options={STATE_OPTIONS}
                       />
                     </Box>
@@ -184,6 +190,7 @@ const EmergencyContact=()=>{
                         placeholder="Select your city"
                         type="text"
                         startIcon="tabler:map-pin"
+                        endIcon="tabler:circle-chevron-down"
                         options={CITY_OPTIONS}
                       />
                     </Box>

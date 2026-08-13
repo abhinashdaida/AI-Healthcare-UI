@@ -156,15 +156,14 @@ const HealthOverview = () => {
                       Height
                     </CustomLabel>
 
-                    <CustomSelect
-                      name="height"
-                      placeholder="Enter your height"
-                      type="text"
-                      startIcon="tabler:ruler-measure-2"
-                      endIcon="tabler:circle-chevron-down"
-                      options ={HEIGHT_UNIT_OPTIONS}
-
-                    />
+                    <CustomTextField
+                         name="height"
+                         placeholder="Enter your height"
+                         type="text"
+                         startIcon="tabler:ruler-measure-2"
+                         endSelectName="heightUnit"
+                         endSelectOptions={HEIGHT_UNIT_OPTIONS}
+/>
                   </Box>
 
                   {/* ---------------- Weight ---------------- */}
@@ -173,13 +172,14 @@ const HealthOverview = () => {
                       Weight
                     </CustomLabel>
 
-                    <CustomSelect
-                      name="weight"
-                      placeholder="Enter your weight"
-                      type="text"
-                      startIcon="tabler:scale-outline"
-                      options ={WEIGHT_UNIT_OPTIONS}
-                    />
+                    <CustomTextField
+                     name="weight"
+                     placeholder="Enter your weight"
+                     type="text"
+                     startIcon="tabler:scale-outline"
+                     endSelectName="weightUnit"
+                     endSelectOptions={WEIGHT_UNIT_OPTIONS}
+/>
                   </Box>
 
                   {/* ---------------- Blood Pressure ---------------- */}
@@ -189,10 +189,11 @@ const HealthOverview = () => {
                     </CustomLabel>
 
                     <CustomTextField
-                      name="bloodPressure"
-                      placeholder="Enter Blood Pressure (If Known), e.g. 120/80"
-                      type="text"
-                      startIcon="tabler:heart-handshake"
+                     name="bloodPressure"
+                     placeholder="Enter Blood Pressure(If Known),e.g.120/80"
+                     type="text"
+                    startIcon="tabler:heartbeat"
+                    endText="mm/Hg"
                     />
                   </Box>
 
@@ -205,9 +206,10 @@ const HealthOverview = () => {
                     <CustomTextField
                       name="bloodSugar"
                       placeholder="Enter Blood Sugar (If Known), e.g. 90 mg/dl"
-                      type="text"
-                      startIcon="tabler:droplet"
-                    />
+                     type="text"
+                     startIcon="tabler:droplet"
+                      endText="mg/dl"
+/>
                   </Box>
 
                   {/* ---------------- Physical Activity ---------------- */}
@@ -220,6 +222,7 @@ const HealthOverview = () => {
                       name="physicalActivityLevel"
                       placeholder="Select your physical activity level"
                       startIcon="tabler:run"
+                      endIcon="tabler:circle-chevron-down"
                       options={PHYSICAL_ACTIVITY_OPTIONS}
                     />
                   </Box>
@@ -234,6 +237,7 @@ const HealthOverview = () => {
                       name="dietaryPreference"
                       placeholder="Select your dietary preference"
                       startIcon="tabler:chef-hat"
+                      endIcon="tabler:circle-chevron-down"
                       options={DIETARY_PREFERENCE_OPTIONS}
                     />
                   </Box>
@@ -248,6 +252,7 @@ const HealthOverview = () => {
                       name="smokingStatus"
                       placeholder="Select your smoking status"
                       startIcon="tabler:smoking"
+                      endIcon="tabler:circle-chevron-down"
                       options={SMOKING_STATUS_OPTIONS}
                     />
                   </Box>
@@ -262,6 +267,7 @@ const HealthOverview = () => {
                       name="alcoholConsumption"
                       placeholder="Select your alcohol consumption"
                       startIcon="tabler:glass-full"
+                      endIcon="tabler:circle-chevron-down"
                       options={ALCOHOL_CONSUMPTION_OPTIONS}
                   
                     />

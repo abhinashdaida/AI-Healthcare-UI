@@ -102,6 +102,15 @@ export const STATE_OPTIONS = [
   },
   
 ];
+// export const HEIGHT_UNIT_OPTIONS = [
+//   { label: "cm", value: "cm" },
+//   { label: "ft/in", value: "ft/in" },
+// ];
+
+// export const WEIGHT_UNIT_OPTIONS = [
+//   { label: "kg", value: "kg" },
+//   { label: "lb", value: "lb" },
+// ];
 
 
 
