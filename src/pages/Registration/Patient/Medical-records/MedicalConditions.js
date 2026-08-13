@@ -156,8 +156,8 @@ const MedicalRecords = () => {
                         />
                     </main>
                 </div>
-            )}
-        </Formik>
+        )}
+      </Formik>
     );
 };
 
