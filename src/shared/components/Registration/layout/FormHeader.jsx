@@ -10,19 +10,28 @@ const FormHeader = ({ title, subtitle }) => {
     <Box
       component="header"
       className="
-        w-full
-        bg-white
+        fixed top-0 right-0
+        left-[336px] max-lg:left-[280px]  max-md:left-0  z-40
+        w-auto  bg-white
         border-b border-gray-200
-        px-4 sm:px-6 lg:px-8 py-4
-        flex flex-col sm:flex-row sm:items-center
-        justify-between gap-4 "
+        px-4 sm:px-6 lg:px-8
+        py-4
+        flex flex-col  sm:flex-row 
+        sm:items-center justify-between gap-4
+      "
     >
       {/* Left Section */}
-      <Box className="flex-1">
-        <Typography className="text-[18px]! font-medium! text-gray-900!">
+      <Box className="flex-1 min-w-0">
+        <Typography
+          className="
+            text-[18px]!
+            font-medium!
+            text-gray-900!
+            whitespace-nowrap
+          "
+        >
           {title}
         </Typography>
-
         <Typography className="text-[14px]! text-gray-500! mt-1 max-w-sm">
           {subtitle}
         </Typography>
@@ -32,9 +41,9 @@ const FormHeader = ({ title, subtitle }) => {
       <Box
         className="
           flex flex-col
-          items-start
-          sm:items-end
-          gap-2 "
+          items-start sm:items-end
+          gap-2 shrink-0
+        "
       >
         {/* Help Text */}
         <Box className="flex items-center gap-2">
@@ -74,4 +83,5 @@ const FormHeader = ({ title, subtitle }) => {
     </Box>
   );
 };
+
 export default FormHeader;

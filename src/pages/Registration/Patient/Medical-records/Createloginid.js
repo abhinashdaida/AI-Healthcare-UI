@@ -13,11 +13,16 @@ import { createLoginValidation } from "@/shared/validations/patientRegistration/
 import {pageContent, idPrefix, statusMessages,STATUS, STATUS_CONFIG } from "../../../../shared/constants/PatientRegistration/MedicalRecords/CreateLoginIdconstants";
 import { generateId,validateId, generateSuggestionsForValue, } from "../../../../shared/components/Registration/form/idGenerator";
 import SectionHeader from "@/shared/components/Registration/form/SectionHeader";
-import { setCreateLoginId, completeStep } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import {
+  setCreateLoginId,
+  completeStep,
+  resetRegistration,
+} from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { useNavigate } from "react-router-dom";
 
 const CreateLoginId = () => {
   const dispatch = useDispatch();
-  const createLoginId = useSelector((state) => state.patientRegistration.createLoginId);
+  const navigate = useNavigate();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
 
@@ -242,6 +247,10 @@ const CreateLoginId = () => {
               <SuccessModal
                 open={successOpen}
                 handleClose={() => setSuccessOpen(false)}
+                onGoToDashboard={() => {
+                  dispatch(resetRegistration());
+                  navigate("/basic-details");
+                }}
               />
             </main>
           </div>
