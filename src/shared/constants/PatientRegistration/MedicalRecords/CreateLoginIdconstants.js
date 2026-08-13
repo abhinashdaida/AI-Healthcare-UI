@@ -41,6 +41,7 @@ export const statusMessages = {
     exists: "This ID is already in use. Try another ID or choose one of the suggestions below.",
 };
 
+
 export const STATUS = {
   success: {
     border: "border-[#2BA39A]",

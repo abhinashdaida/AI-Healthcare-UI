@@ -48,7 +48,6 @@ const Insurance = () => {
                 setShowUploadSuccess(false);
                 navigate("/reviewdetails");
             }, 2000);
-
             return;
         }
         navigate("/reviewdetails");
@@ -246,7 +245,7 @@ const Insurance = () => {
                                 primaryButtonLabel: "Review Details",
                                 onPrimaryClick: () => handleUpload(values),
                                 primaryButtonDisabled: !isInsuranceComplete(values),
-                                skipButtonDisabled: values.insuranceType === "None",
+                                skipButtonDisabled:true ,
                             }} />
                         </main>
                     </div>

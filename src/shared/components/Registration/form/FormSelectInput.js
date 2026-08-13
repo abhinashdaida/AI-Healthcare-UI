@@ -63,6 +63,8 @@ export default function ReusableSelect({
         error={meta.touched && Boolean(meta.error)}
         helperText={meta.touched && meta.error}
         disabled={disabled}
+        displayEmpty
+        IconComponent={() => null}
         slotProps={{
           select: {
             displayEmpty: true,
@@ -110,6 +112,10 @@ export default function ReusableSelect({
             height: 56,
             borderRadius: "8px",
           },
+           "& .MuiSelect-icon": {
+    display: "none",
+  },
+
           ...sx,
         }}
       >
