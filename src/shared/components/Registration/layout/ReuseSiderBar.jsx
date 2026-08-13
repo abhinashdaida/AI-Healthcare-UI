@@ -54,7 +54,7 @@ const ReuseSiderBar = ({ menuItems = [] }) => {
   );
 };
 
-  //_______________ SIDEBAR ITEM_______________
+//_______________ SIDEBAR ITEM_______________
 
 const SidebarItem = ({ item, isLast = false }) => {
   const {
@@ -87,7 +87,8 @@ const SidebarItem = ({ item, isLast = false }) => {
     return (
       <Box className="relative ml-6">
         {/* CHILD VERTICAL LINE */}
-        <Box  className={`absolute left-[5px] top-0 bottom-0 w-[2px]
+        <Box
+          className={`absolute left-[5px] top-0 bottom-0 w-[2px]
             ${active || completed ? "bg-[#229497]" : "bg-[#dce5e7]"}
         `}
         />
@@ -95,22 +96,34 @@ const SidebarItem = ({ item, isLast = false }) => {
         {/* // CHILD ROW */}
         <Box className=" h-14 flex items-center gap-2.5 pl-6  relative ">
           {/* CHILD ICON */}
-          <Box  className={`w-7 h-7 shrink-0
-              flex items-center justify-center
-              ${
-                completed
-                  ? "rounded-full bg-[#08b887] text-white"
-                  : active
-                    ? "rounded-full bg-[#229497] text-white"
-                    : "bg-transparent text-[#a6b0b7]"
-              }
+          <Box className="w-7 h-7 shrink-0 flex items-center justify-center">
+            {completed ? (
+              // Completed icon
+              <Box className="w-7 h-7 rounded-full bg-[#08b887] flex items-center justify-center">
+                <Box className="w-4.5 h-4.5 rounded-full bg-white flex items-center justify-center">
+                  <Icon
+                    icon="tabler:check"
+                    width="16"
+                    height="16"
+                    strokeWidth="3"
+                    className="text-[#08b887]"
+                  />
+                </Box>
+              </Box>
+            ) : (
+              // Normal / Active icon
+              <Box
+                className={` w-7 h-7 flex items-center justify-center
+                    ${
+                      parentActive
+                        ? "rounded-[5px] bg-[#229497] text-white"
+                        : "text-[#9da8af]"
+                    }
             `}
-          >
-            <Icon
-              icon={completed ? "tabler:check" : icon}
-              width="16"
-              height="16"
-            />
+              >
+                <Icon icon={icon} width="16" height="16" />
+              </Box>
+            )}
           </Box>
           {/* CHILD LABEL */}
           <Typography
@@ -160,28 +173,36 @@ const SidebarItem = ({ item, isLast = false }) => {
         `}
       >
         {/* PARENT ICON */}
-        <Box
-          className={`
-            w-10 h-10
-            shrink-0
-            flex items-center
-            justify-center
-
-            ${
-              completed
-                ? "rounded-full bg-[#08b887] text-white"
-                : parentActive
-                  ? "rounded-[5px] bg-[#229497] text-white"
-                  : "text-[#9da8af]"
-            }
-          `}
-        >
-          <Icon
-            icon={completed ? "tabler:check" : icon}
-            width="20"
-            height="20"
-          />
+        <Box className="w-10 h-10 shrink-0 flex items-center justify-center">
+          {completed ? (
+            // Completed icon
+            <Box className="w-10 h-10 rounded-full bg-[#08b887] flex items-center justify-center">
+              <Box className="w-7 h-7 rounded-full bg-white flex items-center justify-center">
+                <Icon
+                  icon="tabler:check"
+                  width="20"
+                  height="20"
+                  strokeWidth="4"
+                  className="text-[#08b887]"
+                />
+              </Box>
+            </Box>
+          ) : (
+            // Normal / Active icon
+            <Box
+              className={` w-10 h-10 flex items-center justify-center
+                    ${
+                      parentActive
+                        ? "rounded-[5px] bg-[#229497] text-white"
+                        : "text-[#9da8af]"
+                    }
+            `}
+            >
+              <Icon icon={icon} width="20" height="20" />
+            </Box>
+          )}
         </Box>
+
         {/* PARENT LABEL */}
         <Typography
           className={` text-[14px]! font-medium! flex-1
