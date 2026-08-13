@@ -1,4 +1,21 @@
 import React, { useRef, useEffect } from "react";
+import axios from "axios";
+import "@/shared/services/otpMockApi";
+
+export const verifyOtpApi = async (phoneNumber, otpCode) => {
+  try {
+    const response = await axios.get("/api/verify-otp");
+    const validOtp = response.data.validOtp;
+
+    if (otpCode === validOtp) {
+      return { success: true };
+    } else {
+      return { success: false, error: "your otp invalid" };
+    }
+  } catch (err) {
+    return { success: false, error: "verification failed. please try again." };
+  }
+};
 
 const OtpInput = ({ otp, setOtp, error, setError }) => {
   const inputRefs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
@@ -57,7 +74,7 @@ const OtpInput = ({ otp, setOtp, error, setError }) => {
 
   return (
     <div className="w-full flex flex-col gap-2">
-      <label className="text-sm font-semibold text-slate-500 text-left">OTP</label>
+      <label className="text-sm font-normal text-[#343434] text-left">OTP</label>
       <div className="grid grid-cols-6 gap-2 sm:gap-3" onPaste={handlePaste}>
         {otp.map((digit, idx) => (
           <input
@@ -68,25 +85,28 @@ const OtpInput = ({ otp, setOtp, error, setError }) => {
             value={digit}
             onChange={(e) => handleChange(idx, e.target.value)}
             onKeyDown={(e) => handleKeyDown(idx, e)}
-            className={`w-full aspect-square border rounded-xl text-center font-bold text-lg sm:text-xl text-slate-800 bg-white transition-all focus:outline-none focus:ring-2 focus:ring-[#086952]/10 ${
+            className={`w-full aspect-square border rounded-lg text-center font-normal text-lg sm:text-xl text-slate-800 bg-white transition-all focus:outline-none ${
               error
-                ? "border-red-500 focus:border-red-500"
-                : "border-slate-200 focus:border-[#086952]"
+                ? ""
+                : digit
+                ? "!border-[#4D4D4D] focus:!border-[#4D4D4D]"
+                : "!border-[#D0D0D0] focus:!border-[#4D4D4D]"
             }`}
+            style={error ? { borderColor: '#EF4444' } : {}}
           />
         ))}
       </div>
       
       {/* We have sent you an OTP! indicator message */}
       {!error && (
-        <p className="text-emerald-600 text-xs font-medium text-left mt-1">
+        <p className="text-[#666666] text-sm font-normal text-left mt-1 whitespace-nowrap">
           We have sent you an OTP!
         </p>
       )}
 
       {/* Red Error Message display below input field */}
       {error && (
-        <p className="text-red-500 text-xs font-semibold text-left mt-1 transition-opacity duration-150">
+        <p className="text-xs font-normal text-left mt-1 transition-opacity duration-150" style={{ color: '#EF4444' }}>
           {error}
         </p>
       )}

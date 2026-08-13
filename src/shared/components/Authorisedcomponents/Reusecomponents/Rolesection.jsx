@@ -14,32 +14,32 @@ const DEFAULT_ROLES = [
   {
     id: "Patient",
     name: "Patient",
-    description: "Book appointments, consult doctor, and manage your healthcare.",
+    description: "Book appointments, consult doctor,\nand manage your healthcare.",
   },
   {
     id: "Doctor",
     name: "Doctor",
-    description: "Manage appointments, consultations, and patient care.",
+    description: "Manage appointments, consultations,\nand patient care.",
   },
   {
     id: "Hospital",
     name: "Hospital",
-    description: "Manage departments, staff, patients, and operations.",
+    description: "Manage departments, staff, patients,\nand operations.",
   },
   {
     id: "Laboratory",
     name: "Laboratory",
-    description: "Manage test requests, reports, and diagnostics.",
+    description: "Manage test requests, reports, and\ndiagnostics.",
   },
   {
     id: "Pharmacy",
     name: "Pharmacy",
-    description: "Manage prescriptions, inventory, and medicine orders.",
+    description: "Manage prescriptions, inventory, and\nmedicine orders.",
   },
   {
     id: "Insurance Vendor",
     name: "Insurance Vendor",
-    description: "Manage policies, claims, approvals, and coverage.",
+    description: "Manage policies, claims, approvals,\nand coverage.",
   },
 ];
 
@@ -147,10 +147,10 @@ const RoleSection = ({
     <div className="w-full flex flex-col items-center justify-center font-sans">
       {/* Title and Subtitle Header */}
       <div className="text-center mb-6 w-full">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#0f172a] tracking-tight mb-1.5">
+        <h1 className="text-2xl sm:text-3xl font-medium text-[#0D1412] tracking-tight mb-1.5">
           {title}
         </h1>
-        <p className="text-slate-500 text-xs sm:text-sm">
+        <p className="text-[#666666] text-xs sm:text-sm">
           {subtitle}
         </p>
       </div>
@@ -163,10 +163,10 @@ const RoleSection = ({
             <div
               key={role.id}
               onClick={() => handleRoleClick(role.id)}
-              className={`group flex flex-col items-start text-left p-4 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 cursor-pointer ${
+              className={`group flex flex-col items-start text-left p-4 sm:px-3.5 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 cursor-pointer ${
                 isSelected
-                  ? "bg-[#ebf5f2] border-[#086952] shadow-[0_4px_16px_rgba(8,105,82,0.06)]"
-                  : "bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm"
+                  ? "bg-[#ebf5f2] border-[#C2D0CB] shadow-[0_4px_16px_rgba(8,105,82,0.06)]"
+                  : "bg-white border-[#D0D0D0] hover:border-[#C2D0CB] hover:shadow-sm"
               }`}
             >
               {/* Icon Wrapper */}
@@ -182,15 +182,17 @@ const RoleSection = ({
 
               {/* Role Title */}
               <h3
-                className={`text-base font-semibold mb-0.5 transition-colors duration-200 ${
-                  isSelected ? "text-[#086952]" : "text-slate-800"
+                className={`text-base font-medium mb-0.5 transition-colors duration-200 ${
+                  isSelected ? "text-[#096B58]" : "text-[#202020]"
                 }`}
               >
                 {role.name}
               </h3>
 
               {/* Role Description */}
-              <p className="text-slate-500 text-[11px] sm:text-xs leading-relaxed">
+              <p className={`text-xs sm:text-[13px] leading-relaxed whitespace-pre-line ${
+                isSelected ? "text-[#556660]" : "text-[#666666]"
+              }`}>
                 {role.description}
               </p>
             </div>
@@ -201,7 +203,7 @@ const RoleSection = ({
       {/* Action Button */}
       <button
         onClick={handleContinueClick}
-        className="w-full max-w-md py-3 px-6 bg-[#086952] hover:bg-[#06523f] text-white font-semibold text-sm sm:text-base rounded-xl shadow-[0_6px_20px_rgba(8,105,82,0.15)] hover:shadow-[0_8px_24px_rgba(8,105,82,0.25)] transition-all duration-200 active:scale-[0.99] cursor-pointer"
+        className="w-full py-3.5 px-6 bg-[#096B58] hover:bg-[#075344] text-[#FFFFFF] font-normal text-sm sm:text-base rounded-lg shadow-[0_6px_20px_rgba(8,105,82,0.15)] hover:shadow-[0_8px_24px_rgba(8,105,82,0.25)] transition-all duration-200 active:scale-[0.99] cursor-pointer"
       >
         Continue as {currentRole}
       </button>
