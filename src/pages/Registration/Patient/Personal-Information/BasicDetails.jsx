@@ -113,7 +113,7 @@ const BasicDetails = () => {
         >
           <Form className="flex flex-1 flex-col min-h-0">
             {/* Content */}
-            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[120px] pb-[150px] overflow-y-auto">
+            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[180px] sm:pt-[150px] md:pt-[120px] pb-[250px] sm:pb-[180px] md:pb-[150px] overflow-y-auto">
               {/* Section Header */}
               <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
                 <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
