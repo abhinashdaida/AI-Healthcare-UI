@@ -135,8 +135,8 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                                 type={showPassword ? "text" : "password"}
                                                 placeholder="Enter password"
                                                 startIcon="tabler:lock"
-                                                endIcon={showPassword ? "tabler:eye" : "tabler:eye-off"}
-                                                onEndIconClick={() => setShowPassword(!showPassword)}
+                                                endIcon={showPassword ? "tabler:eye-off" : "tabler:eye"}
+                                                onEndIconClick={() => setShowPassword((prev) => !prev)}
                                             />
                                         </div>
 
@@ -148,8 +148,8 @@ export default function PasswordDialog({ open, handleClose, onSuccess }) {
                                                 type={showConfirmPassword ? "text" : "password"}
                                                 placeholder="Re-enter password"
                                                 startIcon="tabler:lock"
-                                                endIcon={showConfirmPassword ? "tabler:eye" : "tabler:eye-off"}
-                                                onEndIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                endIcon={showConfirmPassword ? "tabler:eye-off" : "tabler:eye"}
+                                                onEndIconClick={() => setShowConfirmPassword((prev) => !prev)}
                                             />
                                         </div>
                                     </div>

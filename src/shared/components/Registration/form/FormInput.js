@@ -43,13 +43,13 @@ export default function ReusableInput({
               </InputAdornment>
             ),
 
-            endAdornment: endIcon && (
+            endAdornment: endIcon ? (
               <InputAdornment position="end">
                 <IconButton type="button" size="small" onClick={onEndIconClick}>
                   <Icon icon={endIcon} width={18} color="#9CA3AF" />
                 </IconButton>
               </InputAdornment>
-            ),
+            ):null,
           },
         }}
         sx={{

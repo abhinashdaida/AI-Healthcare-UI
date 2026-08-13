@@ -59,11 +59,8 @@ const EmergencyContact = () => {
   // SUBMIT
   const handleContinue = (values) => {
     console.log("Emergency contact data:", values);
-
     dispatch(setEmergencyContact(values));
-
     dispatch(completeStep(1));
-
     navigate("/health-overview");
   };
 

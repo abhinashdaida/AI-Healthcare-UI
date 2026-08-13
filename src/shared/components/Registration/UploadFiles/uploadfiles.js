@@ -23,6 +23,7 @@ export default function UploadFiles({
     const [errors, setErrors] = useState([]);
     const [confirmed, setConfirmed] = useState(false);
     const [openUploadDialog, setOpenUploadDialog] = useState(false);
+    const [isDragging, setIsDragging] =useState(false);
 
     const handleOpenDialog = () => setOpenUploadDialog(true);
     const handleCloseDialog = () => setOpenUploadDialog(false);
@@ -74,11 +75,35 @@ export default function UploadFiles({
         // Allows selecting the same file again
         e.target.value = "";
     };
+    // Drag Over
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-    // Drag and drop
+        // Change upload area UI while dragging
+        setIsDragging(true);
+    };
+
+    // Drag Leave
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        setIsDragging(false);
+    };
+
+    // Drag and Drop
     const handleDrop = (e) => {
         e.preventDefault();
-        addFiles([...e.dataTransfer.files]);
+        e.stopPropagation();
+
+        setIsDragging(false);
+
+        // Get files from drag and drop
+        const droppedFiles = [...e.dataTransfer.files];
+
+        // Add dropped files
+        addFiles(droppedFiles);
     };
 
     // Remove file
@@ -117,20 +142,36 @@ export default function UploadFiles({
 
             {/* Upload Area */}
             <div
-                onDragOver={(e) => e.preventDefault()}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                className=" h-14 border border-[#A3AAB2] border-dashed rounded-lg flex items-center justify-center text-sm " >
-                <Icon icon="tabler:cloud-upload" width={20} />
+                className={` h-14 border border-[#A3AAB2] border-dashed rounded-lg flex items-center justify-center text-sm
+                 ${
+                        isDragging
+                            ? "border-[#248B8F] bg-[#ECFEFF]"
+                            : "border-[#A3AAB2] bg-white"
+                    }
+                `} >
+                <Icon icon="tabler:cloud-upload" width={20} className={
+                        isDragging
+                            ? "text-[#248B8F]"
+                            : "text-[#374151]"}/>
 
                 <span className="ml-2">
-                    {uploadText}
+                     {isDragging
+                        ? "Drop your files here"
+                        : uploadText}
+                          {!isDragging && (
                     <button
                         type="button"
-                        onClick={() => inputRef.current?.click()}
+                        onClick={(e) =>{ e.stopPropagation();
+                                inputRef.current?.click();
+                            }} 
                         className="text-[#248B8F] underline ml-1"
                     >
                         browse
                     </button>
+                          )}
                 </span>
 
                 <input

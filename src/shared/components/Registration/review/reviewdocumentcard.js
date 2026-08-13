@@ -27,34 +27,26 @@ const ReviewDocumentCard = ({ title, files = [],editPath }) => {
                         width={18}
                         color="#248B8F"
                     />
-
                     <h5 className="text-sm md:text-base font-medium text-[#0B1117]">
                         {title}
                     </h5>
                 </Box>
-
                 <Box onClick={handleEdit} className="flex items-center gap-1 cursor-pointer text-[#248B8F]">
                     <Icon icon="ic:round-plus"
                         width={18}
                         color="#248B8F"
                     />
-
                     <Typography
                         sx={{
                             color: "#248B8F",
-                            fontSize: {
-                                xs: "13px",
-                                md: "14px",
-                            },
+                            fontSize: { xs: "13px",  md: "14px", },
                         }}
                     >
                         Upload
                     </Typography>
                 </Box>
             </Box>
-
             <Divider />
-
             {/* Files */}
             <Box className=" p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 ">
                 {files?.map((file, index) => (
@@ -65,7 +57,6 @@ const ReviewDocumentCard = ({ title, files = [],editPath }) => {
                             width={18}
                             color="#248B8F"
                         />
-
                         <Box className="min-w-0">
                             <Typography
                                 className="truncate"
@@ -76,7 +67,6 @@ const ReviewDocumentCard = ({ title, files = [],editPath }) => {
                             >
                                 {file.fileName || file.name}
                             </Typography>
-
                             <Typography
                                 sx={{
                                     color: "#98A2B3",

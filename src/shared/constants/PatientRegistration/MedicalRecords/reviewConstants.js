@@ -31,80 +31,80 @@ export const getbasicDetails =(basicdetails)=> [
     },
 ];
 
-export const locationDetails = [
+export const getlocationDetails = (emergency)=> [
     {
         icon: "tabler:map-pin",
         label: "Nationality",
-        value: "India",
+        value: emergency?.nationality||"None",
     },
     {
         icon: "tabler:map-pin",
         label: "State",
-        value: "Hyderabad",
+        value: emergency?.State||"None",
     },
     {
         icon: "tabler:map-pin",
         label: "City",
-        value: "Jadcherala",
+        value: emergency?.City||"None",
     },
 ];
 
-export const emergencyDetails = [
+export const getemergencyDetails = (emergency)=>[
     {
         icon: "tabler:user",
         label: "Emergency Contact Relationship",
-        value: "Spouse",
+        value: emergency?.relationship||"None",
     },
     {
         icon: "tabler:phone",
         label: "Emergency Contact Phone Number",
-        value: "+91 992 223 4567",
+        value: emergency?.emergencyContactNumber||"None",
     },
 ];
 
-export const physicalDetails = [
+export const getphysicalDetails = (physical)=>[
     {
         icon: "tabler:ruler-measure-2",
         label: "Height",
-        value: "182 cm",
+        value: physical?.height||"None",
     },
     {
         icon: "tabler:scale-outline",
         label: "Weight",
-        value: "125 kg",
+        value: physical?.weight||"None",
     },
 ];
 
-export const healthDetails = [
+export const gethealthDetails =(health)=> [
     {
         icon: "tabler:heartbeat",
         label: "Blood Pressure",
-        value: "120/80 mm/Hg",
+        value: health?.bloodPressure||"None",
     },
     {
         icon: "tabler:droplet",
         label: "Blood Sugar",
-        value: "70/100 mg/dl",
+        value: health?.bloodSugar||"None",
     },
     {
         icon: "tabler:run",
         label: "Physical Activity Level",
-        value: "Lightly Active",
+        value: health?.physicalActivityLevel||"None",
     },
     {
         icon: "tabler:chef-hat",
         label: "Dietary Preference",
-        value: "Non-Vegetarian",
+        value: health?.dietaryPreference||"None",
     },
     {
         icon: "tabler:smoking",
         label: "Smoking Status",
-        value: "Regular Smoker",
+        value: health?.smokingStatus||"None",
     },
     {
         icon: "tabler:glass-full",
         label: "Alcohol Consumption",
-        value: "Weekly",
+        value: health?.alcoholConsumption||"None",
     },
 ];
 

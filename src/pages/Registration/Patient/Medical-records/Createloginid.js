@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const CreateLoginId = () => {
+  //create Loginid
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [passwordOpen, setPasswordOpen] = useState(false);
@@ -43,6 +44,7 @@ const CreateLoginId = () => {
   // Status // checking // success // error
   const [status, setStatus] = useState(() => validateId(`${idPrefix}-${initialId}`, idPrefix), );
 
+  //submit footer part
   const handleUpload = async (values) => {
     console.log("created login id");
     dispatch(setCreateLoginId(values));
@@ -50,10 +52,11 @@ const CreateLoginId = () => {
     setPasswordOpen(true);
   };
 
+  //Auto Save
   const handleAutoSave = () => {
     console.log("auto save btn click");
   };
-
+  //Login ID status
   const isError = ["exists", "invalid-length", "invalid-format"].includes( status, );
   const currentStatus = STATUS_CONFIG[status];
 
@@ -63,6 +66,7 @@ const CreateLoginId = () => {
         ? STATUS.error
         : STATUS.default;
 
+        //Handle Login ID changes
   const handleIdChange = (e, handleChange, setFieldValue) => {
     handleChange(e);
     let value = e.target.value;
@@ -93,13 +97,17 @@ const CreateLoginId = () => {
         handleBlur,
         setFieldValue,
       }) => (
-        <div className="min-h-screen bg-[#F8FAFC] flex justify-center p-3">
+                 <div className="min-h-screen bg-[#F5F7F8]">
+                  {/* Side bar */}
           <div className="w-full max-w-[1600px] bg-white flex min-h-screen rounded-xl overflow-hidden">
             <Sidebar />
-            <main className="flex-1 flex flex-col">
+            {/* Right Content */}
+                        <main className=" ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen  flex flex-col  bg-white">
+                          {/* Header */}
               <FormHeader title={pageContent.pageTitle} subtitle={pageContent.pageSubtitle} />
-              <div className="flex-1 px-10 py-8 overflow-y-auto">
-                {/* Page Heading */}
+              {/* Content */}
+            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[120px] pb-[150px] overflow-y-auto">
+                {/* section Header */}
                 <Box className="mb-8 ">
                   <SectionHeader title={pageContent.title} subtitle={pageContent.subtitle} />
                 </Box>
@@ -149,6 +157,7 @@ const CreateLoginId = () => {
                     </Box>
                   </Box>
 
+                  {/* Validation Message */}
                   <Box className="mt-2">
                     {currentStatus?.text && (
                       <p className={`text-[13px] ${currentStatus.color}`}>
@@ -160,7 +169,7 @@ const CreateLoginId = () => {
 
                 {/* Suggested IDs */}
                 <Box className="mt-10">
-                  {/* Header */}
+                  {/* Suggestion Header */}
                   <Box className="flex items-start justify-between mb-5">
                     <Box>
                       <h3 className="text-[14px] font-semibold text-[#111827] leading-5"> {pageContent.suggestionTitle} </h3>
