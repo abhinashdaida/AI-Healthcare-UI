@@ -92,8 +92,9 @@ const HealthOverview = () => {
       localStorage.setItem("hideHealthcarePersonalization", "true");
     }
     //Skip medical information
+     navigate("/reviewdetails");
     setShowPopup(false);
-    navigate("/reviewdetails");
+   
 
   };
 
