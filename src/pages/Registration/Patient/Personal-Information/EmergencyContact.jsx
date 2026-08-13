@@ -119,7 +119,7 @@ const EmergencyContact = () => {
           <Form className="flex flex-col h-screen">
             <div
               className="
-                flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-[180px] sm:pt-[150px] md:pt-[120px] pb-[250px] sm:pb-[180px] md:pb-[150px]
+                flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px]
               "
             >
               {/*                   EMERGENCY CONTACT SECTION  */}

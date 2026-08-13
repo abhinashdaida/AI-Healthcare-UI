@@ -117,7 +117,7 @@ const Insurance = () => {
                             subtitle="Add your basic information to complete your profile and personalize your healthcare journey."
                         />
                         {/* Content */}
-                        <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 pt-[180px] sm:pt-[150px] md:pt-[120px] pb-[250px] sm:pb-[180px] md:pb-[150px] overflow-y-auto">
+                        <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto">
                             {/* Section Header */}
                             <Box className="w-full max-w-[1104px] pt-4 md:pt-6 flex flex-col gap-2">
                                 <SectionHeader

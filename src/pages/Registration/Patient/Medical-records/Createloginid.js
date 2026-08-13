@@ -107,7 +107,7 @@ const CreateLoginId = () => {
                           {/* Header */}
               <FormHeader title={pageContent.pageTitle} subtitle={pageContent.pageSubtitle} />
               {/* Content */}
-            <div  className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[180px] sm:pt-[150px] md:pt-[120px] pb-[250px] sm:pb-[180px] md:pb-[150px] overflow-y-auto">
+            <div  className="flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px]  overflow-y-auto">
                 {/* section Header */}
                 <Box className="mb-8 ">
                   <SectionHeader title={pageContent.title} subtitle={pageContent.subtitle} />
