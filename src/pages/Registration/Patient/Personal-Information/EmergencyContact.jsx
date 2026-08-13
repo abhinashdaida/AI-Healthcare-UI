@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FormHeader from "@/shared/components/Registration/layout/FormHeader";
 import SiderBar from "../components/SiderBar/SiderBar";
@@ -20,26 +20,14 @@ import {
   setEmergencyContact,
   completeStep,
 } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
-
-// INITIAL VALUES
-
-const initialValues = {
-  relationship: "",
-  emergencyName: "",
-  emergencyContactNumber: "",
-  nationality: "",
-  State: "",
-  City: "",
-};
+import { selectEmergencyContact } from "@/state-management/modules/patientRegistration/patientRegistrationSelectors";
 
 // FORM FOOTER
-
 const FormFooter = ({ config }) => {
   const { isValid, submitForm } = useFormikContext();
 
   const footerConfig = {
     ...config,
-
     // Keep button visible
     showPrimaryButton: true,
     // Disable button when required fields are invalid
@@ -55,6 +43,18 @@ const FormFooter = ({ config }) => {
 const EmergencyContact = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const savedData = useSelector(selectEmergencyContact) || {};
+
+  // INITIAL VALUES
+
+  const initialValues = {
+    relationship: savedData.relationship || "",
+    emergencyName: savedData.emergencyName || "",
+    emergencyContactNumber:savedData.emergencyContactNumber || "",
+    nationality: savedData.nationality ||"",
+    State: savedData.State ||"",
+    City: savedData.City || "",
+  };
 
   // SUBMIT
   const handleContinue = (values) => {
@@ -84,7 +84,6 @@ const EmergencyContact = () => {
     }),
     [],
   );
-
 
   return (
     <div className="min-h-screen bg-[#F5F7F8]">
@@ -326,6 +325,6 @@ const EmergencyContact = () => {
       </main>
     </div>
   );
-};
+};;
 
 export default EmergencyContact;

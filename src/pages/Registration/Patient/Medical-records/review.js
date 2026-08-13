@@ -52,162 +52,157 @@ const Review = () => {
     };
 
     return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={medicalValidation}
-            onSubmit={handleUpload}
-        >
-            <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
-                <div className="  w-full max-w-[1440px] bg-white flex flex-col md:flex-row min-h-screen md:min-h-[690px] overflow-hidden">
-
-                    <div className="w-full md:w-[280px] lg:w-[300px] ">
-                        <Sidebar />
-                    </div>
-
-                    <main className="flex-1 flex flex-col w-full pl-6 lg:pl-10">
-                        <FormHeader
-                            title="Review"
-                            subtitle="Review all the information before submitting your profile."
-                        />
-                        <div className="flex-1 px-6 pt-4 pb-6 sm:px-6 md:px-8 lg:px-10 w-full max-w-[1104px] ">
-
-                            {/* Personal Information */}
-                            <ReviewAccordion
-                                title="Personal Information"
-                                defaultExpanded={true}
-                            >
-                                <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
-
-                                    <ReviewCard
-                                        title="Basic Details"
-                                        headerIcon="tabler:user"
-                                        data={basicDetails}
-                                    />
-
-                                    <ReviewCard
-                                        title="Location"
-                                        headerIcon="tabler:map-pin"
-                                        data={locationDetails}
-                                    />
-
-                                    <ReviewCard
-                                        title="Emergency Contact"
-                                        headerIcon="tabler:phone"
-                                        data={emergencyDetails}
-                                    />
-
-                                    <ReviewCard
-                                        title="Physical Profile"
-                                        headerIcon="tabler:ruler-2"
-                                        data={physicalDetails}
-                                    />
-
-                                    <ReviewCard
-                                        title="Health Overview"
-                                        headerIcon="tabler:activity-heartbeat"
-                                        data={healthDetails}
-                                    />
-
-                                </Box>
-                            </ReviewAccordion>
-
-                            {/* Medical Records */}
-                            <Box className="py-4 md:py-6 text-sm text-[#6B7280]">
-                                <ReviewAccordion
-                                    title="Medical Records"
-                                    defaultExpanded={true}
-                                >
-                                    <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
-                                        <ReviewCard
-                                            title="Medical records"
-                                            headerIcon="tabler:activity-heartbeat"
-                                            data={medicalDetails}
-                                        />
-
-                                        <ReviewDocumentCard
-                                            title="Uploaded Documents"
-                                            files={medicalDocuments}
-                                        />
-                                    </Box>
-                                </ReviewAccordion>
-                            </Box>
-
-                            {/* Insurance */}
-
-                            <Box className="py-4 md:py-6 text-sm text-[#6B7280]">
-                                <ReviewAccordion
-                                    title="Insurance"
-                                    defaultExpanded={true}
-                                >
-                                    <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
-                                        <ReviewCard
-                                            title="Insurance"
-                                            headerIcon="tabler:shield-plus"
-                                            data={insuranceDetails}
-                                        />
-                                        <ReviewDocumentCard
-                                            title="Uploaded Documents"
-                                            files={insuranceDocuments}
-                                        />
-                                    </Box>
-                                </ReviewAccordion>
-                            </Box>
-                        </div>
-                        <div className="flex flex-3 w-full max-w-[1104px] px-4 md:px-8 lg:px-10 pb-4">
-                            <FormControlLabel
-                                className="items-start"
-                                control={<Checkbox
-    checked={isConfirmed}
-    onChange={(e) => setIsConfirmed(e.target.checked)}
-    sx={{ mt: 0.3 }}
-/>}
-                                label={
-                                    <Typography
-                                        sx={{
-                                            fontSize: { xs: "12px", sm: "13px", md: "14px", },
-                                            color: "#667085", lineHeight: 1.6
-                                        }}
-                                    >
-                                        I confirm that all the information and
-                                        documents provided are accurate to the
-                                        best of my knowledge. I agree to the
-                                        Terms & Conditions and Privacy Policy,
-                                        and authorize MediConnect to securely
-                                        use my information for healthcare
-                                        services in accordance with applicable
-                                        regulations.
-                                    </Typography>
-                                }
-                            />
-                            <IconButton
-                                onClick={scrollToTop}
-                                sx={{
-                                    width: 48,
-                                    height: 48,
-                                    borderRadius: "50%",
-                                    backgroundColor: "#248B8F",
-                                    color: "#fff",
-                                    boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
-                                    "&:hover": {
-                                        backgroundColor: "#1E767A",
-                                    },
-                                }}
-                            >
-                                <Icon icon="tabler:chevron-up" width={24} />
-                            </IconButton>
-                        </div>
-                        <Footer config={{
-                            showSkipButton: false,
-                            onSkipClick: handleSkip,
-                            onAutoSaveClick: handleAutoSave,
-                            primaryButtonLabel: "Create Login ID",
-                            onPrimaryClick:()=> handleUpload(),
-                            primaryButtonDisabled: !isConfirmed,
-                        }} />
-                    </main>
-                </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={medicalValidation}
+        onSubmit={handleUpload}
+      >
+        <div className="min-h-screen bg-gray-100 flex justify-center p-2 sm:p-3 md:p-4">
+          <div className="  w-full max-w-[1440px] bg-white flex flex-col md:flex-row min-h-screen md:min-h-[690px] overflow-hidden">
+            <div className="w-full md:w-[280px] lg:w-[300px] ">
+              <Sidebar />
             </div>
-        </Formik>
+
+            <main className=" ml-[336px] max-lg:ml-[280px] max-md:ml-0 min-h-screen  flex flex-col  bg-white">
+              <FormHeader
+                title="Review"
+                subtitle="Review all the information before submitting your profile."
+              />
+              <div className="flex-1 px-6 pt-4 pb-6 sm:px-6 md:px-8 lg:px-10 w-full max-w-[1104px] ">
+                {/* Personal Information */}
+                <ReviewAccordion
+                  title="Personal Information"
+                  defaultExpanded={true}
+                >
+                  <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+                    <ReviewCard
+                      title="Basic Details"
+                      headerIcon="tabler:user"
+                      data={basicDetails}
+                    />
+
+                    <ReviewCard
+                      title="Location"
+                      headerIcon="tabler:map-pin"
+                      data={locationDetails}
+                    />
+
+                    <ReviewCard
+                      title="Emergency Contact"
+                      headerIcon="tabler:phone"
+                      data={emergencyDetails}
+                    />
+
+                    <ReviewCard
+                      title="Physical Profile"
+                      headerIcon="tabler:ruler-2"
+                      data={physicalDetails}
+                    />
+
+                    <ReviewCard
+                      title="Health Overview"
+                      headerIcon="tabler:activity-heartbeat"
+                      data={healthDetails}
+                    />
+                  </Box>
+                </ReviewAccordion>
+
+                {/* Medical Records */}
+                <Box className="py-4 md:py-6 text-sm text-[#6B7280]">
+                  <ReviewAccordion
+                    title="Medical Records"
+                    defaultExpanded={true}
+                  >
+                    <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+                      <ReviewCard
+                        title="Medical records"
+                        headerIcon="tabler:activity-heartbeat"
+                        data={medicalDetails}
+                      />
+
+                      <ReviewDocumentCard
+                        title="Uploaded Documents"
+                        files={medicalDocuments}
+                      />
+                    </Box>
+                  </ReviewAccordion>
+                </Box>
+
+                {/* Insurance */}
+
+                <Box className="py-4 md:py-6 text-sm text-[#6B7280]">
+                  <ReviewAccordion title="Insurance" defaultExpanded={true}>
+                    <Box className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+                      <ReviewCard
+                        title="Insurance"
+                        headerIcon="tabler:shield-plus"
+                        data={insuranceDetails}
+                      />
+                      <ReviewDocumentCard
+                        title="Uploaded Documents"
+                        files={insuranceDocuments}
+                      />
+                    </Box>
+                  </ReviewAccordion>
+                </Box>
+              </div>
+              <div className="flex flex-3 w-full max-w-[1104px] px-4 md:px-8 lg:px-10 pb-4">
+                <FormControlLabel
+                  className="items-start"
+                  control={
+                    <Checkbox
+                      checked={isConfirmed}
+                      onChange={(e) => setIsConfirmed(e.target.checked)}
+                      sx={{ mt: 0.3 }}
+                    />
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "12px", sm: "13px", md: "14px" },
+                        color: "#667085",
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      I confirm that all the information and documents provided
+                      are accurate to the best of my knowledge. I agree to the
+                      Terms & Conditions and Privacy Policy, and authorize
+                      MediConnect to securely use my information for healthcare
+                      services in accordance with applicable regulations.
+                    </Typography>
+                  }
+                />
+                <IconButton
+                  onClick={scrollToTop}
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: "50%",
+                    backgroundColor: "#248B8F",
+                    color: "#fff",
+                    boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
+                    "&:hover": {
+                      backgroundColor: "#1E767A",
+                    },
+                  }}
+                >
+                  <Icon icon="tabler:chevron-up" width={24} />
+                </IconButton>
+              </div>
+              <Footer
+                config={{
+                  showSkipButton: false,
+                  onSkipClick: handleSkip,
+                  onAutoSaveClick: handleAutoSave,
+                  primaryButtonLabel: "Create Login ID",
+                  onPrimaryClick: () => handleUpload(),
+                  primaryButtonDisabled: !isConfirmed,
+                }}
+              />
+            </main>
+          </div>
+        </div>
+      </Formik>
     );
 };
 

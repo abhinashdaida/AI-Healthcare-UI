@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 import { Box, Typography } from "@mui/material";
 
@@ -29,25 +29,9 @@ import {
   setHealthOverview,
   completeStep,
 } from "@/state-management/modules/patientRegistration/patientRegistrationActions";
+import { selectHealthOverview } from "@/state-management/modules/patientRegistration/patientRegistrationSelectors";
+import HealthcarePersonalizationPopup from "./HealthcarePersonalizationPopup";
 
-// ----------------- Initial Values -----------------
-
-const initialValues = {
-  height: "",
-  heightUnit: "cm",
-
-  weight: "",
-  weightUnit: "kg",
-
-  bloodPressure: "",
-  bloodSugar: "",
-
-  physicalActivityLevel: "",
-  dietaryPreference: "",
-
-  smokingStatus: "",
-  alcoholConsumption: "",
-};
 
 // ----------------- Form Footer -----------------
 
@@ -72,6 +56,46 @@ const FormFooter = ({ config }) => {
 const HealthOverview = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const savedData = useSelector(selectHealthOverview) || {};
+  // ----------------- Initial Values -----------------
+
+  const initialValues = {
+    height: savedData.height || "",
+    heightUnit: "cm",
+    weight: savedData.weight || "",
+    weightUnit: "kg",
+    bloodPressure: savedData.bloodPressure || "",
+    bloodSugar: savedData.bloodSugar || "",
+    physicalActivityLevel: savedData.physicalActivityLevel || "",
+    dietaryPreference: savedData.dietaryPreference || "",
+    smokingStatus: savedData.smokingStatus || "",
+    alcoholConsumption: savedData.alcoholConsumption || "",
+  };
+
+  //--------------------HealthcarePersonalizationPopup-------------
+  const [showPopup, setShowPopup] = useState(true);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
+
+  //------------popuu Continue btn funcation -----------
+  const handlePopUpContinue= ()=>{
+    if (dontShowAgain) {
+      localStorage.setItem("hideHealthcarePersonalization", "true");
+    }
+    //Continue to your next step
+    setShowPopup(false);
+  };
+  
+  const handlePopUpSkip =()=>{
+    if (dontShowAgain) {
+      localStorage.setItem("hideHealthcarePersonalization", "true");
+    }
+    //Skip medical information
+    setShowPopup(false);
+    navigate("/reviewdetails");
+
+  };
+
 
   // ----------------- Submit -----------------
 
@@ -254,9 +278,18 @@ const HealthOverview = () => {
             <FormFooter config={footerConfig} />
           </Form>
         </Formik>
+        {/*  Health care Personalization Popup*/}
+        <HealthcarePersonalizationPopup
+          open={showPopup}
+          onClose={() => setShowPopup(false)}
+          onContinue={handlePopUpContinue}
+          onSkip={handlePopUpSkip}
+          dontShowAgain={dontShowAgain}
+          setDontShowAgain={setDontShowAgain}
+        />
       </main>
     </div>
   );
-};
+};;
 
 export default HealthOverview;
