@@ -19,6 +19,7 @@ function App() {
         <GlobalConfigView>
           <Routes>
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </GlobalConfigView>
       </div>

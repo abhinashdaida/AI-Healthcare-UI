@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-
+ 
 const Continuebtn = ({
   onClick,
   type = "submit",
@@ -23,5 +23,5 @@ const Continuebtn = ({
     </button>
   );
 };
-
+ 
 export default Continuebtn;
