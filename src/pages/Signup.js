@@ -114,7 +114,7 @@ const SignUp = () => {
           countryCode: selectedCountry.code,
         }));
         sessionStorage.setItem("phoneNumber", phoneNumber);
-         sessionStorage.setItem("countryCode", selectedCountry.code);
+        sessionStorage.setItem("countryCode", selectedCountry.code);
         navigate("/basic-details");
       } else {
         setOtpError(response.error || "your otp invalid");
