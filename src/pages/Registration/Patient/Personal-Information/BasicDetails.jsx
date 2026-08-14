@@ -115,7 +115,7 @@ const BasicDetails = () => {
         >
           <Form className="flex flex-1 flex-col min-h-0">
             {/* Content */}
-            <div  className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto">
+            <div className=" flex-1 px-4 sm:px-6 md:px-8 lg:px-10  pt-[80px] md:pt-[120px] pt-[100px] md:pb-[150px] overflow-y-auto">
               {/* Section Header */}
               <Box className=" w-full max-w-[1104px] pt-2 sm:pt-4 md:pt-6 flex flex-col gap-1 ">
                 <Typography className="text-[16px] font-medium leading-[100%] text-[#0B1117]">
@@ -136,7 +136,7 @@ const BasicDetails = () => {
                   <CustomLabel required>First Name</CustomLabel>
                   <CustomTextField
                     name="firstName"
-                    placeholder="Enter First Name"
+                    placeholder="Enter your full name"
                     type="text"
                     startIcon="tabler:user"
                   />
@@ -204,6 +204,11 @@ const BasicDetails = () => {
                     type="tel"
                     disabled
                     startIcon="tabler:phone"
+                    sx={{
+                      "& .MuiInputBase-root": {
+                        backgroundColor: "#F7F7F7",
+                      },
+                    }}
                   />
                 </Box>
                 {/* Email Address*/}
