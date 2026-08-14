@@ -13,7 +13,6 @@ import BasicDetails from "./pages/Registration/Patient/Personal-Information/Basi
 import EmergencyContact from "./pages/Registration/Patient/Personal-Information/EmergencyContact";
 import HealthOverview from "./pages/Registration/Patient/Personal-Information/HealthOverview";
 import CreateLoginId from "./pages/Registration/Patient/Medical-records/Createloginid";
-import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import SignUp from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 function App() {

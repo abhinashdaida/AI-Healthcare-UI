@@ -113,7 +113,7 @@ const SignUp = () => {
           phone: `${selectedCountry.code}${phoneNumber}`
         }));
         sessionStorage.setItem("phoneNumber", phoneNumber);
-        navigate("/");
+        navigate("/basic-details");
       } else {
         setOtpError(response.error || "your otp invalid");
       }
@@ -192,7 +192,7 @@ const SignUp = () => {
                     onCountryChange={handleCountryChange}
                   />
 
-                  <Continuebtn type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
+                  <Continuebtn  type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
                 </form>
 
                 <div className="text-center text-sm text-[#666666] font-normal mt-4 mb-4">
@@ -232,7 +232,7 @@ const SignUp = () => {
                     setError={setOtpError}
                   />
 
-                  <Continuebtn type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
+                  <Continuebtn  type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
                 </form>
 
                 {/* Resend OTP */}

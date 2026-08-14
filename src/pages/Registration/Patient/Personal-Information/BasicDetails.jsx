@@ -27,6 +27,7 @@ import { selectBasicDetails } from "@/state-management/modules/patientRegistrati
 // -----------------Form Footer-----------
 const FormFooter = ({ config }) => {
   const { isValid, submitForm } = useFormikContext();
+  
 
   const footerConfig = {
     ...config,
@@ -43,6 +44,7 @@ const FormFooter = ({ config }) => {
 const BasicDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const signupPhoneNumber = sessionStorage.getItem("phoneNumber") || "";
   const location=useLocation();
  
   const savedData = useSelector(selectBasicDetails) || {};
@@ -54,7 +56,7 @@ const BasicDetails = () => {
     bloodGroup:savedData.bloodGroup ||"",
     maritalStatus: savedData.maritalStatus ||"",
     occupation:savedData.occupation ||"",
-    phoneNumber:"",
+    phoneNumber:signupPhoneNumber,
     email:savedData.email ||"",
   };
 
@@ -199,7 +201,7 @@ const BasicDetails = () => {
                   <CustomTextField
                     name="phoneNumber"
                     placeholder="+91 9876 543 210"
-                    type="Number"
+                    type="tel"
                     disabled
                     startIcon="tabler:phone"
                   />

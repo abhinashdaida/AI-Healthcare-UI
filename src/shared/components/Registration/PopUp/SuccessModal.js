@@ -18,7 +18,7 @@ export default function SuccessModal({ open, handleClose, }) {
 
     const handleUpload = () => {
         dispatch(resetRegistration());
-        navigate("/basic-details");
+        navigate("/");
     }
 
     const maskPhone = (phone) =>
