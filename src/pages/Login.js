@@ -199,7 +199,7 @@ const Login = () => {
         showConfirmButton: false,
       }).then(() => {
         sessionStorage.setItem("user", JSON.stringify({ role: selectedRole?.id, phone: signInFormik.values.phoneNumber }));
-        navigate("/dashboard");
+        navigate("/");
       });
     }, 1000);
   };

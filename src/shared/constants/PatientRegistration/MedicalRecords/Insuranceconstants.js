@@ -1,0 +1,32 @@
+export const privateProviders = [
+    "Star Health Insurance",
+    "Niva Bupa Health Insurance",
+    "ICICI Lombard",
+    "HDFC ERGO",
+    "Care Health Insurance",
+    "Aditya Birla Health Insurance",
+    "SBI General Insurance",
+    "Reliance General Insurance",
+    "Tata AIG",
+    "ACKO Insurance",
+    "Bajaj Allianz",
+    "New India Assurance",
+    "Oriental Insurance",
+    "United India Insurance",
+    "National Insurance",
+    "Other",
+];
+
+export const governmentProviders = [
+    "Ayushman Bharat (PM-JAY)",
+    "Central Government Health Scheme (CGHS)",
+    "Employees' State Insurance Corporation (ESIC)",
+    "Ex-Servicemen Contributory Health Scheme (ECHS)",
+    "Tamil Nadu Chief Minister's Comprehensive Health Insurance Scheme (CMCHIS)",
+    "Aarogyasri Health Care Trust (Telangana)",
+    "Mahatma Jyotiba Phule Jan Arogya Yojana (MJPJAY)",
+    "Biju Swasthya Kalyan Yojana (BSKY)",
+    "Mukhyamantri Amrutam (MA)",
+    "Karunya Arogya Suraksha Padhathi (KASP)",
+    "Other Government Scheme",
+];

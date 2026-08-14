@@ -110,10 +110,12 @@ const SignUp = () => {
       if (response.success) {
         sessionStorage.setItem("user", JSON.stringify({ 
           role: selectedRole, 
-          phone: `${selectedCountry.code}${phoneNumber}`
+          phone: `${selectedCountry.code}${phoneNumber}`,
+          countryCode: selectedCountry.code,
         }));
         sessionStorage.setItem("phoneNumber", phoneNumber);
-        navigate("/");
+        sessionStorage.setItem("countryCode", selectedCountry.code);
+        navigate("/basic-details");
       } else {
         setOtpError(response.error || "your otp invalid");
       }
@@ -192,7 +194,7 @@ const SignUp = () => {
                     onCountryChange={handleCountryChange}
                   />
 
-                  <Continuebtn type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
+                  <Continuebtn  type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
                 </form>
 
                 <div className="text-center text-sm text-[#666666] font-normal mt-4 mb-4">
@@ -232,7 +234,7 @@ const SignUp = () => {
                     setError={setOtpError}
                   />
 
-                  <Continuebtn type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
+                  <Continuebtn  type="submit" loading={loading} className="!rounded-lg !font-normal !text-[#FFFFFF] !bg-[#096B58] hover:!bg-[#075344]" />
                 </form>
 
                 {/* Resend OTP */}
@@ -269,9 +271,9 @@ const SignUp = () => {
       </main>
       
       {/* Footer Wrapper */}
-      <div className="w-full max-w-[1280px] mx-auto px-4 md:px-0 text-left">
+      {/* <div className="w-full max-w-[1280px] mx-auto  md:px-0 text-left"> */}
         <LoginAndSignupFooter />
-      </div>
+      {/* </div> */}
     </div>
   );
 };

@@ -19,6 +19,7 @@ const ProtectedRoute = ({
   ...rest
 }) => {
   // Redux selectors
+
   const authMap = useSelector(
     state => securitySelectors.getSystemViewAuthMap(state)
   );
@@ -69,7 +70,6 @@ const ProtectedRoute = ({
     </Route>
   ) : null;
 };
-
 // ProtectedRoute.propTypes = {
 //   ...Route.propTypes,
 
