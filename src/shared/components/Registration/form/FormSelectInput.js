@@ -96,9 +96,9 @@ export default function ReusableSelect({
           "& .MuiMenuItem-root": {
             minHeight: "51px",
             padding: "10px 16px",
-            overflowY:"auto",
-            overflowX:"auto",
+            
           },
+          ...sx,
         }}
         renderValue={(selected) => {
           if (!selected) {
