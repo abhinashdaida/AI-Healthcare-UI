@@ -45,7 +45,9 @@ const BasicDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const signupPhoneNumber = sessionStorage.getItem("phoneNumber") || "";
+  const signupCountryCode = sessionStorage.getItem("countryCode") || "+91";
   const location=useLocation();
+  const fullPhoneNumber = `${signupCountryCode} ${signupPhoneNumber}`;
  
   const savedData = useSelector(selectBasicDetails) || {};
 
@@ -56,7 +58,7 @@ const BasicDetails = () => {
     bloodGroup:savedData.bloodGroup ||"",
     maritalStatus: savedData.maritalStatus ||"",
     occupation:savedData.occupation ||"",
-    phoneNumber:signupPhoneNumber,
+    phoneNumber:fullPhoneNumber,
     email:savedData.email ||"",
   };
 

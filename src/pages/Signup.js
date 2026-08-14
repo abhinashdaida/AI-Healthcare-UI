@@ -110,9 +110,11 @@ const SignUp = () => {
       if (response.success) {
         sessionStorage.setItem("user", JSON.stringify({ 
           role: selectedRole, 
-          phone: `${selectedCountry.code}${phoneNumber}`
+          phone: `${selectedCountry.code}${phoneNumber}`,
+          countryCode: selectedCountry.code,
         }));
         sessionStorage.setItem("phoneNumber", phoneNumber);
+         sessionStorage.setItem("countryCode", selectedCountry.code);
         navigate("/basic-details");
       } else {
         setOtpError(response.error || "your otp invalid");
