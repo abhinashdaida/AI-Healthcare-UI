@@ -69,7 +69,7 @@ const BasicDetails = () => {
             replace: true,
         });
         return;
-    }                     // move siderbar step 
+    }// move siderbar step 
 
     navigate("/emergency-contact");
   };
