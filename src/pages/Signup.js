@@ -269,9 +269,9 @@ const SignUp = () => {
       </main>
       
       {/* Footer Wrapper */}
-      <div className="w-full max-w-[1280px] mx-auto px-4 md:px-0 text-left">
+      {/* <div className="w-full max-w-[1280px] mx-auto  md:px-0 text-left"> */}
         <LoginAndSignupFooter />
-      </div>
+      {/* </div> */}
     </div>
   );
 };
