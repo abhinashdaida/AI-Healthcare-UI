@@ -410,7 +410,7 @@ const Login = () => {
 </div>
                   )}
 
-                  <Continuebtn onClick={navigate("/basic-details")} type="submit" loading={loading} />
+                  <Continuebtn type="submit" loading={loading} />
                 </form>
 
                 {/* Sign up toggle link */}
