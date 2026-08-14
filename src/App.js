@@ -24,13 +24,9 @@ function App() {
         <NotificationView />
         <GlobalConfigView>
           <Routes>
-<<<<<<< HEAD
-            <Route path="/" element={<Login />} />
-=======
             <Route path="/" element={<LandingPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<SignUp/>}/>
->>>>>>> 527af75c1b89f70bd92db592157f3cbb5f934a57
             <Route path="/basic-details" element={<BasicDetails />} />
             <Route path="/emergency-contact" element={<EmergencyContact />} />
             <Route path="/health-overview" element={<HealthOverview />} />
