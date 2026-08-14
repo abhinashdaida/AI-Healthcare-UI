@@ -224,32 +224,29 @@ const HealthcarePersonalizationPopup = ({
         </Box>
 
         {/* _______________________ ACTION BUTTONS  _______________________ */}
-        <Box
-          className="
-            flex  items-center  justify-between
-            gap-4 mt-3 max-sm:gap-2
-            max-sm:mt-3
-          "
-        >
+        {/* _______________________ ACTION BUTTONS _______________________ */}
+        <Box className="  flex items-center justify-between  w-full  mt-3   max-sm:gap-3 " >
           {/* SKIP */}
           <Button
             variant="outlined"
             onClick={onSkip}
             className="
-              h-[48px]!
-              min-w-[128px]!
-              rounded-[8px]!
-              border-[#248B8F]!
-              text-[#248B8F]!
-              text-[14px]!
-              font-normal!
-              normal-case!
-              hover:bg-[#F1FAFA]!
-              max-sm:h-[44px]!
-              max-sm:min-w-0!
-              flex-1
-              max-sm:text-[13px]!
-            "
+                  w-[128px]!
+                  min-w-[128px]!
+                  h-[48px]!
+                  rounded-[10px]!
+                 border-[#248B8F]!
+                 text-[#248B8F]!
+                  text-[14px]!
+                  font-normal!
+                  normal-case!
+                 hover:bg-[#F1FAFA]!
+
+                  max-sm:w-[calc(50%-6px)]!
+                  max-sm:min-w-0!
+                  max-sm:h-[52px]!
+                  max-sm:text-[14px]!
+                "
           >
             Skip for now
           </Button>
@@ -259,21 +256,23 @@ const HealthcarePersonalizationPopup = ({
             variant="contained"
             onClick={onContinue}
             className="
-              h-[48px]!
-              min-w-[128px]!
-              rounded-[8px]!
-              bg-[#248B8F]!
-              text-white!
-              text-[14px]!
-              font-medium!
-              normal-case!
-              shadow-[0_4px_8px_rgba(34,148,151,0.25)]
-              hover:bg-[#1B8184]!
-              max-sm:h-[44px]!
-              max-sm:min-w-0!
-              flex-1
-              max-sm:text-[13px]!
-            "
+                  w-[128px]!
+                  min-w-[128px]!
+                  h-[48px]!
+                  rounded-[10px]!
+                 bg-[#248B8F]!
+                 text-white!
+                  text-[14px]!
+                  font-medium!
+                  normal-case!
+                  shadow-[0_4px_8px_rgba(34,148,151,0.25)]
+                 hover:bg-[#1B8184]!
+
+                  max-sm:w-[calc(50%-6px)]!
+                  max-sm:min-w-0!
+                  max-sm:h-[52px]!
+                  max-sm:text-[14px]!
+                "
           >
             Continue
           </Button>
