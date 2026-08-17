@@ -6,6 +6,7 @@ import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
+import LandingPage from "./pages/LandingPage/Landingpage";
 
 
 function App() {
@@ -17,8 +18,8 @@ function App() {
         <NotificationView />
         <GlobalConfigView>
           <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
+            
           </Routes>
         </GlobalConfigView>
       </div>
