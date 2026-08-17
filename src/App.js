@@ -6,6 +6,14 @@ import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
+import Dashboard from "./pages/AdminPanel/Dashboard";
+import Product from "./pages/AdminPanel/Reports";
+import Order from "./pages/AdminPanel/Order";
+import CustomerManagement from "./pages/AdminPanel/CustomerManagement";
+import Review from "./pages/AdminPanel/Review";
+import Reports from "./pages/AdminPanel/Reports";
+import Settings from "./pages/AdminPanel/Settings";
+
 
 
 function App() {
@@ -19,6 +27,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/customer-management" element={<CustomerManagement />} />
+            <Route path="/review" element={<Review />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </GlobalConfigView>
       </div>
