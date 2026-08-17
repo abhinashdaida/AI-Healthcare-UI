@@ -1,11 +1,11 @@
-import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import React, { useState } from "react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 right-0 left-[310px] z-50 h-[100px] bg-white border-b border-gray-200">
+    <header className="fixed top-0 right-0  left-[250px] z-50 h-[75px] bg-white border-b border-gray-200">
       <div className="h-full flex items-center justify-end px-6">
 
         {/* Profile Wrapper */}
