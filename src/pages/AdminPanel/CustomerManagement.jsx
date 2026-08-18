@@ -1,9 +1,17 @@
+import Header from "@/shared/components/AdminPanel/Header";
+import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 import React from "react";
-
 const CustomerManagement = () => {
   return (
-    <div>
-      <h1>Customer Management</h1>
+    <div className="min-h-screen">
+      <Sidebar />
+      <Header />
+
+      <main className="ml-[336px] pt-[80px] p-6">
+        <h1 className="text-3xl font-bold text-black">
+          Customer Management
+        </h1>
+      </main>
     </div>
   );
 };
