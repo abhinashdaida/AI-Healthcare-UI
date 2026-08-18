@@ -6,7 +6,7 @@ import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 
 import {
   summaryCards,
-} from "@/shared/constants/DashBoard/DashboardContent";
+} from "@/shared/constants/AdminPanel/DashboardContent";
 
 const Dashboard = () => {
   return (
