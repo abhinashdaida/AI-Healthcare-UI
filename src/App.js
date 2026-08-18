@@ -19,7 +19,7 @@ function App() {
         <GlobalConfigView>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            
+
           </Routes>
         </GlobalConfigView>
       </div>
