@@ -129,18 +129,6 @@ const Dashboard = () => {
                           {order.amount}
                         </p>
 
-                        <button
-                          type="button"
-                          className="flex items-center gap-2 rounded-[9px] border border-[#DCE0E5] px-4 py-2 text-[13px] text-[#344054] hover:bg-gray-50"
-                        >
-                          <Icon
-                            icon="lucide:eye"
-                            width="17"
-                            height="17"
-                          />
-
-                          View
-                        </button>
                       </div>
 
                     </div>
