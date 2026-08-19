@@ -7,7 +7,7 @@ import NotificationView from "./shared/components/Notification/NotificationView.
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import Dashboard from "./pages/AdminPanel/Dashboard";
-import Product from "./pages/AdminPanel/Reports";
+import Product from "./pages/AdminPanel/Product";
 import Order from "./pages/AdminPanel/Order";
 import CustomerManagement from "./pages/AdminPanel/CustomerManagement";
 import Review from "./pages/AdminPanel/Review";
