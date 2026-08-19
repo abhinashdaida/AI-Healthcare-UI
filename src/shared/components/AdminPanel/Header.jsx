@@ -1,6 +1,5 @@
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
-
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -58,6 +57,7 @@ const Header = () => {
                 className="w-full text-left px-5 py-4 text-sm text-red-500 hover:bg-gray-50"
                 onClick={() => {
                   console.log("Logout clicked");
+                  nav
                   setIsOpen(false);
                 }}
               >
