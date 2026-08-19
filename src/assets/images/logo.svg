@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 200" width="100%" height="100%">
+  <!-- Left speed lines (orange) -->
+  <line x1="25" y1="108" x2="55" y2="108" stroke="#FF5500" stroke-width="6" stroke-linecap="round" />
+  <line x1="12" y1="124" x2="55" y2="124" stroke="#FF5500" stroke-width="6" stroke-linecap="round" />
+  <line x1="30" y1="140" x2="55" y2="140" stroke="#FF5500" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Orange shopping bag inside cart -->
+  <g transform="translate(20, 0)">
+    <!-- Bag body -->
+    <path d="M90 52 L54 61 Q50 62 50 66 L55 107 Q56 110 60 109 L116 95 Q120 94 119 90 L110 47 Q109 43 105 44 L90 52 Z" fill="#FF5500" />
+    
+    <!-- White smile & dots on the bag -->
+    <path d="M66 74 Q80 92 96 70" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" fill="none" />
+    <circle cx="66" cy="74" r="4" fill="#FFFFFF" />
+    <circle cx="96" cy="70" r="4" fill="#FFFFFF" />
+
+    <!-- Bag top handle -->
+    <path d="M66 58 C66 40, 98 32, 96 50" stroke="#0A1C3E" stroke-width="7" stroke-linecap="round" fill="none" />
+  </g>
+
+  <!-- Navy blue shopping cart frame -->
+  <path d="M40 87 H68 L94 147 H164 L184 95 Q186 90 181 90 H77" stroke="#0A1C3E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  
+  <!-- Cart handle -->
+  <path d="M40 87 C33 87, 29 82, 29 78" stroke="#0A1C3E" stroke-width="12" stroke-linecap="round" fill="none" />
+
+  <!-- Cart wire horizontal lines -->
+  <line x1="96" y1="120" x2="158" y2="120" stroke="#0A1C3E" stroke-width="7" stroke-linecap="round" />
+  <line x1="102" y1="134" x2="152" y2="134" stroke="#0A1C3E" stroke-width="7" stroke-linecap="round" />
+
+  <!-- Cart wheels -->
+  <circle cx="91" cy="170" r="12" fill="#0A1C3E" />
+  <circle cx="91" cy="170" r="4" fill="#FFFFFF" />
+  <circle cx="145" cy="170" r="12" fill="#0A1C3E" />
+  <circle cx="145" cy="170" r="4" fill="#FFFFFF" />
+
+  <!-- Text "Buy" (Navy Blue) -->
+  <text x="200" y="118" fill="#0A1C3E" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="68" letter-spacing="-1px">Buy</text>
+
+  <!-- Text "Commerce" (Orange) -->
+  <text x="325" y="118" fill="#FF5500" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="68" letter-spacing="-1px">Commerce</text>
+
+  <!-- Tagline: "Everything You Need, All in One Place" -->
+  <g>
+    <!-- Left orange line -->
+    <line x1="195" y1="152" x2="225" y2="152" stroke="#FF5500" stroke-width="4.5" stroke-linecap="round" />
+    
+    <!-- Tagline text -->
+    <text x="235" y="158" fill="#0A1C3E" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="600" font-size="18" letter-spacing="0.2px">Everything You Need, All in One Place</text>
+    
+    <!-- Right orange line -->
+    <line x1="595" y1="152" x2="625" y2="152" stroke="#FF5500" stroke-width="4.5" stroke-linecap="round" />
+  </g>
+</svg>

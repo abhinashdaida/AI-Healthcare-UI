@@ -4,8 +4,10 @@ import {
   KeyboardArrowUp,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section id="home" className="bg-white px-4 pb-10 md:px-8">
 
@@ -51,7 +53,7 @@ const HeroSection = () => {
                 NEW COLLECTION
               </p>
 
-              <button className="mt-3 rounded-[2px] bg-black px-8 py-2.5 text-[8px] text-white shadow">
+              <button   onClick={() => navigate("/productlisting")} className="mt-3 rounded-[2px] bg-black px-8 py-2.5 text-[8px] text-white shadow">
                 SHOP NOW
               </button>
 

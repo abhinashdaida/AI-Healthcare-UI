@@ -7,6 +7,7 @@ import NotificationView from "./shared/components/Notification/NotificationView.
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import LandingPage from "./pages/LandingPage/Landingpage";
+import ProductListing from "./pages/ProductListing/ProductListing";
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
         <GlobalConfigView>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            
+            <Route path="/productlisting" element={<ProductListing />} />
+
           </Routes>
         </GlobalConfigView>
       </div>
