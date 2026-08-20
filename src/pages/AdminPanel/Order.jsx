@@ -1,27 +1,21 @@
-<<<<<<< HEAD
-import Header from "@/shared/components/AdminPanel/Header";
-import Sidebar from "@/shared/components/AdminPanel/Sidebar";
-import React from "react";
-const Order = () => {
-  return (
-    <div className="min-h-screen">
-      <Sidebar />
-      <Header />
-
-      <main className="ml-[336px] pt-[80px] p-6">
-        <h1 className="text-3xl font-bold text-black">order</h1>
-      </main>
-    </div>
-=======
-import React, { useState } from "react";
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
-import {
-  Box, Typography, TextField, InputAdornment, Select, MenuItem,
-  FormControl, Button, Chip, IconButton, Divider, Dialog, DialogContent
-} from "@mui/material";
 import { Icon } from "@iconify/react";
+import {
+  Box,
+  Button, Chip,
+  Dialog, DialogContent,
+  Divider,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
+import React, { useState } from "react";
 
 const allOrders = initialCustomers.flatMap(c => (c.orders || []).map(o => ({
   ...o,
@@ -237,7 +231,6 @@ const Orders = () => {
         )}
       </Dialog>
     </>
->>>>>>> f6467b34164509c2e4be84ac09860f105460a022
   );
 };
 
