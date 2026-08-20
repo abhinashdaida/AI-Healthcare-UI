@@ -8,7 +8,6 @@ export const initialCustomers = [
     totalOrders: 12,
     totalSpent: 24580,
     joinedDate: "12 Jan 2026",
-
     address: {
       street: "12 MG Road",
       city: "Bengaluru",
@@ -16,7 +15,6 @@ export const initialCustomers = [
       pincode: "560001",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10001",
@@ -41,7 +39,6 @@ export const initialCustomers = [
       },
     ],
   },
-
   {
     id: 1002,
     name: "Priya Patil",
@@ -51,7 +48,6 @@ export const initialCustomers = [
     totalOrders: 8,
     totalSpent: 18750,
     joinedDate: "18 Feb 2026",
-
     address: {
       street: "45 FC Road",
       city: "Pune",
@@ -59,7 +55,6 @@ export const initialCustomers = [
       pincode: "411004",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10002",
@@ -77,7 +72,6 @@ export const initialCustomers = [
       },
     ],
   },
-
   {
     id: 1003,
     name: "Amit Kumar",
@@ -87,7 +81,6 @@ export const initialCustomers = [
     totalOrders: 15,
     totalSpent: 32400,
     joinedDate: "25 Jan 2026",
-
     address: {
       street: "22 Sector 15",
       city: "Gurgaon",
@@ -95,7 +88,6 @@ export const initialCustomers = [
       pincode: "122001",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10003",
@@ -113,7 +105,6 @@ export const initialCustomers = [
       },
     ],
   },
-
   {
     id: 1004,
     name: "Sneha Desai",
@@ -123,7 +114,6 @@ export const initialCustomers = [
     totalOrders: 5,
     totalSpent: 9200,
     joinedDate: "05 Apr 2026",
-
     address: {
       street: "18 Law College Road",
       city: "Pune",
@@ -131,7 +121,6 @@ export const initialCustomers = [
       pincode: "411005",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10004",
@@ -142,7 +131,6 @@ export const initialCustomers = [
       },
     ],
   },
-
   {
     id: 1005,
     name: "Aniket Patil",
@@ -152,7 +140,6 @@ export const initialCustomers = [
     totalOrders: 7,
     totalSpent: 15300,
     joinedDate: "15 Mar 2026",
-
     address: {
       street: "77 Park Street",
       city: "Kolkata",
@@ -160,7 +147,6 @@ export const initialCustomers = [
       pincode: "700016",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10005",
@@ -171,7 +157,6 @@ export const initialCustomers = [
       },
     ],
   },
-
   {
     id: 1006,
     name: "Neha Joshi",
@@ -181,7 +166,6 @@ export const initialCustomers = [
     totalOrders: 10,
     totalSpent: 21900,
     joinedDate: "20 Feb 2026",
-
     address: {
       street: "24 Linking Road",
       city: "Mumbai",
@@ -189,7 +173,6 @@ export const initialCustomers = [
       pincode: "400050",
       country: "India",
     },
-
     orders: [
       {
         id: "ORD-10030",
