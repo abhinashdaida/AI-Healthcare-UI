@@ -8,19 +8,20 @@ import {
 const sizes = ["S", "M", "L", "XL"];
 
 const colors = [
-  "#ef4444",
-  "#f97316",
-  "#facc15",
-  "#84cc16",
-  "#22c55e",
-  "#06b6d4",
-  "#3b82f6",
-  "#8b5cf6",
-  "#ec4899",
-  "#111827",
+  { name: "Red", hex: "#ef4444" },
+  { name: "Orange", hex: "#f97316" },
+  { name: "Yellow", hex: "#facc15" },
+  { name: "Green", hex: "#22c55e" },
+  { name: "Blue", hex: "#3b82f6" },
+  { name: "Purple", hex: "#8b5cf6" },
+  { name: "Pink", hex: "#ec4899" },
+  { name: "Brown", hex: "#78350f" },
+  { name: "Black", hex: "#111827" },
+  { name: "White", hex: "#ffffff" },
 ];
 
 const brands = [
+  "FASCO",
   "Minimo",
   "Retablo",
   "Brook",
@@ -114,10 +115,10 @@ export default function FilterPanel({
                     active ? "" : size
                   )
                 }
-                className={`h-9 w-10 border text-xs transition ${
+                className={`h-9 w-10 border text-xs font-semibold rounded-md transition ${
                   active
-                    ? "border-black bg-black text-white"
-                    : "border-gray-300 bg-white text-black hover:border-black"
+                    ? "border-black bg-black text-white shadow-sm"
+                    : "border-gray-200 bg-white text-neutral-800 hover:border-black"
                 }`}
               >
                 {size}
@@ -130,32 +131,57 @@ export default function FilterPanel({
       {/* Colors */}
       <FilterSection title="Colors">
         <div className="flex flex-wrap gap-3">
-          {colors.map((color) => {
-            const active = safeFilters.color === color;
+          {colors.map((c) => {
+            const active = safeFilters.color === c.hex || safeFilters.color === c.name;
 
             return (
               <button
                 type="button"
-                key={color}
+                key={c.hex}
                 onClick={() =>
                   updateFilter(
                     "color",
-                    active ? "" : color
+                    active ? "" : c.hex
                   )
                 }
-                aria-label={`Select ${color}`}
-                className={`h-5 w-5 rounded-full border border-gray-300 ${
+                title={c.name}
+                aria-label={`Select ${c.name}`}
+                className={`h-6 w-6 rounded-full border border-gray-300 transition-all transform hover:scale-110 relative flex items-center justify-center ${
                   active
-                    ? "ring-2 ring-black ring-offset-2"
+                    ? "ring-2 ring-black ring-offset-2 scale-110 shadow-md"
                     : ""
                 }`}
                 style={{
-                  backgroundColor: color,
+                  backgroundColor: c.hex,
                 }}
-              />
+              >
+                {active && (
+                  <span
+                    className={`block w-2 h-2 rounded-full ${
+                      c.hex === "#ffffff" ? "bg-black" : "bg-white"
+                    }`}
+                  />
+                )}
+              </button>
             );
           })}
         </div>
+        {safeFilters.color && (
+          <div className="mt-2 text-[11px] text-neutral-500 flex items-center justify-between">
+            <span>
+              Filtered:{" "}
+              <strong>
+                {colors.find((c) => c.hex === safeFilters.color)?.name || safeFilters.color}
+              </strong>
+            </span>
+            <button
+              onClick={() => updateFilter("color", "")}
+              className="text-neutral-400 hover:text-black underline"
+            >
+              Reset
+            </button>
+          </div>
+        )}
       </FilterSection>
 
       {/* Price */}
@@ -183,7 +209,7 @@ export default function FilterPanel({
           }}
         />
 
-        <div className="flex justify-between text-xs text-gray-500">
+        <div className="flex justify-between text-xs text-gray-500 font-medium">
           <span>
             ${safeFilters.price?.[0] ?? 0}
           </span>
@@ -196,7 +222,7 @@ export default function FilterPanel({
 
       {/* Brands */}
       <FilterSection title="Brands">
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-0.5">
           {brands.map((brand) => (
             <FormControlLabel
               key={brand}
@@ -221,7 +247,7 @@ export default function FilterPanel({
                 />
               }
               label={
-                <span className="text-sm">
+                <span className="text-sm text-neutral-700">
                   {brand}
                 </span>
               }
@@ -240,12 +266,12 @@ export default function FilterPanel({
               onClick={() =>
                 updateFilter(
                   "collection",
-                  collection
+                  safeFilters.collection === collection ? "" : collection
                 )
               }
               className={`block text-left text-xs transition ${
                 safeFilters.collection === collection
-                  ? "font-semibold text-black"
+                  ? "font-bold text-black"
                   : "text-gray-500 hover:text-black"
               }`}
             >
@@ -269,10 +295,10 @@ export default function FilterPanel({
                 onClick={() =>
                   toggleArrayFilter("tags", tag)
                 }
-                className={`rounded-full border px-3 py-1 text-xs ${
+                className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
                   active
                     ? "border-black bg-black text-white"
-                    : "border-gray-200 text-gray-500 hover:border-black"
+                    : "border-gray-200 text-gray-600 hover:border-black"
                 }`}
               >
                 {tag}

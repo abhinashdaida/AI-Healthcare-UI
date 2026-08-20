@@ -1,96 +1,212 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import InputField from "../../components/common/InputField/InputField";
 import Button from "../../components/common/Button/Button";
 import OrderItem from "../../components/product/OrderItem/OrderItem";
 
+import {
+  getStoredCart,
+  updateCartItemQuantity,
+  removeCartItem,
+} from "../../utils/cartManager";
+
 const Checkout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Mini Dress With Ruffled Straps",
-      brand: "FASCO",
-      price: 100,
-      quantity: 1,
-      image:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80",
-      selectedSize: "M",
-      color: "Red",
-      selected: true,
-    },
-  ]);
-
-  useEffect(() => {
-    const address = localStorage.getItem("selectedAddress");
-
-    if (address) {
-      setSelectedAddress(JSON.parse(address));
+  /*
+   * Product Details -> Buy Now
+   *
+   * location.state.checkoutItems contains
+   * only the product selected from Product Details.
+   *
+   * Normal Cart -> Checkout
+   *
+   * getStoredCart() contains cart products.
+   */
+  const [cartItems, setCartItems] = useState(() => {
+    if (
+      location.state?.directBuy &&
+      location.state?.checkoutItems?.length > 0
+    ) {
+      return location.state.checkoutItems.map((item) => ({
+        ...item,
+        selected: true,
+        quantity: Number(item.quantity) || 1,
+      }));
     }
 
-    const savedCart = localStorage.getItem("cartItems");
+    return getStoredCart().map((item) => ({
+      ...item,
+      selected: item.selected ?? true,
+      quantity: Number(item.quantity) || 1,
+    }));
+  });
 
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
+  /* ================= ADDRESS ================= */
+
+  useEffect(() => {
+    const savedAddress =
+      localStorage.getItem("selectedAddress");
+
+    if (savedAddress) {
+      try {
+        setSelectedAddress(JSON.parse(savedAddress));
+      } catch (error) {
+        console.error(
+          "Invalid selectedAddress:",
+          error
+        );
+      }
     }
   }, []);
 
-  const selectedItems = cartItems.filter((item) => item.selected);
+  /* ================= CART ================= */
+
+  useEffect(() => {
+    /*
+     * If user came directly from Product Details
+     * don't replace the selected product with
+     * the complete cart.
+     */
+    if (
+      location.state?.directBuy &&
+      location.state?.checkoutItems?.length > 0
+    ) {
+      return;
+    }
+
+    const storedCart = getStoredCart();
+
+    setCartItems(
+      storedCart.map((item) => ({
+        ...item,
+        selected: item.selected ?? true,
+        quantity: Number(item.quantity) || 1,
+      }))
+    );
+  }, [location.state]);
+
+  /* ================= SELECTED ITEMS ================= */
+
+  const selectedItems = cartItems.filter(
+    (item) => item.selected
+  );
+
+  /* ================= PRICE ================= */
 
   const subtotal = selectedItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => {
+      const price = Number(item.price) || 0;
+      const quantity = Number(item.quantity) || 1;
+
+      return total + price * quantity;
+    },
     0
   );
 
-  const shipping = subtotal > 0 ? 40 : 0;
+  /*
+   * Free shipping when subtotal is 100 or more.
+   * Otherwise shipping = 40.
+   */
+  const shipping =
+    subtotal === 0
+      ? 0
+      : subtotal >= 100
+      ? 0
+      : 40;
+
   const total = subtotal + shipping;
+
+  /* ================= UPDATE ITEM ================= */
 
   const updateItem = (id, changes) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, ...changes } : item
+        item.id === id
+          ? {
+              ...item,
+              ...changes,
+            }
+          : item
       )
     );
   };
 
-  const handleIncrease = (id) => {
-    const item = cartItems.find((item) => item.id === id);
+  /* ================= INCREASE ================= */
 
-    if (item) {
-      updateItem(id, {
-        quantity: item.quantity + 1,
-      });
-    }
+  const handleIncrease = (id) => {
+    const item = cartItems.find(
+      (item) => item.id === id
+    );
+
+    if (!item) return;
+
+    const newQuantity =
+      Number(item.quantity || 1) + 1;
+
+    updateItem(id, {
+      quantity: newQuantity,
+    });
+
+    /*
+     * Update central cart only when
+     * item actually exists in cart.
+     */
+    updateCartItemQuantity(id, newQuantity);
   };
+
+  /* ================= DECREASE ================= */
 
   const handleDecrease = (id) => {
-    const item = cartItems.find((item) => item.id === id);
+    const item = cartItems.find(
+      (item) => item.id === id
+    );
 
-    if (item && item.quantity > 1) {
-      updateItem(id, {
-        quantity: item.quantity - 1,
-      });
-    }
+    if (!item) return;
+
+    const currentQuantity =
+      Number(item.quantity) || 1;
+
+    if (currentQuantity <= 1) return;
+
+    const newQuantity = currentQuantity - 1;
+
+    updateItem(id, {
+      quantity: newQuantity,
+    });
+
+    updateCartItemQuantity(id, newQuantity);
   };
+
+  /* ================= REMOVE ================= */
 
   const handleRemove = (id) => {
     setCartItems((prev) =>
       prev.filter((item) => item.id !== id)
     );
+
+    removeCartItem(id);
   };
+
+  /* ================= PLACE ORDER ================= */
 
   const handlePlaceOrder = () => {
     if (!selectedAddress) {
-      alert("Please select a delivery address from Profile.");
+      alert(
+        "Please select a delivery address from Profile."
+      );
       return;
     }
 
-    if (!selectedItems.length) {
+    if (selectedItems.length === 0) {
       alert("Please select at least one product.");
       return;
     }
@@ -103,6 +219,7 @@ const Checkout = () => {
       shipping,
       total,
       orderNumber: `ORD-${Date.now()}`,
+      createdAt: new Date().toISOString(),
     };
 
     localStorage.setItem(
@@ -112,6 +229,8 @@ const Checkout = () => {
 
     setOrderPlaced(true);
   };
+
+  /* ================= PAYMENT OPTIONS ================= */
 
   const paymentOptions = [
     {
@@ -131,15 +250,38 @@ const Checkout = () => {
     },
   ];
 
+  /* ================= HELPER ================= */
+
+  const getSize = (item) => {
+    return (
+      item.selectedSize ||
+      item.size ||
+      "Standard"
+    );
+  };
+
+  const getColor = (item) => {
+    return (
+      item.selectedColor ||
+      item.color ||
+      "Default"
+    );
+  };
+
+  /* ================= ORDER SUCCESS ================= */
+
   if (orderPlaced) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-6">
-        <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white p-8">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-6 py-10">
+        <div className="w-full max-w-2xl rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+
+          {/* SUCCESS ICON */}
+
           <div className="text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
               <Icon
                 icon="mdi:check"
-                width="35"
+                width="36"
                 className="text-green-600"
               />
             </div>
@@ -149,12 +291,15 @@ const Checkout = () => {
             </h1>
 
             <p className="mt-2 text-sm text-gray-500">
-              Thank you for your purchase. Your order has
-              been successfully placed.
+              Thank you for your purchase. Your order
+              has been successfully placed.
             </p>
           </div>
 
-          <div className="mt-6 rounded-lg bg-gray-50 p-4">
+          {/* ORDER DETAILS */}
+
+          <div className="mt-6 rounded-xl bg-gray-50 p-5">
+
             <div className="flex justify-between">
               <span className="text-sm text-gray-500">
                 Order Number
@@ -167,10 +312,32 @@ const Checkout = () => {
 
             <div className="mt-4 flex justify-between">
               <span className="text-sm text-gray-500">
-                Total Amount
+                Subtotal
               </span>
 
               <span className="text-sm font-semibold">
+                ${subtotal.toFixed(2)}
+              </span>
+            </div>
+
+            <div className="mt-4 flex justify-between">
+              <span className="text-sm text-gray-500">
+                Shipping
+              </span>
+
+              <span className="text-sm font-semibold">
+                {shipping === 0
+                  ? "FREE"
+                  : `$${shipping.toFixed(2)}`}
+              </span>
+            </div>
+
+            <div className="mt-4 flex justify-between border-t pt-4">
+              <span className="font-semibold">
+                Total Amount
+              </span>
+
+              <span className="text-lg font-semibold">
                 ${total.toFixed(2)}
               </span>
             </div>
@@ -191,55 +358,61 @@ const Checkout = () => {
           </div>
 
           {/* ORDERED ITEMS */}
+
           <div className="mt-6">
             <h3 className="font-semibold">
               Ordered Items
             </h3>
 
-            {selectedItems.map((item) => (
-              <div
-                key={item.id}
-                className="mt-4 flex gap-4 rounded-lg border p-3"
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-20 w-16 rounded object-cover"
-                />
+            <div className="mt-4 space-y-3">
+              {selectedItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex gap-4 rounded-xl border p-4"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-24 w-20 rounded-lg object-cover"
+                  />
 
-                <div>
-                  <p className="text-sm font-semibold">
-                    {item.name}
-                  </p>
+                  <div className="flex-1">
+                    <p className="font-semibold">
+                      {item.name}
+                    </p>
 
-                  <p className="mt-1 text-xs text-gray-500">
-                    Size: {item.selectedSize}
-                  </p>
+                    <p className="mt-2 text-xs text-gray-500">
+                      Size: {getSize(item)}
+                    </p>
 
-                  <p className="text-xs text-gray-500">
-                    Color: {item.color}
-                  </p>
+                    <p className="text-xs text-gray-500">
+                      Color: {getColor(item)}
+                    </p>
 
-                  <p className="mt-1 text-sm font-medium">
-                    ${item.price} × {item.quantity}
-                  </p>
+                    <p className="mt-2 text-sm font-medium">
+                      ${Number(item.price).toFixed(2)}
+                      {" × "}
+                      {item.quantity}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* ADDRESS */}
+
           {selectedAddress && (
-            <div className="mt-6 rounded-lg border p-4">
+            <div className="mt-6 rounded-xl border p-5">
               <h3 className="font-semibold">
                 Delivery Address
               </h3>
 
-              <p className="mt-2 text-sm">
+              <p className="mt-3 text-sm font-medium">
                 {selectedAddress.name}
               </p>
 
-              <p className="text-sm text-gray-600">
+              <p className="mt-1 text-sm text-gray-600">
                 {selectedAddress.addressLine1}
               </p>
 
@@ -255,18 +428,18 @@ const Checkout = () => {
                 {selectedAddress.pincode}
               </p>
 
-              <p className="text-sm text-gray-600">
+              <p className="mt-1 text-sm text-gray-600">
                 {selectedAddress.phone}
               </p>
             </div>
           )}
 
+          {/* CONTINUE SHOPPING */}
+
           <div className="mt-6">
             <Button
               fullWidth
-              onClick={() =>
-                (window.location.href = "/")
-              }
+              onClick={() => navigate("/")}
             >
               Continue Shopping
             </Button>
@@ -276,9 +449,15 @@ const Checkout = () => {
     );
   }
 
+  /* ================= CHECKOUT PAGE ================= */
+
   return (
     <div className="min-h-screen bg-white">
+
       <div className="mx-auto max-w-7xl px-6 py-10">
+
+        {/* TITLE */}
+
         <Typography
           sx={{
             fontSize: 28,
@@ -289,9 +468,15 @@ const Checkout = () => {
         </Typography>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-          {/* LEFT */}
+
+          {/* ================================================= */}
+          {/* LEFT SIDE */}
+          {/* ================================================= */}
+
           <div>
+
             {/* CONTACT */}
+
             <section>
               <Typography
                 sx={{
@@ -317,7 +502,9 @@ const Checkout = () => {
             </section>
 
             {/* ADDRESS */}
+
             <section className="mt-8">
+
               <Typography
                 sx={{
                   mb: 3,
@@ -330,8 +517,11 @@ const Checkout = () => {
 
               {selectedAddress ? (
                 <div className="rounded-xl border border-gray-200 p-5">
+
                   <div className="flex items-start justify-between">
+
                     <div>
+
                       <p className="font-semibold">
                         {selectedAddress.name}
                       </p>
@@ -359,11 +549,13 @@ const Checkout = () => {
                       <p className="mt-2 text-sm text-gray-600">
                         {selectedAddress.phone}
                       </p>
+
                     </div>
 
                     <span className="rounded-full bg-gray-100 px-3 py-1 text-xs">
                       {selectedAddress.type}
                     </span>
+
                   </div>
                 </div>
               ) : (
@@ -377,10 +569,13 @@ const Checkout = () => {
                 control={<Checkbox />}
                 label="Save this information for future"
               />
+
             </section>
 
             {/* PAYMENT */}
+
             <section className="mt-8">
+
               <Typography
                 sx={{
                   mb: 3,
@@ -392,6 +587,7 @@ const Checkout = () => {
               </Typography>
 
               <div className="space-y-3">
+
                 {paymentOptions.map((option) => (
                   <button
                     key={option.value}
@@ -402,10 +598,12 @@ const Checkout = () => {
                     className={`flex w-full items-center justify-between rounded-lg border p-4 text-left transition ${
                       paymentMethod === option.value
                         ? "border-black bg-gray-50"
-                        : "border-gray-200"
+                        : "border-gray-200 hover:border-gray-400"
                     }`}
                   >
+
                     <div className="flex items-center gap-3">
+
                       <Icon
                         icon={option.icon}
                         width="24"
@@ -414,6 +612,7 @@ const Checkout = () => {
                       <span className="text-sm font-medium">
                         {option.label}
                       </span>
+
                     </div>
 
                     <div
@@ -423,19 +622,24 @@ const Checkout = () => {
                           : "border-gray-300"
                       }`}
                     />
+
                   </button>
                 ))}
+
               </div>
 
               {/* CARD */}
+
               {paymentMethod === "card" && (
                 <div className="mt-4 space-y-4 rounded-lg border p-5">
+
                   <InputField
                     label="Card Number"
                     placeholder="1234 5678 9012 3456"
                   />
 
                   <div className="grid grid-cols-2 gap-4">
+
                     <InputField
                       label="Expiration Date"
                       placeholder="MM / YY"
@@ -445,41 +649,53 @@ const Checkout = () => {
                       label="Security Code"
                       placeholder="CVV"
                     />
+
                   </div>
 
                   <InputField
                     label="Card Holder Name"
                     placeholder="Name on card"
                   />
+
                 </div>
               )}
 
               {/* PHONEPE */}
+
               {paymentMethod === "phonepe" && (
                 <div className="mt-4 rounded-lg border p-5">
+
                   <InputField
                     label="PhonePe UPI ID"
                     placeholder="example@ybl"
                   />
 
                   <p className="mt-3 text-xs text-gray-500">
-                    You will be redirected to PhonePe to
-                    complete the payment.
+                    You will be redirected to PhonePe
+                    to complete the payment.
                   </p>
+
                 </div>
               )}
 
               {/* COD */}
+
               {paymentMethod === "cod" && (
                 <div className="mt-4 rounded-lg bg-gray-50 p-5 text-sm text-gray-600">
                   Pay when your order is delivered.
                 </div>
               )}
+
             </section>
+
           </div>
 
-          {/* RIGHT */}
+          {/* ================================================= */}
+          {/* RIGHT SIDE - ORDER SUMMARY */}
+          {/* ================================================= */}
+
           <div className="lg:border-l lg:pl-10">
+
             <Typography
               sx={{
                 mb: 4,
@@ -490,37 +706,105 @@ const Checkout = () => {
               Order Summary
             </Typography>
 
-            {/* CART ITEMS */}
-            <div className="space-y-4">
-              {cartItems.map((item) => (
-                <div key={item.id}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={item.selected}
-                        onChange={(e) =>
-                          updateItem(item.id, {
-                            selected: e.target.checked,
-                          })
-                        }
-                      />
-                    }
-                    label="Select"
-                  />
+            {/* PRODUCTS */}
 
-                  <OrderItem
-                    item={item}
-                    onIncrease={handleIncrease}
-                    onDecrease={handleDecrease}
-                    onRemove={handleRemove}
-                  />
+            {cartItems.length === 0 ? (
+              <div className="rounded-xl border border-gray-200 p-6 text-center">
+
+                <Icon
+                  icon="mdi:cart-outline"
+                  width="50"
+                  className="mx-auto text-gray-400"
+                />
+
+                <p className="mt-3 text-sm text-gray-500">
+                  No products available.
+                </p>
+
+                <div className="mt-4">
+                  <Button
+                    onClick={() =>
+                      navigate("/shop")
+                    }
+                  >
+                    Continue Shopping
+                  </Button>
                 </div>
-              ))}
-            </div>
+
+              </div>
+            ) : (
+              <div className="space-y-4">
+
+                {cartItems.map((item) => (
+
+                  <div
+                    key={item.id}
+                    className={`rounded-xl border p-4 ${
+                      item.selected
+                        ? "border-black"
+                        : "border-gray-200"
+                    }`}
+                  >
+
+                    {/* SELECT */}
+
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={Boolean(
+                            item.selected
+                          )}
+                          onChange={(e) =>
+                            updateItem(item.id, {
+                              selected:
+                                e.target.checked,
+                            })
+                          }
+                        />
+                      }
+                      label="Select"
+                    />
+
+                    {/* PRODUCT */}
+
+                    <OrderItem
+                      item={item}
+                      onIncrease={handleIncrease}
+                      onDecrease={handleDecrease}
+                      onRemove={handleRemove}
+                    />
+
+                    {/* VARIANTS */}
+
+                    <div className="mt-3 flex flex-wrap gap-3">
+
+                      <span className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
+                        Size: {getSize(item)}
+                      </span>
+
+                      <span className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
+                        Color: {getColor(item)}
+                      </span>
+
+                      <span className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
+                        Qty: {item.quantity}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
+            )}
 
             {/* DISCOUNT */}
-            <div className="mt-5 border-t border-gray-200 pt-5">
+
+            <div className="mt-6 border-t border-gray-200 pt-6">
+
               <div className="flex items-end gap-2">
+
                 <div className="flex-1">
                   <InputField
                     label="Discount Code"
@@ -528,13 +812,24 @@ const Checkout = () => {
                   />
                 </div>
 
-                <Button>Apply</Button>
+                <Button>
+                  Apply
+                </Button>
+
               </div>
+
             </div>
 
-            {/* PRICE */}
-            <div className="mt-6 space-y-4 border-t border-gray-200 pt-5">
+            {/* ================================================= */}
+            {/* PRICE SUMMARY */}
+            {/* ================================================= */}
+
+            <div className="mt-6 space-y-4 border-t border-gray-200 pt-6">
+
+              {/* SUBTOTAL */}
+
               <div className="flex justify-between">
+
                 <span className="text-sm text-gray-600">
                   Subtotal
                 </span>
@@ -542,46 +837,80 @@ const Checkout = () => {
                 <span className="text-sm font-medium">
                   ${subtotal.toFixed(2)}
                 </span>
+
               </div>
 
+              {/* SHIPPING */}
+
               <div className="flex justify-between">
+
                 <span className="text-sm text-gray-600">
                   Shipping
                 </span>
 
                 <span className="text-sm font-medium">
-                  ${shipping.toFixed(2)}
+                  {shipping === 0
+                    ? "FREE"
+                    : `$${shipping.toFixed(2)}`}
                 </span>
+
               </div>
 
-              <div className="flex justify-between border-t border-gray-200 pt-4">
-                <span className="font-semibold">
+              {/* FREE SHIPPING MESSAGE */}
+
+              {subtotal > 0 && subtotal < 100 && (
+                <p className="text-xs text-gray-500">
+                  Add $
+                  {(100 - subtotal).toFixed(2)}
+                  {" "}
+                  more to get free shipping.
+                </p>
+              )}
+
+              {/* TOTAL */}
+
+              <div className="flex justify-between border-t border-gray-200 pt-5">
+
+                <span className="text-lg font-semibold">
                   Total
                 </span>
 
-                <span className="text-lg font-semibold">
+                <span className="text-xl font-bold">
                   ${total.toFixed(2)}
                 </span>
+
               </div>
+
             </div>
 
+            {/* PLACE ORDER */}
+
             <div className="mt-6">
+
               <Button
                 fullWidth
                 onClick={handlePlaceOrder}
               >
                 Place Order
               </Button>
+
             </div>
 
+            {/* SECURITY */}
+
             <div className="mt-5 flex items-center justify-center gap-2 text-xs text-gray-500">
+
               <Icon
                 icon="mdi:shield-check-outline"
                 width="18"
               />
+
               Secure and encrypted payment
+
             </div>
+
           </div>
+
         </div>
       </div>
     </div>
