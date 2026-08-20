@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import {
-  TextField,
   Button,
+  TextField,
 } from "@mui/material";
 
 const Login = () => {
@@ -31,6 +31,10 @@ const Login = () => {
     onSubmit: (values) => {
       // login(values.username, values.password);
       // alert("Login Successful");
+        const userData = {
+          username: values.username,
+        };
+      sessionStorage.setItem("user", JSON.stringify(userData));
       navigate("/dashboard");
     },
   });

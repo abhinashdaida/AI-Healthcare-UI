@@ -1,11 +1,11 @@
 import React from "react";
 
 import {
-    Button,
-    InputAdornment,
-    MenuItem,
-    Select,
-    TextField,
+  Button,
+  InputAdornment,
+  MenuItem,
+  Select,
+  TextField,
 } from "@mui/material";
 
 import { Icon } from "@iconify/react";
@@ -29,18 +29,17 @@ const CustomerFilters = ({
         onChange={(event) => setSearch(event.target.value)}
         placeholder="Search customer..."
         className="w-[320px]"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Icon icon="lucide:search" width={18} className="text-gray-400" />
-            </InputAdornment>
-          ),
-        }}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "7px",
-            fontSize: "13px",
-            backgroundColor: "#FFFFFF",
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon
+                  icon="lucide:search"
+                  width={18}
+                  className="text-gray-400"
+                />
+              </InputAdornment>
+            ),
           },
         }}
       />
