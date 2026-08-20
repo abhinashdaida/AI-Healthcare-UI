@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { Paper, Typography } from "@mui/material";
 
-import { Icon } from "@iconify/react";
 
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
@@ -11,6 +10,7 @@ import CustomerDetails from "./CustomerDetails";
 
 import BlockCustomerDialog from "@/shared/components/AdminPanel/CustomerManagement/BlockCustomerDialog";
 import CustomerFilters from "@/shared/components/AdminPanel/CustomerManagement/CustomerFilters";
+import CustomerStats from "@/shared/components/AdminPanel/CustomerManagement/CustomerStats";
 import CustomerTable from "@/shared/components/AdminPanel/CustomerManagement/CustomerTable";
 
 import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
@@ -129,6 +129,17 @@ const [customers, setCustomers] = useState(() => {
     );
   }
 
+  //____________________total customer count ____________________
+  const totalCustomers = customers.length;
+
+  const totalActiveCustomers = customers.filter(
+    (customer) => customer.status === "Active",
+  ).length;
+
+  const totalBlockedCustomers = customers.filter(
+    (customer) => customer.status === "Blocked",
+  ).length;
+
   /* _________________________________ CUSTOMER LIST PAGE__________________________________ */
 
   return (
@@ -166,24 +177,11 @@ const [customers, setCustomers] = useState(() => {
               </Typography>
             </div>
             {/* Customer Count */}
-            <div
-              className="flex items-center
-                gap-2 rounded-lg
-                border border-[#E5E7EB] bg-white 
-                px-4 py-2"
-            >
-              <Icon icon="lucide:users" width={18} className="text-[#7B0FB5]" />
-
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  color: "#374151",
-                }}
-              >
-                {customers.length} Customers
-              </Typography>
-            </div>
+            <CustomerStats
+              totalCustomers={totalCustomers}
+              totalActiveCustomers={totalActiveCustomers}
+              totalBlockedCustomers={totalBlockedCustomers}
+            />
           </div>
           {/* FILTERS */}
           <Paper
