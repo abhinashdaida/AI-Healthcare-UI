@@ -1,29 +1,44 @@
 export const summaryCards = [
   {
-    title: "Today's Orders",
+    title: "Order Summary",
     value: "12",
-    subtitle: "This week: 47",
+    subtitle: "This week: 47 orders",
     icon: "lucide:shopping-cart",
   },
   {
-    title: "Today's Sales",
+    title: "Sales Overview",
     value: "₹8,450",
-    subtitle: "Week: ₹32,890",
+    subtitle: "This week: ₹32,890",
     icon: "lucide:trending-up",
   },
   {
-    title: "Pending Orders",
-    value: "8",
-    subtitle: "Need attention",
-    icon: "lucide:package",
-    color: "text-red-500",
+    title: "Revenue Summary",
+    value: "₹32,890",
+    subtitle: "This week",
+    icon: "lucide:indian-rupee",
   },
   {
-    title: "Low Stock",
-    value: "3",
-    subtitle: "Reorder soon",
-    icon: "lucide:triangle-alert",
-    color: "text-red-500",
+    title: "Product Summary",
+    value: "128",
+    subtitle: "3 products low in stock",
+    icon: "lucide:package",
+  },
+];
+
+export const customerSummary = [
+  {
+    name: "Total Customers",
+    value: "1,248",
+  },
+  {
+    name: "New Customers",
+    value: "32",
+    subtitle: "This week",
+  },
+  {
+    name: "Active Customers",
+    value: "986",
+    subtitle: "Currently active",
   },
 ];
 
@@ -57,6 +72,7 @@ export const recentOrders = [
     amount: "₹650",
   },
 ];
+
 export const lowStockItems = [
   {
     name: "Teddy Bear (Small)",

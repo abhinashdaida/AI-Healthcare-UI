@@ -6,10 +6,10 @@ import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 
 import {
-  lowStockItems,
+  customerSummary,
   recentOrders,
   summaryCards,
-  topSellingItems,
+  topSellingItems
 } from "@/shared/constants/AdminPanel/DashboardContent";
 
 const Dashboard = () => {
@@ -25,7 +25,7 @@ const Dashboard = () => {
           {/* Dashboard Header */}
           <div className="mb-8">
             <h1 className="text-[24px] font-medium text-[#172033]">
-              Dashboard
+              Admin Dashboard
             </h1>
 
             <p className="mt-2 text-[16px] text-[#737E92]">
@@ -146,30 +146,36 @@ const Dashboard = () => {
 
                 <div className="flex items-center gap-3">
                   <Icon
-                    icon="lucide:triangle-alert"
+                    icon="lucide:users"
                     width="23"
                     height="23"
                     className="text-orange-500"
                   />
 
                   <h2 className="text-[20px] font-medium text-[#172033]">
-                    Low Stock Alerts
+                    Customer Summary
                   </h2>
                 </div>
 
                 <div className="mt-6 space-y-3">
-                  {lowStockItems.map((item) => (
+                  {customerSummary.map((customer) => (
                     <div
-                      key={item.name}
-                      className="rounded-[11px] border border-orange-200 bg-[#FFF9F1] px-4 py-4"
+                      key={customer.name}
+                      className="rounded-[11px] border border-[#E3E6EA] bg-[#F8F9FB] px-4 py-4"
                     >
                       <p className="text-[14px] font-medium text-[#263246]">
-                        {item.name}
+                        {customer.name}
                       </p>
 
-                      <p className="mt-1 text-[13px] text-red-500">
-                        {item.stock}
+                      <p className="mt-1 text-[18px] font-medium text-[#172033]">
+                        {customer.value}
                       </p>
+
+                      {customer.subtitle && (
+                        <p className="mt-1 text-[13px] text-[#7A8497]">
+                          {customer.subtitle}
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -180,7 +186,7 @@ const Dashboard = () => {
               <section className="rounded-[16px] border border-[#E3E6EA] bg-white p-7 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
 
                 <h2 className="text-[20px] font-medium text-[#172033]">
-                  Top 3 Selling Items
+                  Top-Selling Products
                 </h2>
 
                 <div className="mt-6 space-y-5">
