@@ -8,6 +8,11 @@ import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
 import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import LandingPage from "./pages/LandingPage/Landingpage";
 import ProductListing from "./pages/ProductListing/ProductListing";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import Confirmation from "./pages/Confirmation/Confirmation";
+import NewPassword from "./pages/NewPassword/NewPassword";
 
 
 function App() {
@@ -21,7 +26,11 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/productlisting" element={<ProductListing />} />
-
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/new-password" element={<NewPassword />} />
           </Routes>
         </GlobalConfigView>
       </div>
