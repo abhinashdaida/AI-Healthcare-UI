@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 
 const ScrollTop = () => {
   const [visible, setVisible] = useState(false);
@@ -36,17 +37,22 @@ const ScrollTop = () => {
             bottom-6
             right-6
             z-50
-            bg-blue-600
-            hover:bg-blue-700
+            bg-[#7B0FB5]
+            hover:bg-[#6B0DA0]
             text-white
-            p-3
+            w-12
+            h-12
+            flex
+            items-center
+            justify-center
             rounded-full
             shadow-lg
             transition-all
             duration-300
+            cursor-pointer
           "
         >
-          ↑
+          <Icon icon="lucide:arrow-up" width="22" height="22" />
         </button>
       )}
     </>
