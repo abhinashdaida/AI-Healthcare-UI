@@ -5,7 +5,7 @@ export const initialCustomers = [
     email: "rahul.sharma@gmail.com",
     phone: "+91 7899974376",
     status: "Active",
-    totalOrders: 12,
+    totalOrders: 3,
     totalSpent: 24580,
     joinedDate: "12 Jan 2026",
     address: {
@@ -45,7 +45,7 @@ export const initialCustomers = [
     email: "priya.patil@gmail.com",
     phone: "+91 9899750000",
     status: "Active",
-    totalOrders: 8,
+    totalOrders: 2,
     totalSpent: 18750,
     joinedDate: "18 Feb 2026",
     address: {
@@ -78,7 +78,7 @@ export const initialCustomers = [
     email: "amit.kumar@gmail.com",
     phone: "+91 7899974377",
     status: "Active",
-    totalOrders: 15,
+    totalOrders: 2,
     totalSpent: 32400,
     joinedDate: "25 Jan 2026",
     address: {
@@ -111,7 +111,7 @@ export const initialCustomers = [
     email: "sneha.desai@gmail.com",
     phone: "+91 98765 43213",
     status: "Active",
-    totalOrders: 5,
+    totalOrders: 1,
     totalSpent: 9200,
     joinedDate: "05 Apr 2026",
     address: {
@@ -137,7 +137,7 @@ export const initialCustomers = [
     email: "aniket@gmail.com",
     phone: "+91 9535083572",
     status: "Blocked",
-    totalOrders: 7,
+    totalOrders: 1,
     totalSpent: 15300,
     joinedDate: "15 Mar 2026",
     address: {
@@ -163,7 +163,7 @@ export const initialCustomers = [
     email: "neha.joshi@gmail.com",
     phone: "+91 9876543215",
     status: "Active",
-    totalOrders: 10,
+    totalOrders: 1,
     totalSpent: 21900,
     joinedDate: "20 Feb 2026",
     address: {
@@ -194,7 +194,7 @@ export const initialCustomers = [
     email: "rohit.mehta@gmail.com",
     phone: "+91 9823456710",
     status: "Active",
-    totalOrders: 18,
+    totalOrders: 3,
     totalSpent: 42650,
     joinedDate: "08 Jan 2026",
 
@@ -241,7 +241,7 @@ export const initialCustomers = [
     email: "kavita.shah@gmail.com",
     phone: "+91 9765432189",
     status: "Active",
-    totalOrders: 9,
+    totalOrders: 3,
     totalSpent: 16780,
     joinedDate: "22 Mar 2026",
 
@@ -281,7 +281,7 @@ export const initialCustomers = [
     email: "suresh.verma@gmail.com",
     phone: "+91 9812345678",
     status: "Blocked",
-    totalOrders: 6,
+    totalOrders: 2,
     totalSpent: 11890,
     joinedDate: "10 Apr 2026",
 
@@ -321,7 +321,7 @@ export const initialCustomers = [
     email: "pooja.kulkarni@gmail.com",
     phone: "+91 9945678123",
     status: "Active",
-    totalOrders: 21,
+    totalOrders: 3,
     totalSpent: 58900,
     joinedDate: "02 Jan 2026",
 
@@ -368,7 +368,7 @@ export const initialCustomers = [
     email: "vivek.nair@gmail.com",
     phone: "+91 9847012345",
     status: "Active",
-    totalOrders: 13,
+    totalOrders: 2,
     totalSpent: 27850,
     joinedDate: "14 Feb 2026",
 

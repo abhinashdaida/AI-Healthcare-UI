@@ -100,78 +100,168 @@ const Orders = () => {
     <>
       <Header />
       <Sidebar />
-      <Box component="main" sx={{
-        ml: "248px", pt: "75px", width: "calc(100% - 248px)",
-        minHeight: "100vh", bgcolor: "#F8F9FB"
-      }}>
+      <Box
+        component="main"
+        sx={{
+          ml: "248px",
+          pt: "75px",
+          width: "calc(100% - 248px)",
+          minHeight: "100vh",
+          bgcolor: "#F8F9FB",
+        }}
+      >
         <Box sx={{ px: { xs: 2, md: 4 }, py: 4 }}>
           <Typography sx={{ fontSize: 29, fontWeight: 500 }}>Orders</Typography>
           <Typography sx={{ fontSize: 16, color: "#334155", mb: 3.5 }}>
             Manage customer orders
           </Typography>
-          <Box sx={{ bgcolor: "#fff", border: "1px solid #E2E8F0", borderRadius: 3, p: 3 }}>
+          <Box
+            sx={{
+              bgcolor: "#fff",
+              border: "1px solid #E2E8F0",
+              borderRadius: 3,
+              p: 3,
+            }}
+          >
             <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
-              <TextField fullWidth value={search}
-                onChange={e => setSearch(e.target.value)}
+              <TextField
+                fullWidth
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by order ID or customer..."
-                InputProps={{ startAdornment: (
-                  <InputAdornment position="start">
-                    <Icon icon="mdi:magnify" width="22" height="22" />
-                  </InputAdornment>
-                )}}
-                sx={{ "& .MuiOutlinedInput-root": { height: 42, borderRadius: 2 } }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Icon icon="mdi:magnify" width="22" height="22" />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: 42,
+                    borderRadius: 2,
+                  },
+                }}
               />
               <FormControl sx={{ width: 193 }}>
-                <Select value={filter} onChange={e => setFilter(e.target.value)}
+                <Select
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
                   IconComponent={Arrow}
-                  sx={{ height: 42, bgcolor: "#F4F4F6", borderRadius: 2, "& fieldset": { border: "none" } }}>
+                  sx={{
+                    height: 42,
+                    bgcolor: "#F4F4F6",
+                    borderRadius: 2,
+                    "& fieldset": { border: "none" },
+                  }}
+                >
                   <MenuItem value="All Orders">All Orders</MenuItem>
-                  {statuses.map(s => <MenuItem key={s} value={s}>{s}</MenuItem>)}
+                  {statuses.map((s) => (
+                    <MenuItem key={s} value={s}>
+                      {s}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {!filtered.length && (
-                <Typography sx={{ textAlign: "center", py: 5, color: "#64748B" }}>
+                <Typography
+                  sx={{ textAlign: "center", py: 5, color: "#64748B" }}
+                >
                   No orders found
                 </Typography>
               )}
-              {filtered.map(o => (
-                <Box key={o.id} sx={{ border: "1px solid #E2E8F0", borderRadius: 2, p: 2 }}>
-                  <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              {filtered.map((o) => (
+                <Box
+                  key={o.id}
+                  sx={{ border: "1px solid #E2E8F0", borderRadius: 2, p: 2 }}
+                >
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <Box>
-                      <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1, flexWrap: "wrap" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: 1,
+                          alignItems: "center",
+                          mb: 1,
+                          flexWrap: "wrap",
+                        }}
+                      >
                         <Typography sx={{ fontSize: 17 }}>{o.id}</Typography>
-                        <Tag value={o.status} /><Tag value={o.payment} />
+                        <Tag value={o.status} />
+                        <Tag value={o.payment} />
                       </Box>
                       <Typography>{o.customer}</Typography>
-                      <Typography sx={{ fontSize: 13.5, color: "#475569" }}>{o.phone}</Typography>
+                      <Typography sx={{ fontSize: 13.5, color: "#475569" }}>
+                        {o.phone}
+                      </Typography>
                       <Typography sx={{ fontSize: 14 }}>{o.product}</Typography>
                     </Box>
                     <Box sx={{ textAlign: "right" }}>
-                      <Typography sx={{ fontSize: 18 }}>₹{o.amount.toLocaleString("en-IN")}</Typography>
-                      <Typography sx={{ fontSize: 13, color: "#64748B" }}>{o.date}</Typography>
+                      <Typography sx={{ fontSize: 18 }}>
+                        ₹{o.amount.toLocaleString("en-IN")}
+                      </Typography>
+                      <Typography sx={{ fontSize: 13, color: "#64748B" }}>
+                        {o.date}
+                      </Typography>
                     </Box>
                   </Box>
                   <Divider sx={{ my: 1.4 }} />
                   <Box sx={{ display: "flex", gap: 1 }}>
-                    <Button fullWidth variant="outlined"
-                      startIcon={<Icon icon="mdi:eye-outline" width="20" height="20" />}
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      startIcon={
+                        <Icon icon="mdi:eye-outline" width="20" height="20" />
+                      }
                       onClick={() => setSelected(o)}
-                      sx={{ height: 38, borderRadius: 2, textTransform: "none", color: "#0F172A" }}>
+                      sx={{
+                        height: 38,
+                        borderRadius: 2,
+                        textTransform: "none",
+                        color: "#0F172A",
+                      }}
+                    >
                       View
                     </Button>
-                    <IconButton onClick={() => printOrder(o)}
-                      sx={{ width: 44, height: 38, border: "1px solid #E0E0E0", borderRadius: 2 }}>
+                    <IconButton
+                      onClick={() => printOrder(o)}
+                      sx={{
+                        width: 44,
+                        height: 38,
+                        border: "1px solid #E0E0E0",
+                        borderRadius: 2,
+                      }}
+                    >
                       <Icon icon="mdi:printer-outline" width="21" height="21" />
                     </IconButton>
                   </Box>
                   <Divider sx={{ my: 1.4 }} />
-                  <Typography sx={{ fontSize: 13, mb: 0.7 }}>Update Status:</Typography>
-                  <Select fullWidth value={o.status} onChange={e => update(o.id, e.target.value)}
+                  <Typography sx={{ fontSize: 13, mb: 0.7 }}>
+                    Update Status:
+                  </Typography>
+                  <Select
+                    fullWidth
+                    value={o.status}
+                    onChange={(e) => update(o.id, e.target.value)}
                     IconComponent={Arrow}
-                    sx={{ height: 40, bgcolor: "#F4F4F6", borderRadius: 2, "& fieldset": { border: "none" } }}>
-                    {statuses.map(s => <MenuItem key={s} value={s}>{s}</MenuItem>)}
+                    sx={{
+                      height: 40,
+                      bgcolor: "#F4F4F6",
+                      borderRadius: 2,
+                      "& fieldset": { border: "none" },
+                    }}
+                  >
+                    {statuses.map((s) => (
+                      <MenuItem key={s} value={s}>
+                        {s}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </Box>
               ))}
@@ -179,26 +269,52 @@ const Orders = () => {
           </Box>
         </Box>
       </Box>
-      <Dialog open={!!selected} onClose={() => setSelected(null)} fullWidth maxWidth="md">
+      <Dialog
+        open={!!selected}
+        onClose={() => setSelected(null)}
+        fullWidth
+        maxWidth="md"
+      >
         {selected && (
           <DialogContent sx={{ p: 3 }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Typography sx={{ fontSize: 22 }}>Order Details - {selected.id}</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography sx={{ fontSize: 22 }}>
+                Order Details - {selected.id}
+              </Typography>
               <IconButton onClick={() => setSelected(null)}>
                 <Icon icon="mdi:close" width="22" height="22" />
               </IconButton>
             </Box>
             <Box sx={{ display: "flex", gap: 1, my: 4 }}>
-              <Tag value={selected.status} /><Tag value={selected.payment} />
+              <Tag value={selected.status} />
+              <Tag value={selected.payment} />
             </Box>
-            <Typography sx={{ fontSize: 17, mb: 1 }}>Customer Details</Typography>
+            <Typography sx={{ fontSize: 17, mb: 1 }}>
+              Customer Details
+            </Typography>
             <Box sx={{ bgcolor: "#F8F9FA", borderRadius: 3, p: 2.5, mb: 3 }}>
               {[
-                ["Name:", selected.customer], ["Email:", selected.email],
-                ["Phone:", selected.phone], ["Address:", selected.address]
+                ["Name:", selected.customer],
+                ["Email:", selected.email],
+                ["Phone:", selected.phone],
+                ["Address:", selected.address],
               ].map(([a, b]) => (
-                <Box key={a} sx={{ display: "flex", justifyContent: "space-between", py: 0.7 }}>
-                  <span>{a}</span><span>{b}</span>
+                <Box
+                  key={a}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    py: 0.7,
+                  }}
+                >
+                  <span>{a}</span>
+                  <span>{b}</span>
                 </Box>
               ))}
             </Box>
@@ -209,21 +325,32 @@ const Orders = () => {
             <Typography sx={{ fontSize: 17, mb: 1 }}>Order Summary</Typography>
             <Box sx={{ bgcolor: "#F8F9FA", borderRadius: 3, p: 2.5, mb: 3 }}>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <span>Order Date:</span><span>{selected.date}</span>
+                <span>Order Date:</span>
+                <span>{selected.date}</span>
               </Box>
               <Divider sx={{ my: 1 }} />
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <span>Total Amount:</span><span>₹{selected.amount.toLocaleString("en-IN")}</span>
+                <span>Total Amount:</span>
+                <span>₹{selected.amount.toLocaleString("en-IN")}</span>
               </Box>
             </Box>
             <Box sx={{ display: "flex", gap: 1.5 }}>
-              <Button fullWidth variant="outlined"
-                startIcon={<Icon icon="mdi:printer-outline" width="20" height="20" />}
-                onClick={() => printOrder(selected)}>
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={
+                  <Icon icon="mdi:printer-outline" width="20" height="20" />
+                }
+                onClick={() => printOrder(selected)}
+              >
                 Print Invoice
               </Button>
-              <Button fullWidth variant="contained" onClick={() => setSelected(null)}
-                sx={{ bgcolor: "#8200B8", "&:hover": { bgcolor: "#6F009D" } }}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => setSelected(null)}
+                sx={{ bgcolor: "#8200B8", "&:hover": { bgcolor: "#6F009D" } }}
+              >
                 Close
               </Button>
             </Box>
