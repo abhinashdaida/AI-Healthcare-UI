@@ -1,4 +1,5 @@
 import React from "react";
+import { Paper, Button, Typography } from "@mui/material";
 
 const SettingsCard = ({
   title,
@@ -7,13 +8,13 @@ const SettingsCard = ({
   onCancel,
 }) => {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+    <Paper className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-none" style={{ borderRadius: "12px" }}>
 
       {/* Card Header */}
       <div className="border-b border-gray-200 px-6 py-5">
-        <h2 className="text-lg font-semibold text-gray-900">
+        <Typography variant="h6" component="h2" className="!text-lg !font-semibold !text-gray-900">
           {title}
-        </h2>
+        </Typography>
       </div>
 
       {/* Card Content */}
@@ -24,24 +25,55 @@ const SettingsCard = ({
       {/* Card Actions */}
       <div className="flex justify-end gap-3 border-t border-gray-200 px-6 py-4">
 
-        <button
+        <Button
           type="button"
           onClick={onCancel}
-          className="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          variant="outlined"
+          sx={{
+            px: 3,
+            py: 1,
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 500,
+            fontSize: "0.875rem",
+            color: "#374151",
+            borderColor: "#D1D5DB",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: "#F9FAFB",
+              borderColor: "#9CA3AF",
+              boxShadow: "none",
+            },
+          }}
         >
           Cancel
-        </button>
+        </Button>
 
-        <button
+        <Button
           type="submit"
           onClick={onSave}
-          className="rounded-lg bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:bg-purple-800"
+          variant="contained"
+          sx={{
+            px: 3,
+            py: 1,
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 500,
+            fontSize: "0.875rem",
+            backgroundColor: "#7B0FB5",
+            color: "white",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: "#6B0DA0",
+              boxShadow: "none",
+            },
+          }}
         >
           Save Changes
-        </button>
+        </Button>
 
       </div>
-    </div>
+    </Paper>
   );
 };
 

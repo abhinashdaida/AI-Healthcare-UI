@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Box, Typography, Button, TextField } from "@mui/material";
 
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
@@ -9,83 +12,118 @@ import SettingsSelect from "@/shared/components/AdminPanel/Settings/SettingsSele
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
-
-  const [profileData, setProfileData] = useState({
-    shopName: "The Gift Shop",
-    phone: "+91 98765 43210",
-    email: "shop@example.com",
-    address: "123, MG Road, Bangalore - 560001, India",
-  });
-
-  const [adminData, setAdminData] = useState({
-    name: "Karthick",
-    email: "admin@example.com",
-    phone: "+91 98765 43210",
-    username: "admin_giftshop",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [generalData, setGeneralData] = useState({
-    websiteName: "The Gift Shop",
-    currency: "Indian Rupee (₹)",
-    country: "India",
-    language: "English",
-  });
-
   const [showPassword, setShowPassword] = useState(false);
 
-  // Profile Change
-  const handleProfileChange = (e) => {
-    const { name, value } = e.target;
+  // ================= TABS NAVIGATION =================
 
-    setProfileData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const getTabButtonStyle = (tabName) => {
+    const isActive = activeTab === tabName;
+    return {
+      borderRadius: "8px",
+      px: 3,
+      py: 1.5,
+      fontSize: "0.875rem",
+      fontWeight: 500,
+      textTransform: "none",
+      backgroundColor: isActive ? "#F7ECFB" : "transparent",
+      color: isActive ? "#7B0FB5" : "#4B5563",
+      "&:hover": {
+        backgroundColor: isActive ? "#F3E1F8" : "#F9FAFB",
+      },
+    };
   };
 
-  // Admin Change
-  const handleAdminChange = (e) => {
-    const { name, value } = e.target;
+  // ================= CANCEL ACTION =================
 
-    setAdminData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // General Change
-  const handleGeneralChange = (e) => {
-    const { name, value } = e.target;
-
-    setGeneralData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Save
-  const handleSave = (e) => {
-    e.preventDefault();
-
-    if (activeTab === "profile") {
-      console.log("Profile Saved:", profileData);
-    }
-
-    if (activeTab === "settings") {
-      console.log("Admin Settings Saved:", adminData);
-    }
-
-    if (activeTab === "general") {
-      console.log("General Settings Saved:", generalData);
-    }
-  };
-
-  // Cancel
-  const handleCancel = () => {
+  const handleCancel = (formikInstance) => {
+    formikInstance.resetForm();
     console.log("Changes cancelled");
   };
+
+  // ================= FORMIK FOR PROFILE SETTINGS =================
+
+  const profileForm = useFormik({
+    initialValues: (() => {
+      const saved = sessionStorage.getItem("profileData");
+      return saved ? JSON.parse(saved) : {
+        shopName: "The Gift Shop",
+        phone: "+91 98765 43210",
+        email: "shop@example.com",
+        address: "123, MG Road, Bangalore - 560001, India",
+      };
+    })(),
+    validationSchema: Yup.object({
+      shopName: Yup.string().required("Shop Name is required"),
+      phone: Yup.string().required("Contact Number is required"),
+      email: Yup.string().email("Invalid email address").required("Email is required"),
+      address: Yup.string().required("Address is required"),
+    }),
+    onSubmit: (values) => {
+      sessionStorage.setItem("profileData", JSON.stringify(values));
+      console.log("Profile Saved:", values);
+    },
+  });
+
+  // ================= FORMIK FOR ADMINISTRATOR INFORMATION =================
+
+  const adminForm = useFormik({
+    initialValues: (() => {
+      const saved = sessionStorage.getItem("adminData");
+      return saved ? JSON.parse(saved) : {
+        name: "Karthick",
+        email: "admin@example.com",
+        phone: "+91 98765 43210",
+        username: "admin_giftshop",
+        password: "",
+        confirmPassword: "",
+      };
+    })(),
+    validationSchema: Yup.object({
+      name: Yup.string().required("Admin Name is required"),
+      email: Yup.string().email("Invalid email address").required("Admin Email is required"),
+      phone: Yup.string().required("Phone Number is required"),
+      username: Yup.string().required("Username is required"),
+      password: Yup.string().min(6, "Password must be at least 6 characters"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .test("confirmPassword-required", "Confirm Password is required", function(value) {
+          const { password } = this.parent;
+          if (password && password.length > 0) {
+            return value && value.length > 0;
+          }
+          return true;
+        }),
+    }),
+    onSubmit: (values) => {
+      
+      sessionStorage.setItem("adminData", JSON.stringify(values));
+      console.log("Admin Settings Saved:", values);
+    },
+  });
+
+  // ================= FORMIK FOR GENERAL SETTINGS =================
+
+  const generalForm = useFormik({
+    initialValues: (() => {
+      const saved = sessionStorage.getItem("generalData");
+      return saved ? JSON.parse(saved) : {
+        websiteName: "The Gift Shop",
+        currency: "Indian Rupee (₹)",
+        country: "India",
+        language: "English",
+      };
+    })(),
+    validationSchema: Yup.object({
+      websiteName: Yup.string().required("Website Name is required"),
+      currency: Yup.string().required("Currency is required"),
+      country: Yup.string().required("Country is required"),
+      language: Yup.string().required("Language is required"),
+    }),
+    onSubmit: (values) => {
+      sessionStorage.setItem("generalData", JSON.stringify(values));
+      console.log("General Settings Saved:", values);
+    },
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -100,9 +138,9 @@ const Settings = () => {
 
           {/* Page Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <Typography variant="h5" component="h1" className="!text-2xl !font-semibold !text-gray-900">
               Settings
-            </h1>
+            </Typography>
 
             <p className="mt-1 text-gray-500">
               Manage your admin account and application settings
@@ -111,43 +149,74 @@ const Settings = () => {
 
           {/* Tabs */}
           <div className="mb-6 flex gap-2 rounded-xl border border-gray-200 bg-white p-2">
-
-            <button
+            <Button
               type="button"
               onClick={() => setActiveTab("profile")}
-              className={`rounded-lg px-6 py-3 text-sm font-medium ${
-                activeTab === "profile"
-                  ? "bg-purple-100 text-purple-700"
-                  : "text-gray-600 hover:bg-gray-50"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeTab === "profile" ? "#F3E1F8" : "white",
+                color: activeTab === "profile" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeTab === "profile" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeTab === "profile" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               Admin Profile
-            </button>
+            </Button>
 
-            <button
+            <Button
               type="button"
               onClick={() => setActiveTab("settings")}
-              className={`rounded-lg px-6 py-3 text-sm font-medium ${
-                activeTab === "settings"
-                  ? "bg-purple-100 text-purple-700"
-                  : "text-gray-600 hover:bg-gray-50"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeTab === "settings" ? "#F3E1F8" : "white",
+                color: activeTab === "settings" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeTab === "settings" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeTab === "settings" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               Profile Settings
-            </button>
+            </Button>
 
-            <button
+            <Button
               type="button"
               onClick={() => setActiveTab("general")}
-              className={`rounded-lg px-6 py-3 text-sm font-medium ${
-                activeTab === "general"
-                  ? "bg-purple-100 text-purple-700"
-                  : "text-gray-600 hover:bg-gray-50"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeTab === "general" ? "#F3E1F8" : "white",
+                color: activeTab === "general" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeTab === "general" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeTab === "general" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               General Settings
-            </button>
-
+            </Button>
           </div>
 
           {/* =====================================================
@@ -155,21 +224,24 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "profile" && (
-            <form onSubmit={handleSave}>
+            <form onSubmit={profileForm.handleSubmit}>
 
               <SettingsCard
                 title="Shop Information"
-                onSave={handleSave}
-                onCancel={handleCancel}
+                onSave={profileForm.handleSubmit}
+                onCancel={() => handleCancel(profileForm)}
               >
 
-                <div className="space-y-5">
+                <div className="flex flex-col gap-5">
 
                   <SettingsInput
                     label="Shop Name"
                     name="shopName"
-                    value={profileData.shopName}
-                    onChange={handleProfileChange}
+                    value={profileForm.values.shopName}
+                    onChange={profileForm.handleChange}
+                    onBlur={profileForm.handleBlur}
+                    error={profileForm.touched.shopName && Boolean(profileForm.errors.shopName)}
+                    helperText={profileForm.touched.shopName && profileForm.errors.shopName}
                   />
 
                   <div className="grid grid-cols-2 gap-6">
@@ -177,31 +249,45 @@ const Settings = () => {
                     <SettingsInput
                       label="Contact Number"
                       name="phone"
-                      value={profileData.phone}
-                      onChange={handleProfileChange}
+                      value={profileForm.values.phone}
+                      onChange={profileForm.handleChange}
+                      onBlur={profileForm.handleBlur}
+                      error={profileForm.touched.phone && Boolean(profileForm.errors.phone)}
+                      helperText={profileForm.touched.phone && profileForm.errors.phone}
                     />
 
                     <SettingsInput
                       label="Email"
                       name="email"
                       type="email"
-                      value={profileData.email}
-                      onChange={handleProfileChange}
+                      value={profileForm.values.email}
+                      onChange={profileForm.handleChange}
+                      onBlur={profileForm.handleBlur}
+                      error={profileForm.touched.email && Boolean(profileForm.errors.email)}
+                      helperText={profileForm.touched.email && profileForm.errors.email}
                     />
 
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-800">
-                      Address
-                    </label>
-
-                    <textarea
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={3}
+                      label="Address"
                       name="address"
-                      value={profileData.address}
-                      onChange={handleProfileChange}
-                      rows="3"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+                      value={profileForm.values.address}
+                      onChange={profileForm.handleChange}
+                      onBlur={profileForm.handleBlur}
+                      error={profileForm.touched.address && Boolean(profileForm.errors.address)}
+                      helperText={profileForm.touched.address && profileForm.errors.address}
+                      variant="outlined"
+                      className="bg-white"
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                        },
+                      }}
                     />
                   </div>
 
@@ -217,98 +303,112 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "settings" && (
-            <form onSubmit={handleSave}>
+            <form onSubmit={adminForm.handleSubmit}>
 
               <SettingsCard
                 title="Administrator Information"
-                onSave={handleSave}
-                onCancel={handleCancel}
+                onSave={adminForm.handleSubmit}
+                onCancel={() => handleCancel(adminForm)}
               >
 
                 <div className="grid grid-cols-2 gap-8">
 
                   {/* LEFT - ADMINISTRATOR INFORMATION */}
 
-                  <div className="space-y-5">
+                  <div className="flex flex-col gap-5">
 
                     <SettingsInput
                       label="Admin Name"
                       name="name"
-                      value={adminData.name}
-                      onChange={handleAdminChange}
+                      value={adminForm.values.name}
+                      onChange={adminForm.handleChange}
+                      onBlur={adminForm.handleBlur}
+                      error={adminForm.touched.name && Boolean(adminForm.errors.name)}
+                      helperText={adminForm.touched.name && adminForm.errors.name}
                     />
 
                     <SettingsInput
                       label="Admin Email"
                       name="email"
                       type="email"
-                      value={adminData.email}
-                      onChange={handleAdminChange}
+                      value={adminForm.values.email}
+                      onChange={adminForm.handleChange}
+                      onBlur={adminForm.handleBlur}
+                      error={adminForm.touched.email && Boolean(adminForm.errors.email)}
+                      helperText={adminForm.touched.email && adminForm.errors.email}
                     />
 
                     <SettingsInput
                       label="Phone Number"
                       name="phone"
-                      value={adminData.phone}
-                      onChange={handleAdminChange}
+                      value={adminForm.values.phone}
+                      onChange={adminForm.handleChange}
+                      onBlur={adminForm.handleBlur}
+                      error={adminForm.touched.phone && Boolean(adminForm.errors.phone)}
+                      helperText={adminForm.touched.phone && adminForm.errors.phone}
                     />
 
                     <SettingsInput
                       label="Username"
                       name="username"
-                      value={adminData.username}
-                      onChange={handleAdminChange}
+                      value={adminForm.values.username}
+                      onChange={adminForm.handleChange}
+                      onBlur={adminForm.handleBlur}
+                      error={adminForm.touched.username && Boolean(adminForm.errors.username)}
+                      helperText={adminForm.touched.username && adminForm.errors.username}
                     />
 
                   </div>
 
                   {/* RIGHT - SECURITY */}
 
-                  <div className="border-l border-gray-200 pl-8">
+                  <div className="border-l border-gray-200 pl-8 flex flex-col gap-5">
 
-                    <h3 className="mb-5 text-base font-semibold text-gray-900">
+                    <Typography variant="h6" className="!text-base !font-semibold !text-gray-900">
                       Security
-                    </h3>
+                    </Typography>
 
-                    <div className="space-y-5">
+                    <div className="flex flex-col gap-5">
 
                       <SettingsInput
                         label="Password"
                         name="password"
-                        type={
-                          showPassword
-                            ? "text"
-                            : "password"
-                        }
-                        value={adminData.password}
-                        onChange={handleAdminChange}
+                        type={showPassword ? "text" : "password"}
+                        value={adminForm.values.password}
+                        onChange={adminForm.handleChange}
+                        onBlur={adminForm.handleBlur}
+                        error={adminForm.touched.password && Boolean(adminForm.errors.password)}
+                        helperText={adminForm.touched.password && adminForm.errors.password}
                         placeholder="Enter password"
                       />
 
                       <SettingsInput
                         label="Confirm Password"
                         name="confirmPassword"
-                        type={
-                          showPassword
-                            ? "text"
-                            : "password"
-                        }
-                        value={adminData.confirmPassword}
-                        onChange={handleAdminChange}
+                        type={showPassword ? "text" : "password"}
+                        value={adminForm.values.confirmPassword}
+                        onChange={adminForm.handleChange}
+                        onBlur={adminForm.handleBlur}
+                        error={adminForm.touched.confirmPassword && Boolean(adminForm.errors.confirmPassword)}
+                        helperText={adminForm.touched.confirmPassword && adminForm.errors.confirmPassword}
                         placeholder="Confirm password"
                       />
 
-                      <button
+                      <Button
                         type="button"
-                        onClick={() =>
-                          setShowPassword(!showPassword)
-                        }
-                        className="text-sm font-medium text-purple-700 hover:text-purple-800"
+                        onClick={() => setShowPassword(!showPassword)}
+                        variant="text"
+                        className="text-sm font-medium text-purple-700 hover:text-purple-800 normal-case !p-0"
+                        sx={{
+                          color: "unset !important",
+                          minWidth: "unset",
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                          },
+                        }}
                       >
-                        {showPassword
-                          ? "Hide Password"
-                          : "Show Password"}
-                      </button>
+                        {showPassword ? "Hide Password" : "Show Password"}
+                      </Button>
 
                     </div>
 
@@ -326,15 +426,15 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "general" && (
-            <form onSubmit={handleSave}>
+            <form onSubmit={generalForm.handleSubmit}>
 
               <SettingsCard
                 title="Application Settings"
-                onSave={handleSave}
-                onCancel={handleCancel}
+                onSave={generalForm.handleSubmit}
+                onCancel={() => handleCancel(generalForm)}
               >
 
-                <div className="space-y-5">
+                <div className="flex flex-col gap-5">
 
                   {/* Website Name + Currency */}
 
@@ -343,15 +443,21 @@ const Settings = () => {
                     <SettingsInput
                       label="Website Name"
                       name="websiteName"
-                      value={generalData.websiteName}
-                      onChange={handleGeneralChange}
+                      value={generalForm.values.websiteName}
+                      onChange={generalForm.handleChange}
+                      onBlur={generalForm.handleBlur}
+                      error={generalForm.touched.websiteName && Boolean(generalForm.errors.websiteName)}
+                      helperText={generalForm.touched.websiteName && generalForm.errors.websiteName}
                     />
 
                     <SettingsSelect
                       label="Currency"
                       name="currency"
-                      value={generalData.currency}
-                      onChange={handleGeneralChange}
+                      value={generalForm.values.currency}
+                      onChange={generalForm.handleChange}
+                      onBlur={generalForm.handleBlur}
+                      error={generalForm.touched.currency && Boolean(generalForm.errors.currency)}
+                      helperText={generalForm.touched.currency && generalForm.errors.currency}
                       options={[
                         "Indian Rupee (₹)",
                         "US Dollar ($)",
@@ -369,8 +475,11 @@ const Settings = () => {
                     <SettingsSelect
                       label="Country"
                       name="country"
-                      value={generalData.country}
-                      onChange={handleGeneralChange}
+                      value={generalForm.values.country}
+                      onChange={generalForm.handleChange}
+                      onBlur={generalForm.handleBlur}
+                      error={generalForm.touched.country && Boolean(generalForm.errors.country)}
+                      helperText={generalForm.touched.country && generalForm.errors.country}
                       options={[
                         "India",
                         "United States",
@@ -382,8 +491,11 @@ const Settings = () => {
                     <SettingsSelect
                       label="Language"
                       name="language"
-                      value={generalData.language}
-                      onChange={handleGeneralChange}
+                      value={generalForm.values.language}
+                      onChange={generalForm.handleChange}
+                      onBlur={generalForm.handleBlur}
+                      error={generalForm.touched.language && Boolean(generalForm.errors.language)}
+                      helperText={generalForm.touched.language && generalForm.errors.language}
                       options={[
                         "English",
                         "Tamil",

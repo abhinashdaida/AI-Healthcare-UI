@@ -1,4 +1,5 @@
 import React from "react";
+import { TextField } from "@mui/material";
 
 const SettingsInput = ({
   label,
@@ -6,23 +7,31 @@ const SettingsInput = ({
   type = "text",
   value,
   onChange,
+  onBlur,
   placeholder = "",
+  error,
+  helperText,
 }) => {
   return (
-    <div>
-      <label className="mb-2 block text-sm font-medium text-gray-800">
-        {label}
-      </label>
-
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
-      />
-    </div>
+    <TextField
+      fullWidth
+      label={label}
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      placeholder={placeholder}
+      error={error}
+      helperText={helperText}
+      variant="outlined"
+      className="bg-white"
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "8px",
+        },
+      }}
+    />
   );
 };
 

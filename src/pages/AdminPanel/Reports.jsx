@@ -1,11 +1,17 @@
 import React, { useState } from "react";
- 
+import {
+  Box,
+  Typography,
+  Button,
+  Paper,
+} from "@mui/material";
+
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
- 
+
 const Reports = () => {
   const [activeReport, setActiveReport] = useState("sales");
- 
+
   const reportData = {
     sales: {
       title: "Sales Report",
@@ -13,14 +19,14 @@ const Reports = () => {
       label: "Total Sales",
       secondary: "₹32,890 This Week",
     },
- 
+
     orders: {
       title: "Order Report",
       value: "245",
       label: "Total Orders",
       secondary: "47 Orders This Week",
     },
- 
+
     customers: {
       title: "Customer Report",
       value: "1,250",
@@ -28,122 +34,167 @@ const Reports = () => {
       secondary: "85 New Customers",
     },
   };
- 
+
   const currentReport = reportData[activeReport];
- 
+
+  const getTabButtonStyle = (tabName) => {
+    const isActive = activeReport === tabName;
+    return {
+      px: 3,
+      py: 1,
+      borderRadius: "8px",
+      textTransform: "none",
+      fontWeight: 500,
+      fontSize: "0.875rem",
+      backgroundColor: isActive ? "#7B0FB5" : "white",
+      color: isActive ? "white" : "#374151",
+      border: isActive ? "none" : "1px solid #E5E7EB",
+      boxShadow: "none",
+      "&:hover": {
+        backgroundColor: isActive ? "#6B0DA0" : "#F9FAFB",
+        border: isActive ? "none" : "1px solid #D1D5DB",
+        boxShadow: "none",
+      },
+    };
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
- 
+
       {/* Sidebar */}
       <Sidebar />
- 
+
       {/* Header */}
       <Header />
- 
+
       {/* Main Content */}
       <main className="ml-[250px] pt-[60px]">
         <div className="p-6">
- 
+
           {/* Page Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-semibold text-gray-800">
+            <Typography variant="h5" component="h1" className="!text-2xl !font-semibold !text-gray-800">
               Reports
-            </h1>
- 
+            </Typography>
+
             <p className="text-gray-500 mt-1">
               View sales, order and customer reports
             </p>
           </div>
- 
+
           {/* Report Tabs */}
-          <div className="flex gap-3 mb-6">
- 
-            <button
+          <div className="mb-6 flex gap-2 rounded-xl border border-gray-200 bg-white p-2 w-max">
+            <Button
               onClick={() => setActiveReport("sales")}
-              className={`px-5 py-2 rounded-lg ${
-                activeReport === "sales"
-                  ? "bg-purple-700 text-white"
-                  : "bg-white text-gray-700 border border-gray-200"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeReport === "sales" ? "#F3E1F8" : "white",
+                color: activeReport === "sales" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeReport === "sales" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeReport === "sales" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               Sales Report
-            </button>
- 
-            <button
+            </Button>
+
+            <Button
               onClick={() => setActiveReport("orders")}
-              className={`px-5 py-2 rounded-lg ${
-                activeReport === "orders"
-                  ? "bg-purple-700 text-white"
-                  : "bg-white text-gray-700 border border-gray-200"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeReport === "orders" ? "#F3E1F8" : "white",
+                color: activeReport === "orders" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeReport === "orders" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeReport === "orders" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               Order Report
-            </button>
- 
-            <button
+            </Button>
+
+            <Button
               onClick={() => setActiveReport("customers")}
-              className={`px-5 py-2 rounded-lg ${
-                activeReport === "customers"
-                  ? "bg-purple-700 text-white"
-                  : "bg-white text-gray-700 border border-gray-200"
-              }`}
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                backgroundColor: activeReport === "customers" ? "#F3E1F8" : "white",
+                color: activeReport === "customers" ? "#7B0FB5" : "#4B5563",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: activeReport === "customers" ? "#EAD0F5" : "#F9FAFB",
+                  color: activeReport === "customers" ? "#6B0DA0" : "#7B0FB5",
+                  boxShadow: "none",
+                },
+              }}
             >
               Customer Report
-            </button>
- 
+            </Button>
           </div>
- 
+
           {/* Report Card */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
- 
-            <h2 className="text-lg font-semibold text-gray-800 mb-6">
+          <Paper className="bg-white rounded-xl border border-gray-200 p-6 shadow-none" style={{ borderRadius: "12px" }}>
+            <Typography variant="h6" component="h2" className="!text-lg !font-semibold !text-gray-800 !mb-6">
               {currentReport.title}
-            </h2>
- 
+            </Typography>
+
             <div className="grid grid-cols-3 gap-5">
- 
               {/* Total */}
               <div className="border border-gray-200 rounded-lg p-5">
                 <p className="text-gray-500">
                   {currentReport.label}
                 </p>
- 
                 <h3 className="text-3xl font-semibold mt-2">
                   {currentReport.value}
                 </h3>
               </div>
- 
+
               {/* Weekly Summary */}
               <div className="border border-gray-200 rounded-lg p-5">
                 <p className="text-gray-500">
                   Weekly Summary
                 </p>
- 
                 <h3 className="text-xl font-semibold mt-2">
                   {currentReport.secondary}
                 </h3>
               </div>
- 
+
               {/* Status */}
               <div className="border border-gray-200 rounded-lg p-5">
                 <p className="text-gray-500">
                   Report Status
                 </p>
- 
                 <h3 className="text-xl font-semibold text-green-600 mt-2">
                   Updated
                 </h3>
               </div>
- 
             </div>
- 
-          </div>
- 
+          </Paper>
+
         </div>
       </main>
- 
+
     </div>
   );
 };
- 
+
 export default Reports;
