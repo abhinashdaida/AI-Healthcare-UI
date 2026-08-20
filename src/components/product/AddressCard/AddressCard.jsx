@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  DeleteOutline,
   EditOutlined,
   LocationOnOutlined,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { Icon } from "@iconify/react";
 
 export default function AddressCard({
   address,
@@ -67,11 +67,14 @@ export default function AddressCard({
           {address.pincode}
         </p>
 
-        {address.country && <p>{address.country}</p>}
+        {address.country && (
+          <p>{address.country}</p>
+        )}
       </div>
 
       {/* Actions */}
       <div className="mt-4 flex justify-end gap-1 border-t pt-3">
+        {/* Edit */}
         <IconButton
           size="small"
           onClick={(e) => {
@@ -82,6 +85,7 @@ export default function AddressCard({
           <EditOutlined fontSize="small" />
         </IconButton>
 
+        {/* Delete */}
         <IconButton
           size="small"
           onClick={(e) => {
@@ -89,7 +93,11 @@ export default function AddressCard({
             onDelete?.(address.id);
           }}
         >
-          <DeleteOutline fontSize="small" />
+          <Icon
+            icon="mdi:delete-outline"
+            width="20"
+            height="20"
+          />
         </IconButton>
       </div>
     </div>
