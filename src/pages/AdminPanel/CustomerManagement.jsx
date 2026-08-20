@@ -1,6 +1,7 @@
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
-import React from "react";
+import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
+import React, { useEffect, useMemo, useState } from "react";
 
 
 const CustomerManagement = () => {

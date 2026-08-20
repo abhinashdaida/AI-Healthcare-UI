@@ -408,13 +408,408 @@ function Product() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Sidebar />
       <Header />
 
       <main className="ml-[336px] pt-[80px] p-6">
         <h1 className="text-3xl font-bold text-black">Product</h1>
       </main>
+      {/* Add/Edit Product Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-4">
+              {editingProduct ? "Edit Product" : "Add New Product"}
+            </h2>
+
+            <form onSubmit={productFormik.handleSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Product Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={productFormik.values.name}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.name && productFormik.errors.name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter product name"
+                  />
+                  {productFormik.touched.name && productFormik.errors.name && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.name}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Category *
+                  </label>
+                  <select
+                    name="category"
+                    value={productFormik.values.category}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.category && productFormik.errors.category
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.name}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                  {productFormik.touched.category && productFormik.errors.category && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.category}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Price (₹) *
+                  </label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={productFormik.values.price}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.price && productFormik.errors.price
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter price"
+                    min="0"
+                    step="0.01"
+                  />
+                  {productFormik.touched.price && productFormik.errors.price && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.price}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Original Price (₹) (Optional)
+                  </label>
+                  <input
+                    type="number"
+                    name="originalPrice"
+                    value={productFormik.values.originalPrice}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.originalPrice && productFormik.errors.originalPrice
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter original price"
+                    min="0"
+                    step="0.01"
+                  />
+                  {productFormik.touched.originalPrice && productFormik.errors.originalPrice && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.originalPrice}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Stock Quantity *
+                  </label>
+                  <input
+                    type="number"
+                    name="stock"
+                    value={productFormik.values.stock}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.stock && productFormik.errors.stock
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter stock quantity"
+                    min="0"
+                    step="1"
+                  />
+                  {productFormik.touched.stock && productFormik.errors.stock && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.stock}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    value={productFormik.values.description}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    rows="3"
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.description && productFormik.errors.description
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter product description"
+                  />
+                  {productFormik.touched.description && productFormik.errors.description && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.description}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Status *
+                  </label>
+                  <select
+                    name="status"
+                    value={productFormik.values.status}
+                    onChange={productFormik.handleChange}
+                    onBlur={productFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      productFormik.touched.status && productFormik.errors.status
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                  {productFormik.touched.status && productFormik.errors.status && (
+                    <p className="mt-1 text-sm text-red-600">{productFormik.errors.status}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  {editingProduct ? "Update" : "Add"} Product
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Add/Edit Category Modal */}
+      {showCategoryModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <h2 className="text-2xl font-bold mb-4">
+              {editingCategory ? "Edit Category" : "Add New Category"}
+            </h2>
+
+            <form onSubmit={categoryFormik.handleSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Category Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={categoryFormik.values.name}
+                    onChange={categoryFormik.handleChange}
+                    onBlur={categoryFormik.handleBlur}
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                      categoryFormik.touched.name && categoryFormik.errors.name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter category name"
+                  />
+                  {categoryFormik.touched.name && categoryFormik.errors.name && (
+                    <p className="mt-1 text-sm text-red-600">{categoryFormik.errors.name}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    value={categoryFormik.values.description}
+                    onChange={categoryFormik.handleChange}
+                    onBlur={categoryFormik.handleBlur}
+                    rows="3"
+                    className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                      categoryFormik.touched.description && categoryFormik.errors.description
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter category description"
+                  />
+                  {categoryFormik.touched.description && categoryFormik.errors.description && (
+                    <p className="mt-1 text-sm text-red-600">{categoryFormik.errors.description}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <button
+                  type="submit"
+                  className="flex-1 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+                >
+                  {editingCategory ? "Update" : "Add"} Category
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseCategoryModal}
+                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Product Detail Modal */}
+      {showProductDetail && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">{showProductDetail.name}</h2>
+              <button
+                onClick={() => setShowProductDetail(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <StatusBadge status={showProductDetail.status} />
+                {showProductDetail.lowStock && (
+                  <span className="text-xs font-medium text-red-600 bg-red-100 px-2 py-0.5 rounded">
+                    Low Stock
+                  </span>
+                )}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-500">Category</p>
+                  <p className="font-medium">{showProductDetail.category}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Price</p>
+                  <p className="font-medium">₹{showProductDetail.price}</p>
+                  {showProductDetail.originalPrice && (
+                    <p className="text-sm text-gray-400 line-through">
+                      ₹{showProductDetail.originalPrice}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Stock</p>
+                  <p className="font-medium">{showProductDetail.stock} units</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Added Date</p>
+                  <p className="font-medium">{showProductDetail.createdAt || "N/A"}</p>
+                </div>
+              </div>
+
+              {showProductDetail.description && (
+                <div>
+                  <p className="text-sm text-gray-500">Description</p>
+                  <p className="mt-1">{showProductDetail.description}</p>
+                </div>
+              )}
+
+              <div className="flex gap-3 mt-4 pt-4 border-t">
+                <button
+                  onClick={() => {
+                    handleEdit(showProductDetail);
+                    setShowProductDetail(null);
+                  }}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Edit Product
+                </button>
+                <button
+                  onClick={() => setShowProductDetail(null)}
+                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && productToDelete && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-8 h-8 text-red-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-center text-gray-900 mb-2">
+              Delete Product
+            </h3>
+            <p className="text-gray-600 text-center mb-6">
+              Are you sure you want to delete <span className="font-semibold">"{productToDelete.name}"</span>?
+              This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={handleConfirmDelete}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+              >
+                Delete
+              </button>
+              <button
+                onClick={handleCancelDelete}
+                className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
