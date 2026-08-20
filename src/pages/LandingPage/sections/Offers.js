@@ -29,7 +29,7 @@ const Offers = () => {
   ];
 
   return (
-    <section className="bg-white">
+    <section id="deals" className="bg-white">
 
       {/* Deals */}
       <div className="bg-[#fafafa] px-5 py-16">
@@ -159,7 +159,7 @@ const Offers = () => {
               $100.00
             </p>
 
-            <button className="mt-4 bg-black px-8 py-3 text-[10px] text-white">
+            <button onClick={()=>navigate("/productlisting")} className="mt-4 bg-black px-8 py-3 text-[10px] text-white">
               BUY NOW
             </button>
 

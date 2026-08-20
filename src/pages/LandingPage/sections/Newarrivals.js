@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "@/shared/components/Landingpage/productCard";
-import { products } from "@/shared/constants/LandingPage/Productdata";
+import { ALL_PRODUCTS } from "@/data/productsData";
 
 const NewArrivals = () => {
 
@@ -16,9 +16,9 @@ const NewArrivals = () => {
   ];
 
   // Filter products based on selected tab
-  const newProducts = products.filter(
+  const newProducts = ALL_PRODUCTS.filter(
     (product) =>
-      product.newArrival &&
+      product.collection==="New arrivals" &&
       product.category === activeTab
   );
 

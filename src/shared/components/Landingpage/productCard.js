@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   FavoriteBorder,
@@ -8,16 +9,24 @@ import {
 import { IconButton, Rating } from "@mui/material";
 
 const ProductCard = ({
+  id,
   name,
   category,
   price,
   image,
   badge,
 }) => {
+  const navigate = useNavigate();
+
+  const handleProductClick = () => {
+    navigate(`/product/${id}`);
+  };
 
   return (
-    <article className="group overflow-hidden bg-white shadow-[0_5px_25px_rgba(0,0,0,0.07)]">
-
+    <article
+      onClick={handleProductClick}
+      className="group cursor-pointer overflow-hidden bg-white shadow-[0_5px_25px_rgba(0,0,0,0.07)]"
+    >
       {/* Image */}
       <div className="relative h-[220px] overflow-hidden bg-[#f2f2f2]">
 
@@ -33,8 +42,12 @@ const ProductCard = ({
           </span>
         )}
 
+        {/* Wishlist */}
         <IconButton
           size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           className="!absolute !right-2 !top-2 !bg-white"
         >
           <FavoriteBorder sx={{ fontSize: 15 }} />
@@ -70,13 +83,23 @@ const ProductCard = ({
 
         </div>
 
+        {/* Price */}
         <div className="mt-3 flex items-center justify-between">
 
           <span className="text-[15px] font-medium">
-            ${price}
+            ${Number(price).toFixed(2)}
           </span>
 
-          
+          {/* Shopping Bag */}
+          <IconButton
+            size="small"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <ShoppingBagOutlined sx={{ fontSize: 18 }} />
+          </IconButton>
+
         </div>
 
       </div>

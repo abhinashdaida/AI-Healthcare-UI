@@ -51,7 +51,6 @@ const TestimonialsSection = () => {
   // Get card position
   const getPosition = (index) => {
     const total = testimonials.length;
-
     if (index === activeIndex) {
       return "center";
     }
@@ -62,33 +61,26 @@ const TestimonialsSection = () => {
     ) {
       return "left";
     }
-
     return "right";
   };
 
   return (
     <section className="overflow-hidden bg-[#fafafa] px-5 py-16 md:py-20">
-
       {/* Heading */}
       <div className="mx-auto max-w-[550px] text-center">
-
         <h2 className="font-serif text-[32px]">
           This Is What Our Customers Say
         </h2>
-
         <p className="mt-2 text-[14px] text-gray-400">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
-
       </div>
 
       {/* Testimonials */}
       <div className="relative mx-auto mt-10 flex h-[170px] max-w-[1000px] items-center justify-center">
 
         {testimonials.map((item, index) => {
-
           const position = getPosition(index);
-
           return (
             <div
               key={item.name}
@@ -102,38 +94,32 @@ const TestimonialsSection = () => {
                 duration-500
                 ease-in-out
 
-                ${
-                  position === "center"
-                    ? "z-30 scale-105 opacity-100"
-                    : ""
+                ${position === "center"
+                  ? "z-30 scale-105 opacity-100"
+                  : ""
                 }
 
-                ${
-                  position === "left"
-                    ? "z-10 -translate-x-[320px] scale-95 opacity-70"
-                    : ""
+                ${position === "left"
+                  ? "z-10 -translate-x-[320px] scale-95 opacity-70"
+                  : ""
                 }
 
-                ${
-                  position === "right"
-                    ? "z-10 translate-x-[320px] scale-95 opacity-70"
-                    : ""
+                ${position === "right"
+                  ? "z-10 translate-x-[320px] scale-95 opacity-70"
+                  : ""
                 }
 
                 max-md:translate-x-0
                 max-md:scale-100
                 max-md:opacity-100
-
-                ${
-                  position !== "center"
-                    ? "max-md:hidden"
-                    : ""
+                ${position !== "center"
+                  ? "max-md:hidden"
+                  : ""
                 }
               `}
             >
 
               <div className="flex gap-4">
-
                 {/* Image */}
                 <img
                   src={item.image}
@@ -143,11 +129,9 @@ const TestimonialsSection = () => {
 
                 {/* Content */}
                 <div className="flex-1">
-
                   <p className="text-[10px] leading-[1.7] text-gray-500">
                     "{item.text}"
                   </p>
-
                   <Rating
                     value={5}
                     readOnly
@@ -157,29 +141,22 @@ const TestimonialsSection = () => {
                       mt: 0.5,
                     }}
                   />
-
                   <h3 className="mt-1 text-[12px] font-medium">
                     {item.name}
                   </h3>
-
                   <p className="text-[10px] text-gray-400">
                     {item.role}
                   </p>
-
                 </div>
-
               </div>
-
             </div>
           );
         })}
-
       </div>
 
       {/* Arrows */}
-      <div className="mt-7 flex justify-center gap-2">
-
-        {/* LEFT */}
+      {/* <div className="mt-7 flex justify-center gap-2">
+      
         <IconButton
           size="small"
           onClick={handlePrevious}
@@ -188,7 +165,6 @@ const TestimonialsSection = () => {
           <ArrowBackIosNew sx={{ fontSize: 9 }} />
         </IconButton>
 
-        {/* RIGHT */}
         <IconButton
           size="small"
           onClick={handleNext}
@@ -196,8 +172,7 @@ const TestimonialsSection = () => {
         >
           <ArrowForwardIos sx={{ fontSize: 9 }} />
         </IconButton>
-
-      </div>
+      </div> */}
 
     </section>
   );

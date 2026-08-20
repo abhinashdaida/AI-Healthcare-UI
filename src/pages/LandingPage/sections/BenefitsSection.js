@@ -31,7 +31,7 @@ const benefits = [
 
 const BenefitsSection = () => {
   return (
-    <section className="border-b border-gray-100 bg-white py-6">
+    <section id="packages" className="border-b border-gray-100 bg-white py-6">
 
       <div className="mx-auto grid max-w-[1000px] grid-cols-2 gap-6 px-5 md:grid-cols-4">
 
