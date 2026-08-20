@@ -10,14 +10,12 @@ import LandingPage from "./pages/LandingPage/Landingpage";
 import ProductListing from "./pages/ProductListing/ProductListing";
 import ProductDetailsPage from "./pages/ProductDetails/ProductDetailsPage";
 import CartPage from "./pages/Cart/CartPage";
-import Header_1 from "./components/common/Header_1/Header_1";
-import Header_2 from "./components/common/Header_2/Header_2";
-import Footer from "./components/common/Footer/Footer"
+
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="overflow-x-hidden w-full">
         <ScrollToTop />
         <LoadingOverlay />
         <NotificationView />

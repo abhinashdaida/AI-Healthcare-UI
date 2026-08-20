@@ -67,7 +67,7 @@ const Header = () => {
               <FavoriteBorder sx={{ fontSize: 17 }} />
             </IconButton>
 
-            <IconButton size="small">
+            <IconButton size="small" onClick={() => window.location.href = "/cart"}>
               <ShoppingBagOutlined sx={{ fontSize: 17 }} />
             </IconButton>
 

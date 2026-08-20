@@ -69,18 +69,26 @@ const ProductDetailsPage = () => {
     0
   );
 
+  const [justAddedItem, setJustAddedItem] = useState(null);
+
   // Add to Cart handler
   const handleAddToCart = (product) => {
     const updated = addItemToCart(product);
     setCartItems(updated);
-    setIsCartOpen(true);
+    
+    // Find the exactly added item from the updated cart
+    const added = updated.find(item => String(item.id) === String(product.id));
+    if (added) {
+      setJustAddedItem(added);
+      setIsCartOpen(true);
+    }
   };
 
-  // Buy Now handler (Adds to cart & navigates directly to /cart)
+  // Buy Now handler (Adds to cart & navigates directly to /checkout)
   const handleBuyNow = (product) => {
     const updated = addItemToCart(product);
     setCartItems(updated);
-    navigate("/cart", { state: { directBuy: true } });
+    navigate("/checkout", { state: { directBuy: true } });
   };
 
   // Update item quantity in cart drawer
@@ -109,14 +117,14 @@ const ProductDetailsPage = () => {
         activeLink="Products"
         cartCount={cartCount}
         wishlistCount={wishlistCount}
-        onCartClick={() => setIsCartOpen(true)}
+        onCartClick={() => navigate("/cart")}
       />
 
       <main className="flex-1">
         {/* Navigation Back Button */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
           <BackButton
-            label="Back to Products"
+            label="Back"
             fallbackPath="/shop"
             state={location.state?.returnState ? { returnState: location.state.returnState } : undefined}
           />
@@ -174,11 +182,21 @@ const ProductDetailsPage = () => {
       {/* 8. Interactive Slide-Over Cart Drawer matching Reference Design */}
       <CartDrawer
         isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onCheckout={() => navigate("/cart")}
+        onClose={() => {
+          setIsCartOpen(false);
+          setJustAddedItem(null);
+        }}
+        cartItems={justAddedItem ? [justAddedItem] : []}
+        onUpdateQuantity={(item, newQty) => {
+          handleUpdateQuantity(item, newQty);
+          setJustAddedItem({ ...item, quantity: newQty });
+        }}
+        onRemoveItem={(item) => {
+          handleRemoveItem(item);
+          setJustAddedItem(null);
+          setIsCartOpen(false);
+        }}
+        onCheckout={() => navigate("/checkout")}
       />
 
     </div>

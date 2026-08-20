@@ -31,12 +31,21 @@ const Header_2 = ({
   onWishlistClick,
   onCartClick,
   onSearchSubmit,
+  initialSearchQuery = "",
   className = ""
 }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [isPagesDropdownOpen, setIsPagesDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Sync with external initialSearchQuery if it changes
+  React.useEffect(() => {
+    setSearchQuery(initialSearchQuery);
+    if (initialSearchQuery) {
+      setIsSearchOpen(true);
+    }
+  }, [initialSearchQuery]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -141,14 +150,25 @@ const Header_2 = ({
                   <input
                     type="text"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      if (onSearchSubmit) {
+                        onSearchSubmit(e.target.value);
+                      }
+                    }}
                     placeholder="Search store..."
                     autoFocus
-                    className="w-40 sm:w-56 px-3 py-1 text-xs bg-neutral-50 border border-neutral-300 rounded-md focus:outline-none focus:border-black"
+                    className="w-40 sm:w-56 px-3 py-1 text-[13px] bg-neutral-50 border border-neutral-300 rounded-md focus:outline-none focus:border-black transition-colors"
                   />
                   <button
                     type="button"
-                    onClick={() => setIsSearchOpen(false)}
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchQuery("");
+                      if (onSearchSubmit) {
+                        onSearchSubmit("");
+                      }
+                    }}
                     className="ml-1.5 p-1 text-neutral-400 hover:text-black focus:outline-none"
                     aria-label="Close search"
                   >
