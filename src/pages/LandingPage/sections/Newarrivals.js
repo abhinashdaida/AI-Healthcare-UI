@@ -4,10 +4,8 @@ import ProductCard from "@/shared/components/Landingpage/productCard";
 import { ALL_PRODUCTS } from "@/data/productsData";
 
 const NewArrivals = () => {
-
   const [activeTab, setActiveTab] = useState("Women");
   const navigate=useNavigate();
-
   const tabs = [
     "Men",
     "Women",
@@ -23,31 +21,21 @@ const NewArrivals = () => {
   );
 
   return (
-    <section
-      id="new-arrivals"
-      className="bg-white px-5 py-16"
-    >
-
+    <section id="new-arrivals" className="bg-white px-5 py-16" >
       <div className="mx-auto max-w-[1080px]">
-
         {/* Heading */}
         <div className="mx-auto max-w-[500px] text-center">
-
           <h2 className="font-serif text-[32px]">
             New Arrivals
           </h2>
-
           <p className="mt-2 text-[14px] leading-5 text-gray-400">
             Discover our newest styles and latest collections.
           </p>
-
         </div>
 
         {/* Tabs */}
         <div className="mt-7 flex flex-wrap justify-center gap-2">
-
           {tabs.map((tab) => (
-
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -59,22 +47,17 @@ const NewArrivals = () => {
             >
               {tab}
             </button>
-
           ))}
-
         </div>
 
         {/* Products */}
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-
           {newProducts.slice(0, 6).map((product) => (
-
             <ProductCard
               key={product.id}
               {...product}
               badge="NEW"
             />
-
           ))}
 
         </div>
@@ -91,16 +74,12 @@ const NewArrivals = () => {
         {/* View More */}
         {newProducts.length > 0 && (
           <div className="mt-8 text-center">
-
             <button onClick={()=>navigate("/productlisting")} className="bg-black px-9 py-3 text-[12px] text-white">
               VIEW MORE
             </button>
-
           </div>
         )}
-
       </div>
-
     </section>
   );
 };

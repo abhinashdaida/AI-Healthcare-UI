@@ -84,24 +84,7 @@ const HeroSection = () => {
         </div>
 
         {/* Floating icons */}
-        <div className="mt-3 flex justify-end gap-2">
-
-          <IconButton
-            size="small"
-            className="!rounded-[3px] !bg-black !text-white"
-          >
-            <ShoppingBagOutlined sx={{ fontSize: 15 }} />
-          </IconButton>
-
-          <IconButton
-            size="small"
-            className="!h-8 !w-8 !border !border-gray-300"
-          >
-            <KeyboardArrowUp sx={{ fontSize: 15 }} />
-          </IconButton>
-
-        </div>
-
+        
       </div>
     </section>
   );

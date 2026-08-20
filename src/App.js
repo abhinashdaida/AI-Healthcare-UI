@@ -5,7 +5,6 @@ import GlobalConfigView from "./shared/components/GlobalConfigView/GlobalConfigV
 import LoadingOverlay from "./shared/components/LoadingOverlay/LoadingOverlay";
 import NotificationView from "./shared/components/Notification/NotificationView.jsx";
 import withSecurity from "./shared/components/WithSecurity/WithSecurity.js";
-import ScrollToTop from "./shared/ScrollToTop/ScrollToTop.jsx";
 import LandingPage from "./pages/LandingPage/Landingpage";
 import ProductListing from "./pages/ProductListing/ProductListing";
 import ProductDetailsPage from "./pages/ProductDetails/ProductDetailsPage";
