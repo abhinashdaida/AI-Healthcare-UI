@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Paper, Typography } from "@mui/material";
 
@@ -19,8 +19,10 @@ import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
 /* _________________________________CustomerManagement______________________*/
 
 const CustomerManagement = () => {
-  const [customers, setCustomers] = useState(initialCustomers);
-
+const [customers, setCustomers] = useState(() => {
+  const savedCustomers = sessionStorage.getItem("customers");
+  return savedCustomers ? JSON.parse(savedCustomers) : initialCustomers;
+});
   const [search, setSearch] = useState("");
 
   const [statusFilter, setStatusFilter] = useState("All");
@@ -31,9 +33,7 @@ const CustomerManagement = () => {
 
   const [customerToChange, setCustomerToChange] = useState(null);
 
-  /* =======================================================
-     SEARCH + FILTER
-  ======================================================= */
+  /* __________________________________  SEARCH + FILTER_________________________ */
 
   const filteredCustomers = useMemo(() => {
     const searchText = search.trim().toLowerCase();
@@ -50,6 +50,10 @@ const CustomerManagement = () => {
       return matchesSearch && matchesStatus;
     });
   }, [customers, search, statusFilter]);
+
+  useEffect(() => {
+    sessionStorage.setItem("customers", JSON.stringify(customers));
+  }, [customers]);
 
   /* __________________________________VIEW CUSTOMER_________________________ */
 
