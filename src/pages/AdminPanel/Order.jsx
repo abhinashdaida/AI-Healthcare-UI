@@ -3,13 +3,10 @@ import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 import React from "react";
 const Order = () => {
   return (
-    <div className="min-h-screen">
+    <div>
       <Sidebar />
       <Header />
-
-      <main className="ml-[336px] pt-[80px] p-6">
-        <h1 className="text-3xl font-bold text-black">order</h1>
-      </main>
+      <h1>Order</h1>
     </div>
   );
 };

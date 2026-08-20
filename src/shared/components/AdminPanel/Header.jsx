@@ -1,14 +1,29 @@
 import { ChevronDown } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const navigate = useNavigate();
 
   // Get User Data From Session Storage
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const [user, setUser] = useState(() => {
+    const savedUser = sessionStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // Listen to profile updates
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      const savedUser = sessionStorage.getItem("user");
+      setUser(savedUser ? JSON.parse(savedUser) : null);
+    };
+
+    window.addEventListener("user-profile-updated", handleProfileUpdate);
+    return () => {
+      window.removeEventListener("user-profile-updated", handleProfileUpdate);
+    };
+  }, []);
 
   // username
   const username = user?.username || "User";
@@ -62,7 +77,7 @@ const Header = () => {
               <button
                 className="w-full px-5 py-4 text-left text-sm text-gray-700 hover:bg-gray-50"
                 onClick={() => {
-                  navigate("/settings");
+                  navigate("/settings", { state: { activeTab: "settings" } });
                   setIsOpen(false);
                 }}
               >
