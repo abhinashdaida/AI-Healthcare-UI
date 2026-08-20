@@ -1,12 +1,12 @@
 import React from "react";
 
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Typography,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
 } from "@mui/material";
 
 const BlockCustomerDialog = ({ open, customer, onClose, onConfirm }) => {
@@ -23,12 +23,14 @@ const BlockCustomerDialog = ({ open, customer, onClose, onConfirm }) => {
       open={open}
       onClose={onClose}
       aria-labelledby="customer-dialog-title"
-      PaperProps={{
-        sx: {
-          width: "440px",
-          maxWidth: "calc(100% - 32px)",
-          borderRadius: "10px",
-          margin: "16px",
+      slotProps={{
+        paper: {
+          sx: {
+            width: "440px",
+            maxWidth: "calc(100% - 32px)",
+            borderRadius: "10px",
+            margin: "16px",
+          },
         },
       }}
     >
