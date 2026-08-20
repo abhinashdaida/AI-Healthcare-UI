@@ -15,6 +15,13 @@ import Footer from "./components/common/Footer/Footer"
 import Profile from "./pages/Profile/Profile";
 import Checkout from "./pages/Checkout/Checkout";
  
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import Confirmation from "./pages/Confirmation/Confirmation";
+import NewPassword from "./pages/NewPassword/NewPassword";
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,8 +44,12 @@ function App() {
             <Route
               path="/checkout"
               element={<Checkout />}
-            />
-           
+            />           
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/new-password" element={<NewPassword />} />
           </Routes>
         </GlobalConfigView>
       </div>

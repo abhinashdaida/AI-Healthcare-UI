@@ -3,8 +3,15 @@ import { Avatar, Divider, IconButton, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 
 import InputField from "../../components/common/InputField/InputField";
-import Button from "../../components/common/Button/Button";
 import AddressCard from "../../components/product/AddressCard/AddressCard";
+
+const EMPTY_USER = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  password: "",
+};
 
 const EMPTY_ADDRESS = {
   name: "",
@@ -46,7 +53,7 @@ const INITIAL_ADDRESSES = [
 ];
 
 /* =========================================================
-   Helper Components
+   MESSAGE
 ========================================================= */
 
 const Message = ({ message }) => {
@@ -54,7 +61,7 @@ const Message = ({ message }) => {
 
   return (
     <div
-      className={`mt-4 flex items-center gap-2 rounded-lg border px-4 py-3 text-sm shadow-sm ${
+      className={`mt-4 flex items-center gap-2 rounded-lg border px-4 py-3 text-sm ${
         message.type === "success"
           ? "border-emerald-200 bg-emerald-50 text-emerald-800"
           : "border-rose-200 bg-rose-50 text-rose-800"
@@ -74,13 +81,21 @@ const Message = ({ message }) => {
   );
 };
 
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
 const SectionHeader = ({ title, subtitle, action }) => {
   return (
     <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
       <div>
-        <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+        <h2 className="text-xl font-bold text-gray-900">
+          {title}
+        </h2>
 
-        <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
+        <p className="mt-1 text-sm text-gray-500">
+          {subtitle}
+        </p>
       </div>
 
       {action}
@@ -89,54 +104,46 @@ const SectionHeader = ({ title, subtitle, action }) => {
 };
 
 /* =========================================================
-   Profile Component
+   PROFILE
 ========================================================= */
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("profile");
 
   /* =========================================================
-     LOGGED-IN USER
+     GET LOGGED-IN USER
   ========================================================= */
 
   const getLoggedInUser = () => {
     try {
-      const storedUser = localStorage.getItem("loggedInUser");
+      const loggedInUser = localStorage.getItem("loggedInUser");
 
-      if (storedUser) {
-        return JSON.parse(storedUser);
+      if (loggedInUser) {
+        const parsedUser = JSON.parse(loggedInUser);
+
+        return {
+          ...EMPTY_USER,
+          ...parsedUser,
+        };
       }
 
-      // Fallback if your Sign In currently stores user under "user"
-      const user = localStorage.getItem("user");
-
-      if (user) {
-        return JSON.parse(user);
-      }
-
-      return {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-      };
+      return { ...EMPTY_USER };
     } catch (error) {
-      console.error("Unable to load logged-in user:", error);
+      console.error("Error loading logged-in user:", error);
 
-      return {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-      };
+      return { ...EMPTY_USER };
     }
   };
 
   const [profile, setProfile] = useState(getLoggedInUser);
-  const [profileForm, setProfileForm] = useState(getLoggedInUser);
+  const [profileForm, setProfileForm] =
+    useState(getLoggedInUser);
 
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [profileMessage, setProfileMessage] = useState({});
+  const [isEditingProfile, setIsEditingProfile] =
+    useState(false);
+
+  const [profileMessage, setProfileMessage] =
+    useState({});
 
   /* =========================================================
      PASSWORD
@@ -148,7 +155,8 @@ const Profile = () => {
     confirmPassword: "",
   });
 
-  const [passwordMessage, setPasswordMessage] = useState({});
+  const [passwordMessage, setPasswordMessage] =
+    useState({});
 
   /* =========================================================
      ADDRESSES
@@ -156,29 +164,42 @@ const Profile = () => {
 
   const [addresses, setAddresses] = useState(() => {
     try {
-      const savedAddresses = localStorage.getItem("addresses");
+      const savedAddresses =
+        localStorage.getItem("addresses");
 
-      return savedAddresses
-        ? JSON.parse(savedAddresses)
-        : INITIAL_ADDRESSES;
-    } catch {
+      if (savedAddresses) {
+        return JSON.parse(savedAddresses);
+      }
+
+      return INITIAL_ADDRESSES;
+    } catch (error) {
+      console.error("Error loading addresses:", error);
+
       return INITIAL_ADDRESSES;
     }
   });
 
-  const [selectedAddress, setSelectedAddress] = useState(null);
-  const [showAddressForm, setShowAddressForm] = useState(false);
-  const [editingAddressId, setEditingAddressId] = useState(null);
+  const [selectedAddress, setSelectedAddress] =
+    useState(null);
 
-  const [addressForm, setAddressForm] = useState({
-    ...EMPTY_ADDRESS,
-  });
+  const [showAddressForm, setShowAddressForm] =
+    useState(false);
 
-  const [addressMessage, setAddressMessage] = useState({});
+  const [editingAddressId, setEditingAddressId] =
+    useState(null);
+
+  const [addressForm, setAddressForm] =
+    useState({
+      ...EMPTY_ADDRESS,
+    });
+
+  const [addressMessage, setAddressMessage] =
+    useState({});
+
   const [deleteId, setDeleteId] = useState(null);
 
   /* =========================================================
-     LOAD USER WHEN PROFILE PAGE OPENS
+     LOAD USER
   ========================================================= */
 
   useEffect(() => {
@@ -193,18 +214,26 @@ const Profile = () => {
   ========================================================= */
 
   useEffect(() => {
-    localStorage.setItem("addresses", JSON.stringify(addresses));
+    localStorage.setItem(
+      "addresses",
+      JSON.stringify(addresses)
+    );
   }, [addresses]);
 
   /* =========================================================
-     LOAD SELECTED ADDRESS
+     SELECTED ADDRESS
   ========================================================= */
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("selectedAddress");
+    if (!addresses.length) {
+      setSelectedAddress(null);
+      localStorage.removeItem("selectedAddress");
+      return;
+    }
 
-      let fallback = addresses[0] || null;
+    try {
+      const saved =
+        localStorage.getItem("selectedAddress");
 
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -219,29 +248,40 @@ const Profile = () => {
         }
       }
 
-      if (fallback) {
-        setSelectedAddress(fallback.id);
+      const firstAddress = addresses[0];
 
-        localStorage.setItem(
-          "selectedAddress",
-          JSON.stringify(fallback)
-        );
-      }
+      setSelectedAddress(firstAddress.id);
+
+      localStorage.setItem(
+        "selectedAddress",
+        JSON.stringify(firstAddress)
+      );
     } catch (error) {
-      console.error("Invalid selected address:", error);
+      console.error(
+        "Error loading selected address:",
+        error
+      );
     }
   }, [addresses]);
 
   /* =========================================================
-     GENERIC HELPERS
+     GENERIC CHANGE
   ========================================================= */
 
-  const handleChange = (setter, field, value) => {
+  const handleChange = (
+    setter,
+    field,
+    value
+  ) => {
     setter((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
+
+  /* =========================================================
+     CLEAR MESSAGES
+  ========================================================= */
 
   const clearMessages = () => {
     setProfileMessage({});
@@ -250,22 +290,24 @@ const Profile = () => {
   };
 
   /* =========================================================
-     PROFILE HANDLERS
+     SAVE PROFILE
   ========================================================= */
 
   const handleSaveProfile = () => {
-    const updated = Object.fromEntries(
-      Object.entries(profileForm).map(([key, value]) => [
-        key,
-        typeof value === "string" ? value.trim() : value,
-      ])
-    );
+    const updatedUser = {
+      ...profile,
+      ...profileForm,
+      firstName: profileForm.firstName?.trim() || "",
+      lastName: profileForm.lastName?.trim() || "",
+      email: profileForm.email?.trim() || "",
+      phone: profileForm.phone?.trim() || "",
+    };
 
     if (
-      !updated.firstName ||
-      !updated.lastName ||
-      !updated.email ||
-      !updated.phone
+      !updatedUser.firstName ||
+      !updatedUser.lastName ||
+      !updatedUser.email ||
+      !updatedUser.phone
     ) {
       setProfileMessage({
         type: "error",
@@ -275,7 +317,11 @@ const Profile = () => {
       return;
     }
 
-    if (!updated.email.includes("@")) {
+    if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        updatedUser.email
+      )
+    ) {
       setProfileMessage({
         type: "error",
         text: "Please enter a valid email address.",
@@ -284,21 +330,17 @@ const Profile = () => {
       return;
     }
 
-    setProfile(updated);
-    setProfileForm(updated);
+    setProfile(updatedUser);
+    setProfileForm(updatedUser);
 
-    /*
-      Update logged-in user in localStorage
+    /* IMPORTANT:
+       Save updated user using same key used by Sign In
     */
+
     localStorage.setItem(
       "loggedInUser",
-      JSON.stringify(updated)
+      JSON.stringify(updatedUser)
     );
-
-    /*
-      Also update "user" if your application uses it
-    */
-    localStorage.setItem("user", JSON.stringify(updated));
 
     setIsEditingProfile(false);
 
@@ -309,7 +351,7 @@ const Profile = () => {
   };
 
   /* =========================================================
-     PASSWORD HANDLER
+     UPDATE PASSWORD
   ========================================================= */
 
   const handleUpdatePassword = () => {
@@ -330,6 +372,19 @@ const Profile = () => {
       });
 
       return;
+    }
+
+    /* Check current password */
+
+    if (profile.password) {
+      if (currentPassword !== profile.password) {
+        setPasswordMessage({
+          type: "error",
+          text: "Current password is incorrect.",
+        });
+
+        return;
+      }
     }
 
     if (newPassword.length < 6) {
@@ -359,20 +414,34 @@ const Profile = () => {
       return;
     }
 
-    setPasswordMessage({
-      type: "success",
-      text: "Password updated successfully.",
-    });
+    const updatedUser = {
+      ...profile,
+      password: newPassword,
+    };
+
+    setProfile(updatedUser);
+
+    setProfileForm(updatedUser);
+
+    localStorage.setItem(
+      "loggedInUser",
+      JSON.stringify(updatedUser)
+    );
 
     setPasswordForm({
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",
     });
+
+    setPasswordMessage({
+      type: "success",
+      text: "Password updated successfully.",
+    });
   };
 
   /* =========================================================
-     ADDRESS HANDLERS
+     SELECT ADDRESS
   ========================================================= */
 
   const handleSelectAddress = (address) => {
@@ -389,25 +458,35 @@ const Profile = () => {
     });
   };
 
+  /* =========================================================
+     OPEN ADDRESS FORM
+  ========================================================= */
+
   const handleOpenAddress = (address = null) => {
     setAddressMessage({});
     setDeleteId(null);
 
-    setEditingAddressId(address?.id ?? null);
+    if (address) {
+      setEditingAddressId(address.id);
 
-    setAddressForm(
-      address
-        ? {
-            ...EMPTY_ADDRESS,
-            ...address,
-          }
-        : {
-            ...EMPTY_ADDRESS,
-          }
-    );
+      setAddressForm({
+        ...EMPTY_ADDRESS,
+        ...address,
+      });
+    } else {
+      setEditingAddressId(null);
+
+      setAddressForm({
+        ...EMPTY_ADDRESS,
+      });
+    }
 
     setShowAddressForm(true);
   };
+
+  /* =========================================================
+     SAVE ADDRESS
+  ========================================================= */
 
   const handleSaveAddress = () => {
     const requiredFields = [
@@ -419,11 +498,12 @@ const Profile = () => {
       "pincode",
     ];
 
-    const hasEmptyField = requiredFields.some(
-      (field) => !addressForm[field]?.trim()
+    const emptyField = requiredFields.find(
+      (field) =>
+        !String(addressForm[field] || "").trim()
     );
 
-    if (hasEmptyField) {
+    if (emptyField) {
       setAddressMessage({
         type: "error",
         text: "Please fill all required address fields.",
@@ -432,7 +512,15 @@ const Profile = () => {
       return;
     }
 
-    if (addressForm.phone.trim().length < 10) {
+    const phone = String(
+      addressForm.phone || ""
+    ).trim();
+
+    const pincode = String(
+      addressForm.pincode || ""
+    ).trim();
+
+    if (phone.length < 10) {
       setAddressMessage({
         type: "error",
         text: "Please enter a valid phone number.",
@@ -441,7 +529,7 @@ const Profile = () => {
       return;
     }
 
-    if (addressForm.pincode.trim().length < 6) {
+    if (pincode.length < 6) {
       setAddressMessage({
         type: "error",
         text: "Please enter a valid pincode.",
@@ -450,12 +538,12 @@ const Profile = () => {
       return;
     }
 
-    /* EDIT ADDRESS */
+    /* EDIT */
 
     if (editingAddressId !== null) {
       const updatedAddress = {
-        id: editingAddressId,
         ...addressForm,
+        id: editingAddressId,
       };
 
       setAddresses((prev) =>
@@ -479,12 +567,12 @@ const Profile = () => {
       });
     }
 
-    /* ADD NEW ADDRESS */
+    /* ADD */
 
     else {
       const newAddress = {
-        id: Date.now(),
         ...addressForm,
+        id: Date.now(),
       };
 
       setAddresses((prev) => [
@@ -501,7 +589,7 @@ const Profile = () => {
 
       setAddressMessage({
         type: "success",
-        text: "Address added successfully and selected.",
+        text: "Address added successfully.",
       });
     }
 
@@ -523,31 +611,32 @@ const Profile = () => {
 
       setAddressMessage({
         type: "error",
-        text: "Click Delete again to confirm permanent removal.",
+        text: "Click Delete again to confirm.",
       });
 
       return;
     }
 
-    const remaining = addresses.filter(
+    const remainingAddresses = addresses.filter(
       (address) => address.id !== id
     );
 
-    setAddresses(remaining);
+    setAddresses(remainingAddresses);
 
     if (selectedAddress === id) {
-      const nextSelected = remaining[0] ?? null;
+      if (remainingAddresses.length > 0) {
+        const nextAddress =
+          remainingAddresses[0];
 
-      setSelectedAddress(
-        nextSelected?.id ?? null
-      );
+        setSelectedAddress(nextAddress.id);
 
-      if (nextSelected) {
         localStorage.setItem(
           "selectedAddress",
-          JSON.stringify(nextSelected)
+          JSON.stringify(nextAddress)
         );
       } else {
+        setSelectedAddress(null);
+
         localStorage.removeItem(
           "selectedAddress"
         );
@@ -563,7 +652,7 @@ const Profile = () => {
   };
 
   /* =========================================================
-     INPUT RENDERER
+     INPUT
   ========================================================= */
 
   const renderInput = (
@@ -592,16 +681,24 @@ const Profile = () => {
   };
 
   /* =========================================================
-     LOGGED-IN USER DISPLAY VALUES
+     USER DETAILS
   ========================================================= */
 
-  const firstName = profile?.firstName || "";
-  const lastName = profile?.lastName || "";
-  const fullName =
-    `${firstName} ${lastName}`.trim() || "User";
+  const firstName =
+    profile?.firstName || "";
 
-  const email = profile?.email || "";
-  const phone = profile?.phone || "";
+  const lastName =
+    profile?.lastName || "";
+
+  const fullName =
+    `${firstName} ${lastName}`.trim() ||
+    "User";
+
+  const email =
+    profile?.email || "";
+
+  const phone =
+    profile?.phone || "";
 
   /* =========================================================
      UI
@@ -611,7 +708,7 @@ const Profile = () => {
     <div className="min-h-screen bg-slate-50/60 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* PAGE HEADER */}
+        {/* HEADER */}
 
         <div className="mb-8">
           <Typography
@@ -625,16 +722,14 @@ const Profile = () => {
           </Typography>
 
           <p className="mt-1 text-sm text-slate-500">
-            Manage your profile info, security settings,
-            and saved addresses
+            Manage your profile info, security
+            settings, and saved addresses
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
 
-          {/* =================================================
-              SIDEBAR
-          ================================================= */}
+          {/* SIDEBAR */}
 
           <div className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 
@@ -651,7 +746,9 @@ const Profile = () => {
                 }}
               >
                 {firstName
-                  ? firstName.charAt(0).toUpperCase()
+                  ? firstName
+                      .charAt(0)
+                      .toUpperCase()
                   : "U"}
               </Avatar>
 
@@ -662,6 +759,12 @@ const Profile = () => {
               <p className="mt-0.5 text-xs text-slate-500">
                 {email || "No email available"}
               </p>
+
+              {phone && (
+                <p className="mt-1 text-xs text-slate-500">
+                  {phone}
+                </p>
+              )}
             </div>
 
             <Divider sx={{ my: 3 }} />
@@ -684,37 +787,38 @@ const Profile = () => {
                   "mdi:map-marker-outline",
                   "Saved Addresses",
                 ],
-              ].map(([key, icon, label]) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => {
-                    setActiveSection(key);
-                    clearMessages();
-                  }}
-                  className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
-                    activeSection === key
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
-                  }`}
-                >
-                  <Icon icon={icon} width="20" />
+              ].map(
+                ([key, icon, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      setActiveSection(key);
+                      clearMessages();
+                    }}
+                    className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
+                      activeSection === key
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    <Icon
+                      icon={icon}
+                      width="20"
+                    />
 
-                  {label}
-                </button>
-              ))}
+                    {label}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
-          {/* =================================================
-              MAIN CONTENT
-          ================================================= */}
+          {/* MAIN */}
 
           <div className="lg:col-span-3">
 
-            {/* =================================================
-                PROFILE
-            ================================================= */}
+            {/* PROFILE */}
 
             {activeSection === "profile" && (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -727,11 +831,17 @@ const Profile = () => {
                       <button
                         type="button"
                         onClick={() => {
-                          setProfileForm(profile);
+                          setProfileForm({
+                            ...profile,
+                          });
+
                           setProfileMessage({});
-                          setIsEditingProfile(true);
+
+                          setIsEditingProfile(
+                            true
+                          );
                         }}
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-100"
+                        className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-100"
                       >
                         <Icon
                           icon="mdi:pencil-outline"
@@ -747,33 +857,51 @@ const Profile = () => {
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 
                   {[
-                    ["First Name", "firstName"],
-                    ["Last Name", "lastName"],
-                    ["Email Address", "email"],
-                    ["Phone Number", "phone"],
-                  ].map(([label, field]) =>
-                    renderInput(
-                      label,
-                      field,
-                      profileForm,
-                      setProfileForm,
-                      {
-                        disabled: !isEditingProfile,
-                      }
-                    )
+                    [
+                      "First Name",
+                      "firstName",
+                    ],
+                    [
+                      "Last Name",
+                      "lastName",
+                    ],
+                    [
+                      "Email Address",
+                      "email",
+                    ],
+                    [
+                      "Phone Number",
+                      "phone",
+                    ],
+                  ].map(
+                    ([label, field]) =>
+                      renderInput(
+                        label,
+                        field,
+                        profileForm,
+                        setProfileForm,
+                        {
+                          disabled:
+                            !isEditingProfile,
+                        }
+                      )
                   )}
 
                 </div>
 
-                <Message message={profileMessage} />
+                <Message
+                  message={profileMessage}
+                />
 
                 {isEditingProfile && (
                   <div className="mt-6 flex gap-3">
 
                     <button
                       type="button"
-                      onClick={handleSaveProfile}
-                      className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-blue-700"
+                      onClick={
+                        handleSaveProfile
+                      }
+                      className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
                     >
                       <Icon
                         icon="mdi:content-save-outline"
@@ -786,17 +914,18 @@ const Profile = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        setProfileForm(profile);
-                        setIsEditingProfile(false);
+                        setProfileForm({
+                          ...profile,
+                        });
+
+                        setIsEditingProfile(
+                          false
+                        );
+
                         setProfileMessage({});
                       }}
-                      className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200"
+                      className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-200"
                     >
-                      <Icon
-                        icon="mdi:close"
-                        width="18"
-                      />
-
                       Cancel
                     </button>
 
@@ -805,9 +934,7 @@ const Profile = () => {
               </div>
             )}
 
-            {/* =================================================
-                SECURITY
-            ================================================= */}
+            {/* SECURITY */}
 
             {activeSection === "settings" && (
               <div className="space-y-6">
@@ -834,28 +961,33 @@ const Profile = () => {
                         "Confirm New Password",
                         "confirmPassword",
                       ],
-                    ].map(([label, field]) =>
-                      renderInput(
-                        label,
-                        field,
-                        passwordForm,
-                        setPasswordForm,
-                        {
-                          type: "password",
-                        }
-                      )
+                    ].map(
+                      ([label, field]) =>
+                        renderInput(
+                          label,
+                          field,
+                          passwordForm,
+                          setPasswordForm,
+                          {
+                            type: "password",
+                          }
+                        )
                     )}
 
                   </div>
 
-                  <Message message={passwordMessage} />
+                  <Message
+                    message={passwordMessage}
+                  />
 
                   <div className="mt-6">
 
                     <button
                       type="button"
-                      onClick={handleUpdatePassword}
-                      className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-slate-800"
+                      onClick={
+                        handleUpdatePassword
+                      }
+                      className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-slate-800"
                     >
                       <Icon
                         icon="mdi:lock-check-outline"
@@ -876,49 +1008,50 @@ const Profile = () => {
                     Preferences
                   </h3>
 
-                  {[
-                    [
-                      "Email Notifications",
-                      "Receive order updates and invoices via email",
-                      true,
-                    ],
-                    [
-                      "Marketing & Promotions",
-                      "Get early access to sales and exclusive offers",
-                      false,
-                    ],
-                  ].map(
-                    ([title, text, checked]) => (
-                      <div
-                        key={title}
-                        className="flex items-center justify-between border-b border-slate-100 py-4 last:border-0 last:pb-0"
-                      >
-                        <div>
-                          <p className="text-sm font-semibold text-slate-800">
-                            {title}
-                          </p>
+                  <div className="flex items-center justify-between border-b border-slate-100 py-4">
 
-                          <p className="mt-0.5 text-xs text-slate-500">
-                            {text}
-                          </p>
-                        </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">
+                        Email Notifications
+                      </p>
 
-                        <input
-                          type="checkbox"
-                          defaultChecked={checked}
-                          className="h-4 w-4 cursor-pointer rounded accent-blue-600"
-                        />
-                      </div>
-                    )
-                  )}
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Receive order updates and invoices
+                        via email
+                      </p>
+                    </div>
+
+                    <input
+                      type="checkbox"
+                      defaultChecked
+                      className="h-4 w-4 cursor-pointer accent-blue-600"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between py-4">
+
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">
+                        Marketing & Promotions
+                      </p>
+
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Get early access to sales and
+                        exclusive offers
+                      </p>
+                    </div>
+
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 cursor-pointer accent-blue-600"
+                    />
+                  </div>
 
                 </div>
               </div>
             )}
 
-            {/* =================================================
-                ADDRESSES
-            ================================================= */}
+            {/* ADDRESSES */}
 
             {activeSection === "addresses" && (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -933,7 +1066,7 @@ const Profile = () => {
                         onClick={() =>
                           handleOpenAddress()
                         }
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
+                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
                       >
                         <Icon
                           icon="mdi:plus"
@@ -946,9 +1079,11 @@ const Profile = () => {
                   }
                 />
 
-                <Message message={addressMessage} />
+                <Message
+                  message={addressMessage}
+                />
 
-                {/* ADDRESS FORM */}
+                {/* FORM */}
 
                 {showAddressForm ? (
                   <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/30 p-6">
@@ -957,28 +1092,40 @@ const Profile = () => {
 
                       <div>
                         <h3 className="text-lg font-bold text-slate-900">
-                          {editingAddressId !== null
+                          {editingAddressId !==
+                          null
                             ? "Edit Address"
                             : "Add New Address"}
                         </h3>
 
                         <p className="mt-1 text-xs text-slate-500">
-                          Provide accurate details for seamless
-                          deliveries
+                          Provide accurate details for
+                          seamless deliveries
                         </p>
                       </div>
 
                       <IconButton
                         size="small"
-                        onClick={() =>
-                          setShowAddressForm(false)
-                        }
+                        onClick={() => {
+                          setShowAddressForm(
+                            false
+                          );
+
+                          setEditingAddressId(
+                            null
+                          );
+
+                          setAddressForm({
+                            ...EMPTY_ADDRESS,
+                          });
+                        }}
                       >
                         <Icon
                           icon="mdi:close"
                           width="20"
                         />
                       </IconButton>
+
                     </div>
 
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -986,24 +1133,29 @@ const Profile = () => {
                       {[
                         ["Full Name", "name"],
                         [
-                          "Address Tag (e.g. Home, Office)",
+                          "Address Tag",
                           "type",
                         ],
-                        ["Phone Number", "phone"],
+                        [
+                          "Phone Number",
+                          "phone",
+                        ],
                         ["Country", "country"],
                         ["City", "city"],
                         ["State", "state"],
                         ["Pincode", "pincode"],
-                      ].map(([label, field]) =>
-                        renderInput(
-                          label,
-                          field,
-                          addressForm,
-                          setAddressForm
-                        )
+                      ].map(
+                        ([label, field]) =>
+                          renderInput(
+                            label,
+                            field,
+                            addressForm,
+                            setAddressForm
+                          )
                       )}
 
                       <div className="md:col-span-2">
+
                         {renderInput(
                           "Address Line 1",
                           "addressLine1",
@@ -1014,9 +1166,11 @@ const Profile = () => {
                               "House/Flat number, Street name",
                           }
                         )}
+
                       </div>
 
                       <div className="md:col-span-2">
+
                         {renderInput(
                           "Address Line 2",
                           "addressLine2",
@@ -1027,42 +1181,49 @@ const Profile = () => {
                               "Apartment name, Landmark (Optional)",
                           }
                         )}
+
                       </div>
+
                     </div>
 
                     <div className="mt-6 flex gap-3">
 
                       <button
                         type="button"
-                        onClick={handleSaveAddress}
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-blue-700"
+                        onClick={
+                          handleSaveAddress
+                        }
+                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
                       >
                         <Icon
                           icon={
-                            editingAddressId !== null
+                            editingAddressId !==
+                            null
                               ? "mdi:check-bold"
                               : "mdi:content-save-outline"
                           }
                           width="18"
                         />
 
-                        {editingAddressId !== null
+                        {editingAddressId !==
+                        null
                           ? "Update Address"
                           : "Save Address"}
                       </button>
 
                       <button
                         type="button"
-                        onClick={() =>
-                          setShowAddressForm(false)
-                        }
-                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50"
-                      >
-                        <Icon
-                          icon="mdi:close"
-                          width="18"
-                        />
+                        onClick={() => {
+                          setShowAddressForm(
+                            false
+                          );
 
+                          setEditingAddressId(
+                            null
+                          );
+                        }}
+                        className="rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+                      >
                         Cancel
                       </button>
 
@@ -1070,7 +1231,7 @@ const Profile = () => {
                   </div>
                 ) : addresses.length === 0 ? (
 
-                  /* NO ADDRESSES */
+                  /* EMPTY */
 
                   <div className="mt-6 rounded-xl border-2 border-dashed border-slate-200 p-12 text-center">
 
@@ -1085,106 +1246,102 @@ const Profile = () => {
                     </p>
 
                     <p className="mt-1 text-xs text-slate-500">
-                      Add an address to speed up your
-                      checkout process.
+                      Add an address to speed up
+                      checkout.
                     </p>
 
-                    <div className="mt-5">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleOpenAddress()
+                      }
+                      className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                    >
+                      <Icon
+                        icon="mdi:plus"
+                        width="18"
+                      />
 
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleOpenAddress()
-                        }
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
-                      >
-                        <Icon
-                          icon="mdi:plus"
-                          width="18"
-                        />
+                      Add First Address
+                    </button>
 
-                        Add First Address
-                      </button>
-
-                    </div>
                   </div>
 
                 ) : (
 
-                  /* ADDRESS LIST */
+                  /* LIST */
 
                   <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
 
-                    {addresses.map((address) => (
-                      <div
-                        key={address.id}
-                        className="group relative flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 transition-all hover:border-slate-300 hover:shadow-md"
-                      >
+                    {addresses.map(
+                      (address) => (
+                        <div
+                          key={address.id}
+                          className="rounded-xl border border-slate-200 bg-white p-5 hover:shadow-md"
+                        >
 
-                        <AddressCard
-                          address={address}
-                          selected={
-                            selectedAddress ===
-                            address.id
-                          }
-                          onSelect={() =>
-                            handleSelectAddress(
-                              address
-                            )
-                          }
-                        />
-
-                        {/* ACTION BUTTONS */}
-
-                        <div className="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-3">
-
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
-
-                              handleOpenAddress(
+                          <AddressCard
+                            address={address}
+                            selected={
+                              selectedAddress ===
+                              address.id
+                            }
+                            onSelect={() =>
+                              handleSelectAddress(
                                 address
-                              );
-                            }}
-                            className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-600 transition-colors hover:bg-blue-100"
-                          >
-                            <Icon
-                              icon="mdi:pencil"
-                              width="14"
-                            />
+                              )
+                            }
+                          />
 
-                            Edit
-                          </button>
+                          <div className="mt-4 flex justify-end gap-2 border-t border-slate-100 pt-3">
 
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleOpenAddress(
+                                  address
+                                )
+                              }
+                              className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-600 hover:bg-blue-100"
+                            >
+                              <Icon
+                                icon="mdi:pencil"
+                                width="14"
+                              />
 
-                              handleDeleteAddress(
-                                address.id
-                              );
-                            }}
-                            className="inline-flex items-center gap-1 rounded-md bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-100"
-                          >
-                            <Icon
-                              icon="mdi:trash-can-outline"
-                              width="14"
-                            />
+                              Edit
+                            </button>
 
-                            Delete
-                          </button>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleDeleteAddress(
+                                  address.id
+                                )
+                              }
+                              className="inline-flex items-center gap-1 rounded-md bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-100"
+                            >
+                              <Icon
+                                icon="mdi:trash-can-outline"
+                                width="14"
+                              />
+
+                              {deleteId ===
+                              address.id
+                                ? "Confirm Delete"
+                                : "Delete"}
+                            </button>
+
+                          </div>
 
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
 
                   </div>
                 )}
               </div>
             )}
-
           </div>
         </div>
       </div>
