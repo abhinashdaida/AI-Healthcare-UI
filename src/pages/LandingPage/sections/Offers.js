@@ -23,7 +23,7 @@ const Offers = () => {
     },
     {
       image:
-        "https://images.unsplash.com/photo-1506629905607-d9c297d1d6ee?auto=format&fit=crop&w=700&q=90",
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=90",
       discount: "25% OFF",
     },
   ];
