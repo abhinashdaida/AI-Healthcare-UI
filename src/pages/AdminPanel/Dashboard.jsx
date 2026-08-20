@@ -4,10 +4,13 @@ import React from "react";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <Sidebar />
       <Header />
-      <h1>Dashboard</h1>
+
+      <main className="ml-[336px] pt-[80px] p-6">
+        <h1 className="text-3xl font-bold text-black">Dashboard</h1>
+      </main>
     </div>
   );
 };

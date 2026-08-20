@@ -1,7 +1,6 @@
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 import React from "react";
-
 const Product = () => {
   return (
     <div>

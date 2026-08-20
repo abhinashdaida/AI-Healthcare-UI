@@ -1,30 +1,50 @@
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <header className="fixed top-0 right-0  left-[250px] z-50 h-[75px] bg-white border-b border-gray-200">
-      <div className="h-full flex items-center justify-end px-6">
+  const navigate = useNavigate();
 
+  // Get User Data From Session Storage
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  // username
+  const username = user?.username || "User";
+
+  // Get Initials
+  const initials = username
+    .split(" ")
+    .map((name) => name.charAt(0))
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const handleLogout = () => {
+    // remove the session stroage
+    sessionStorage.removeItem("user");
+    // GO TO LOGIN PAGE
+    navigate("/");
+  };
+
+  return (
+    <header className="fixed top-0 right-0 left-[250px] z-50 h-[75px] border-b border-gray-200 bg-white">
+      <div className="flex h-full items-center justify-end px-6">
         {/* Profile Wrapper */}
         <div className="relative">
-
           {/* Profile Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center gap-3 focus:outline-none"
           >
             {/* Avatar */}
-            <div className="w-10 h-10 rounded-full bg-purple-700 text-white flex items-center justify-center text-sm font-medium">
-              KK
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-700 text-sm font-medium text-white">
+              {initials}
             </div>
 
             {/* Name */}
-            <span className="text-base text-gray-700">
-                Karthick
-            </span>
+            <span className="text-base text-gray-700">{username}</span>
 
             {/* Arrow */}
             <ChevronDown
@@ -37,13 +57,12 @@ const Header = () => {
 
           {/* Dropdown */}
           {isOpen && (
-            <div className="absolute right-0 top-12 w-[180px] bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-
+            <div className="absolute right-0 top-12 w-[180px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
               {/* Profile */}
               <button
-                className="w-full text-left px-5 py-4 text-sm text-gray-700 hover:bg-gray-50"
+                className="w-full px-5 py-4 text-left text-sm text-gray-700 hover:bg-gray-50"
                 onClick={() => {
-                  console.log("Profile clicked");
+                  navigate("/settings");
                   setIsOpen(false);
                 }}
               >
@@ -51,24 +70,21 @@ const Header = () => {
               </button>
 
               {/* Divider */}
-              <div className="border-t border-gray-200"></div>
+              <div className="border-t border-gray-200" />
 
               {/* Logout */}
               <button
-                className="w-full text-left px-5 py-4 text-sm text-red-500 hover:bg-gray-50"
+                className="w-full px-5 py-4 text-left text-sm text-red-500 hover:bg-gray-50"
                 onClick={() => {
-                  console.log("Logout clicked");
+                  handleLogout();
                   setIsOpen(false);
                 }}
               >
                 Logout
               </button>
-
             </div>
           )}
-
         </div>
-
       </div>
     </header>
   );
