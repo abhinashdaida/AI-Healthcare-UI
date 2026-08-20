@@ -31,7 +31,7 @@ const benefits = [
 
 const BenefitsSection = () => {
   return (
-    <section className="border-b border-gray-100 bg-white py-6">
+    <section id="packages" className="border-b border-gray-100 bg-white py-6">
 
       <div className="mx-auto grid max-w-[1000px] grid-cols-2 gap-6 px-5 md:grid-cols-4">
 
@@ -52,11 +52,11 @@ const BenefitsSection = () => {
               />
 
               <div>
-                <h4 className="text-[8px] font-medium">
+                <h4 className="text-[12px] font-medium">
                   {item.title}
                 </h4>
 
-                <p className="mt-1 text-[7px] text-gray-400">
+                <p className="mt-1 text-[10px] text-gray-400">
                   {item.description}
                 </p>
               </div>

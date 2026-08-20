@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const HeroSection = () => {
   const navigate = useNavigate();
   return (
-    <section id="home" className="bg-white px-4 pb-10 md:px-8">
+    <section className="bg-white pt-20 px-10 pb-10 md:px-8">
 
       <div className="mx-auto max-w-[1180px]">
 
@@ -84,24 +84,7 @@ const HeroSection = () => {
         </div>
 
         {/* Floating icons */}
-        <div className="mt-3 flex justify-end gap-2">
-
-          <IconButton
-            size="small"
-            className="!rounded-[3px] !bg-black !text-white"
-          >
-            <ShoppingBagOutlined sx={{ fontSize: 15 }} />
-          </IconButton>
-
-          <IconButton
-            size="small"
-            className="!h-8 !w-8 !border !border-gray-300"
-          >
-            <KeyboardArrowUp sx={{ fontSize: 15 }} />
-          </IconButton>
-
-        </div>
-
+        
       </div>
     </section>
   );
