@@ -14,7 +14,6 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <ScrollToTop />
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>

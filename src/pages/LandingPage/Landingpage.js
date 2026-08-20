@@ -1,44 +1,43 @@
 import React from "react";
-import Header from "../LandingPage/sections/Navbar";
+import Header_1 from "@/components/common/Header_1/Header_1";
 import HeroSection from "../LandingPage/sections/herosection";
-import BrandStrip from "../LandingPage/sections/brandstrip";
-import DealsSection from "../LandingPage/sections/Dealsection";
-import NewArrivalsSection from "../LandingPage/sections/Newarrivals";
-import CollectionBanner from "../LandingPage/sections/CollectionBrand";
+import Categories from "./sections/Categories";
+import NewArrivalsSection from "./sections/Newarrivals";
+import FeaturedProducts from "./sections/featuredProduct";
+import BestSellers from "./sections/BestSellers"
 import BenefitsSection from "../LandingPage/sections/BenefitsSection";
-import InstagramSection from "../LandingPage/sections/Instragramsection";
 import TestimonialsSection from "../LandingPage/sections/Testimonial";
+import Offers from "./sections/Offers";
 import NewsletterSection from "../LandingPage/sections/NewsletterSection";
-import Footer from "../LandingPage/sections/Footer";
+import Footer from "@/components/common/Footer/Footer";
 
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
 
-      <Header />
+      <Header_1 />
 
-      <main>
 
         {/* 01 - Hero */}
         <HeroSection />
 
         {/* 02 - Brand Logos */}
-        <BrandStrip />
+        <Categories />
 
         {/* 03 - Deals */}
-        <DealsSection />
+        < FeaturedProducts/>
 
         {/* 04 - New Arrivals */}
         <NewArrivalsSection />
 
         {/* 05 - Men's Collection */}
-        <CollectionBanner />
+        < BestSellers/>
 
         {/* 06 - Benefits */}
         <BenefitsSection />
 
         {/* 07 - Instagram */}
-        <InstagramSection />
+        <Offers />
 
         {/* 08 - Testimonials */}
         <TestimonialsSection />
@@ -46,7 +45,6 @@ const LandingPage = () => {
         {/* 09 - Newsletter */}
         <NewsletterSection />
 
-      </main>
 
       <Footer />
 

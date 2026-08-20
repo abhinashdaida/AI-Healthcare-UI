@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const HeroSection = () => {
   const navigate = useNavigate();
   return (
-    <section id="home" className="bg-white px-4 pb-10 md:px-8">
+    <section className="bg-white pt-20 px-10 pb-10 md:px-8">
 
       <div className="mx-auto max-w-[1180px]">
 

@@ -52,11 +52,11 @@ const BenefitsSection = () => {
               />
 
               <div>
-                <h4 className="text-[8px] font-medium">
+                <h4 className="text-[12px] font-medium">
                   {item.title}
                 </h4>
 
-                <p className="mt-1 text-[7px] text-gray-400">
+                <p className="mt-1 text-[10px] text-gray-400">
                   {item.description}
                 </p>
               </div>
