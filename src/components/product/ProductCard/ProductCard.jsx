@@ -12,23 +12,8 @@ import Button from "../../common/Button/Button";
  * Works flexibly across Home Page, Landing Page, New Arrivals, Product Listing, Search Results, Cart, and Wishlist.
  * 
  * Props:
- * @param {Object} product - Product data object (Optional if direct props are passed)
- * @param {string|number} id - Product ID
- * @param {string} image - Image URL (or imageUrl / img)
- * @param {string} imageUrl - Alternative image URL prop
- * @param {string} name - Product Name (or title)
- * @param {string} title - Alternative title prop
- * @param {string} category - Category / Brand name
- * @param {string} brand - Brand name
- * @param {number|string} price - Sale price (number 2499 or string "$95.50" / "₹2,499")
- * @param {number|string} originalPrice - Regular price before discount
- * @param {number} discount - Discount percentage
- * @param {number} rating - Star rating (0-5)
- * @param {number} reviewCount - Review count
- * @param {string} badge - Badge text ('Best Seller', 'Sale', 'New', 'Trending', 'Limited')
- * @param {boolean} inStock - Stock availability (Default: true)
- * @param {string} variant - 'standard' | 'minimal' | 'horizontal' (Default: 'standard')
- * @param {boolean} isWishlisted - Wishlist active state
+ * @param {Object} product - Product data object
+ * @param {function} onClick - Callback when card/image/title is clicked
  * @param {function} onAddToCart - Add to Cart click callback: (product) => void
  * @param {function} onWishlist - Wishlist toggle callback: (productId, isLiked, product) => void
  * @param {function} onBuyNow - Optional Buy Now callback: (product) => void
@@ -53,6 +38,7 @@ const ProductCard = ({
   inStock = true,
   variant = "standard",
   isWishlisted = false,
+  onClick,
   onAddToCart,
   onWishlist,
   onBuyNow,
@@ -62,42 +48,88 @@ const ProductCard = ({
   // Merge object data and direct props for maximum adaptability
   const productData = {
     id: id || product.id,
-    image: image || imageUrl || img || product.image || product.imageUrl || product.img || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
+    image:
+      image ||
+      imageUrl ||
+      img ||
+      product.image ||
+      product.imageUrl ||
+      product.img ||
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
     name: name || title || product.name || product.title || "Product Item",
     category: category || brand || product.category || product.brand || "",
-    price: price !== undefined ? price : (product.price !== undefined ? product.price : 0),
-    originalPrice: originalPrice !== undefined ? originalPrice : product.originalPrice,
+    price:
+      price !== undefined
+        ? price
+        : product.price !== undefined
+        ? product.price
+        : 0,
+    originalPrice:
+      originalPrice !== undefined ? originalPrice : product.originalPrice,
     discount: discount !== undefined ? discount : product.discount,
-    rating: rating !== undefined ? rating : (product.rating !== undefined ? product.rating : 4.5),
-    reviewCount: reviewCount !== undefined ? reviewCount : product.reviewCount,
+    rating:
+      rating !== undefined
+        ? rating
+        : product.rating !== undefined
+        ? product.rating
+        : 4.5,
+    reviewCount:
+      reviewCount !== undefined ? reviewCount : product.reviewCount,
     badge: badge || product.badge,
-    inStock: inStock !== undefined ? inStock : (product.inStock !== undefined ? product.inStock : true)
+    inStock:
+      inStock !== undefined
+        ? inStock
+        : product.inStock !== undefined
+        ? product.inStock
+        : true,
+    ...product
   };
 
   // Badge color mapping
   const badgeStyles = {
-    "Sale": "bg-red-500 text-white",
-    "New": "bg-emerald-500 text-white",
+    Sale: "bg-red-500 text-white",
+    New: "bg-emerald-500 text-white",
     "Best Seller": "bg-amber-500 text-white",
-    "Trending": "bg-indigo-600 text-white",
-    "Limited": "bg-purple-600 text-white"
+    Trending: "bg-indigo-600 text-white",
+    Limited: "bg-purple-600 text-white"
   };
 
-  const badgeClass = productData.badge ? (badgeStyles[productData.badge] || "bg-neutral-900 text-white") : "";
+  const badgeClass = productData.badge
+    ? badgeStyles[productData.badge] || "bg-neutral-900 text-white"
+    : "";
+
+  const handleProductNavigate = (e) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick(productData);
+    } else if (productData.id) {
+      window.location.href = `/product/${productData.id}`;
+    }
+  };
 
   // Helper for numeric or string price rendering
   const renderPrice = () => {
-    if (typeof productData.price === "string" && isNaN(Number(productData.price))) {
+    if (
+      typeof productData.price === "string" &&
+      isNaN(Number(productData.price.replace(/[^0-9.-]+/g, "")))
+    ) {
       return (
         <span className="text-sm sm:text-base font-bold text-neutral-900">
           {productData.price}
         </span>
       );
     }
+    const cleanPrice =
+      typeof productData.price === "string"
+        ? Number(productData.price.replace(/[^0-9.-]+/g, ""))
+        : Number(productData.price) || 0;
+
     return (
       <ProductPrice
-        price={Number(productData.price) || 0}
-        originalPrice={productData.originalPrice ? Number(productData.originalPrice) : undefined}
+        price={cleanPrice}
+        originalPrice={
+          productData.originalPrice ? Number(productData.originalPrice) : undefined
+        }
         discount={productData.discount}
       />
     );
@@ -110,7 +142,10 @@ const ProductCard = ({
         className={`group relative flex items-center w-full bg-white border border-neutral-200 rounded-lg p-3 sm:p-4 gap-4 transition-all duration-200 hover:shadow-md ${className}`}
         {...rest}
       >
-        <div className="relative h-24 w-24 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-md bg-neutral-100">
+        <div
+          onClick={handleProductNavigate}
+          className="relative h-24 w-24 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-md bg-neutral-100 cursor-pointer"
+        >
           <img
             src={productData.image}
             alt={productData.name}
@@ -124,7 +159,10 @@ const ProductCard = ({
               {productData.category}
             </span>
           )}
-          <h4 className="text-sm font-semibold text-neutral-900 line-clamp-1 group-hover:text-black">
+          <h4
+            onClick={handleProductNavigate}
+            className="text-sm font-semibold text-neutral-900 line-clamp-1 group-hover:text-black cursor-pointer hover:underline"
+          >
             {productData.name}
           </h4>
           <div className="mt-1">
@@ -153,7 +191,10 @@ const ProductCard = ({
       {...rest}
     >
       {/* Product Image Section */}
-      <div className="relative aspect-square w-full bg-neutral-100 overflow-hidden">
+      <div
+        onClick={handleProductNavigate}
+        className="relative aspect-square w-full bg-neutral-100 overflow-hidden cursor-pointer"
+      >
         <img
           src={productData.image}
           alt={productData.name}
@@ -188,7 +229,9 @@ const ProductCard = ({
           <WishlistButton
             productId={productData.id}
             isWishlisted={isWishlisted}
-            onToggle={(id, newLikedStatus) => onWishlist && onWishlist(id, newLikedStatus, productData)}
+            onToggle={(id, newLikedStatus) =>
+              onWishlist && onWishlist(id, newLikedStatus, productData)
+            }
           />
         </div>
       </div>
@@ -205,14 +248,22 @@ const ProductCard = ({
 
           {/* Product Title */}
           <h3 className="text-sm font-semibold text-neutral-800 group-hover:text-black line-clamp-2 transition-colors min-h-[2.5rem]">
-            <a href={`/product/${productData.id || ""}`} className="hover:underline">
+            <a
+              href={`/product/${productData.id || ""}`}
+              onClick={handleProductNavigate}
+              className="hover:underline"
+            >
               {productData.name}
             </a>
           </h3>
 
           {/* Rating */}
           <div className="mt-1.5 flex items-center">
-            <Rating value={productData.rating} reviewCount={productData.reviewCount} size="w-3.5 h-3.5" />
+            <Rating
+              value={productData.rating}
+              reviewCount={productData.reviewCount}
+              size="w-3.5 h-3.5"
+            />
           </div>
         </div>
 
@@ -220,9 +271,13 @@ const ProductCard = ({
         <div className="mt-3 pt-3 border-t border-neutral-100">
           <div className="flex items-center justify-between mb-3">
             {renderPrice()}
-            
+
             {/* Stock indicator */}
-            <span className={`text-[10px] font-semibold ${productData.inStock ? "text-emerald-600" : "text-red-500"}`}>
+            <span
+              className={`text-[10px] font-semibold ${
+                productData.inStock ? "text-emerald-600" : "text-red-500"
+              }`}
+            >
               {productData.inStock ? "In Stock" : "Out of Stock"}
             </span>
           </div>
@@ -252,7 +307,6 @@ const ProductCard = ({
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

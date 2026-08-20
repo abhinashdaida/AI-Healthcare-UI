@@ -1,125 +1,114 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import Logo from "../Logo/Logo";
 
 /**
- * Reusable Footer Component.
+ * FASCO Global Footer Component matching the reference design exactly.
  * Located in: src/components/common/Footer/Footer.jsx
  */
 const Footer = () => {
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-
-  const productCategories = [
-    { name: "Home & Kitchen", href: "/category/home-kitchen" },
-    { name: "Electronics", href: "/category/electronics" },
-    { name: "Mobiles", href: "/category/mobiles" },
-    { name: "Fashion", href: "/category/fashion" },
-    { name: "Sports", href: "/category/sports" }
-  ];
+  const [isPagesDropdownOpen, setIsPagesDropdownOpen] = useState(false);
 
   return (
-    <footer className="w-full bg-white border-t border-neutral-200 mt-auto text-left">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="w-full bg-white border-t border-neutral-100 mt-auto overflow-visible relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+        
+        {/* ========================================================
+            TOP ROW: Brand Logo (Left) and Navigation Links (Right)
+        ======================================================== */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4">
           
-          {/* Col 1: Logo and Tagline */}
-          <div className="flex flex-col items-start space-y-4">
-            <Logo />
-            <p className="text-sm text-neutral-500 max-w-sm">
-              BuyCommerce is your premier destination for modern lifestyle, fashion, electronics, and home essentials. Quality guaranteed.
-            </p>
-            <p className="text-xs text-neutral-400">
-              © {new Date().getFullYear()} BuyCommerce Inc. All rights reserved.
-            </p>
+          {/* FASCO Brand Logo */}
+          <div className="flex items-center">
+            <a
+              href="/"
+              className="text-2xl sm:text-[28px] font-serif font-bold text-neutral-900 tracking-tight hover:opacity-90 transition-opacity"
+            >
+              FASCO
+            </a>
           </div>
 
-          {/* Col 2: Navigation Links & Expandable Products */}
-          <div className="flex flex-col space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-1">
-              Quick Links
-            </h4>
-            <a href="/" className="text-sm text-neutral-600 hover:text-black transition-colors">
+          {/* Navigation Links (Home, Shop, Products, Pages ⌵) */}
+          <nav className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm font-normal text-neutral-600">
+            <a
+              href="/"
+              className="hover:text-black transition-colors"
+            >
               Home
             </a>
-            <a href="/shopping" className="text-sm text-neutral-600 hover:text-black transition-colors">
-              Shopping
+
+            <a
+              href="/shop"
+              className="hover:text-black transition-colors"
+            >
+              Shop
             </a>
 
-            {/* Products Dropdown */}
-            <div className="w-full max-w-xs">
+            <a
+              href="/products"
+              className="hover:text-black transition-colors"
+            >
+              Products
+            </a>
+
+            {/* Pages Dropdown */}
+            <div className="relative">
               <button
                 type="button"
-                onClick={() => setIsProductsOpen(!isProductsOpen)}
-                className="flex items-center justify-between w-full text-sm text-neutral-600 hover:text-black transition-colors py-1 focus:outline-none"
+                onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
+                className="flex items-center gap-1 hover:text-black transition-colors focus:outline-none cursor-pointer"
               >
-                <span>Products</span>
+                <span>Pages</span>
                 <Icon
                   icon="mdi:chevron-down"
                   className={`w-4 h-4 transition-transform duration-200 ${
-                    isProductsOpen ? "rotate-180" : ""
+                    isPagesDropdownOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
-              {/* Expandable Menu (Light Gray bg, Gray on hover) */}
-              {isProductsOpen && (
-                <div className="mt-2 bg-neutral-100 border border-neutral-200 rounded-md p-2 space-y-1">
-                  {productCategories.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block px-3 py-1.5 text-xs text-neutral-700 hover:bg-neutral-300 rounded transition-colors"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+              {/* Pages Dropdown Menu */}
+              {isPagesDropdownOpen && (
+                <div className="absolute right-0 bottom-full mb-2 sm:bottom-auto sm:top-full sm:mt-2 w-44 bg-white border border-neutral-200 rounded-lg shadow-xl py-2 z-50 text-left text-xs">
+                  <a
+                    href="/product/fasco-denim-01"
+                    className="block px-4 py-2 text-neutral-700 hover:bg-neutral-50 hover:text-black"
+                  >
+                    Product Details
+                  </a>
+                  <a
+                    href="/cart"
+                    className="block px-4 py-2 text-neutral-700 hover:bg-neutral-50 hover:text-black"
+                  >
+                    Shopping Cart
+                  </a>
+                  <a
+                    href="/shop"
+                    className="block px-4 py-2 text-neutral-700 hover:bg-neutral-50 hover:text-black"
+                  >
+                    Fashion Catalog
+                  </a>
+                  <a
+                    href="/landing"
+                    className="block px-4 py-2 text-neutral-700 hover:bg-neutral-50 hover:text-black"
+                  >
+                    Landing Showcase
+                  </a>
                 </div>
               )}
             </div>
-
-            <a href="/new-arrivals" className="text-sm text-neutral-600 hover:text-black transition-colors">
-              New Arrivals
-            </a>
-          </div>
-
-          {/* Col 3: Social Media with Name & Icon */}
-          <div className="flex flex-col space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-1">
-              Connect With Us
-            </h4>
-            
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-pink-600 transition-colors"
-            >
-              <Icon icon="mdi:instagram" className="w-5 h-5" />
-              <span>Instagram</span>
-            </a>
-
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-sky-500 transition-colors"
-            >
-              <Icon icon="mdi:twitter" className="w-5 h-5" />
-              <span>Twitter</span>
-            </a>
-
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-blue-600 transition-colors"
-            >
-              <Icon icon="mdi:facebook" className="w-5 h-5" />
-              <span>Facebook</span>
-            </a>
-          </div>
+          </nav>
 
         </div>
+
+        {/* ========================================================
+            BOTTOM ROW: Centered Copyright Notice
+        ======================================================== */}
+        <div className="pt-8 sm:pt-12 text-center">
+          <p className="text-xs text-neutral-400 font-normal tracking-wide">
+            Copyright © 2022 FASCO . All Rights Reserved.
+          </p>
+        </div>
+
       </div>
     </footer>
   );
