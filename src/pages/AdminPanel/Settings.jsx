@@ -81,10 +81,10 @@ const Settings = () => {
   initialValues: (() => {
     const saved = sessionStorage.getItem("adminData");
     const userData = sessionStorage.getItem("user");
-    const userName = userData ? JSON.parse(userData).username || "" : "";
+    const AdminName = userData ? JSON.parse(userData).username || "" : "";
    
     return saved ? JSON.parse(saved) : {
-      name: userName,
+      name: AdminName,
       email: "admin@example.com",
       phone: "+91 98765 43210",
       username: "admin_giftshop",
