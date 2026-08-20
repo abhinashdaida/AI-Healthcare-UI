@@ -412,8 +412,118 @@ function Product() {
       <Sidebar />
       <Header />
 
-      <main className="ml-[336px] pt-[80px] p-6">
-        <h1 className="text-3xl font-bold text-black">Product</h1>
+      <main className="ml-60 pt-20 p-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <Productheader onAddCategory={handleAddCategory} onAddProduct={handleAddProduct}/>
+          {/* Filters and Search */}
+         <ProductFilters
+    searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+  selectedCategory={selectedCategory}
+  setSelectedCategory={setSelectedCategory}
+  selectedStatus={selectedStatus}
+  setSelectedStatus={setSelectedStatus}
+  sortBy={sortBy}
+  setSortBy={setSortBy}
+  sortOrder={sortOrder}
+  toggleSortOrder={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+  categories={categories}
+/>
+         {/* Category List */}
+         <CategoriesList
+  categories={categories}
+  onEditCategory={handleEditCategory}
+  onDeleteCategory={handleDeleteCategory}
+  onAddCategory={handleAddCategory}
+/>
+     {/* Product List */}
+          <div>
+            <h2 className="text-xl font-bold text-gray-800 mb-3">
+              Products ({filteredProducts.length})
+            </h2>
+            <div className="space-y-4">
+              {paginatedProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow flex items-center justify-between"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                      {product.lowStock && (
+                        <span className="text-xs font-medium text-red-600 bg-red-100 px-2 py-0.5 rounded">
+                          Low Stock
+                        </span>
+                      )}
+                      <StatusBadge status={product.status} />
+                    </div>
+                    <p className="text-sm text-gray-500">{product.category}</p>
+                    {product.description && (
+                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">{product.description}</p>
+                    )}
+                    <div className="flex items-center gap-3 mt-2">
+                      <span className="text-xl font-bold text-gray-900">₹{product.price}</span>
+                      {product.originalPrice && (
+                        <span className="text-sm text-gray-400 line-through">₹{product.originalPrice}</span>
+                      )}
+                      <span className="text-sm text-gray-600">Stock: {product.stock}</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 ml-4 flex-wrap">
+                    <button
+                      onClick={() => setShowProductDetail(product)}
+                      className="px-3 py-2 bg-gray-50 text-gray-600 rounded hover:bg-gray-100 transition-colors text-sm"
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="px-3 py-2 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors text-sm"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClick(product)}
+                      className="px-3 py-2 bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center gap-2 mt-6">
+                <button
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <span className="px-4 py-2">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+
+            {filteredProducts.length === 0 && (
+              <div className="text-center py-12 bg-white rounded-lg shadow">
+                <p className="text-gray-500">No products found</p>
+              </div>
+            )}
+          </div>
+        </div>
       </main>
       {/* Add/Edit Product Modal */}
       {showAddModal && (
@@ -814,4 +924,4 @@ function Product() {
   );
 }
 
-export default Product
+export default Product;
