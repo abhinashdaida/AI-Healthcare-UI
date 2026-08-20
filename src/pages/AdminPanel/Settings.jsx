@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Box, Typography, Button, TextField } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 import Header from "@/shared/components/AdminPanel/Header";
 import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 
-import SettingsCard from "@/shared/components/AdminPanel/Settings/SettingsCard";
-import SettingsInput from "@/shared/components/AdminPanel/Settings/SettingsInput";
-import SettingsSelect from "@/shared/components/AdminPanel/Settings/SettingsSelect";
+import AdminProfile from "@/shared/components/AdminPanel/Settings/AdminProfile";
+import ProfileSettings from "@/shared/components/AdminPanel/Settings/ProfileSettings";
+import GeneralSettings from "@/shared/components/AdminPanel/Settings/GeneralSettings";
+
+import {
+  profileValidationSchema,
+  adminValidationSchema,
+  generalValidationSchema,
+} from "@/shared/validation/SettingsValidation";
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState("profile");
+  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState(() => {
+    return location.state?.activeTab || "profile";
+  });
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location.state]);
 
   // ================= TABS NAVIGATION =================
 
@@ -52,12 +68,7 @@ const Settings = () => {
         address: "123, MG Road, Bangalore - 560001, India",
       };
     })(),
-    validationSchema: Yup.object({
-      shopName: Yup.string().required("Shop Name is required"),
-      phone: Yup.string().required("Contact Number is required"),
-      email: Yup.string().email("Invalid email address").required("Email is required"),
-      address: Yup.string().required("Address is required"),
-    }),
+    validationSchema: profileValidationSchema,
     onSubmit: (values) => {
       sessionStorage.setItem("profileData", JSON.stringify(values));
       console.log("Profile Saved:", values);
@@ -78,26 +89,21 @@ const Settings = () => {
         confirmPassword: "",
       };
     })(),
-    validationSchema: Yup.object({
-      name: Yup.string().required("Admin Name is required"),
-      email: Yup.string().email("Invalid email address").required("Admin Email is required"),
-      phone: Yup.string().required("Phone Number is required"),
-      username: Yup.string().required("Username is required"),
-      password: Yup.string().min(6, "Password must be at least 6 characters"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .test("confirmPassword-required", "Confirm Password is required", function(value) {
-          const { password } = this.parent;
-          if (password && password.length > 0) {
-            return value && value.length > 0;
-          }
-          return true;
-        }),
-    }),
+    validationSchema: adminValidationSchema,
     onSubmit: (values) => {
-      
       sessionStorage.setItem("adminData", JSON.stringify(values));
       console.log("Admin Settings Saved:", values);
+
+      // Synchronize changes to Header user session data
+      const user = JSON.parse(sessionStorage.getItem("user")) || {};
+      const updatedUser = {
+        ...user,
+        username: values.name || values.username,
+      };
+      sessionStorage.setItem("user", JSON.stringify(updatedUser));
+
+      // Trigger header profile update
+      window.dispatchEvent(new Event("user-profile-updated"));
     },
   });
 
@@ -113,12 +119,7 @@ const Settings = () => {
         language: "English",
       };
     })(),
-    validationSchema: Yup.object({
-      websiteName: Yup.string().required("Website Name is required"),
-      currency: Yup.string().required("Currency is required"),
-      country: Yup.string().required("Country is required"),
-      language: Yup.string().required("Language is required"),
-    }),
+    validationSchema: generalValidationSchema,
     onSubmit: (values) => {
       sessionStorage.setItem("generalData", JSON.stringify(values));
       console.log("General Settings Saved:", values);
@@ -224,78 +225,7 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "profile" && (
-            <form onSubmit={profileForm.handleSubmit}>
-
-              <SettingsCard
-                title="Shop Information"
-                onSave={profileForm.handleSubmit}
-                onCancel={() => handleCancel(profileForm)}
-              >
-
-                <div className="flex flex-col gap-5">
-
-                  <SettingsInput
-                    label="Shop Name"
-                    name="shopName"
-                    value={profileForm.values.shopName}
-                    onChange={profileForm.handleChange}
-                    onBlur={profileForm.handleBlur}
-                    error={profileForm.touched.shopName && Boolean(profileForm.errors.shopName)}
-                    helperText={profileForm.touched.shopName && profileForm.errors.shopName}
-                  />
-
-                  <div className="grid grid-cols-2 gap-6">
-
-                    <SettingsInput
-                      label="Contact Number"
-                      name="phone"
-                      value={profileForm.values.phone}
-                      onChange={profileForm.handleChange}
-                      onBlur={profileForm.handleBlur}
-                      error={profileForm.touched.phone && Boolean(profileForm.errors.phone)}
-                      helperText={profileForm.touched.phone && profileForm.errors.phone}
-                    />
-
-                    <SettingsInput
-                      label="Email"
-                      name="email"
-                      type="email"
-                      value={profileForm.values.email}
-                      onChange={profileForm.handleChange}
-                      onBlur={profileForm.handleBlur}
-                      error={profileForm.touched.email && Boolean(profileForm.errors.email)}
-                      helperText={profileForm.touched.email && profileForm.errors.email}
-                    />
-
-                  </div>
-
-                  <div>
-                    <TextField
-                      fullWidth
-                      multiline
-                      rows={3}
-                      label="Address"
-                      name="address"
-                      value={profileForm.values.address}
-                      onChange={profileForm.handleChange}
-                      onBlur={profileForm.handleBlur}
-                      error={profileForm.touched.address && Boolean(profileForm.errors.address)}
-                      helperText={profileForm.touched.address && profileForm.errors.address}
-                      variant="outlined"
-                      className="bg-white"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: "8px",
-                        },
-                      }}
-                    />
-                  </div>
-
-                </div>
-
-              </SettingsCard>
-
-            </form>
+            <AdminProfile form={profileForm} onCancel={handleCancel} />
           )}
 
           {/* =====================================================
@@ -303,122 +233,12 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "settings" && (
-            <form onSubmit={adminForm.handleSubmit}>
-
-              <SettingsCard
-                title="Administrator Information"
-                onSave={adminForm.handleSubmit}
-                onCancel={() => handleCancel(adminForm)}
-              >
-
-                <div className="grid grid-cols-2 gap-8">
-
-                  {/* LEFT - ADMINISTRATOR INFORMATION */}
-
-                  <div className="flex flex-col gap-5">
-
-                    <SettingsInput
-                      label="Admin Name"
-                      name="name"
-                      value={adminForm.values.name}
-                      onChange={adminForm.handleChange}
-                      onBlur={adminForm.handleBlur}
-                      error={adminForm.touched.name && Boolean(adminForm.errors.name)}
-                      helperText={adminForm.touched.name && adminForm.errors.name}
-                    />
-
-                    <SettingsInput
-                      label="Admin Email"
-                      name="email"
-                      type="email"
-                      value={adminForm.values.email}
-                      onChange={adminForm.handleChange}
-                      onBlur={adminForm.handleBlur}
-                      error={adminForm.touched.email && Boolean(adminForm.errors.email)}
-                      helperText={adminForm.touched.email && adminForm.errors.email}
-                    />
-
-                    <SettingsInput
-                      label="Phone Number"
-                      name="phone"
-                      value={adminForm.values.phone}
-                      onChange={adminForm.handleChange}
-                      onBlur={adminForm.handleBlur}
-                      error={adminForm.touched.phone && Boolean(adminForm.errors.phone)}
-                      helperText={adminForm.touched.phone && adminForm.errors.phone}
-                    />
-
-                    <SettingsInput
-                      label="Username"
-                      name="username"
-                      value={adminForm.values.username}
-                      onChange={adminForm.handleChange}
-                      onBlur={adminForm.handleBlur}
-                      error={adminForm.touched.username && Boolean(adminForm.errors.username)}
-                      helperText={adminForm.touched.username && adminForm.errors.username}
-                    />
-
-                  </div>
-
-                  {/* RIGHT - SECURITY */}
-
-                  <div className="border-l border-gray-200 pl-8 flex flex-col gap-5">
-
-                    <Typography variant="h6" className="!text-base !font-semibold !text-gray-900">
-                      Security
-                    </Typography>
-
-                    <div className="flex flex-col gap-5">
-
-                      <SettingsInput
-                        label="Password"
-                        name="password"
-                        type={showPassword ? "text" : "password"}
-                        value={adminForm.values.password}
-                        onChange={adminForm.handleChange}
-                        onBlur={adminForm.handleBlur}
-                        error={adminForm.touched.password && Boolean(adminForm.errors.password)}
-                        helperText={adminForm.touched.password && adminForm.errors.password}
-                        placeholder="Enter password"
-                      />
-
-                      <SettingsInput
-                        label="Confirm Password"
-                        name="confirmPassword"
-                        type={showPassword ? "text" : "password"}
-                        value={adminForm.values.confirmPassword}
-                        onChange={adminForm.handleChange}
-                        onBlur={adminForm.handleBlur}
-                        error={adminForm.touched.confirmPassword && Boolean(adminForm.errors.confirmPassword)}
-                        helperText={adminForm.touched.confirmPassword && adminForm.errors.confirmPassword}
-                        placeholder="Confirm password"
-                      />
-
-                      <Button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        variant="text"
-                        className="text-sm font-medium text-purple-700 hover:text-purple-800 normal-case !p-0"
-                        sx={{
-                          color: "unset !important",
-                          minWidth: "unset",
-                          "&:hover": {
-                            backgroundColor: "transparent",
-                          },
-                        }}
-                      >
-                        {showPassword ? "Hide Password" : "Show Password"}
-                      </Button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </SettingsCard>
-
-            </form>
+            <ProfileSettings
+              form={adminForm}
+              onCancel={handleCancel}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+            />
           )}
 
           {/* =====================================================
@@ -426,90 +246,7 @@ const Settings = () => {
           ===================================================== */}
 
           {activeTab === "general" && (
-            <form onSubmit={generalForm.handleSubmit}>
-
-              <SettingsCard
-                title="Application Settings"
-                onSave={generalForm.handleSubmit}
-                onCancel={() => handleCancel(generalForm)}
-              >
-
-                <div className="flex flex-col gap-5">
-
-                  {/* Website Name + Currency */}
-
-                  <div className="grid grid-cols-2 gap-6">
-
-                    <SettingsInput
-                      label="Website Name"
-                      name="websiteName"
-                      value={generalForm.values.websiteName}
-                      onChange={generalForm.handleChange}
-                      onBlur={generalForm.handleBlur}
-                      error={generalForm.touched.websiteName && Boolean(generalForm.errors.websiteName)}
-                      helperText={generalForm.touched.websiteName && generalForm.errors.websiteName}
-                    />
-
-                    <SettingsSelect
-                      label="Currency"
-                      name="currency"
-                      value={generalForm.values.currency}
-                      onChange={generalForm.handleChange}
-                      onBlur={generalForm.handleBlur}
-                      error={generalForm.touched.currency && Boolean(generalForm.errors.currency)}
-                      helperText={generalForm.touched.currency && generalForm.errors.currency}
-                      options={[
-                        "Indian Rupee (₹)",
-                        "US Dollar ($)",
-                        "Euro (€)",
-                        "British Pound (£)",
-                      ]}
-                    />
-
-                  </div>
-
-                  {/* Country + Language */}
-
-                  <div className="grid grid-cols-2 gap-6">
-
-                    <SettingsSelect
-                      label="Country"
-                      name="country"
-                      value={generalForm.values.country}
-                      onChange={generalForm.handleChange}
-                      onBlur={generalForm.handleBlur}
-                      error={generalForm.touched.country && Boolean(generalForm.errors.country)}
-                      helperText={generalForm.touched.country && generalForm.errors.country}
-                      options={[
-                        "India",
-                        "United States",
-                        "United Kingdom",
-                        "Australia",
-                      ]}
-                    />
-
-                    <SettingsSelect
-                      label="Language"
-                      name="language"
-                      value={generalForm.values.language}
-                      onChange={generalForm.handleChange}
-                      onBlur={generalForm.handleBlur}
-                      error={generalForm.touched.language && Boolean(generalForm.errors.language)}
-                      helperText={generalForm.touched.language && generalForm.errors.language}
-                      options={[
-                        "English",
-                        "Tamil",
-                        "Hindi",
-                      ]}
-                    />
-
-                  </div>
-
-                </div>
-
-              </SettingsCard>
-
-            </form>
+            <GeneralSettings form={generalForm} onCancel={handleCancel} />
           )}
 
         </div>

@@ -23,7 +23,7 @@ import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 
 import RatingStars from "@/shared/components/AdminPanel/Review/RatingStars";
 import StatusBadge from "@/shared/components/AdminPanel/Review/StatusBadge";
-import ReviewDetailsModal from "@/shared/components/AdminPanel/Review/ReviewDetailsModal";
+import ReviewDetails from "@/shared/components/AdminPanel/Review/ReviewDetails";
 
 import reviewData from "../../shared/constants/AdminPanel/ReviewData";
 
@@ -121,6 +121,16 @@ function Review() {
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+
+  if (selectedReview) {
+    return (
+      <ReviewDetails
+        review={selectedReview}
+        onBack={() => setSelectedReview(null)}
+        onStatusChange={updateStatus}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -353,13 +363,6 @@ function Review() {
         </div>
 
       </main>
-
-      {/* ================= REVIEW DETAILS MODAL ================= */}
-      <ReviewDetailsModal
-        review={selectedReview}
-        onClose={() => setSelectedReview(null)}
-        onStatusChange={updateStatus}
-      />
 
     </div>
   );

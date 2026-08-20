@@ -1,7 +1,7 @@
 const reviewData = [
   {
     id: 1,
-    customer: "Arun Kumar",
+    customer: "Rahul Sharma",
     product: "Gift Box",
     rating: 5,
     review: "Very good product and nice quality.",
@@ -9,7 +9,7 @@ const reviewData = [
   },
   {
     id: 2,
-    customer: "Kavya",
+    customer: "Priya Patil",
     product: "Teddy Bear",
     rating: 4,
     review: "Good product. Delivery was fast.",
@@ -17,7 +17,7 @@ const reviewData = [
   },
   {
     id: 3,
-    customer: "Ragul",
+    customer: "Amit Kumar",
     product: "Wrist Watch",
     rating: 3,
     review: "Product is okay.",
@@ -25,7 +25,7 @@ const reviewData = [
   },
   {
     id: 4,
-    customer: "Priya",
+    customer: "Sneha Desai",
     product: "Chocolate Box",
     rating: 5,
     review: "Excellent chocolates and beautiful packaging.",
@@ -33,7 +33,7 @@ const reviewData = [
   },
   {
     id: 5,
-    customer: "Suresh",
+    customer: "Aniket Patil",
     product: "Flower Bouquet",
     rating: 4,
     review: "Fresh flowers and nice arrangement.",
@@ -41,7 +41,7 @@ const reviewData = [
   },
   {
     id: 6,
-    customer: "Divya",
+    customer: "Neha Joshi",
     product: "Soft Toy",
     rating: 2,
     review: "Quality was not as expected.",
@@ -49,7 +49,7 @@ const reviewData = [
   },
   {
     id: 7,
-    customer: "Vijay",
+    customer: "Rohit Mehta",
     product: "Perfume Gift Set",
     rating: 5,
     review: "Amazing fragrance and premium packaging.",
@@ -57,7 +57,7 @@ const reviewData = [
   },
   {
     id: 8,
-    customer: "Meena",
+    customer: "Kavita Shah",
     product: "Handmade Greeting Card",
     rating: 4,
     review: "Beautiful card with good quality paper.",
@@ -65,7 +65,7 @@ const reviewData = [
   },
   {
     id: 9,
-    customer: "Ajay",
+    customer: "Suresh Verma",
     product: "Leather Wallet",
     rating: 3,
     review: "Good wallet but delivery was slightly late.",
@@ -73,7 +73,7 @@ const reviewData = [
   },
   {
     id: 10,
-    customer: "Nisha",
+    customer: "Pooja Kulkarni",
     product: "Birthday Gift Hamper",
     rating: 5,
     review: "The gift hamper was perfect for my birthday.",
@@ -81,7 +81,7 @@ const reviewData = [
   },
   {
     id: 11,
-    customer: "Karthik",
+    customer: "Vivek Nair",
     product: "Coffee Mug",
     rating: 4,
     review: "Nice design and good quality mug.",
@@ -89,7 +89,7 @@ const reviewData = [
   },
   {
     id: 12,
-    customer: "Swetha",
+    customer: "Rahul Sharma",
     product: "Teddy Bear",
     rating: 5,
     review: "Very cute teddy bear. My daughter loved it.",
@@ -97,7 +97,7 @@ const reviewData = [
   },
   {
     id: 13,
-    customer: "Manoj",
+    customer: "Priya Patil",
     product: "Wall Clock",
     rating: 2,
     review: "Product arrived with a small scratch.",
@@ -105,7 +105,7 @@ const reviewData = [
   },
   {
     id: 14,
-    customer: "Harini",
+    customer: "Amit Kumar",
     product: "Artificial Flowers",
     rating: 4,
     review: "Looks beautiful and matches the description.",
@@ -113,7 +113,7 @@ const reviewData = [
   },
   {
     id: 15,
-    customer: "Dinesh",
+    customer: "Sneha Desai",
     product: "Keychain",
     rating: 3,
     review: "Average product for the price.",
