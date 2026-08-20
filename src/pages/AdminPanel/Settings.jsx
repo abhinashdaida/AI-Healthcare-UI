@@ -81,7 +81,7 @@ const Settings = () => {
     initialValues: (() => {
       const saved = sessionStorage.getItem("adminData");
       return saved ? JSON.parse(saved) : {
-        name: "Karthick",
+        name: "Abhilash",
         email: "admin@example.com",
         phone: "+91 98765 43210",
         username: "admin_giftshop",
