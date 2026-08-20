@@ -55,7 +55,7 @@ const Orders = () => {
   const [filter, setFilter] = useState("All Orders");
   const [selected, setSelected] = useState(null);
 
-  const statuses = ["Pending", "Processing", "Packed", "Shipped", "Delivered", "Cancelled"];
+  const statuses = ["Pending", "Processing", "Packed", "Shipped", "Delivered", "Cancelled", "Refunds", "Return"];
 
   const update = (id, status) =>
     setData(list => list.map(o => o.id === id ? { ...o, status } : o));

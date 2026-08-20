@@ -1,11 +1,11 @@
 import Header from "@/shared/components/AdminPanel/Header";
-import Sidebar from "@/shared/components/AdminPanel/Sidebar";
-import React, { useState, useEffect } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Productheader from "@/shared/components/AdminPanel/Productscomponents/Productheader";
-import ProductFilters from "@/shared/components/AdminPanel/Productscomponents/Productfilter";
 import CategoriesList from "@/shared/components/AdminPanel/Productscomponents/CategoriesList";
+import ProductFilters from "@/shared/components/AdminPanel/Productscomponents/Productfilter";
+import Productheader from "@/shared/components/AdminPanel/Productscomponents/Productheader";
+import Sidebar from "@/shared/components/AdminPanel/Sidebar";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
 
 function Product() {
   const loadProducts = () => {
