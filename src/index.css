@@ -17,3 +17,13 @@ body{
 button,input{
     font-family:inherit;
 }
+
+/* Hide default browser eye icon for password inputs */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+input[type="password"]::-webkit-reveal,
+input[type="password"]::-webkit-clear {
+  display: none !important;
+}

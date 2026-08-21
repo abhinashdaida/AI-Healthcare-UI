@@ -104,8 +104,6 @@ const SignIn = () => {
             Sign In to Account
           </h2>
 
-         
-
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
             <InputField label="Email Address" name="email" type="email" formik={formik} />
             <InputField label="Password" name="password" type="password" formik={formik} />

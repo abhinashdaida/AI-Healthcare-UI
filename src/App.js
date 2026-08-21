@@ -21,11 +21,28 @@ import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import NewPassword from "./pages/NewPassword/NewPassword";
 
+// Preload Images
+import signInImg from "./assets/signIn.png";
+import signUpImg from "./assets/SignUp.png";
+import forgotPasswordImg from "./assets/Forgotpassword.png";
+import conformationImg from "./assets/conformation.png";
+import newPasswordImg from "./assets/newpassword.png";
+
+const ImagePreloader = () => (
+  <div style={{ display: "none" }}>
+    <img src={signInImg} alt="preload" />
+    <img src={signUpImg} alt="preload" />
+    <img src={forgotPasswordImg} alt="preload" />
+    <img src={conformationImg} alt="preload" />
+    <img src={newPasswordImg} alt="preload" />
+  </div>
+);
 
 function App() {
   return (
-    <BrowserRouter>      
-      <div className="overflow-x-hidden w-full">        
+    <BrowserRouter>
+      <div>
+        <ImagePreloader />
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>
