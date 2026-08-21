@@ -104,27 +104,6 @@ const SignIn = () => {
             Sign In to Account
           </h2>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <button
-              type="button"
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              <Icon icon="flat-color-icons:google" className="w-5 h-5" />
-              <span className="text-sm font-medium text-gray-700">
-                Sign in with Google
-              </span>
-            </button>
-            <button
-              type="button"
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              <Icon icon="logos:google-gmail" className="w-5 h-5" />
-              <span className="text-sm font-medium text-gray-700">
-                Sign in with Email
-              </span>
-            </button>
-          </div>
-
           <div className="flex items-center gap-4 mb-8">
             <div className="flex-1 h-px bg-gray-200"></div>
             <span className="text-gray-400 font-semibold tracking-wider text-sm">

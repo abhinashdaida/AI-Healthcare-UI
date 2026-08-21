@@ -23,23 +23,12 @@ const Header_1 = ({
   className = ""
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Read user from localStorage (auth team will set this upon login)
-  let user = null;
-  try {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      user = JSON.parse(storedUser);
-    }
-  } catch (err) {
-    console.error("Error reading user from localStorage", err);
-  }
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Deals", href: "/deals" },
-    { name: "New Arrivals", href: "/new-arrivals" },
-    { name: "Packages", href: "/packages" }
+    { name: "Deals", href: "#deals" },
+    { name: "New Arrivals", href: "#new-arrivals" },
+    { name: "Packages", href: "#packages" }
   ];
 
   return (
@@ -51,60 +40,41 @@ const Header_1 = ({
           <div className="flex items-center">
             <a
               href="/"
-              className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold tracking-[0.05em] text-[#333333] hover:opacity-90 transition-opacity leading-none"
+              className="text-2xl sm:text-3xl font-serif font-bold tracking-wider text-neutral-900 hover:opacity-90 transition-opacity"
             >
               {brandName}
             </a>
           </div>
 
           {/* Desktop Right: Nav Links + Sign In + Sign Up Button */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-12">
+          <nav className="hidden md:flex items-center space-x-8 lg:space-x-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[15px] font-normal text-neutral-600 hover:text-black transition-colors"
+                className="text-sm font-normal text-neutral-700 hover:text-black transition-colors"
               >
                 {link.name}
               </a>
             ))}
 
-            {/* Conditional Auth UI: User Avatar or Login/Signup */}
-            {user ? (
-              <a
-                href="/profile"
-                className="flex items-center gap-2.5 ml-4 group focus:outline-none"
-              >
-                {/* User Avatar (First Letter) */}
-                <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-[15px] font-bold group-hover:bg-neutral-800 transition-colors shadow-sm">
-                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                </div>
-                {/* User Name */}
-                <span className="text-[15px] font-medium text-neutral-800 group-hover:text-black transition-colors">
-                  {user.name || "User"}
-                </span>
-              </a>
-            ) : (
-              <>
-                {/* Sign in text link */}
-                <button
-                  type="button"
-                  onClick={onSignInClick || (() => (window.location.href = "/signin"))}
-                  className="text-[15px] font-normal text-neutral-600 hover:text-black transition-colors focus:outline-none ml-2"
-                >
-                  Sign in
-                </button>
+            {/* Sign in text link */}
+            <button
+              type="button"
+              onClick={onSignInClick || (() => (window.location.href = "/signin"))}
+              className="text-sm font-normal text-neutral-700 hover:text-black transition-colors focus:outline-none"
+            >
+              Sign in
+            </button>
 
-                {/* Sign Up prominent black button with shadow */}
-                <button
-                  type="button"
-                  onClick={onSignUpClick || (() => (window.location.href = "/signup"))}
-                  className="bg-black text-white text-[15px] font-medium px-8 py-2.5 rounded shadow-[0_15px_30px_-10px_rgba(0,0,0,0.3)] hover:bg-neutral-800 active:scale-95 transition-all duration-200 focus:outline-none ml-2 lg:ml-4"
-                >
-                  Sign Up
-                </button>
-              </>
-            )}
+            {/* Sign Up prominent black button with shadow */}
+            <button
+              type="button"
+              onClick={onSignUpClick || (() => (window.location.href = "/signup"))}
+              className="bg-black text-white text-sm font-medium px-7 py-3 rounded-lg shadow-[0_10px_20px_rgba(0,0,0,0.18)] hover:bg-neutral-800 active:scale-95 transition-all duration-200 focus:outline-none"
+            >
+              Sign Up
+            </button>
           </nav>
 
           {/* Mobile Hamburger Button */}
@@ -140,49 +110,32 @@ const Header_1 = ({
               </a>
             ))}
 
-            {user ? (
-              <a
-                href="/profile"
-                className="flex items-center gap-3 pt-2 pb-1 focus:outline-none"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-base font-bold shadow-sm">
-                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                </div>
-                <span className="text-base font-medium text-neutral-900">
-                  {user.name || "User"}
-                </span>
-              </a>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  if (onSignInClick) onSignInClick();
-                  else window.location.href = "/signin";
-                }}
-                className="text-left text-[15px] font-medium text-neutral-700 hover:text-black py-1 focus:outline-none"
-              >
-                Sign in
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                if (onSignInClick) onSignInClick();
+                else window.location.href = "/signin";
+              }}
+              className="text-left text-sm font-medium text-neutral-700 hover:text-black py-1 focus:outline-none"
+            >
+              Sign in
+            </button>
           </nav>
 
-          {!user && (
-            <div className="pt-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  if (onSignUpClick) onSignUpClick();
-                  else window.location.href = "/signup";
-                }}
-                className="w-full bg-black text-white text-[15px] font-medium py-3 rounded-lg shadow-[0_10px_20px_rgba(0,0,0,0.18)] hover:bg-neutral-800 active:scale-95 transition-all"
-              >
-                Sign Up
-              </button>
-            </div>
-          )}
+          <div className="pt-3">
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                if (onSignUpClick) onSignUpClick();
+                else window.location.href = "/signup";
+              }}
+              className="w-full bg-black text-white text-sm font-medium py-3 rounded-lg shadow-[0_10px_20px_rgba(0,0,0,0.18)] hover:bg-neutral-800 active:scale-95 transition-all"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
       )}
     </header>
