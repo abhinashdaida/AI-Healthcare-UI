@@ -12,8 +12,16 @@ import SalesReport from "@/shared/components/AdminPanel/Reports/SalesReport";
 import OrderReport from "@/shared/components/AdminPanel/Reports/OrderReport";
 import CustomerReport from "@/shared/components/AdminPanel/Reports/CustomerReport";
 
+import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
+
 const Reports = () => {
   const [activeReport, setActiveReport] = useState("sales");
+
+  // Load live customer data from Session Storage
+  const [customers] = useState(() => {
+    const saved = sessionStorage.getItem("customers");
+    return saved ? JSON.parse(saved) : initialCustomers;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -109,9 +117,9 @@ const Reports = () => {
           </div>
 
           {/* Report Card */}
-          {activeReport === "sales" && <SalesReport />}
-          {activeReport === "orders" && <OrderReport />}
-          {activeReport === "customers" && <CustomerReport />}
+          {activeReport === "sales" && <SalesReport customers={customers} />}
+          {activeReport === "orders" && <OrderReport customers={customers} />}
+          {activeReport === "customers" && <CustomerReport customers={customers} />}
 
         </div>
       </main>

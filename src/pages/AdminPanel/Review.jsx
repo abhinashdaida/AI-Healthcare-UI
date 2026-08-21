@@ -122,15 +122,7 @@ function Review() {
     page * rowsPerPage + rowsPerPage
   );
 
-  if (selectedReview) {
-    return (
-      <ReviewDetails
-        review={selectedReview}
-        onBack={() => setSelectedReview(null)}
-        onStatusChange={updateStatus}
-      />
-    );
-  }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -363,6 +355,13 @@ function Review() {
         </div>
 
       </main>
+
+      {/* ================= REVIEW DETAILS MODAL ================= */}
+      <ReviewDetails
+        review={selectedReview}
+        onClose={() => setSelectedReview(null)}
+        onStatusChange={updateStatus}
+      />
 
     </div>
   );
