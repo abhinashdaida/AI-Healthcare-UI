@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 const CategoriesList = ({
@@ -24,7 +23,12 @@ const CategoriesList = ({
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-
+      {/* ✅ ADDED: Category title with count */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold text-gray-800">
+          Categories ({filteredCategories.length})
+        </h2>
+      </div>
 
       {/* Categories Grid */}
       {filteredCategories.length > 0 ? (
@@ -66,7 +70,7 @@ const CategoriesList = ({
                     </svg>
                   </button>
                   <button
-                    onClick={() => onDeleteCategory(category.id)}
+                    onClick={() => onDeleteCategory(category)}
                     className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
                     title="Delete category"
                   >

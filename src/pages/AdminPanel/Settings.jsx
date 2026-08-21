@@ -77,35 +77,38 @@ const Settings = () => {
 
   // ================= FORMIK FOR ADMINISTRATOR INFORMATION =================
 
-  const adminForm = useFormik({
-    initialValues: (() => {
-      const saved = sessionStorage.getItem("adminData");
-      return saved ? JSON.parse(saved) : {
-        name: "Karthick",
-        email: "admin@example.com",
-        phone: "+91 98765 43210",
-        username: "admin_giftshop",
-        password: "",
-        confirmPassword: "",
-      };
-    })(),
-    validationSchema: adminValidationSchema,
-    onSubmit: (values) => {
-      sessionStorage.setItem("adminData", JSON.stringify(values));
-      console.log("Admin Settings Saved:", values);
+const adminForm = useFormik({
+  initialValues: (() => {
+    const saved = sessionStorage.getItem("adminData");
+    const userData = sessionStorage.getItem("user");
+    const userName = userData ? JSON.parse(userData).username || "" : "";
+    
+    return saved ? JSON.parse(saved) : {
+      name: userName,
+      email: "admin@example.com",
+      phone: "+91 98765 43210",
+      username: "admin_giftshop",
+      password: "",
+      confirmPassword: "",
+    };
+  })(),
+  validationSchema: adminValidationSchema,
+  onSubmit: (values) => {
+    sessionStorage.setItem("adminData", JSON.stringify(values));
+    console.log("Admin Settings Saved:", values);
 
-      // Synchronize changes to Header user session data
-      const user = JSON.parse(sessionStorage.getItem("user")) || {};
-      const updatedUser = {
-        ...user,
-        username: values.name || values.username,
-      };
-      sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    // Synchronize changes to Header user session data
+    const user = JSON.parse(sessionStorage.getItem("user")) || {};
+    const updatedUser = {
+      ...user,
+      username: values.name || values.username,
+    };
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
 
-      // Trigger header profile update
-      window.dispatchEvent(new Event("user-profile-updated"));
-    },
-  });
+    // Trigger header profile update
+    window.dispatchEvent(new Event("user-profile-updated"));
+  },
+});
 
   // ================= FORMIK FOR GENERAL SETTINGS =================
 
