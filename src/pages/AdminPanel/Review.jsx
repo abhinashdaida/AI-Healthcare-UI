@@ -121,15 +121,7 @@ function Review() {
     page * rowsPerPage + rowsPerPage
   );
 
-  if (selectedReview) {
-    return (
-      <ReviewDetails
-        review={selectedReview}
-        onBack={() => setSelectedReview(null)}
-        onStatusChange={updateStatus}
-      />
-    );
-  }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -396,6 +388,17 @@ function Review() {
           </TableContainer>
         </div>
       </main>
+<<<<<<< HEAD
+=======
+
+      {/* ================= REVIEW DETAILS MODAL ================= */}
+      <ReviewDetails
+        review={selectedReview}
+        onClose={() => setSelectedReview(null)}
+        onStatusChange={updateStatus}
+      />
+
+>>>>>>> 05558342926871a98a6571ed4288679f7dbc7c3a
     </div>
   );
 }
