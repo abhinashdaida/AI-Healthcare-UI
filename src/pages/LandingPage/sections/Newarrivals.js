@@ -5,7 +5,11 @@ import { ALL_PRODUCTS } from "@/data/productsData";
 
 const NewArrivals = () => {
   const [activeTab, setActiveTab] = useState("Women");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [wishlist, setWishlist] = useState(() => {
+    const saved = localStorage.getItem("wishlist");
+    return saved ? JSON.parse(saved) : [];
+  });
   const tabs = [
     "Men",
     "Women",
@@ -13,10 +17,41 @@ const NewArrivals = () => {
     "Shoes",
   ];
 
+  const handleWishlistToggle = (id, newLikedStatus, productData) => {
+    setWishlist((prev) => {
+      const exists = prev.some(
+        (item) => item.id === productData.id
+      );
+
+      let updatedWishlist;
+
+      if (exists) {
+        // Remove from wishlist
+        updatedWishlist = prev.filter(
+          (item) => item.id !== productData.id
+        );
+      } else {
+        // Add to wishlist
+        updatedWishlist = [...prev, productData];
+      }
+
+      // Save wishlist
+      localStorage.setItem(
+        "wishlist",
+        JSON.stringify(updatedWishlist)
+      );
+
+      // Tell Header_2 that wishlist changed
+      window.dispatchEvent(new Event("wishlistUpdated"));
+
+      return updatedWishlist;
+    });
+  };
+
   // Filter products based on selected tab
   const newProducts = ALL_PRODUCTS.filter(
     (product) =>
-      product.collection==="New arrivals" &&
+      product.collection === "New arrivals" &&
       product.category === activeTab
   );
 
@@ -39,11 +74,10 @@ const NewArrivals = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 text-[12px] transition ${
-                activeTab === tab
-                  ? "bg-black text-white"
-                  : "bg-[#fafafa] text-gray-500"
-              }`}
+              className={`px-6 py-2 text-[12px] transition ${activeTab === tab
+                ? "bg-black text-white"
+                : "bg-[#fafafa] text-gray-500"
+                }`}
             >
               {tab}
             </button>
@@ -52,13 +86,19 @@ const NewArrivals = () => {
 
         {/* Products */}
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {newProducts.slice(0, 6).map((product) => (
-            <ProductCard
-              key={product.id}
-              {...product}
-              badge="NEW"
-            />
-          ))}
+          {newProducts.slice(0, 6).map((product) => {
+            const isWishlisted = wishlist.some((item) => item.id === product.id);
+            return (
+
+              <ProductCard
+                key={product.id}
+                {...product}
+                badge="NEW"
+                isWishlisted={isWishlisted}
+                onWishlist={handleWishlistToggle}
+              />
+            );
+          })}
 
         </div>
 
@@ -74,7 +114,13 @@ const NewArrivals = () => {
         {/* View More */}
         {newProducts.length > 0 && (
           <div className="mt-8 text-center">
-            <button onClick={()=>navigate("/productlisting")} className="bg-black px-9 py-3 text-[12px] text-white">
+            <button onClick={() => {
+              navigate("/productlisting");
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }} className="bg-black px-9 py-3 text-[12px] text-white">
               VIEW MORE
             </button>
           </div>

@@ -53,7 +53,7 @@ const HeroSection = () => {
                 NEW COLLECTION
               </p>
 
-              <button   onClick={() => navigate("/productlisting")} className="mt-3 rounded-[2px] bg-black px-8 py-2.5 text-[8px] text-white shadow">
+              <button   onClick={() => navigate("/products")} className="mt-3 rounded-[2px] bg-black px-8 py-2.5 text-[8px] text-white shadow">
                 SHOP NOW
               </button>
 

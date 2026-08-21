@@ -8,7 +8,7 @@ import {
 import { IconButton } from "@mui/material";
 
 const Offers = () => {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const deals = [
     {
@@ -48,7 +48,13 @@ const Offers = () => {
               fashion deals.
             </p>
 
-            <button onClick={()=>navigate("/productlisting")} className="mt-5 bg-black px-7 py-3 text-[12px] text-white">
+            <button onClick={() => {
+              navigate("/productlisting");
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }} className="mt-5 bg-black px-7 py-3 text-[12px] text-white">
               SHOP NOW
             </button>
 
@@ -159,7 +165,13 @@ const Offers = () => {
               $100.00
             </p>
 
-            <button onClick={()=>navigate("/productlisting")} className="mt-4 bg-black px-8 py-3 text-[10px] text-white">
+            <button onClick={() => {
+              navigate("/productlisting");
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+            }} className="mt-4 bg-black px-8 py-3 text-[10px] text-white">
               BUY NOW
             </button>
 

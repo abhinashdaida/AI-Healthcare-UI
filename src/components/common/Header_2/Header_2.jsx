@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Icon } from "@iconify/react";
 
 /**
@@ -37,6 +37,12 @@ const Header_2 = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [isPagesDropdownOpen, setIsPagesDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [wishlistTotal, setWishlistTotal] = useState(() => {
+  const savedWishlist = localStorage.getItem("wishlist");
+  return savedWishlist
+    ? JSON.parse(savedWishlist).length
+    : 0;
+});
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -58,6 +64,30 @@ const Header_2 = ({
       onSearchSubmit(searchQuery);
     }
   };
+
+  useEffect(() => {
+  const updateWishlistCount = () => {
+    const savedWishlist = localStorage.getItem("wishlist");
+
+    const wishlist = savedWishlist
+      ? JSON.parse(savedWishlist)
+      : [];
+
+    setWishlistTotal(wishlist.length);
+  };
+
+  window.addEventListener(
+    "wishlistUpdated",
+    updateWishlistCount
+  );
+
+  return () => {
+    window.removeEventListener(
+      "wishlistUpdated",
+      updateWishlistCount
+    );
+  };
+}, []);
 
   return (
     <header className={`w-full bg-white border-b border-neutral-100 transition-all duration-200 ${className}`}>
@@ -188,9 +218,9 @@ const Header_2 = ({
               aria-label="Wishlist"
             >
               <Icon icon="mdi:star-outline" className="w-5 h-5" />
-              {wishlistCount > 0 && (
+              {(wishlistCount > 0 || wishlistTotal>0) && (
                 <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[9px] font-bold text-white">
-                  {wishlistCount}
+                  {wishlistCount || wishlistTotal}
                 </span>
               )}
             </button>
