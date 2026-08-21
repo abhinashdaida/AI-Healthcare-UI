@@ -59,12 +59,30 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
   return (
     <Paper
       elevation={0}
-      className="overflow-hidden rounded-[10px] border border-[#E5E7EB] bg-white"
+      className="
+        flex
+        h-full
+        min-h-0
+        flex-col
+        overflow-hidden
+        rounded-[10px]
+        border
+        border-[#E5E7EB]
+        bg-white
+      "
     >
-      <TableContainer className="max-h-[calc(100vh-360px)] overflow-y-auto">
-        <Table>
-          <TableHead className="sticky top-0 z-10 bg-[#FAFAFA]">
-            <TableRow className="!bg-[#FAFAFA]">
+      <TableContainer
+        className="
+          h-full
+          min-h-0
+          flex-1
+          overflow-y-auto
+          overflow-x-auto
+        "
+      >
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
               <TableCell className="!text-xs !font-semibold !text-gray-500">
                 CUSTOMER
               </TableCell>
@@ -98,8 +116,6 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
             {customers.length > 0 ? (
               customers.map((customer) => (
                 <TableRow key={customer.id} hover>
-                  {/* Customer */}
-
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <Avatar
@@ -139,8 +155,6 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
                     </div>
                   </TableCell>
 
-                  {/* Phone */}
-
                   <TableCell>
                     <Typography
                       sx={{
@@ -151,8 +165,6 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
                       {customer.phone}
                     </Typography>
                   </TableCell>
-
-                  {/* Orders */}
 
                   <TableCell>
                     <Typography
@@ -166,8 +178,6 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
                     </Typography>
                   </TableCell>
 
-                  {/* Spent */}
-
                   <TableCell>
                     <Typography
                       sx={{
@@ -180,18 +190,12 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
                     </Typography>
                   </TableCell>
 
-                  {/* Status */}
-
                   <TableCell>
                     <StatusChip status={customer.status} />
                   </TableCell>
 
-                  {/* Actions */}
-
                   <TableCell align="right">
                     <div className="flex justify-end gap-1">
-                      {/* View */}
-
                       <IconButton
                         size="small"
                         title="View Customer"
@@ -203,8 +207,6 @@ const CustomerTable = ({ customers, onView, onBlockUnblock }) => {
                           className="text-gray-600"
                         />
                       </IconButton>
-
-                      {/* Block / Unblock */}
 
                       <IconButton
                         size="small"
