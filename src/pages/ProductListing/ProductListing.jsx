@@ -207,14 +207,31 @@ const ProductListing = () => {
     });
   }, [search, category, filters, sort]);
 
-  // Reset page when user actively changes search/category/filters/sort (skip on initial mount)
+  // Sync URL with currentPage explicitly on mount and on changes
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
+      // On initial mount, ensure the URL reflects the active page (e.g. ?page=1)
+      setSearchParams(
+        (prev) => {
+          const u = new URLSearchParams(prev);
+          u.set("page", String(currentPage));
+          return u;
+        },
+        { replace: true }
+      );
       return;
     }
     setCurrentPage(1);
-  }, [search, category, filters, sort]);
+    setSearchParams(
+      (prev) => {
+        const u = new URLSearchParams(prev);
+        u.set("page", "1");
+        return u;
+      },
+      { replace: true }
+    );
+  }, [search, category, filters, sort, setSearchParams]);
 
   // Responsive cards per page depending on active grid layout
   const ITEMS_PER_PAGE = gridCols === 4 ? 12 : 9;
@@ -236,11 +253,19 @@ const ProductListing = () => {
     });
   };
 
+  const [justAddedItem, setJustAddedItem] = useState(null);
+
   // Add to Cart Handler
   const handleAddToCart = (product) => {
     const updated = addItemToCart(product);
     setCart(updated);
-    setIsCartDrawerOpen(true);
+    
+    // Find the exactly added item from the updated cart
+    const added = updated.find(item => String(item.id) === String(product.id));
+    if (added) {
+      setJustAddedItem(added);
+      setIsCartDrawerOpen(true);
+    }
   };
 
   // Page change handler with URL sync and sessionStorage persistence
@@ -250,11 +275,7 @@ const ProductListing = () => {
     setSearchParams(
       (prev) => {
         const u = new URLSearchParams(prev);
-        if (pageNum > 1) {
-          u.set("page", String(pageNum));
-        } else {
-          u.delete("page");
-        }
+        u.set("page", String(pageNum)); // Always show page number in URL, even if it's 1
         return u;
       },
       { replace: true }
@@ -293,7 +314,8 @@ const ProductListing = () => {
         activeLink="Shop"
         cartCount={totalCartCount}
         wishlistCount={wishlist.length}
-        onCartClick={() => setIsCartDrawerOpen(true)}
+        onCartClick={() => navigate("/cart")}
+        initialSearchQuery={search}
         onSearchSubmit={(query) => {
           setSearch(query);
           setCurrentPage(1);
@@ -553,15 +575,21 @@ const ProductListing = () => {
       {/* 9. Interactive Slide-Over Cart Drawer matching Reference Design */}
       <CartDrawer
         isOpen={isCartDrawerOpen}
-        onClose={() => setIsCartDrawerOpen(false)}
-        cartItems={cart}
+        onClose={() => {
+          setIsCartDrawerOpen(false);
+          setJustAddedItem(null);
+        }}
+        cartItems={justAddedItem ? [justAddedItem] : []}
         onUpdateQuantity={(item, newQty) => {
           const updated = updateCartItemQuantity(item.id, newQty);
           setCart(updated);
+          setJustAddedItem({ ...item, quantity: newQty });
         }}
         onRemoveItem={(item) => {
           const updated = removeCartItem(item.id);
           setCart(updated);
+          setJustAddedItem(null);
+          setIsCartDrawerOpen(false);
         }}
         onCheckout={() => navigate("/checkout")}
       />

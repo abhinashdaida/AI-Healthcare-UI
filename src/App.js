@@ -24,8 +24,8 @@ import NewPassword from "./pages/NewPassword/NewPassword";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
+    <BrowserRouter>      
+      <div className="overflow-x-hidden w-full">        
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>

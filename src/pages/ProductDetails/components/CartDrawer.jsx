@@ -46,9 +46,9 @@ const CartDrawer = ({
       />
 
       {/* 2. Slide-over Container (Right Aligned) */}
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
-        <div className="w-screen max-w-[420px] bg-white shadow-2xl flex flex-col justify-between text-left">
-
+      <div className="fixed inset-y-0 right-0 flex">
+        <div className="w-[85vw] sm:w-[400px] md:w-[40vw] max-w-[550px] bg-white shadow-2xl flex flex-col justify-between text-left">
+          
           {/* ========================================================
               DRAWER HEADER
           ======================================================== */}
@@ -81,7 +81,7 @@ const CartDrawer = ({
           {/* ========================================================
               DRAWER ITEMS LIST
           ======================================================== */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex-1 overflow-y-auto p-6 space-y-8">
             {cartItems.length === 0 ? (
               <div className="py-16 text-center text-neutral-400 space-y-3">
                 <Icon icon="mdi:cart-outline" className="w-12 h-12 mx-auto text-neutral-300" />
@@ -96,37 +96,37 @@ const CartDrawer = ({
                 return (
                   <div
                     key={`${item.id}-${item.selectedSize}-${item.selectedColor}`}
-                    className="pb-6 border-b border-neutral-200 last:border-b-0"
+                    className="pb-8 border-b border-neutral-200 last:border-b-0"
                   >
-                    <div className="flex gap-4 items-start">
-                      {/* Product Thumbnail */}
-                      <div className="h-28 w-24 sm:h-32 sm:w-28 shrink-0 rounded-md overflow-hidden bg-neutral-100 border border-neutral-200">
+                    <div className="flex flex-col gap-6 items-center text-center">
+                      {/* Product Thumbnail (Full Width) */}
+                      <div className="w-full aspect-square shrink-0 overflow-hidden bg-[#f3f4f6] rounded-md">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="h-full w-full object-cover object-center"
+                          className="h-full w-full object-contain object-center mix-blend-multiply p-4"
                         />
                       </div>
 
                       {/* Item Details */}
-                      <div className="flex-1 flex flex-col justify-between min-h-[112px]">
+                      <div className="w-full flex flex-col justify-center items-center">
                         <div>
-                          <h4 className="text-sm font-bold text-neutral-900 leading-snug">
+                          <h4 className="text-lg font-serif text-neutral-900 leading-snug">
                             {item.name}
                           </h4>
-                          <p className="mt-1 text-xs text-neutral-500">
+                          <p className="mt-1 text-sm text-neutral-500">
                             Color : {item.selectedColor || item.color || "Red"}
                           </p>
                         </div>
 
                         {/* Price */}
-                        <div className="mt-2 text-sm font-bold text-neutral-950">
+                        <div className="mt-2 text-base font-bold text-neutral-950">
                           ${itemPrice.toFixed(2)}
                         </div>
 
                         {/* Quantity Pill Controls [ − ] 01 [ + ] */}
-                        <div className="mt-3 flex items-center justify-between">
-                          <div className="inline-flex items-center bg-neutral-100/90 rounded px-2 py-1 gap-3">
+                        <div className="mt-4">
+                          <div className="inline-flex items-center bg-neutral-100 rounded-md px-3 py-1.5 gap-4">
                             <button
                               type="button"
                               onClick={() => {
@@ -137,12 +137,12 @@ const CartDrawer = ({
                                   onRemoveItem(item);
                                 }
                               }}
-                              className="text-neutral-600 hover:text-black font-semibold text-xs px-1 focus:outline-none"
+                              className="text-black font-medium text-base focus:outline-none"
                               aria-label="Decrease quantity"
                             >
                               −
                             </button>
-                            <span className="text-xs font-bold text-neutral-900 min-w-[16px] text-center">
+                            <span className="text-sm font-medium text-neutral-500 min-w-[20px] text-center">
                               {String(item.quantity || 1).padStart(2, "0")}
                             </span>
                             <button
@@ -153,22 +153,12 @@ const CartDrawer = ({
                                   onUpdateQuantity(item, currentQty + 1);
                                 }
                               }}
-                              className="text-neutral-600 hover:text-black font-semibold text-xs px-1 focus:outline-none"
+                              className="text-black font-medium text-base focus:outline-none"
                               aria-label="Increase quantity"
                             >
                               +
                             </button>
                           </div>
-
-                          {/* Delete Item Action */}
-                          <button
-                            type="button"
-                            onClick={() => onRemoveItem && onRemoveItem(item)}
-                            className="text-neutral-400 hover:text-red-500 transition-colors p-1"
-                            aria-label="Remove item from cart"
-                          >
-                            <Icon icon="mdi:trash-can-outline" className="w-4 h-4" />
-                          </button>
                         </div>
 
                       </div>
@@ -202,10 +192,10 @@ const CartDrawer = ({
 
               {/* Subtotal Row */}
               <div className="flex justify-between items-baseline">
-                <span className="text-sm font-bold text-neutral-900">
+                <span className="text-sm font-serif font-bold text-neutral-900">
                   Subtotal
                 </span>
-                <span className="text-base font-extrabold text-neutral-950">
+                <span className="text-base font-serif font-bold text-neutral-950">
                   ${finalSubtotal.toFixed(2)}
                 </span>
               </div>
