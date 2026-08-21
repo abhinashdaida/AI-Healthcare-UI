@@ -61,10 +61,10 @@ const Message = ({ message }) => {
 
   return (
     <div
-      className={`mt-4 flex items-center gap-2 rounded-lg border px-4 py-3 text-sm ${
+      className={`mt-5 flex items-center gap-2 rounded-xl border px-4 py-3 text-sm ${
         message.type === "success"
-          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-          : "border-rose-200 bg-rose-50 text-rose-800"
+          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+          : "border-rose-200 bg-rose-50 text-rose-700"
       }`}
     >
       <Icon
@@ -85,17 +85,32 @@ const Message = ({ message }) => {
    SECTION HEADER
 ========================================================= */
 
-const SectionHeader = ({ title, subtitle, action }) => {
+const SectionHeader = ({
+  title,
+  subtitle,
+  action,
+  icon = "mdi:account-heart-outline",
+}) => {
   return (
-    <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900">
-          {title}
-        </h2>
+    <div className="mb-7 flex flex-col gap-4 border-b border-purple-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100">
+          <Icon
+            icon={icon}
+            width="22"
+            className="text-[#6C63FF]"
+          />
+        </div>
 
-        <p className="mt-1 text-sm text-gray-500">
-          {subtitle}
-        </p>
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">
+            {title}
+          </h2>
+
+          <p className="mt-1 text-sm text-gray-500">
+            {subtitle}
+          </p>
+        </div>
       </div>
 
       {action}
@@ -108,7 +123,8 @@ const SectionHeader = ({ title, subtitle, action }) => {
 ========================================================= */
 
 const Profile = () => {
-  const [activeSection, setActiveSection] = useState("profile");
+  const [activeSection, setActiveSection] =
+    useState("profile");
 
   /* =========================================================
      GET LOGGED-IN USER
@@ -116,10 +132,12 @@ const Profile = () => {
 
   const getLoggedInUser = () => {
     try {
-      const loggedInUser = localStorage.getItem("loggedInUser");
+      const loggedInUser =
+        localStorage.getItem("loggedInUser");
 
       if (loggedInUser) {
-        const parsedUser = JSON.parse(loggedInUser);
+        const parsedUser =
+          JSON.parse(loggedInUser);
 
         return {
           ...EMPTY_USER,
@@ -129,13 +147,18 @@ const Profile = () => {
 
       return { ...EMPTY_USER };
     } catch (error) {
-      console.error("Error loading logged-in user:", error);
+      console.error(
+        "Error loading logged-in user:",
+        error
+      );
 
       return { ...EMPTY_USER };
     }
   };
 
-  const [profile, setProfile] = useState(getLoggedInUser);
+  const [profile, setProfile] =
+    useState(getLoggedInUser);
+
   const [profileForm, setProfileForm] =
     useState(getLoggedInUser);
 
@@ -149,11 +172,12 @@ const Profile = () => {
      PASSWORD
   ========================================================= */
 
-  const [passwordForm, setPasswordForm] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const [passwordForm, setPasswordForm] =
+    useState({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
 
   const [passwordMessage, setPasswordMessage] =
     useState({});
@@ -173,7 +197,10 @@ const Profile = () => {
 
       return INITIAL_ADDRESSES;
     } catch (error) {
-      console.error("Error loading addresses:", error);
+      console.error(
+        "Error loading addresses:",
+        error
+      );
 
       return INITIAL_ADDRESSES;
     }
@@ -196,7 +223,8 @@ const Profile = () => {
   const [addressMessage, setAddressMessage] =
     useState({});
 
-  const [deleteId, setDeleteId] = useState(null);
+  const [deleteId, setDeleteId] =
+    useState(null);
 
   /* =========================================================
      LOAD USER
@@ -227,19 +255,26 @@ const Profile = () => {
   useEffect(() => {
     if (!addresses.length) {
       setSelectedAddress(null);
-      localStorage.removeItem("selectedAddress");
+
+      localStorage.removeItem(
+        "selectedAddress"
+      );
+
       return;
     }
 
     try {
       const saved =
-        localStorage.getItem("selectedAddress");
+        localStorage.getItem(
+          "selectedAddress"
+        );
 
       if (saved) {
         const parsed = JSON.parse(saved);
 
         const exists = addresses.some(
-          (address) => address.id === parsed.id
+          (address) =>
+            address.id === parsed.id
         );
 
         if (exists) {
@@ -297,10 +332,14 @@ const Profile = () => {
     const updatedUser = {
       ...profile,
       ...profileForm,
-      firstName: profileForm.firstName?.trim() || "",
-      lastName: profileForm.lastName?.trim() || "",
-      email: profileForm.email?.trim() || "",
-      phone: profileForm.phone?.trim() || "",
+      firstName:
+        profileForm.firstName?.trim() || "",
+      lastName:
+        profileForm.lastName?.trim() || "",
+      email:
+        profileForm.email?.trim() || "",
+      phone:
+        profileForm.phone?.trim() || "",
     };
 
     if (
@@ -332,10 +371,6 @@ const Profile = () => {
 
     setProfile(updatedUser);
     setProfileForm(updatedUser);
-
-    /* IMPORTANT:
-       Save updated user using same key used by Sign In
-    */
 
     localStorage.setItem(
       "loggedInUser",
@@ -374,10 +409,11 @@ const Profile = () => {
       return;
     }
 
-    /* Check current password */
-
     if (profile.password) {
-      if (currentPassword !== profile.password) {
+      if (
+        currentPassword !==
+        profile.password
+      ) {
         setPasswordMessage({
           type: "error",
           text: "Current password is incorrect.",
@@ -396,7 +432,9 @@ const Profile = () => {
       return;
     }
 
-    if (newPassword !== confirmPassword) {
+    if (
+      newPassword !== confirmPassword
+    ) {
       setPasswordMessage({
         type: "error",
         text: "New password and confirm password do not match.",
@@ -405,7 +443,9 @@ const Profile = () => {
       return;
     }
 
-    if (currentPassword === newPassword) {
+    if (
+      currentPassword === newPassword
+    ) {
       setPasswordMessage({
         type: "error",
         text: "New password must be different from current password.",
@@ -420,7 +460,6 @@ const Profile = () => {
     };
 
     setProfile(updatedUser);
-
     setProfileForm(updatedUser);
 
     localStorage.setItem(
@@ -462,7 +501,9 @@ const Profile = () => {
      OPEN ADDRESS FORM
   ========================================================= */
 
-  const handleOpenAddress = (address = null) => {
+  const handleOpenAddress = (
+    address = null
+  ) => {
     setAddressMessage({});
     setDeleteId(null);
 
@@ -498,10 +539,13 @@ const Profile = () => {
       "pincode",
     ];
 
-    const emptyField = requiredFields.find(
-      (field) =>
-        !String(addressForm[field] || "").trim()
-    );
+    const emptyField =
+      requiredFields.find(
+        (field) =>
+          !String(
+            addressForm[field] || ""
+          ).trim()
+      );
 
     if (emptyField) {
       setAddressMessage({
@@ -554,7 +598,10 @@ const Profile = () => {
         )
       );
 
-      if (selectedAddress === editingAddressId) {
+      if (
+        selectedAddress ===
+        editingAddressId
+      ) {
         localStorage.setItem(
           "selectedAddress",
           JSON.stringify(updatedAddress)
@@ -617,9 +664,11 @@ const Profile = () => {
       return;
     }
 
-    const remainingAddresses = addresses.filter(
-      (address) => address.id !== id
-    );
+    const remainingAddresses =
+      addresses.filter(
+        (address) =>
+          address.id !== id
+      );
 
     setAddresses(remainingAddresses);
 
@@ -628,7 +677,9 @@ const Profile = () => {
         const nextAddress =
           remainingAddresses[0];
 
-        setSelectedAddress(nextAddress.id);
+        setSelectedAddress(
+          nextAddress.id
+        );
 
         localStorage.setItem(
           "selectedAddress",
@@ -705,71 +756,115 @@ const Profile = () => {
   ========================================================= */
 
   return (
-    <div className="min-h-screen bg-slate-50/60 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#FFF5F8] py-8">
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* HEADER */}
+        {/* =================================================
+            PAGE HEADER
+        ================================================= */}
 
         <div className="mb-8">
-          <Typography
-            sx={{
-              fontSize: 32,
-              fontWeight: 700,
-              color: "#0f172a",
-            }}
-          >
-            My Account
-          </Typography>
 
-          <p className="mt-1 text-sm text-slate-500">
-            Manage your profile info, security
-            settings, and saved addresses
-          </p>
-        </div>
+          <div className="flex items-center gap-3">
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-
-          {/* SIDEBAR */}
-
-          <div className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-
-            <div className="flex flex-col items-center text-center">
-
-              <Avatar
-                sx={{
-                  width: 84,
-                  height: 84,
-                  mb: 2,
-                  bgcolor: "#3b82f6",
-                  fontSize: 32,
-                  fontWeight: 600,
-                }}
-              >
-                {firstName
-                  ? firstName
-                      .charAt(0)
-                      .toUpperCase()
-                  : "U"}
-              </Avatar>
-
-              <h2 className="text-lg font-bold text-slate-800">
-                {fullName}
-              </h2>
-
-              <p className="mt-0.5 text-xs text-slate-500">
-                {email || "No email available"}
-              </p>
-
-              {phone && (
-                <p className="mt-1 text-xs text-slate-500">
-                  {phone}
-                </p>
-              )}
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#6C63FF] to-[#9B8CFF] shadow-lg shadow-purple-200">
+              <Icon
+                icon="mdi:account-heart-outline"
+                width="27"
+                className="text-white"
+              />
             </div>
 
-            <Divider sx={{ my: 3 }} />
+            <div>
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: 26,
+                    sm: 32,
+                  },
+                  fontWeight: 700,
+                  color: "#1F2937",
+                }}
+              >
+                My Account
+              </Typography>
 
-            <div className="space-y-1.5">
+              <p className="mt-1 text-sm text-gray-500">
+                Manage your profile, security
+                and saved addresses
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* =================================================
+            MAIN GRID
+        ================================================= */}
+
+        <div className="grid grid-cols-1 gap-7 lg:grid-cols-4">
+
+          {/* =================================================
+              SIDEBAR
+          ================================================= */}
+
+          <aside className="h-fit overflow-hidden rounded-2xl border border-purple-100 bg-white shadow-[0_10px_35px_rgba(108,99,255,0.10)]">
+
+            {/* PROFILE HEADER */}
+
+            <div className="relative overflow-hidden bg-gradient-to-br from-[#6C63FF] via-[#786FFF] to-[#A394FF] px-5 py-8 text-center">
+
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/10" />
+
+              <div className="absolute -bottom-10 -left-8 h-28 w-28 rounded-full bg-white/10" />
+
+              <div className="relative">
+
+                <Avatar
+                  sx={{
+                    width: 86,
+                    height: 86,
+                    margin: "0 auto 14px",
+                    bgcolor: "#ffffff",
+                    color: "#6C63FF",
+                    fontSize: 32,
+                    fontWeight: 700,
+                    border:
+                      "4px solid rgba(255,255,255,0.45)",
+                    boxShadow:
+                      "0 10px 25px rgba(0,0,0,0.15)",
+                  }}
+                >
+                  {firstName
+                    ? firstName
+                        .charAt(0)
+                        .toUpperCase()
+                    : "U"}
+                </Avatar>
+
+                <h2 className="text-lg font-bold text-white">
+                  {fullName}
+                </h2>
+
+                <p className="mt-1 break-all text-xs text-purple-100">
+                  {email ||
+                    "No email available"}
+                </p>
+
+                {phone && (
+                  <p className="mt-1 text-xs text-purple-100">
+                    {phone}
+                  </p>
+                )}
+
+              </div>
+            </div>
+
+            {/* MENU */}
+
+            <div className="p-3">
 
               {[
                 [
@@ -793,39 +888,49 @@ const Profile = () => {
                     key={key}
                     type="button"
                     onClick={() => {
-                      setActiveSection(key);
+                      setActiveSection(
+                        key
+                      );
+
                       clearMessages();
                     }}
-                    className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
+                    className={`mb-2 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-all duration-200 ${
                       activeSection === key
-                        ? "bg-blue-600 text-white shadow-sm"
-                        : "text-slate-600 hover:bg-slate-100"
+                        ? "bg-gradient-to-r from-[#6C63FF] to-[#8C83FF] text-white shadow-md shadow-purple-200"
+                        : "text-gray-600 hover:bg-purple-50 hover:text-[#6C63FF]"
                     }`}
                   >
                     <Icon
                       icon={icon}
-                      width="20"
+                      width="21"
                     />
 
                     {label}
                   </button>
                 )
               )}
+
             </div>
-          </div>
+          </aside>
 
-          {/* MAIN */}
+          {/* =================================================
+              MAIN CONTENT
+          ================================================= */}
 
-          <div className="lg:col-span-3">
+          <main className="lg:col-span-3">
 
-            {/* PROFILE */}
+            {/* =================================================
+                PROFILE
+            ================================================= */}
 
-            {activeSection === "profile" && (
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            {activeSection ===
+              "profile" && (
+              <div className="rounded-2xl border border-purple-100 bg-white p-5 shadow-[0_10px_35px_rgba(108,99,255,0.07)] sm:p-8">
 
                 <SectionHeader
                   title="Personal Details"
                   subtitle="Update your basic profile information"
+                  icon="mdi:account-heart-outline"
                   action={
                     !isEditingProfile && (
                       <button
@@ -835,13 +940,15 @@ const Profile = () => {
                             ...profile,
                           });
 
-                          setProfileMessage({});
+                          setProfileMessage(
+                            {}
+                          );
 
                           setIsEditingProfile(
                             true
                           );
                         }}
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-100"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-purple-50 px-5 py-2.5 text-sm font-semibold text-[#6C63FF] transition hover:bg-purple-100"
                       >
                         <Icon
                           icon="mdi:pencil-outline"
@@ -890,22 +997,24 @@ const Profile = () => {
                 </div>
 
                 <Message
-                  message={profileMessage}
+                  message={
+                    profileMessage
+                  }
                 />
 
                 {isEditingProfile && (
-                  <div className="mt-6 flex gap-3">
+                  <div className="mt-7 flex flex-wrap gap-3">
 
                     <button
                       type="button"
                       onClick={
                         handleSaveProfile
                       }
-                      className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#6C63FF] to-[#8B83FF] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl"
                     >
                       <Icon
                         icon="mdi:content-save-outline"
-                        width="18"
+                        width="19"
                       />
 
                       Save Changes
@@ -922,10 +1031,17 @@ const Profile = () => {
                           false
                         );
 
-                        setProfileMessage({});
+                        setProfileMessage(
+                          {}
+                        );
                       }}
-                      className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-200"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-6 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-200"
                     >
+                      <Icon
+                        icon="mdi:close"
+                        width="18"
+                      />
+
                       Cancel
                     </button>
 
@@ -934,16 +1050,22 @@ const Profile = () => {
               </div>
             )}
 
-            {/* SECURITY */}
+            {/* =================================================
+                SECURITY
+            ================================================= */}
 
-            {activeSection === "settings" && (
+            {activeSection ===
+              "settings" && (
               <div className="space-y-6">
 
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                {/* PASSWORD */}
+
+                <div className="rounded-2xl border border-purple-100 bg-white p-5 shadow-[0_10px_35px_rgba(108,99,255,0.07)] sm:p-8">
 
                   <SectionHeader
                     title="Password Security"
-                    subtitle="Manage your login password"
+                    subtitle="Keep your account safe and secure"
+                    icon="mdi:shield-lock-outline"
                   />
 
                   <div className="max-w-lg space-y-5">
@@ -977,88 +1099,130 @@ const Profile = () => {
                   </div>
 
                   <Message
-                    message={passwordMessage}
+                    message={
+                      passwordMessage
+                    }
                   />
 
-                  <div className="mt-6">
+                  <div className="mt-7">
 
                     <button
                       type="button"
                       onClick={
                         handleUpdatePassword
                       }
-                      className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-slate-800"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#6C63FF] to-[#8B83FF] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl"
                     >
                       <Icon
                         icon="mdi:lock-check-outline"
-                        width="18"
+                        width="19"
                       />
 
                       Update Password
                     </button>
 
                   </div>
+
                 </div>
 
                 {/* PREFERENCES */}
 
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <div className="rounded-2xl border border-pink-100 bg-white p-5 shadow-[0_10px_35px_rgba(255,107,157,0.07)] sm:p-8">
 
-                  <h3 className="mb-4 border-b border-gray-100 pb-2 text-lg font-bold text-slate-900">
-                    Preferences
-                  </h3>
+                  <SectionHeader
+                    title="Preferences"
+                    subtitle="Choose how you want to receive updates"
+                    icon="mdi:bell-heart-outline"
+                  />
 
-                  <div className="flex items-center justify-between border-b border-slate-100 py-4">
+                  {/* EMAIL */}
 
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">
-                        Email Notifications
-                      </p>
+                  <div className="flex items-center justify-between rounded-xl border border-purple-100 bg-purple-50/40 px-4 py-4">
 
-                      <p className="mt-0.5 text-xs text-slate-500">
-                        Receive order updates and invoices
-                        via email
-                      </p>
+                    <div className="flex items-start gap-3">
+
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100">
+                        <Icon
+                          icon="mdi:email-outline"
+                          width="20"
+                          className="text-[#6C63FF]"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">
+                          Email Notifications
+                        </p>
+
+                        <p className="mt-1 text-xs text-gray-500">
+                          Receive order updates
+                          and invoices via
+                          email
+                        </p>
+                      </div>
+
                     </div>
 
                     <input
                       type="checkbox"
                       defaultChecked
-                      className="h-4 w-4 cursor-pointer accent-blue-600"
+                      className="h-5 w-5 cursor-pointer accent-[#6C63FF]"
                     />
+
                   </div>
 
-                  <div className="flex items-center justify-between py-4">
+                  {/* MARKETING */}
 
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">
-                        Marketing & Promotions
-                      </p>
+                  <div className="mt-3 flex items-center justify-between rounded-xl border border-pink-100 bg-pink-50/40 px-4 py-4">
 
-                      <p className="mt-0.5 text-xs text-slate-500">
-                        Get early access to sales and
-                        exclusive offers
-                      </p>
+                    <div className="flex items-start gap-3">
+
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pink-100">
+                        <Icon
+                          icon="mdi:tag-heart-outline"
+                          width="20"
+                          className="text-[#FF6B9D]"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">
+                          Marketing &
+                          Promotions
+                        </p>
+
+                        <p className="mt-1 text-xs text-gray-500">
+                          Get early access
+                          to sales and
+                          exclusive offers
+                        </p>
+                      </div>
+
                     </div>
 
                     <input
                       type="checkbox"
-                      className="h-4 w-4 cursor-pointer accent-blue-600"
+                      className="h-5 w-5 cursor-pointer accent-[#FF6B9D]"
                     />
+
                   </div>
 
                 </div>
               </div>
             )}
 
-            {/* ADDRESSES */}
+            {/* =================================================
+                ADDRESSES
+            ================================================= */}
 
-            {activeSection === "addresses" && (
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            {activeSection ===
+              "addresses" && (
+              <div className="rounded-2xl border border-purple-100 bg-white p-5 shadow-[0_10px_35px_rgba(108,99,255,0.07)] sm:p-8">
 
                 <SectionHeader
                   title="Delivery Addresses"
                   subtitle="Manage your saved shipping and billing locations"
+                  icon="mdi:map-marker-heart-outline"
                   action={
                     !showAddressForm && (
                       <button
@@ -1066,7 +1230,7 @@ const Profile = () => {
                         onClick={() =>
                           handleOpenAddress()
                         }
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                        className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B9D] to-[#FF8DB5] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-pink-200 transition hover:-translate-y-0.5 hover:shadow-lg"
                       >
                         <Icon
                           icon="mdi:plus"
@@ -1080,28 +1244,44 @@ const Profile = () => {
                 />
 
                 <Message
-                  message={addressMessage}
+                  message={
+                    addressMessage
+                  }
                 />
 
-                {/* FORM */}
+                {/* ADDRESS FORM */}
 
                 {showAddressForm ? (
-                  <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/30 p-6">
+                  <div className="mt-6 rounded-2xl border border-purple-100 bg-gradient-to-br from-purple-50/70 to-pink-50/50 p-5 sm:p-6">
 
                     <div className="mb-6 flex items-start justify-between">
 
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-900">
-                          {editingAddressId !==
-                          null
-                            ? "Edit Address"
-                            : "Add New Address"}
-                        </h3>
+                      <div className="flex items-start gap-3">
 
-                        <p className="mt-1 text-xs text-slate-500">
-                          Provide accurate details for
-                          seamless deliveries
-                        </p>
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+                          <Icon
+                            icon="mdi:map-marker-plus-outline"
+                            width="22"
+                            className="text-[#6C63FF]"
+                          />
+                        </div>
+
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900">
+                            {editingAddressId !==
+                            null
+                              ? "Edit Address"
+                              : "Add New Address"}
+                          </h3>
+
+                          <p className="mt-1 text-xs text-gray-500">
+                            Provide accurate
+                            details for
+                            seamless
+                            deliveries
+                          </p>
+                        </div>
+
                       </div>
 
                       <IconButton
@@ -1119,6 +1299,14 @@ const Profile = () => {
                             ...EMPTY_ADDRESS,
                           });
                         }}
+                        sx={{
+                          backgroundColor:
+                            "white",
+                          "&:hover": {
+                            backgroundColor:
+                              "#f3f4f6",
+                          },
+                        }}
                       >
                         <Icon
                           icon="mdi:close"
@@ -1131,7 +1319,10 @@ const Profile = () => {
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 
                       {[
-                        ["Full Name", "name"],
+                        [
+                          "Full Name",
+                          "name",
+                        ],
                         [
                           "Address Tag",
                           "type",
@@ -1140,10 +1331,22 @@ const Profile = () => {
                           "Phone Number",
                           "phone",
                         ],
-                        ["Country", "country"],
-                        ["City", "city"],
-                        ["State", "state"],
-                        ["Pincode", "pincode"],
+                        [
+                          "Country",
+                          "country",
+                        ],
+                        [
+                          "City",
+                          "city",
+                        ],
+                        [
+                          "State",
+                          "state",
+                        ],
+                        [
+                          "Pincode",
+                          "pincode",
+                        ],
                       ].map(
                         ([label, field]) =>
                           renderInput(
@@ -1155,7 +1358,6 @@ const Profile = () => {
                       )}
 
                       <div className="md:col-span-2">
-
                         {renderInput(
                           "Address Line 1",
                           "addressLine1",
@@ -1166,11 +1368,9 @@ const Profile = () => {
                               "House/Flat number, Street name",
                           }
                         )}
-
                       </div>
 
                       <div className="md:col-span-2">
-
                         {renderInput(
                           "Address Line 2",
                           "addressLine2",
@@ -1181,19 +1381,18 @@ const Profile = () => {
                               "Apartment name, Landmark (Optional)",
                           }
                         )}
-
                       </div>
 
                     </div>
 
-                    <div className="mt-6 flex gap-3">
+                    <div className="mt-7 flex flex-wrap gap-3">
 
                       <button
                         type="button"
                         onClick={
                           handleSaveAddress
                         }
-                        className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+                        className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#6C63FF] to-[#8B83FF] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl"
                       >
                         <Icon
                           icon={
@@ -1202,7 +1401,7 @@ const Profile = () => {
                               ? "mdi:check-bold"
                               : "mdi:content-save-outline"
                           }
-                          width="18"
+                          width="19"
                         />
 
                         {editingAddressId !==
@@ -1222,32 +1421,36 @@ const Profile = () => {
                             null
                           );
                         }}
-                        className="rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+                        className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-gray-200 transition hover:bg-gray-50"
                       >
                         Cancel
                       </button>
 
                     </div>
                   </div>
-                ) : addresses.length === 0 ? (
+                ) : addresses.length ===
+                  0 ? (
 
-                  /* EMPTY */
+                  /* EMPTY ADDRESS */
 
-                  <div className="mt-6 rounded-xl border-2 border-dashed border-slate-200 p-12 text-center">
+                  <div className="mt-6 rounded-2xl border-2 border-dashed border-purple-200 bg-gradient-to-br from-purple-50/50 to-pink-50/50 p-12 text-center">
 
-                    <Icon
-                      icon="mdi:map-marker-off-outline"
-                      width="48"
-                      className="mx-auto text-slate-300"
-                    />
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
+                      <Icon
+                        icon="mdi:map-marker-off-outline"
+                        width="35"
+                        className="text-[#6C63FF]"
+                      />
+                    </div>
 
-                    <p className="mt-3 text-base font-semibold text-slate-700">
-                      No saved addresses found
+                    <p className="mt-4 text-base font-bold text-gray-800">
+                      No saved addresses
+                      found
                     </p>
 
-                    <p className="mt-1 text-xs text-slate-500">
-                      Add an address to speed up
-                      checkout.
+                    <p className="mt-1 text-xs text-gray-500">
+                      Add an address to
+                      speed up checkout.
                     </p>
 
                     <button
@@ -1255,11 +1458,11 @@ const Profile = () => {
                       onClick={() =>
                         handleOpenAddress()
                       }
-                      className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                      className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B9D] to-[#FF8DB5] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-pink-200"
                     >
                       <Icon
                         icon="mdi:plus"
-                        width="18"
+                        width="19"
                       />
 
                       Add First Address
@@ -1269,7 +1472,7 @@ const Profile = () => {
 
                 ) : (
 
-                  /* LIST */
+                  /* ADDRESS LIST */
 
                   <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
 
@@ -1277,63 +1480,84 @@ const Profile = () => {
                       (address) => (
                         <div
                           key={address.id}
-                          className="rounded-xl border border-slate-200 bg-white p-5 hover:shadow-md"
+                          className={`overflow-hidden rounded-2xl border bg-white transition-all duration-200 ${
+                            selectedAddress ===
+                            address.id
+                              ? "border-[#6C63FF] shadow-lg shadow-purple-100"
+                              : "border-gray-200 hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-md"
+                          }`}
                         >
 
-                          <AddressCard
-                            address={address}
-                            selected={
+                          {/* CARD TOP */}
+
+                          <div
+                            className={`h-1.5 ${
                               selectedAddress ===
                               address.id
-                            }
-                            onSelect={() =>
-                              handleSelectAddress(
-                                address
-                              )
-                            }
+                                ? "bg-gradient-to-r from-[#6C63FF] to-[#FF6B9D]"
+                                : "bg-gray-100"
+                            }`}
                           />
 
-                          <div className="mt-4 flex justify-end gap-2 border-t border-slate-100 pt-3">
+                          <div className="p-5">
 
-                            <button
-                              type="button"
-                              onClick={() =>
-                                handleOpenAddress(
+                            <AddressCard
+                              address={
+                                address
+                              }
+                              selected={
+                                selectedAddress ===
+                                address.id
+                              }
+                              onSelect={() =>
+                                handleSelectAddress(
                                   address
                                 )
                               }
-                              className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-600 hover:bg-blue-100"
-                            >
-                              <Icon
-                                icon="mdi:pencil"
-                                width="14"
-                              />
+                            />
 
-                              Edit
-                            </button>
+                            <div className="mt-4 flex justify-end gap-2 border-t border-gray-100 pt-4">
 
-                            <button
-                              type="button"
-                              onClick={() =>
-                                handleDeleteAddress(
-                                  address.id
-                                )
-                              }
-                              className="inline-flex items-center gap-1 rounded-md bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-100"
-                            >
-                              <Icon
-                                icon="mdi:trash-can-outline"
-                                width="14"
-                              />
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleOpenAddress(
+                                    address
+                                  )
+                                }
+                                className="inline-flex items-center gap-1.5 rounded-lg bg-purple-50 px-3.5 py-2 text-xs font-semibold text-[#6C63FF] transition hover:bg-purple-100"
+                              >
+                                <Icon
+                                  icon="mdi:pencil-outline"
+                                  width="15"
+                                />
 
-                              {deleteId ===
-                              address.id
-                                ? "Confirm Delete"
-                                : "Delete"}
-                            </button>
+                                Edit
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleDeleteAddress(
+                                    address.id
+                                  )
+                                }
+                                className="inline-flex items-center gap-1.5 rounded-lg bg-rose-50 px-3.5 py-2 text-xs font-semibold text-rose-600 transition hover:bg-rose-100"
+                              >
+                                <Icon
+                                  icon="mdi:trash-can-outline"
+                                  width="15"
+                                />
+
+                                {deleteId ===
+                                address.id
+                                  ? "Confirm Delete"
+                                  : "Delete"}
+                              </button>
+
+                            </div>
 
                           </div>
-
                         </div>
                       )
                     )}
@@ -1342,7 +1566,7 @@ const Profile = () => {
                 )}
               </div>
             )}
-          </div>
+          </main>
         </div>
       </div>
     </div>

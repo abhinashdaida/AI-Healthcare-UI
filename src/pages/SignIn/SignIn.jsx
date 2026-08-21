@@ -104,13 +104,7 @@ const SignIn = () => {
             Sign In to Account
           </h2>
 
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex-1 h-px bg-gray-200"></div>
-            <span className="text-gray-400 font-semibold tracking-wider text-sm">
-              OR
-            </span>
-            <div className="flex-1 h-px bg-gray-200"></div>
-          </div>
+         
 
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
             <InputField label="Email Address" name="email" type="email" formik={formik} />

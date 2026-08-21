@@ -50,12 +50,10 @@ const Header_2 = ({
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
-    { name: "Products", href: "/products" }
+    { name: "Products", href: "/product" }
   ];
 
   const pageLinks = [
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
     { name: "Cart", href: "/cart" },
     { name: "Checkout", href: "/checkout" },
     { name: "Order Tracking", href: "/orders" }
