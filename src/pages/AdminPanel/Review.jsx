@@ -388,8 +388,6 @@ function Review() {
           </TableContainer>
         </div>
       </main>
-<<<<<<< HEAD
-=======
 
       {/* ================= REVIEW DETAILS MODAL ================= */}
       <ReviewDetails
@@ -398,7 +396,6 @@ function Review() {
         onStatusChange={updateStatus}
       />
 
->>>>>>> 05558342926871a98a6571ed4288679f7dbc7c3a
     </div>
   );
 }

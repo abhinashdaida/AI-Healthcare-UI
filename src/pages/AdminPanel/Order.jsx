@@ -4,10 +4,7 @@ import Sidebar from "@/shared/components/AdminPanel/Sidebar";
 
 import { initialCustomers } from "@/shared/constants/AdminPanel/CustomersData";
 
-import {
-  statusColors,
-  statuses,
-} from "@/shared/constants/AdminPanel/orderData";
+
 
 import { Icon } from "@iconify/react";
 
@@ -27,8 +24,11 @@ import {
   Typography,
 } from "@mui/material";
 
+import {
+  statusColors,
+  statuses,
+} from "@/shared/constants/AdminPanel/orderdata";
 import React, { useEffect, useState } from "react";
-
 const orders = initialCustomers.flatMap((c) =>
   (c.orders || []).map((o) => ({
     ...o,
