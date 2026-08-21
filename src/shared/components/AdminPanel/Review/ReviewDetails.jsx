@@ -1,142 +1,170 @@
 import React from "react";
-import { Paper, Typography, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Icon } from "@iconify/react";
-import Sidebar from "@/shared/components/AdminPanel/Sidebar";
-import Header from "@/shared/components/AdminPanel/Header";
+
 import RatingStars from "@/shared/components/AdminPanel/Review/RatingStars";
 import StatusBadge from "@/shared/components/AdminPanel/Review/StatusBadge";
 
-const ReviewDetails = ({ review, onBack, onStatusChange }) => {
-  if (!review) return null;
+const ReviewDetails = ({ review, onClose, onStatusChange }) => {
+  const isOpen = Boolean(review);
+
+  if (!review) {
+    return null;
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar />
-      <Header />
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      maxWidth="xs"
+      fullWidth
+      PaperProps={{
+        className: "rounded-xl p-1 bg-white shadow-xl",
+        style: { borderRadius: "12px" }
+      }}
+    >
+      {/* Modal Header */}
+      <DialogTitle className="m-0 p-4 flex items-center justify-between border-b border-gray-200">
+        <Typography variant="h6" component="span" className="text-xl font-semibold text-gray-800">
+          Review Details
+        </Typography>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          className="text-gray-500 hover:text-gray-800"
+          sx={{
+            position: "absolute",
+            right: 12,
+            top: 12,
+          }}
+        >
+          <Icon icon="mdi:close" width="20" height="20" />
+        </IconButton>
+      </DialogTitle>
 
-      <main className="ml-[250px] pt-[60px]">
-        <div className="p-6">
-          {/* Back button & Page Title */}
-          <div className="mb-6 flex items-center gap-3">
+      {/* Modal Content */}
+      <DialogContent className="p-6 space-y-4">
+        {/* Customer */}
+        <div className="mt-2">
+          <p className="text-sm text-gray-500">Customer</p>
+          <p className="mt-1 font-medium text-gray-800">{review.customer}</p>
+        </div>
+
+        {/* Product */}
+        <div>
+          <p className="text-sm text-gray-500">Product</p>
+          <p className="mt-1 font-medium text-gray-800">{review.product}</p>
+        </div>
+
+        {/* Rating */}
+        <div>
+          <p className="mb-1 text-sm text-gray-500">Rating</p>
+          <RatingStars rating={review.rating} />
+        </div>
+
+        {/* Review */}
+        <div>
+          <p className="text-sm text-gray-500">Review</p>
+          <p className="mt-1 text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200">
+            {review.review}
+          </p>
+        </div>
+
+        {/* Status */}
+        <div>
+          <p className="mb-1 text-sm text-gray-500">Status</p>
+          <StatusBadge status={review.status} />
+        </div>
+      </DialogContent>
+
+      {/* Modal Footer */}
+      <DialogActions className="flex justify-end gap-2 border-t border-gray-200 px-6 py-4">
+        {review.status === "Pending" && (
+          <>
             <Button
-              onClick={onBack}
-              variant="outlined"
+              onClick={() => onStatusChange(review.id, "Approved")}
+              variant="contained"
               sx={{
-                px: 2,
+                px: 3,
                 py: 1,
-                minWidth: "unset",
                 borderRadius: "8px",
-                borderColor: "#D1D5DB",
-                color: "#4B5563",
                 textTransform: "none",
-                fontWeight: 500,
+                fontWeight: 600,
                 fontSize: "0.875rem",
+                backgroundColor: "#DCFCE7",
+                color: "#15803D",
+                border: "1px solid #BBF7D0",
+                boxShadow: "none",
                 "&:hover": {
-                  backgroundColor: "#F9FAFB",
-                  borderColor: "#9CA3AF",
+                  backgroundColor: "#15803D",
+                  color: "white",
+                  borderColor: "#15803D",
+                  boxShadow: "none",
                 },
               }}
-              startIcon={<Icon icon="mdi:arrow-left" width="18" height="18" />}
             >
-              Back to List
+              Approve
             </Button>
-            <Typography variant="h5" component="h1" className="!text-2xl !font-semibold !text-gray-800">
-              Review Details
-            </Typography>
-          </div>
 
-          {/* Details Card */}
-          <Paper className="p-6 rounded-xl border border-gray-200 bg-white shadow-none space-y-6 max-w-2xl">
-            {/* Customer & Product */}
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <p className="text-sm font-medium text-gray-500">Customer</p>
-                <p className="mt-1 text-base font-semibold text-gray-800">{review.customer}</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-500">Product</p>
-                <p className="mt-1 text-base font-semibold text-gray-800">{review.product}</p>
-              </div>
-            </div>
+            <Button
+              onClick={() => onStatusChange(review.id, "Rejected")}
+              variant="contained"
+              sx={{
+                px: 3,
+                py: 1,
+                borderRadius: "8px",
+                textTransform: "none",
+                fontWeight: 600,
+                fontSize: "0.875rem",
+                backgroundColor: "#FEE2E2",
+                color: "#B91C1C",
+                border: "1px solid #FCA5A5",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "#B91C1C",
+                  color: "white",
+                  borderColor: "#B91C1C",
+                  boxShadow: "none",
+                },
+              }}
+            >
+              Reject
+            </Button>
+          </>
+        )}
 
-            {/* Rating */}
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Rating</p>
-              <RatingStars rating={review.rating} />
-            </div>
-
-            {/* Review Content */}
-            <div>
-              <p className="text-sm font-medium text-gray-500">Review</p>
-              <p className="mt-1 text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200">
-                {review.review}
-              </p>
-            </div>
-
-            {/* Status */}
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1.5">Status</p>
-              <StatusBadge status={review.status} />
-            </div>
-
-            {/* Actions for Pending */}
-            {review.status === "Pending" && (
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
-                <Button
-                  onClick={() => onStatusChange(review.id, "Approved")}
-                  variant="contained"
-                  sx={{
-                    px: 3,
-                    py: 1,
-                    borderRadius: "8px",
-                    textTransform: "none",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    backgroundColor: "#DCFCE7",
-                    color: "#15803D",
-                    border: "1px solid #BBF7D0",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundColor: "#15803D",
-                      color: "white",
-                      borderColor: "#15803D",
-                      boxShadow: "none",
-                    },
-                  }}
-                >
-                  Approve Review
-                </Button>
-
-                <Button
-                  onClick={() => onStatusChange(review.id, "Rejected")}
-                  variant="contained"
-                  sx={{
-                    px: 3,
-                    py: 1,
-                    borderRadius: "8px",
-                    textTransform: "none",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    backgroundColor: "#FEE2E2",
-                    color: "#B91C1C",
-                    border: "1px solid #FCA5A5",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundColor: "#B91C1C",
-                      color: "white",
-                      borderColor: "#B91C1C",
-                      boxShadow: "none",
-                    },
-                  }}
-                >
-                  Reject Review
-                </Button>
-              </div>
-            )}
-          </Paper>
-        </div>
-      </main>
-    </div>
+        <Button
+          onClick={onClose}
+          variant="contained"
+          sx={{
+            px: 3,
+            py: 1,
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 600,
+            fontSize: "0.875rem",
+            backgroundColor: "#F3F4F6",
+            color: "#374151",
+            border: "1px solid #E5E7EB",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: "#E5E7EB",
+              boxShadow: "none",
+            },
+          }}
+        >
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

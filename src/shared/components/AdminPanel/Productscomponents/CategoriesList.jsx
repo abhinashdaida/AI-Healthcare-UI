@@ -1,17 +1,15 @@
-
 import React, { useState } from "react";
 
-const CategoriesList = ({
-  categories,
-  onEditCategory,
-  onDeleteCategory,
-}) => {
+const CategoriesList = ({ categories, onEditCategory, onDeleteCategory }) => {
   const [searchCategory, setSearchCategory] = useState("");
 
   // Filter categories based on search
-  const filteredCategories = categories.filter((category) =>
-    category.name.toLowerCase().includes(searchCategory.toLowerCase()) ||
-    category.description?.toLowerCase().includes(searchCategory.toLowerCase())
+  const filteredCategories = categories.filter(
+    (category) =>
+      category.name.toLowerCase().includes(searchCategory.toLowerCase()) ||
+      category.description
+        ?.toLowerCase()
+        .includes(searchCategory.toLowerCase()),
   );
 
   // Get category color based on product count
@@ -24,7 +22,12 @@ const CategoriesList = ({
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-
+      {/* ✅ ADDED: Category title with count */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold text-gray-800">
+          Categories ({filteredCategories.length})
+        </h2>
+      </div>
 
       {/* Categories Grid */}
       {filteredCategories.length > 0 ? (
@@ -66,7 +69,7 @@ const CategoriesList = ({
                     </svg>
                   </button>
                   <button
-                    onClick={() => onDeleteCategory(category.id)}
+                    onClick={() => onDeleteCategory(category)}
                     className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
                     title="Delete category"
                   >
@@ -91,7 +94,7 @@ const CategoriesList = ({
                 <div className="flex items-center gap-2">
                   <span
                     className={`px-2 py-1 text-xs font-medium rounded-full ${getCategoryColor(
-                      category.productCount || 0
+                      category.productCount || 0,
                     )}`}
                   >
                     {category.productCount || 0} Products

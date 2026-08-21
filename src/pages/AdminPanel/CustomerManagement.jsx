@@ -153,37 +153,39 @@ const [customers, setCustomers] = useState(() => {
 
       <main className="ml-[248px] h-screen overflow-hidden bg-[#F8F9FB] pt-[75px]">
         <div className="flex h-full min-h-0 flex-col p-6">
-          {/*   PAGE HEADER */}
-          <div className="mb-6 flex shrink-0 items-center justify-between">
-            <div>
-              <Typography
-                sx={{
-                  fontSize: "26px",
-                  fontWeight: 700,
-                  color: "#111827",
-                }}
-              >
-                Customer Management
-              </Typography>
+          {/* PAGE HEADER */}
+          <div className="mb-5 shrink-0">
+            <Typography
+              sx={{
+                fontSize: "26px",
+                fontWeight: 700,
+                color: "#111827",
+              }}
+            >
+              Customer Management
+            </Typography>
 
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#6B7280",
-                  marginTop: "4px",
-                }}
-              >
-                Manage customers, orders and account status
-              </Typography>
+            <Typography
+              sx={{
+                fontSize: "13px",
+                color: "#6B7280",
+                marginTop: "4px",
+              }}
+            >
+              Manage customers, orders and account status
+            </Typography>
+
+            {/* CUSTOMER STATS */}
+            <div className="mt-5">
+              <CustomerStats
+                totalCustomers={totalCustomers}
+                totalActiveCustomers={totalActiveCustomers}
+                totalBlockedCustomers={totalBlockedCustomers}
+              />
             </div>
-            {/* Customer Count */}
-            <CustomerStats
-              totalCustomers={totalCustomers}
-              totalActiveCustomers={totalActiveCustomers}
-              totalBlockedCustomers={totalBlockedCustomers}
-            />
           </div>
-          {/* FILTERS */}
+
+          {/* FILTERS - FIXED */}
           <Paper
             elevation={0}
             className="mb-5 shrink-0 rounded-[10px] border border-[#E5E7EB] bg-white p-4"
@@ -196,28 +198,26 @@ const [customers, setCustomers] = useState(() => {
               onClear={handleClearFilter}
             />
           </Paper>
-          {/* CUSTOMER TABLE */}
-          <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+
+          {/* TABLE - ONLY SCROLLABLE AREA */}
+          <div className="min-h-0 flex-1">
             <CustomerTable
               customers={filteredCustomers}
               onView={handleViewCustomer}
               onBlockUnblock={handleOpenBlockDialog}
             />
+          </div>
 
-            <div className="mt-4 pb-4">
-              {/* RESULT COUNT */}
-              <div className="mt-4">
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#6B7280",
-                  }}
-                >
-                  Showing {filteredCustomers.length} of {customers.length}{" "}
-                  customers
-                </Typography>
-              </div>
-            </div>
+          {/* RESULT COUNT - FIXED */}
+          <div className="shrink-0 pt-3">
+            <Typography
+              sx={{
+                fontSize: "12px",
+                color: "#6B7280",
+              }}
+            >
+              Showing {filteredCustomers.length} of {customers.length} customers
+            </Typography>
           </div>
         </div>
       </main>
