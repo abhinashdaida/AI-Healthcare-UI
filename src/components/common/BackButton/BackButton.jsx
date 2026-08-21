@@ -24,18 +24,8 @@ const BackButton = ({
     e.preventDefault();
     if (onClick) onClick();
 
-    const savedReturnPath = sessionStorage.getItem("fasco_return_path");
-    const returnPage = state?.returnState?.page;
-    const returnCategory = state?.returnState?.category;
-
     if (to) {
       navigate(to, { state });
-    } else if (savedReturnPath) {
-      navigate(savedReturnPath, { state });
-    } else if (returnPage) {
-      const pageQuery = returnPage > 1 ? `?page=${returnPage}` : "";
-      const catQuery = returnCategory && returnCategory !== "All" ? `${pageQuery ? "&" : "?"}category=${encodeURIComponent(returnCategory)}` : "";
-      navigate(`${fallbackPath}${pageQuery}${catQuery}`, { state });
     } else if (window.history.length > 1) {
       navigate(-1);
     } else {

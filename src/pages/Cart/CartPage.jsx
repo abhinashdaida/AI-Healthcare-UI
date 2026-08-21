@@ -32,11 +32,17 @@ const CartPage = () => {
 
   const [cartItems, setCartItems] = useState(getStoredCart);
   const [isGiftWrapped, setIsGiftWrapped] = useState(false);
+  
+  // Track selected items by their ID
+  const [selectedItemIds, setSelectedItemIds] = useState(() => cartItems.map(i => String(i.id)));
 
   // Synchronize cart state on changes
   useEffect(() => {
     const handleCartSync = () => {
-      setCartItems(getStoredCart());
+      const items = getStoredCart();
+      setCartItems(items);
+      // Auto-select new items (optional, but let's just make sure deleted items are removed)
+      setSelectedItemIds(prev => prev.filter(id => items.some(i => String(i.id) === id)));
     };
 
     window.addEventListener("cart_updated", handleCartSync);
@@ -48,23 +54,43 @@ const CartPage = () => {
     };
   }, []);
 
+  const toggleSelection = (itemId) => {
+    setSelectedItemIds(prev => 
+      prev.includes(String(itemId)) 
+        ? prev.filter(id => id !== String(itemId))
+        : [...prev, String(itemId)]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedItemIds.length === cartItems.length) {
+      setSelectedItemIds([]);
+    } else {
+      setSelectedItemIds(cartItems.map(i => String(i.id)));
+    }
+  };
+
   // Handle quantity change
   const handleQuantityChange = (itemId, newQty) => {
-    const updated = updateCartItemQuantity(itemId, newQty);
-    setCartItems(updated);
+    if (newQty <= 0) {
+      handleRemoveItem(itemId);
+    } else {
+      const updated = updateCartItemQuantity(itemId, newQty);
+      setCartItems(updated);
+    }
   };
 
   // Handle remove item
   const handleRemoveItem = (itemId) => {
     const updated = removeCartItem(itemId);
     setCartItems(updated);
+    setSelectedItemIds(prev => prev.filter(id => id !== String(itemId)));
   };
 
-  // Calculate items total
-  const itemsSubtotal = cartItems.reduce(
-    (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
-    0
-  );
+  // Calculate items total (ONLY FOR SELECTED ITEMS)
+  const itemsSubtotal = cartItems
+    .filter(item => selectedItemIds.includes(String(item.id)))
+    .reduce((sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1), 0);
 
   const giftWrapFee = isGiftWrapped ? 10.0 : 0;
   const finalSubtotal = itemsSubtotal + giftWrapFee;
@@ -75,7 +101,7 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-neutral-900 selection:bg-black selection:text-white">
-      
+
       {/* 1. Header_2 Navbar */}
       <Header_2
         brandName="FASCO"
@@ -85,10 +111,10 @@ const CartPage = () => {
       />
 
       <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
-        
+
         {/* Navigation Back Button */}
         <div className="mb-6">
-          <BackButton label="Continue Shopping" fallbackPath="/shop" />
+          <BackButton label="Back" fallbackPath="/shop" />
         </div>
 
         {/* 2. Breadcrumb & Page Heading */}
@@ -129,13 +155,21 @@ const CartPage = () => {
           </div>
         ) : (
           <div className="space-y-8">
-            
+
             {/* Table Header */}
-            <div className="hidden sm:grid sm:grid-cols-12 pb-4 text-xs font-bold uppercase tracking-wider text-neutral-900 border-b border-neutral-200">
-              <div className="sm:col-span-6 text-left">Product</div>
-              <div className="sm:col-span-2 text-left">Price</div>
-              <div className="sm:col-span-2 text-center">Quantity</div>
-              <div className="sm:col-span-2 text-right">Total</div>
+            <div className="hidden sm:flex pb-4 text-xs font-bold uppercase tracking-wider text-neutral-900 border-b border-neutral-200">
+              <div className="w-[5%] flex justify-center items-center">
+                <input
+                  type="checkbox"
+                  checked={cartItems.length > 0 && selectedItemIds.length === cartItems.length}
+                  onChange={toggleSelectAll}
+                  className="h-4 w-4 rounded border-neutral-300 text-black focus:ring-black accent-black cursor-pointer"
+                />
+              </div>
+              <div className="w-[45%] text-left">Product</div>
+              <div className="w-[16.66%] text-left">Price</div>
+              <div className="w-[16.66%] text-center">Quantity</div>
+              <div className="w-[16.66%] text-right">Total</div>
             </div>
 
             {/* Cart Items Rows */}
@@ -143,14 +177,25 @@ const CartPage = () => {
               {cartItems.map((item) => {
                 const itemPrice = Number(item.price) || 0;
                 const itemTotal = itemPrice * (item.quantity || 1);
+                const isSelected = selectedItemIds.includes(String(item.id));
 
                 return (
                   <div
                     key={item.id}
-                    className="py-6 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center"
+                    className="py-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center"
                   >
+                    {/* Checkbox (Mobile & Desktop) */}
+                    <div className="sm:w-[5%] flex sm:justify-center items-center shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelection(item.id)}
+                        className="h-4 w-4 rounded border-neutral-300 text-black focus:ring-black accent-black cursor-pointer"
+                      />
+                    </div>
+
                     {/* Column 1: Product Image & Details */}
-                    <div className="sm:col-span-6 flex items-center gap-4 text-left">
+                    <div className="w-full sm:w-[45%] flex items-center gap-4 text-left">
                       <div
                         onClick={() => navigate(`/product/${item.id}`, { state: { product: item } })}
                         className="h-24 w-20 sm:h-28 sm:w-24 shrink-0 rounded-md overflow-hidden bg-neutral-100 border border-neutral-200 cursor-pointer"
@@ -185,7 +230,7 @@ const CartPage = () => {
                     </div>
 
                     {/* Column 2: Unit Price */}
-                    <div className="sm:col-span-2 text-left">
+                    <div className="w-full sm:w-[16.66%] flex sm:block justify-between text-left pl-8 sm:pl-0">
                       <span className="sm:hidden text-xs text-neutral-400 font-semibold mr-2">
                         Price:
                       </span>
@@ -195,10 +240,10 @@ const CartPage = () => {
                     </div>
 
                     {/* Column 3: Quantity Selector */}
-                    <div className="sm:col-span-2 flex sm:justify-center">
+                    <div className="w-full sm:w-[16.66%] flex justify-end sm:justify-center pr-4 sm:pr-0 -mt-6 sm:mt-0">
                       <QuantitySelector
                         value={item.quantity}
-                        min={1}
+                        min={0}
                         max={10}
                         size="medium"
                         onChange={(newQty) => handleQuantityChange(item.id, newQty)}
@@ -206,7 +251,7 @@ const CartPage = () => {
                     </div>
 
                     {/* Column 4: Total Amount */}
-                    <div className="sm:col-span-2 text-left sm:text-right">
+                    <div className="w-full sm:w-[16.66%] flex sm:block justify-between text-left sm:text-right pl-8 sm:pl-0">
                       <span className="sm:hidden text-xs text-neutral-400 font-semibold mr-2">
                         Total:
                       </span>
@@ -222,7 +267,7 @@ const CartPage = () => {
             {/* 4. Cart Summary & Checkout Box (Right Aligned matching reference image) */}
             <div className="pt-8 border-t border-neutral-200 flex flex-col items-end">
               <div className="w-full sm:w-96 space-y-5 text-left">
-                
+
                 {/* Gift Wrap Checkbox */}
                 <label className="flex items-center gap-3 cursor-pointer select-none text-xs text-neutral-700 font-medium">
                   <input
@@ -251,22 +296,13 @@ const CartPage = () => {
                 {/* Checkout Button */}
                 <Button
                   variant="primary"
-                  onClick={() => alert(`Proceeding to secure checkout with total: $${finalSubtotal.toFixed(2)}`)}
+                  onClick={() => navigate("/checkout")}
                   className="w-full justify-center !py-3.5 !rounded-lg text-xs font-bold uppercase tracking-wider shadow-[0_10px_20px_rgba(0,0,0,0.18)] hover:scale-101 transition-all"
+                  disabled={selectedItemIds.length === 0}
                 >
-                  Checkout
+                  Checkout ({selectedItemIds.length} items)
                 </Button>
 
-                {/* View Cart Link */}
-                <div className="text-center pt-1">
-                  <button
-                    type="button"
-                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                    className="text-xs text-neutral-600 hover:text-black underline font-medium transition-colors"
-                  >
-                    View Cart
-                  </button>
-                </div>
 
               </div>
             </div>

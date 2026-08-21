@@ -1,9 +1,10 @@
+import React from "react";
 import {
   Add,
-  DeleteOutline,
   Remove,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { Icon } from "@iconify/react";
 
 export default function OrderItem({
   item,
@@ -40,11 +41,17 @@ export default function OrderItem({
               )}
             </div>
 
+            {/* Delete */}
             <button
+              type="button"
               onClick={() => onRemove?.(item.id)}
               className="text-gray-400 transition hover:text-red-500"
             >
-              <DeleteOutline fontSize="small" />
+              <Icon
+                icon="mdi:delete-outline"
+                width="20"
+                height="20"
+              />
             </button>
           </div>
 

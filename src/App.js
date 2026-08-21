@@ -12,11 +12,20 @@ import CartPage from "./pages/Cart/CartPage";
 import Header_1 from "./components/common/Header_1/Header_1";
 import Header_2 from "./components/common/Header_2/Header_2";
 import Footer from "./components/common/Footer/Footer"
+import Profile from "./pages/Profile/Profile";
+import Checkout from "./pages/Checkout/Checkout";
+ 
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import Confirmation from "./pages/Confirmation/Confirmation";
+import NewPassword from "./pages/NewPassword/NewPassword";
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
+    <BrowserRouter>      
+      <div className="overflow-x-hidden w-full">        
         <LoadingOverlay />
         <NotificationView />
         <GlobalConfigView>
@@ -29,12 +38,23 @@ function App() {
             <Route path="/product" element={<ProductDetailsPage />} />
             <Route path="/product-details" element={<ProductDetailsPage />} />
             <Route path="/cart" element={<CartPage />} />
-            
+            <Route path="/profile" element={<Profile />}/>
+ 
+            {/* Checkout */}
+            <Route
+              path="/checkout"
+              element={<Checkout />}
+            />           
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/new-password" element={<NewPassword />} />
           </Routes>
         </GlobalConfigView>
       </div>
     </BrowserRouter>
   );
 }
-
+ 
 export default withSecurity(App);

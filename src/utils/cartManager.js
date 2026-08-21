@@ -3,25 +3,14 @@
 const CART_STORAGE_KEY = "fasco_shopping_cart";
 
 // Initial default cart item if storage is empty
-const DEFAULT_INITIAL_CART = [
-  {
-    id: "1",
-    name: "Rounded Red Hat",
-    color: "Red",
-    selectedSize: "M",
-    selectedColor: "Red",
-    price: 50.0,
-    quantity: 1,
-    image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=80"
-  }
-];
+const DEFAULT_INITIAL_CART = [];
 
 export const getStoredCart = () => {
   try {
     const data = localStorage.getItem(CART_STORAGE_KEY);
     if (data) {
       const parsed = JSON.parse(data);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         return parsed;
       }
     }
