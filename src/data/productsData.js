@@ -62,7 +62,7 @@ export const ALL_PRODUCTS = [
   {
     id: "fash-3",
     name: "Mustard Longline Wool Trench Coat",
-    price: 95.0,
+    price: 195.0,
     originalPrice: 140.0,
     discount: 32,
     image: img11,
@@ -82,7 +82,7 @@ export const ALL_PRODUCTS = [
   {
     id: "fash-4",
     name: "Grey Wool Oversized Blazer",
-    price: 75.0,
+    price: 175.0,
     originalPrice: 110.0,
     discount: 32,
     image: img12,
@@ -102,7 +102,7 @@ export const ALL_PRODUCTS = [
   {
     id: "fash-5",
     name: "Polka Dot Long Dress",
-    price: 45.0,
+    price: 545.0,
     originalPrice: 70.0,
     discount: 36,
     image: p9,
@@ -126,7 +126,7 @@ export const ALL_PRODUCTS = [
   {
     id: "women-1",
     name: "Denim Jacket",
-    price: 39.0,
+    price: 339.0,
     originalPrice: 59.0,
     discount: 33,
     image: p6,
@@ -146,7 +146,7 @@ export const ALL_PRODUCTS = [
   {
     id: "women-2",
     name: "Long Sleeve Blazer Coat",
-    price: 56.0,
+    price: 156.0,
     originalPrice: 89.0,
     discount: 37,
     image: p3,
@@ -166,7 +166,7 @@ export const ALL_PRODUCTS = [
   {
     id: "women-3",
     name: "Black Button-Down Shirt & Denim",
-    price: 35.0,
+    price: 235.0,
     originalPrice: 50.0,
     discount: 30,
     image: p2,
@@ -186,8 +186,8 @@ export const ALL_PRODUCTS = [
   {
     id: "women-4",
     name: "Black Corset Top & Fedora",
-    price: 42.0,
-    originalPrice: 65.0,
+    price: 442.0,
+    originalPrice: 465.0,
     discount: 35,
     image: p5,
     gallery: [p5],

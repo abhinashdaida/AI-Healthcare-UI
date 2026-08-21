@@ -1,20 +1,57 @@
-import React from "react";
+import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "@/shared/components/Landingpage/productCard";
 import { ALL_PRODUCTS } from "@/data/productsData";
 
+
 const BestSellers = () => {
   // Used to navigate to the product listing page
   const navigate = useNavigate();
-
+const [wishlist, setWishlist] = useState(() => {
+  const saved = localStorage.getItem("wishlist");
+  return saved ? JSON.parse(saved) : [];
+});
   // Filter only the products that belong to the "Best sellers" collection
   const bestProducts = ALL_PRODUCTS.filter(
     (product) => product.collection === "Best sellers"
   );
 
+  const handleWishlistToggle = (id, newLikedStatus, productData) => {
+  setWishlist((prev) => {
+    const exists = prev.some(
+      (item) => item.id === productData.id
+    );
+
+    let updatedWishlist;
+
+    if (exists) {
+      // Remove from wishlist
+      updatedWishlist = prev.filter(
+        (item) => item.id !== productData.id
+      );
+    } else {
+      // Add to wishlist
+      updatedWishlist = [...prev, productData];
+    }
+
+    // Save wishlist
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify(updatedWishlist)
+    );
+
+    // Tell Header_2 that wishlist changed
+    window.dispatchEvent(new Event("wishlistUpdated"));
+
+    return updatedWishlist;
+  });
+};
+
   return (
     // Main Best Sellers section
     <section className="bg-[#fafafa] px-5 py-16">
+      
+
 
       {/* Container to control the maximum width of the section */}
       <div className="mx-auto max-w-[1080px]">
@@ -37,15 +74,21 @@ const BestSellers = () => {
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
 
           {/* Display the first 6 best-selling products */}
-          {bestProducts.slice(0, 6).map((product) => (
+          {bestProducts.slice(0, 6).map((product) => {
+            const isWishlisted = wishlist.some((item) => item.id === product.id);
+            return(
+
 
             <ProductCard
               key={product.id}
               {...product}
               // Display "BEST SELLER" badge on each product card
               badge="BEST SELLER"
+              isWishlisted={isWishlisted}
+              onWishlist={handleWishlistToggle}
             />
-          ))}
+            );
+})}
 
         </div>
 
@@ -54,7 +97,12 @@ const BestSellers = () => {
 
           <button
             // Navigate to the product listing page when clicked
-            onClick={() => navigate("/productlisting")}
+            onClick={() => {navigate("/productlisting");
+              window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+            }}
             className="bg-black px-9 py-3 text-[12px] text-white"
           >
             VIEW ALL

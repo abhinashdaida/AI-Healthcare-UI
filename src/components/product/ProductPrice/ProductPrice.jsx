@@ -14,7 +14,7 @@ const ProductPrice = ({
   price = 0,
   originalPrice,
   discount,
-  currency = "₹",
+  currency = "$",
   className = ""
 }) => {
   const numPrice = Number(price) || 0;

@@ -124,7 +124,7 @@ const TestimonialsSection = () => {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="h-[65px] w-[60px] object-cover"
+                  className="h-[65px] w-[60px] object-cover rounded-full"
                 />
 
                 {/* Content */}
